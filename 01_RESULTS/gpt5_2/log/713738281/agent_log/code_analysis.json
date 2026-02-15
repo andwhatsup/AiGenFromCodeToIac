@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/713738281",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "YAML (Buildkite pipeline, docker-compose)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Mocha (test framework)",
+        "Buildkite (CI/CD)",
+        "Docker / Docker Compose"
+      ],
+      "dependencies": [
+        "mocha@9.2.2 (devDependency) — /package.json"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile",
+        "/docker-compose.yml",
+        "/.buildkite/pipeline.yml",
+        "/.buildkite/run_build.sh (referenced by pipeline; file present in tree listing)",
+        "/version.sh",
+        "/renovate.json"
+      ],
+      "architectural_resources": [
+        "Containerized Node.js application (Docker image)",
+        "CI/CD pipeline (Buildkite)",
+        "Docker image registry: AWS ECR (433375820816.dkr.ecr.ap-south-1.amazonaws.com/nodeapp) — referenced in /docker-compose.yml and /.buildkite/pipeline.yml",
+        "Potential Terraform-managed infrastructure (Terraform init/plan/validate/destroy commands in /.buildkite/pipeline.yml; expects an 'ecs' Terraform project, but only log files exist under /ecs in this repo snapshot)",
+        "Artifact storage usage in CI (Buildkite artifacts plugin)",
+        "Potential S3 bucket module usage (pipeline downloads terraform-aws-s3-bucket module from GitHub; indicates S3 as an intended resource)"
+      ]
+    }
+  ]
+}

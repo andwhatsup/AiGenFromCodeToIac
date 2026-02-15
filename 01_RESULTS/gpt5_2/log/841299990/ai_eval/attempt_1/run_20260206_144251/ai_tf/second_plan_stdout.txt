@@ -1,0 +1,65 @@
+data.aws_availability_zones.available: Reading...
+data.aws_caller_identity.current: Reading...
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/chat-app-dev]
+aws_ecr_repository.app: Refreshing state... [id=chat-app-dev]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=chat-app-dev-ecs-task-exec]
+aws_eip.nat: Refreshing state... [id=eipalloc-6658f0d6dc5154f67]
+aws_vpc.this: Refreshing state... [id=vpc-1850ef5f6ded23711]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/chat-app-dev-cluster]
+aws_iam_role.ecs_task: Refreshing state... [id=chat-app-dev-ecs-task]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=chat-app-dev]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=chat-app-dev-ecs-task-exec-20260206134319164700000001]
+aws_ecs_task_definition.app: Refreshing state... [id=chat-app-dev]
+aws_internet_gateway.this: Refreshing state... [id=igw-2e6aef9e922b8c289]
+aws_subnet.private[0]: Refreshing state... [id=subnet-c04114b271498cfd2]
+aws_subnet.private[1]: Refreshing state... [id=subnet-9e648ea20acdf6f80]
+aws_route_table.private: Refreshing state... [id=rtb-93f61bd4ad3742b3b]
+aws_route_table.public: Refreshing state... [id=rtb-cfd0ad1e0d47b9031]
+aws_subnet.public[0]: Refreshing state... [id=subnet-1c6341b7c9512ac57]
+aws_subnet.public[1]: Refreshing state... [id=subnet-281854d082b50b1a0]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/chat-app-dev-tg/c29a71748cd73627]
+aws_security_group.alb: Refreshing state... [id=sg-bc31291a7e9da1399]
+aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-96daf959cd97397b8]
+aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-9421605ce1dd79bff]
+aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-5c7290a2a464b93d1]
+aws_nat_gateway.this: Refreshing state... [id=nat-599b8c6f18b97b62d]
+aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-32bd77ac1b919fa75]
+aws_route.public_internet: Refreshing state... [id=r-rtb-cfd0ad1e0d47b90311080289494]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-51f4e6d17ed27077e]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/chat-app-dev-alb/9d5a6b3c60818979]
+aws_route.private_egress: Refreshing state... [id=r-rtb-93f61bd4ad3742b3b1080289494]
+aws_lb_listener.http[0]: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/chat-app-dev-alb/9d5a6b3c60818979/1287978a2a015475]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/chat-app-dev-cluster/chat-app-dev-svc]
+aws_appautoscaling_target.ecs: Refreshing state... [id=service/chat-app-dev-cluster/chat-app-dev-svc]
+aws_appautoscaling_policy.cpu: Refreshing state... [id=chat-app-dev-cpu-tt]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/chat-app-dev-cluster/chat-app-dev-svc"
+        name                               = "chat-app-dev-svc"
+        tags                               = {}
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http[0] will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/chat-app-dev-alb/9d5a6b3c60818979/1287978a2a015475"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

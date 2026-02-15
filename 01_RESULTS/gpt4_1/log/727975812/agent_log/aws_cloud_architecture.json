@@ -1,0 +1,11 @@
+{
+  "aws_architecture_description": "This system is designed for a lightweight, serverless deployment on AWS, focused on running Python code that interacts with the Venmo API. The core compute resource is an AWS Lambda function, which contains the application logic and uses the 'venmo-api' Python library to communicate with the external Venmo API. The Lambda function is packaged and deployed using a shell script, and its dependencies are managed via a requirements file. \n\nTo expose the Lambda function for invocation (e.g., via HTTP), an AWS API Gateway is recommended. This allows secure, scalable, and managed access to the Lambda function. The Lambda function will require appropriate IAM permissions to execute and to access any necessary AWS resources (such as logging to CloudWatch). \n\nFoundational AWS resources such as a VPC are not strictly required for this Lambda (unless VPC access is needed for outbound traffic control or additional security), but CloudWatch Logs should be enabled for monitoring and troubleshooting. IAM roles and policies are required for Lambda execution and least-privilege access. \n\nThe architecture is as follows:\n- API Gateway (REST or HTTP API) receives requests and triggers the Lambda function.\n- Lambda function (Python) executes the business logic and interacts with the Venmo API over the internet.\n- CloudWatch Logs capture Lambda execution logs for monitoring and debugging.\n- IAM roles and policies manage permissions for Lambda and API Gateway.\n\nThis architecture is secure, scalable, and cost-effective, following AWS serverless best practices.",
+  "aws_resources": [
+    "AWS Lambda Function (Python, with venmo-api dependency)",
+    "API Gateway (HTTP or REST API)",
+    "IAM Role for Lambda Execution (with least-privilege permissions)",
+    "IAM Policy for API Gateway to invoke Lambda",
+    "CloudWatch Log Group (for Lambda logs)",
+    "(Optional) VPC and Subnets (if Lambda needs VPC access for outbound control)"
+  ]
+}

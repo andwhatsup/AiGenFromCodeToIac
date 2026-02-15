@@ -1,0 +1,809 @@
+data.archive_file.zipped_code: Reading...
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.zipped_code: Read complete after 0s [id=c65d00c14c67da2f27d3e55c8f3850b877d20f12]
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy.logging: Reading...
+data.aws_iam_policy.logging: Read complete after 0s [id=arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_api_gateway_deployment.deploy will be created
+  + resource "aws_api_gateway_deployment" "deploy" {
+      + created_date  = (known after apply)
+      + execution_arn = (known after apply)
+      + id            = (known after apply)
+      + invoke_url    = (known after apply)
+      + rest_api_id   = (known after apply)
+      + triggers      = {
+          + "redeployment" = "2be88ca4242c76e8253ac62474851065032d6833"
+        }
+    }
+
+  # aws_api_gateway_integration.folder will be created
+  + resource "aws_api_gateway_integration" "folder" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + content_handling        = "CONVERT_TO_TEXT"
+      + http_method             = "GET"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + request_parameters      = {
+          + "integration.request.path.folder" = "method.request.path.folder"
+        }
+      + resource_id             = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_integration.toplevel will be created
+  + resource "aws_api_gateway_integration" "toplevel" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + content_handling        = "CONVERT_TO_TEXT"
+      + http_method             = "GET"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + resource_id             = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_method.folder will be created
+  + resource "aws_api_gateway_method" "folder" {
+      + api_key_required   = false
+      + authorization      = "NONE"
+      + http_method        = "GET"
+      + id                 = (known after apply)
+      + request_parameters = {
+          + "method.request.path.folder" = true
+        }
+      + resource_id        = (known after apply)
+      + rest_api_id        = (known after apply)
+    }
+
+  # aws_api_gateway_method.toplevel will be created
+  + resource "aws_api_gateway_method" "toplevel" {
+      + api_key_required = false
+      + authorization    = "NONE"
+      + http_method      = "GET"
+      + id               = (known after apply)
+      + resource_id      = (known after apply)
+      + rest_api_id      = (known after apply)
+    }
+
+  # aws_api_gateway_resource.folder will be created
+  + resource "aws_api_gateway_resource" "folder" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "{folder+}"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_resource.toplevel will be created
+  + resource "aws_api_gateway_resource" "toplevel" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "list-bucket-content"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_rest_api.gateway_to_lambda will be created
+  + resource "aws_api_gateway_rest_api" "gateway_to_lambda" {
+      + api_key_source               = (known after apply)
+      + arn                          = (known after apply)
+      + binary_media_types           = (known after apply)
+      + created_date                 = (known after apply)
+      + description                  = "For AWS Lambda"
+      + disable_execute_api_endpoint = (known after apply)
+      + execution_arn                = (known after apply)
+      + id                           = (known after apply)
+      + minimum_compression_size     = (known after apply)
+      + name                         = "s3-bucket-listing"
+      + policy                       = (known after apply)
+      + root_resource_id             = (known after apply)
+      + tags_all                     = (known after apply)
+
+      + endpoint_configuration {
+          + types            = [
+              + "REGIONAL",
+            ]
+          + vpc_endpoint_ids = (known after apply)
+        }
+    }
+
+  # aws_api_gateway_stage.v1 will be created
+  + resource "aws_api_gateway_stage" "v1" {
+      + arn           = (known after apply)
+      + deployment_id = (known after apply)
+      + description   = "v1 ; AWS Lambda"
+      + execution_arn = (known after apply)
+      + id            = (known after apply)
+      + invoke_url    = (known after apply)
+      + rest_api_id   = (known after apply)
+      + stage_name    = "v1"
+      + tags_all      = (known after apply)
+      + web_acl_arn   = (known after apply)
+    }
+
+  # aws_iam_policy.s3read will be created
+  + resource "aws_iam_policy" "s3read" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "S3ReadAccess"
+      + name_prefix      = (known after apply)
+      + path             = "/service-role/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "s3:GetObject",
+                          + "s3:ListBucket",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:s3:::gunjantest"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.lambda_role will be created
+  + resource "aws_iam_role" "lambda_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ro-s3"
+      + name_prefix           = (known after apply)
+      + path                  = "/service-role/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_to_log will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_to_log" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "ro-s3"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_to_s3 will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_to_s3" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "ro-s3"
+    }
+
+  # aws_lambda_function.bucket_listing will be created
+  + resource "aws_lambda_function" "bucket_listing" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + description                    = "to list contents of S3 bucket like filesystem ls"
+      + filename                       = "./lambda_function.zip"
+      + function_name                  = "s3-bucket-listing"
+      + handler                        = "lambda_function.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.10"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "DGQDmAQhPbzC6+aeIPBjXT+VSkyWHicrjmWl8dW4HAs="
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "BUCKET_NAME" = "gunjantest"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config {
+          + log_format = "Text"
+          + log_group  = "/aws/lambda/s3-bucket-listing"
+        }
+
+      + tracing_config {
+          + mode = "PassThrough"
+        }
+    }
+
+  # aws_lambda_permission.folder will be created
+  + resource "aws_lambda_permission" "folder" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "s3-bucket-listing"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + source_arn          = (known after apply)
+      + statement_id        = (known after apply)
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_lambda_permission.toplevel will be created
+  + resource "aws_lambda_permission" "toplevel" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "s3-bucket-listing"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + source_arn          = (known after apply)
+      + statement_id        = (known after apply)
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.gunjantest will be created
+  + resource "aws_s3_bucket" "gunjantest" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "gunjantest"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + api_route = (known after apply)
+aws_iam_role.lambda_role: Creating...
+aws_api_gateway_rest_api.gateway_to_lambda: Creating...
+aws_iam_policy.s3read: Creating...
+aws_s3_bucket.gunjantest: Creating...
+aws_iam_policy.s3read: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/service-role/S3ReadAccess]
+aws_iam_role.lambda_role: Creation complete after 0s [id=ro-s3]
+aws_iam_role_policy_attachment.lambda_to_log: Creating...
+aws_iam_role_policy_attachment.lambda_to_s3: Creating...
+aws_lambda_function.bucket_listing: Creating...
+aws_iam_role_policy_attachment.lambda_to_log: Creation complete after 0s [id=ro-s3-20260123215328610500000001]
+aws_iam_role_policy_attachment.lambda_to_s3: Creation complete after 0s [id=ro-s3-20260123215328611200000002]
+aws_api_gateway_rest_api.gateway_to_lambda: Creation complete after 2s [id=pdcnujcasa]
+aws_api_gateway_resource.toplevel: Creating...
+aws_api_gateway_resource.toplevel: Creation complete after 0s [id=xpbkomav1g]
+aws_api_gateway_resource.folder: Creating...
+aws_api_gateway_method.toplevel: Creating...
+aws_api_gateway_method.toplevel: Creation complete after 0s [id=agm-pdcnujcasa-xpbkomav1g-GET]
+aws_api_gateway_resource.folder: Creation complete after 0s [id=srashcjnp2]
+aws_api_gateway_method.folder: Creating...
+aws_api_gateway_method.folder: Creation complete after 0s [id=agm-pdcnujcasa-srashcjnp2-GET]
+aws_lambda_function.bucket_listing: Creation complete after 6s [id=s3-bucket-listing]
+aws_lambda_permission.toplevel: Creating...
+aws_lambda_permission.folder: Creating...
+aws_api_gateway_integration.toplevel: Creating...
+aws_api_gateway_integration.folder: Creating...
+aws_lambda_permission.folder: Creation complete after 0s [id=terraform-20260123215334819600000003]
+aws_lambda_permission.toplevel: Creation complete after 0s [id=terraform-20260123215334819700000004]
+aws_api_gateway_integration.folder: Creation complete after 0s [id=agi-pdcnujcasa-srashcjnp2-GET]
+aws_api_gateway_integration.toplevel: Creation complete after 0s [id=agi-pdcnujcasa-xpbkomav1g-GET]
+aws_api_gateway_deployment.deploy: Creating...
+aws_api_gateway_deployment.deploy: Creation complete after 0s [id=ftjvxlqyqq]
+aws_api_gateway_stage.v1: Creating...
+aws_api_gateway_stage.v1: Creation complete after 0s [id=ags-pdcnujcasa-v1]
+aws_s3_bucket.gunjantest: Still creating... [00m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [16m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [17m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [18m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [19m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [20m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [21m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [22m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [23m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [24m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [25m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [26m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [27m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [28m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [29m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [30m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [31m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [32m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [33m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [34m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [35m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [36m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [37m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [38m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [39m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [40m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [41m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [42m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [43m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [44m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [45m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [46m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [47m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [48m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [49m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [50m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [51m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [52m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [53m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [54m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [55m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [56m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [57m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [58m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [59m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [60m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [61m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [62m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [63m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [64m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [65m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [66m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [67m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [68m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [69m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [70m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [71m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [72m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [73m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [74m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [75m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [75m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [75m21s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [75m31s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [75m41s elapsed]

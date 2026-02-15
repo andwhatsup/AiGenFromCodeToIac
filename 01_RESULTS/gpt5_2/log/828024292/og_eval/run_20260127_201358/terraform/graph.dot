@@ -1,0 +1,18 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_access_key.example" [label="aws_iam_access_key.example"];
+  "aws_iam_policy.example" [label="aws_iam_policy.example"];
+  "aws_iam_user.example" [label="aws_iam_user.example"];
+  "aws_iam_user_policy_attachment.example" [label="aws_iam_user_policy_attachment.example"];
+  "null_resource.example" [label="null_resource.example"];
+  "random_string.suffix" [label="random_string.suffix"];
+  "aws_iam_access_key.example" -> "aws_iam_user.example";
+  "aws_iam_policy.example" -> "random_string.suffix";
+  "aws_iam_user.example" -> "random_string.suffix";
+  "aws_iam_user_policy_attachment.example" -> "aws_iam_policy.example";
+  "aws_iam_user_policy_attachment.example" -> "aws_iam_user.example";
+  "null_resource.example" -> "data.aws_region.current";
+  "null_resource.example" -> "aws_iam_access_key.example";
+}

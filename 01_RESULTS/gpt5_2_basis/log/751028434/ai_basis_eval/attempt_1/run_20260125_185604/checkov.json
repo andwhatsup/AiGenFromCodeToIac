@@ -1,0 +1,85 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_60",
+                "bc_check_id": "BC_AWS_IAM_44",
+                "check_name": "Ensure IAM role allows only specific services or principals to assume it",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "assume_role_policy"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    32,
+                    56
+                ],
+                "resource": "aws_iam_role.plugin_role",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMRoleAllowsPublicAssume",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "${substr(replace(nebari-metrics-server-plugin,\"_\",\"-\"),0,32)}-role"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-44",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "name_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/751028434/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 6,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 5,
+        "checkov_version": "3.2.490"
+    }
+}

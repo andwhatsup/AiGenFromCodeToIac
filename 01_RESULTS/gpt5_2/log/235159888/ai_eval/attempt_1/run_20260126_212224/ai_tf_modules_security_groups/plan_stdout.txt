@@ -1,0 +1,150 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_security_group.client will be created
+  + resource "aws_security_group" "client" {
+      + arn                    = (known after apply)
+      + description            = "FreeIPA client security group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "freeipa-client-"
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "freeipa-client"
+        }
+      + tags_all               = {
+          + "Name" = "freeipa-client"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group.server will be created
+  + resource "aws_security_group" "server" {
+      + arn                    = (known after apply)
+      + description            = "FreeIPA server security group"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "freeipa-server-"
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "freeipa-server"
+        }
+      + tags_all               = {
+          + "Name" = "freeipa-server"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group_rule.client_egress will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + description              = "Allow FreeIPA clients to reach FreeIPA servers"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + description              = "Allow all egress within server SG"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_http_egress will be created
+  + resource "aws_security_group_rule" "server_http_egress" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "Allow HTTP egress"
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_https_egress will be created
+  + resource "aws_security_group_rule" "server_https_egress" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "Allow HTTPS egress"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + description              = "Allow FreeIPA client traffic"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + description              = "Allow all traffic within server SG (replication/cluster)"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "ingress"
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + client_security_group_id = (known after apply)
+  + server_security_group_id = (known after apply)

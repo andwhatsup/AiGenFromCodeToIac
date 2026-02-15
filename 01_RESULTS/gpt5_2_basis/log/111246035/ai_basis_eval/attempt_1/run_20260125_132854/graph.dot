@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.read_artifacts_bucket" [label="data.aws_iam_policy_document.read_artifacts_bucket"];
+  "aws_iam_policy.read_artifacts_bucket" [label="aws_iam_policy.read_artifacts_bucket"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "data.aws_iam_policy_document.read_artifacts_bucket" -> "aws_s3_bucket.artifacts";
+  "aws_iam_policy.read_artifacts_bucket" -> "data.aws_iam_policy_document.read_artifacts_bucket";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+}

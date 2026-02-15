@@ -1,0 +1,59 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_region.current: Reading...
+data.aws_availability_zones.available: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/java-mongo-ecs-cluster]
+aws_ecr_repository.app: Refreshing state... [id=java-mongo-ecs-repo]
+aws_vpc.this: Refreshing state... [id=vpc-ba3685cb449ef782e]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/java-mongo-ecs]
+aws_secretsmanager_secret.mongodb_uri[0]: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:java-mongo-ecs/mongodb_uri-dfJYWF]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.task: Refreshing state... [id=java-mongo-ecs-task]
+aws_iam_role.task_execution: Refreshing state... [id=java-mongo-ecs-task-exec]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_eip.nat[0]: Refreshing state... [id=eipalloc-b2b7a169ef644e9a5]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=java-mongo-ecs-repo]
+aws_iam_role_policy_attachment.task_execution_managed: Refreshing state... [id=java-mongo-ecs-task-exec-20260126232949901400000002]
+data.aws_iam_policy_document.task_inline: Reading...
+aws_ecs_task_definition.app: Refreshing state... [id=java-mongo-ecs]
+data.aws_iam_policy_document.task_inline: Read complete after 0s [id=1139774407]
+aws_iam_policy.task: Refreshing state... [id=arn:aws:iam::000000000000:policy/java-mongo-ecs-task-policy]
+aws_iam_role_policy_attachment.task_attach: Refreshing state... [id=java-mongo-ecs-task-20260126232949902300000003]
+aws_internet_gateway.this: Refreshing state... [id=igw-fc655687af4441336]
+aws_route_table.public: Refreshing state... [id=rtb-9e859f6ecbbbf2f42]
+aws_subnet.private["us-east-1b"]: Refreshing state... [id=subnet-b2538128dbfd7e0f2]
+aws_subnet.private["us-east-1a"]: Refreshing state... [id=subnet-b9d9689d4c94cc3e3]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-ef4dfac9f423e3806]
+aws_subnet.public["us-east-1a"]: Refreshing state... [id=subnet-39ed1a0a6ab102c70]
+aws_subnet.public["us-east-1b"]: Refreshing state... [id=subnet-ff7e37e9345781864]
+aws_route.public_default: Refreshing state... [id=r-rtb-9e859f6ecbbbf2f421080289494]
+aws_route_table_association.public["us-east-1a"]: Refreshing state... [id=rtbassoc-697d31df2d223eb05]
+aws_route_table_association.public["us-east-1b"]: Refreshing state... [id=rtbassoc-74c0d2e3775372654]
+aws_nat_gateway.this[0]: Refreshing state... [id=nat-3ff450eb61de3d2f4]
+aws_route_table.private["us-east-1a"]: Refreshing state... [id=rtb-6de086ecadc1705f3]
+aws_route_table.private["us-east-1b"]: Refreshing state... [id=rtb-c96cf1c3a5b0c275a]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/java-mongo-ecs-cluster/java-mongo-ecs-svc]
+aws_route_table_association.private["us-east-1b"]: Refreshing state... [id=rtbassoc-3cf61b2e713e51d0a]
+aws_route.private_default["us-east-1a"]: Refreshing state... [id=r-rtb-6de086ecadc1705f31080289494]
+aws_route.private_default["us-east-1b"]: Refreshing state... [id=r-rtb-c96cf1c3a5b0c275a1080289494]
+aws_route_table_association.private["us-east-1a"]: Refreshing state... [id=rtbassoc-f9ea8713053dfa84e]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+      ~ enable_ecs_managed_tags            = false -> true
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/java-mongo-ecs-cluster/java-mongo-ecs-svc"
+        name                               = "java-mongo-ecs-svc"
+        tags                               = {}
+        # (14 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

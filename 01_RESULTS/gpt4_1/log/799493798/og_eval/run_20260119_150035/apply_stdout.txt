@@ -1,0 +1,451 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.zipped_code: Reading...
+data.archive_file.zipped_code: Read complete after 0s [id=c65d00c14c67da2f27d3e55c8f3850b877d20f12]
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy.logging: Reading...
+data.aws_iam_policy.logging: Read complete after 0s [id=arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_api_gateway_deployment.deploy will be created
+  + resource "aws_api_gateway_deployment" "deploy" {
+      + created_date  = (known after apply)
+      + execution_arn = (known after apply)
+      + id            = (known after apply)
+      + invoke_url    = (known after apply)
+      + rest_api_id   = (known after apply)
+      + triggers      = {
+          + "redeployment" = "2be88ca4242c76e8253ac62474851065032d6833"
+        }
+    }
+
+  # aws_api_gateway_integration.folder will be created
+  + resource "aws_api_gateway_integration" "folder" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + content_handling        = "CONVERT_TO_TEXT"
+      + http_method             = "GET"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + request_parameters      = {
+          + "integration.request.path.folder" = "method.request.path.folder"
+        }
+      + resource_id             = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_integration.toplevel will be created
+  + resource "aws_api_gateway_integration" "toplevel" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + content_handling        = "CONVERT_TO_TEXT"
+      + http_method             = "GET"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + resource_id             = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_method.folder will be created
+  + resource "aws_api_gateway_method" "folder" {
+      + api_key_required   = false
+      + authorization      = "NONE"
+      + http_method        = "GET"
+      + id                 = (known after apply)
+      + request_parameters = {
+          + "method.request.path.folder" = true
+        }
+      + resource_id        = (known after apply)
+      + rest_api_id        = (known after apply)
+    }
+
+  # aws_api_gateway_method.toplevel will be created
+  + resource "aws_api_gateway_method" "toplevel" {
+      + api_key_required = false
+      + authorization    = "NONE"
+      + http_method      = "GET"
+      + id               = (known after apply)
+      + resource_id      = (known after apply)
+      + rest_api_id      = (known after apply)
+    }
+
+  # aws_api_gateway_resource.folder will be created
+  + resource "aws_api_gateway_resource" "folder" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "{folder+}"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_resource.toplevel will be created
+  + resource "aws_api_gateway_resource" "toplevel" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "list-bucket-content"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_rest_api.gateway_to_lambda will be created
+  + resource "aws_api_gateway_rest_api" "gateway_to_lambda" {
+      + api_key_source               = (known after apply)
+      + arn                          = (known after apply)
+      + binary_media_types           = (known after apply)
+      + created_date                 = (known after apply)
+      + description                  = "For AWS Lambda"
+      + disable_execute_api_endpoint = (known after apply)
+      + execution_arn                = (known after apply)
+      + id                           = (known after apply)
+      + minimum_compression_size     = (known after apply)
+      + name                         = "s3-bucket-listing"
+      + policy                       = (known after apply)
+      + root_resource_id             = (known after apply)
+      + tags_all                     = (known after apply)
+
+      + endpoint_configuration {
+          + types            = [
+              + "REGIONAL",
+            ]
+          + vpc_endpoint_ids = (known after apply)
+        }
+    }
+
+  # aws_api_gateway_stage.v1 will be created
+  + resource "aws_api_gateway_stage" "v1" {
+      + arn           = (known after apply)
+      + deployment_id = (known after apply)
+      + description   = "v1 ; AWS Lambda"
+      + execution_arn = (known after apply)
+      + id            = (known after apply)
+      + invoke_url    = (known after apply)
+      + rest_api_id   = (known after apply)
+      + stage_name    = "v1"
+      + tags_all      = (known after apply)
+      + web_acl_arn   = (known after apply)
+    }
+
+  # aws_iam_policy.s3read will be created
+  + resource "aws_iam_policy" "s3read" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "S3ReadAccess"
+      + name_prefix      = (known after apply)
+      + path             = "/service-role/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "s3:GetObject",
+                          + "s3:ListBucket",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:s3:::gunjantest"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.lambda_role will be created
+  + resource "aws_iam_role" "lambda_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ro-s3"
+      + name_prefix           = (known after apply)
+      + path                  = "/service-role/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_to_log will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_to_log" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "ro-s3"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_to_s3 will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_to_s3" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "ro-s3"
+    }
+
+  # aws_lambda_function.bucket_listing will be created
+  + resource "aws_lambda_function" "bucket_listing" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + description                    = "to list contents of S3 bucket like filesystem ls"
+      + filename                       = "./lambda_function.zip"
+      + function_name                  = "s3-bucket-listing"
+      + handler                        = "lambda_function.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.10"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "DGQDmAQhPbzC6+aeIPBjXT+VSkyWHicrjmWl8dW4HAs="
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "BUCKET_NAME" = "gunjantest"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config {
+          + log_format = "Text"
+          + log_group  = "/aws/lambda/s3-bucket-listing"
+        }
+
+      + tracing_config {
+          + mode = "PassThrough"
+        }
+    }
+
+  # aws_lambda_permission.folder will be created
+  + resource "aws_lambda_permission" "folder" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "s3-bucket-listing"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + source_arn          = (known after apply)
+      + statement_id        = (known after apply)
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_lambda_permission.toplevel will be created
+  + resource "aws_lambda_permission" "toplevel" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "s3-bucket-listing"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + source_arn          = (known after apply)
+      + statement_id        = (known after apply)
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.gunjantest will be created
+  + resource "aws_s3_bucket" "gunjantest" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "gunjantest"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + api_route = (known after apply)
+aws_iam_role.lambda_role: Creating...
+aws_s3_bucket.gunjantest: Creating...
+aws_api_gateway_rest_api.gateway_to_lambda: Creating...
+aws_iam_policy.s3read: Creating...
+aws_iam_policy.s3read: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/service-role/S3ReadAccess]
+aws_iam_role.lambda_role: Creation complete after 0s [id=ro-s3]
+aws_iam_role_policy_attachment.lambda_to_s3: Creating...
+aws_iam_role_policy_attachment.lambda_to_log: Creating...
+aws_lambda_function.bucket_listing: Creating...
+aws_iam_role_policy_attachment.lambda_to_log: Creation complete after 0s [id=ro-s3-20260119140111870600000001]
+aws_iam_role_policy_attachment.lambda_to_s3: Creation complete after 0s [id=ro-s3-20260119140111871200000002]
+aws_api_gateway_rest_api.gateway_to_lambda: Creation complete after 6s [id=wit2sph5bc]
+aws_api_gateway_resource.toplevel: Creating...
+aws_api_gateway_resource.toplevel: Creation complete after 0s [id=w07wg6y8cr]
+aws_api_gateway_resource.folder: Creating...
+aws_api_gateway_method.toplevel: Creating...
+aws_api_gateway_resource.folder: Creation complete after 0s [id=ghz2shxex3]
+aws_api_gateway_method.toplevel: Creation complete after 0s [id=agm-wit2sph5bc-w07wg6y8cr-GET]
+aws_api_gateway_method.folder: Creating...
+aws_api_gateway_method.folder: Creation complete after 0s [id=agm-wit2sph5bc-ghz2shxex3-GET]
+aws_s3_bucket.gunjantest: Still creating... [00m10s elapsed]
+aws_lambda_function.bucket_listing: Still creating... [00m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m20s elapsed]
+aws_lambda_function.bucket_listing: Still creating... [00m20s elapsed]
+aws_lambda_function.bucket_listing: Creation complete after 24s [id=s3-bucket-listing]
+aws_api_gateway_integration.toplevel: Creating...
+aws_lambda_permission.folder: Creating...
+aws_lambda_permission.toplevel: Creating...
+aws_api_gateway_integration.folder: Creating...
+aws_lambda_permission.folder: Creation complete after 0s [id=terraform-20260119140136114300000003]
+aws_lambda_permission.toplevel: Creation complete after 0s [id=terraform-20260119140136118900000004]
+aws_api_gateway_integration.folder: Creation complete after 0s [id=agi-wit2sph5bc-ghz2shxex3-GET]
+aws_api_gateway_integration.toplevel: Creation complete after 0s [id=agi-wit2sph5bc-w07wg6y8cr-GET]
+aws_api_gateway_deployment.deploy: Creating...
+aws_api_gateway_deployment.deploy: Creation complete after 0s [id=7lqoq2z7zc]
+aws_api_gateway_stage.v1: Creating...
+aws_api_gateway_stage.v1: Creation complete after 0s [id=ags-wit2sph5bc-v1]
+aws_s3_bucket.gunjantest: Still creating... [00m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [00m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [01m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [02m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [03m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [04m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [05m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [06m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [07m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [08m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [09m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [10m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [11m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [12m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [13m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m40s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [14m50s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m00s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m10s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m20s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m30s elapsed]
+aws_s3_bucket.gunjantest: Still creating... [15m40s elapsed]

@@ -1,0 +1,2992 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    11
+                ],
+                "resource": "aws_ecr_repository.api_service",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "api-service"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/ecr.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_51",
+                "bc_check_id": "BC_AWS_GENERAL_24",
+                "check_name": "Ensure ECR Image Tags are immutable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "image_tag_mutability"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    11
+                ],
+                "resource": "aws_ecr_repository.api_service",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRImmutableTags",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "api-service"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/ecr.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    1,
+                    24
+                ],
+                "resource": "eks",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/eks.tf",
+                "breadcrumbs": {
+                    "eks_managed_node_groups.default.max_size": [
+                        {
+                            "type": "variable",
+                            "name": "eks_node_max_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default": [
+                        {
+                            "type": "variable",
+                            "name": "eks_node_desired_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.min_size": [
+                        {
+                            "type": "variable",
+                            "name": "eks_node_min_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.instance_types": [
+                        {
+                            "type": "variable",
+                            "name": "eks_node_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.desired_size": [
+                        {
+                            "type": "variable",
+                            "name": "eks_node_desired_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/iam.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/iam.tf",
+                "repo_file_path": "/iam.tf",
+                "file_line_range": [
+                    1,
+                    15
+                ],
+                "resource": "eks_irsa",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/iam.tf"
+            },
+            {
+                "check_id": "CKV_K8S_8",
+                "bc_check_id": "BC_K8S_7",
+                "check_name": "Liveness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/container/[0]/liveness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.LivenessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-7",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_13",
+                "bc_check_id": "BC_K8S_12",
+                "check_name": "Memory requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryRequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-12",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_15",
+                "bc_check_id": "BC_K8S_14",
+                "check_name": "Image Pull Policy should be Always",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImagePullPolicyAlways",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_12",
+                "bc_check_id": "BC_K8S_11",
+                "check_name": "Memory Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryLimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_10",
+                "bc_check_id": "BC_K8S_9",
+                "check_name": "CPU requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPURequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-9",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_9",
+                "bc_check_id": "BC_K8S_8",
+                "check_name": "Readiness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/readiness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ReadinessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-8",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_28",
+                "bc_check_id": "BC_K8S_27",
+                "check_name": "Minimize the admission of containers with the NET_RAW capability",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DropCapabilities",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-27",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_29",
+                "bc_check_id": "BC_K8S_43",
+                "check_name": "Apply security context to your pods, deployments and daemon_sets",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.PodSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_30",
+                "bc_check_id": "BC_K8S_28",
+                "check_name": "Apply security context to your pods and containers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/security_context"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ContainerSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-28",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_14",
+                "bc_check_id": "BC_K8S_13",
+                "check_name": "Image Tag should be fixed - not latest or blank",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/image"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImageTagFixed",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": "BC_K8S_39",
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/image"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_K8S_11",
+                "bc_check_id": "BC_K8S_10",
+                "check_name": "CPU Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_resources.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "repo_file_path": "/k8s_resources.tf",
+                "file_line_range": [
+                    31,
+                    73
+                ],
+                "resource": "kubernetes_deployment.api",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPULimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-10",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/k8s_resources.tf",
+                "breadcrumbs": {
+                    "metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "metadata.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector.match_labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.selector": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels.app": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata.labels": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.metadata": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.name": [
+                        {
+                            "type": "variable",
+                            "name": "api_service_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "spec.template.spec.container.image": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_image",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]",
+                        "ingress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    10,
+                    32
+                ],
+                "resource": "aws_security_group.rds",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rds-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    10,
+                    32
+                ],
+                "resource": "aws_security_group.rds",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rds-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf"
+            },
+            {
+                "check_id": "CKV_AWS_161",
+                "bc_check_id": "BC_AWS_IAM_65",
+                "check_name": "Ensure RDS database has IAM authentication enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "iam_database_authentication_enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSIAMAuthentication",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-rds-database-has-iam-authentication-enabled",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_293",
+                "bc_check_id": "BC_AWS_GENERAL_208",
+                "check_name": "Ensure that AWS database instances have deletion protection enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "deletion_protection"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSInstanceDeletionProtection",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-293",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_353",
+                "bc_check_id": "BC_AWS_LOGGING_47",
+                "check_name": "Ensure that RDS instances have performance insights enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "performance_insights_enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSInstancePerformanceInsights",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-353",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_129",
+                "bc_check_id": "BC_AWS_IAM_60",
+                "check_name": "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "enabled_cloudwatch_logs_exports/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DBInstanceLogging",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-that-respective-logs-of-amazon-relational-database-service-amazon-rds-are-enabled",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_226",
+                "bc_check_id": "BC_AWS_GENERAL_121",
+                "check_name": "Ensure DB instance gets all minor upgrades automatically",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "auto_minor_version_upgrade"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DBInstanceMinorUpgrade",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-db-instance-gets-all-minor-upgrades-automatically",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_118",
+                "bc_check_id": "BC_AWS_LOGGING_28",
+                "check_name": "Ensure that enhanced monitoring is enabled for Amazon RDS instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring_interval"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/rds.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "repo_file_path": "/rds.tf",
+                "file_line_range": [
+                    34,
+                    54
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSEnhancedMonitorEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "app-postgres-db"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-enhanced-monitoring-is-enabled-for-amazon-rds-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                "breadcrumbs": {
+                    "db_subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_db_subnet_group.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/rds.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/vpc.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/vpc.tf",
+                "repo_file_path": "/vpc.tf",
+                "file_line_range": [
+                    1,
+                    21
+                ],
+                "resource": "vpc",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/vpc.tf",
+                "breadcrumbs": {
+                    "azs": [
+                        {
+                            "type": "variable",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "cidr": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "public_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "public_subnet_cidrs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "private_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "private_subnet_cidrs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 36,
+        "failed": 25,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 9,
+        "checkov_version": "3.2.490"
+    }
+}

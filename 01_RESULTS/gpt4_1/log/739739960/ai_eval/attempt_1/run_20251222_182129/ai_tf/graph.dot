@@ -1,0 +1,35 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.s3_deploy" [label="data.aws_iam_policy_document.s3_deploy"];
+  "data.aws_iam_policy_document.s3_policy" [label="data.aws_iam_policy_document.s3_policy"];
+  "data.aws_route53_zone.selected" [label="data.aws_route53_zone.selected"];
+  "aws_acm_certificate.site_cert" [label="aws_acm_certificate.site_cert"];
+  "aws_acm_certificate_validation.site_cert_validation" [label="aws_acm_certificate_validation.site_cert_validation"];
+  "aws_cloudfront_distribution.static_site" [label="aws_cloudfront_distribution.static_site"];
+  "aws_cloudfront_origin_access_identity.oai" [label="aws_cloudfront_origin_access_identity.oai"];
+  "aws_iam_policy.s3_deploy" [label="aws_iam_policy.s3_deploy"];
+  "aws_route53_record.cert_validation" [label="aws_route53_record.cert_validation"];
+  "aws_route53_record.site" [label="aws_route53_record.site"];
+  "aws_s3_bucket.log" [label="aws_s3_bucket.log"];
+  "aws_s3_bucket.static_site" [label="aws_s3_bucket.static_site"];
+  "aws_s3_bucket_policy.static_site" [label="aws_s3_bucket_policy.static_site"];
+  "aws_s3_bucket_public_access_block.static_site" [label="aws_s3_bucket_public_access_block.static_site"];
+  "aws_s3_bucket_server_side_encryption_configuration.static_site" [label="aws_s3_bucket_server_side_encryption_configuration.static_site"];
+  "data.aws_iam_policy_document.s3_deploy" -> "aws_s3_bucket.static_site";
+  "data.aws_iam_policy_document.s3_policy" -> "aws_cloudfront_origin_access_identity.oai";
+  "data.aws_iam_policy_document.s3_policy" -> "aws_s3_bucket.static_site";
+  "aws_acm_certificate_validation.site_cert_validation" -> "aws_route53_record.cert_validation";
+  "aws_cloudfront_distribution.static_site" -> "aws_acm_certificate.site_cert";
+  "aws_cloudfront_distribution.static_site" -> "aws_cloudfront_origin_access_identity.oai";
+  "aws_cloudfront_distribution.static_site" -> "aws_s3_bucket.log";
+  "aws_cloudfront_distribution.static_site" -> "aws_s3_bucket.static_site";
+  "aws_iam_policy.s3_deploy" -> "data.aws_iam_policy_document.s3_deploy";
+  "aws_route53_record.cert_validation" -> "data.aws_route53_zone.selected";
+  "aws_route53_record.cert_validation" -> "aws_acm_certificate.site_cert";
+  "aws_route53_record.site" -> "data.aws_route53_zone.selected";
+  "aws_route53_record.site" -> "aws_cloudfront_distribution.static_site";
+  "aws_s3_bucket_policy.static_site" -> "data.aws_iam_policy_document.s3_policy";
+  "aws_s3_bucket_public_access_block.static_site" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_server_side_encryption_configuration.static_site" -> "aws_s3_bucket.static_site";
+}

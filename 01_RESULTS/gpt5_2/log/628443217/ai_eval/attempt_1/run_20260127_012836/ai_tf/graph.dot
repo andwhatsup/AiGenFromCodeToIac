@@ -1,0 +1,23 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.amazon_linux2" [label="data.aws_ami.amazon_linux2"];
+  "data.http.myip" [label="data.http.myip"];
+  "aws_instance.web" [label="aws_instance.web"];
+  "aws_key_pair.this" [label="aws_key_pair.this"];
+  "aws_security_group.web" [label="aws_security_group.web"];
+  "aws_vpc_security_group_egress_rule.all" [label="aws_vpc_security_group_egress_rule.all"];
+  "aws_vpc_security_group_ingress_rule.http" [label="aws_vpc_security_group_ingress_rule.http"];
+  "aws_vpc_security_group_ingress_rule.https" [label="aws_vpc_security_group_ingress_rule.https"];
+  "aws_vpc_security_group_ingress_rule.ssh" [label="aws_vpc_security_group_ingress_rule.ssh"];
+  "aws_instance.web" -> "data.aws_ami.amazon_linux2";
+  "aws_instance.web" -> "aws_key_pair.this";
+  "aws_instance.web" -> "aws_security_group.web";
+  "aws_vpc_security_group_egress_rule.all" -> "aws_security_group.web";
+  "aws_vpc_security_group_ingress_rule.http" -> "data.http.myip";
+  "aws_vpc_security_group_ingress_rule.http" -> "aws_security_group.web";
+  "aws_vpc_security_group_ingress_rule.https" -> "data.http.myip";
+  "aws_vpc_security_group_ingress_rule.https" -> "aws_security_group.web";
+  "aws_vpc_security_group_ingress_rule.ssh" -> "data.http.myip";
+  "aws_vpc_security_group_ingress_rule.ssh" -> "aws_security_group.web";
+}

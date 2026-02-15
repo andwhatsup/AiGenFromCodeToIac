@@ -1,0 +1,472 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aiven_clickhouse.demo-clickhouse will be created
+  + resource "aiven_clickhouse" "demo-clickhouse" {
+      + clickhouse         = (known after apply)
+      + cloud_name         = "google-europe-west2"
+      + components         = (known after apply)
+      + disk_space_cap     = (known after apply)
+      + disk_space_default = (known after apply)
+      + disk_space_step    = (known after apply)
+      + disk_space_used    = (known after apply)
+      + id                 = (known after apply)
+      + plan               = "startup-beta-8"
+      + project            = "dbeech-demo"
+      + service_host       = (known after apply)
+      + service_name       = "bigdataldn-demo-clickhouse"
+      + service_password   = (sensitive value)
+      + service_port       = (known after apply)
+      + service_type       = "clickhouse"
+      + service_uri        = (sensitive value)
+      + service_username   = (known after apply)
+      + state              = (known after apply)
+    }
+
+  # aiven_flink.demo-flink will be created
+  + resource "aiven_flink" "demo-flink" {
+      + cloud_name             = "google-europe-west2"
+      + components             = (known after apply)
+      + disk_space_cap         = (known after apply)
+      + disk_space_default     = (known after apply)
+      + disk_space_step        = (known after apply)
+      + disk_space_used        = (known after apply)
+      + id                     = (known after apply)
+      + plan                   = "business-8"
+      + project                = "dbeech-demo"
+      + service_host           = (known after apply)
+      + service_name           = "bigdataldn-demo-flink"
+      + service_password       = (sensitive value)
+      + service_port           = (known after apply)
+      + service_type           = "flink"
+      + service_uri            = (sensitive value)
+      + service_username       = (known after apply)
+      + state                  = (known after apply)
+      + termination_protection = true
+
+      + flink (known after apply)
+
+      + flink_user_config {
+          + parallelism_default = "3"
+        }
+    }
+
+  # aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening will be created
+  + resource "aiven_flink_job" "demo-flink-job-digitransit-hfp-bus-position-flattening" {
+      + id           = (known after apply)
+      + job_id       = (known after apply)
+      + job_name     = "digitransit_hfp_bus_positions_flatten"
+      + project      = "dbeech-demo"
+      + service_name = "bigdataldn-demo-flink"
+      + state        = (known after apply)
+      + statement    = <<-EOT
+            INSERT INTO digitransit_hfp_bus_positions_flattened
+                SELECT
+                  VP.`desi`,
+                  VP.`dir`,
+                  VP.`oper`,
+                  operators.`name`,
+                  VP.`veh`,
+                  VP.`tst`,
+                  VP.`tsi`,
+                  VP.`spd`,
+                  VP.`hdg`,
+                  VP.`lat`,
+                  VP.`long`,
+                  VP.`acc`,
+                  VP.`dl`,
+                  VP.`drst`,
+                  VP.`oday`,
+                  VP.`start`,
+                  VP.`loc`,
+                  VP.`stop`,
+                  VP.`route`,
+                  VP.`occu`
+                FROM digitransit_hfp_bus_positions_raw positions
+                INNER JOIN digitransit_operators operators
+                ON positions.VP.`oper` = operators.`id`
+        EOT
+      + table_ids    = (known after apply)
+    }
+
+  # aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-flattened will be created
+  + resource "aiven_flink_table" "demo-flink-table-digitransit-hfp-bus-positions-flattened" {
+      + id                   = (known after apply)
+      + integration_id       = (known after apply)
+      + kafka_connector_type = "kafka"
+      + kafka_startup_mode   = "latest-offset"
+      + kafka_topic          = "digitransit-hfp-bus-positions-flattened"
+      + kafka_value_format   = "json"
+      + project              = "dbeech-demo"
+      + schema_sql           = <<-EOT
+            `desi` STRING,
+                `dir` STRING,
+                `oper` INT,
+                `oper_name` STRING,
+                `veh` INT,
+                `tst` STRING,
+                `tsi` INT,
+                `spd` FLOAT,
+                `hdg` INT,
+                `lat` FLOAT,
+                `long` FLOAT,
+                `acc` FLOAT,
+                `dl` INT,
+                `drst` INT,
+                `oday` STRING,
+                `start` STRING,
+                `loc` STRING,
+                `stop` STRING,
+                `route` STRING,
+                `occu` INT
+        EOT
+      + service_name         = "bigdataldn-demo-flink"
+      + table_id             = (known after apply)
+      + table_name           = "digitransit_hfp_bus_positions_flattened"
+    }
+
+  # aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-raw will be created
+  + resource "aiven_flink_table" "demo-flink-table-digitransit-hfp-bus-positions-raw" {
+      + id                   = (known after apply)
+      + integration_id       = (known after apply)
+      + kafka_connector_type = "kafka"
+      + kafka_startup_mode   = "latest-offset"
+      + kafka_topic          = "digitransit-hfp-bus-positions-raw"
+      + kafka_value_format   = "json"
+      + project              = "dbeech-demo"
+      + schema_sql           = <<-EOT
+            `VP` ROW<`desi` STRING,`dir` STRING,`oper` INT,`veh` INT,`tst` STRING,`tsi` INT,`spd` FLOAT,`hdg` INT,`lat` FLOAT,`long` FLOAT,`acc` FLOAT,`dl` INT,`drst` INT,`oday` STRING,`start` STRING,`loc` STRING,`stop` STRING,`route` STRING,`occu` INT>
+        EOT
+      + service_name         = "bigdataldn-demo-flink"
+      + table_id             = (known after apply)
+      + table_name           = "digitransit_hfp_bus_positions_raw"
+    }
+
+  # aiven_flink_table.demo-flink-table-digitransit-operators will be created
+  + resource "aiven_flink_table" "demo-flink-table-digitransit-operators" {
+      + id             = (known after apply)
+      + integration_id = (known after apply)
+      + jdbc_table     = "public.digitransit_operators"
+      + project        = "dbeech-demo"
+      + schema_sql     = <<-EOT
+            `id` INT PRIMARY KEY,
+                `name` STRING NOT NULL
+        EOT
+      + service_name   = "bigdataldn-demo-flink"
+      + table_id       = (known after apply)
+      + table_name     = "digitransit_operators"
+    }
+
+  # aiven_grafana.demo-metrics-dashboard will be created
+  + resource "aiven_grafana" "demo-metrics-dashboard" {
+      + cloud_name         = "google-europe-west2"
+      + components         = (known after apply)
+      + disk_space_cap     = (known after apply)
+      + disk_space_default = (known after apply)
+      + disk_space_step    = (known after apply)
+      + disk_space_used    = (known after apply)
+      + grafana            = (known after apply)
+      + id                 = (known after apply)
+      + plan               = "startup-4"
+      + project            = "dbeech-demo"
+      + service_host       = (known after apply)
+      + service_name       = "bigdataldn-demo-metrics-dashboard"
+      + service_password   = (sensitive value)
+      + service_port       = (known after apply)
+      + service_type       = "grafana"
+      + service_uri        = (sensitive value)
+      + service_username   = (known after apply)
+      + state              = (known after apply)
+
+      + grafana_user_config {
+          + ip_filter = []
+
+          + public_access {
+              + grafana = "true"
+            }
+        }
+    }
+
+  # aiven_kafka.demo-kafka will be created
+  + resource "aiven_kafka" "demo-kafka" {
+      + cloud_name             = "google-europe-west2"
+      + components             = (known after apply)
+      + default_acl            = false
+      + disk_space_cap         = (known after apply)
+      + disk_space_default     = (known after apply)
+      + disk_space_step        = (known after apply)
+      + disk_space_used        = (known after apply)
+      + id                     = (known after apply)
+      + plan                   = "business-4"
+      + project                = "dbeech-demo"
+      + service_host           = (known after apply)
+      + service_name           = "bigdataldn-demo-kafka"
+      + service_password       = (sensitive value)
+      + service_port           = (known after apply)
+      + service_type           = "kafka"
+      + service_uri            = (sensitive value)
+      + service_username       = (known after apply)
+      + state                  = (known after apply)
+      + termination_protection = false
+
+      + kafka (known after apply)
+
+      + kafka_user_config {
+          + ip_filter       = []
+          + kafka_connect   = "false"
+          + kafka_rest      = "true"
+          + kafka_version   = "3.2"
+          + schema_registry = "true"
+
+          + kafka {
+              + auto_create_topics_enable = "false"
+            }
+
+          + public_access {
+              + kafka           = "false"
+              + kafka_connect   = "true"
+              + kafka_rest      = "false"
+              + schema_registry = "false"
+            }
+        }
+    }
+
+  # aiven_kafka_connect.demo-kafka-connect will be created
+  + resource "aiven_kafka_connect" "demo-kafka-connect" {
+      + cloud_name         = "google-europe-west2"
+      + components         = (known after apply)
+      + disk_space_cap     = (known after apply)
+      + disk_space_default = (known after apply)
+      + disk_space_step    = (known after apply)
+      + disk_space_used    = (known after apply)
+      + id                 = (known after apply)
+      + kafka_connect      = (known after apply)
+      + plan               = "business-8"
+      + project            = "dbeech-demo"
+      + service_host       = (known after apply)
+      + service_name       = "bigdataldn-demo-kafka-connect"
+      + service_password   = (sensitive value)
+      + service_port       = (known after apply)
+      + service_type       = "kafka_connect"
+      + service_uri        = (sensitive value)
+      + service_username   = (known after apply)
+      + state              = (known after apply)
+
+      + kafka_connect_user_config {
+          + ip_filter = []
+
+          + public_access {
+              + kafka_connect = "true"
+              + prometheus    = "true"
+            }
+        }
+    }
+
+  # aiven_kafka_topic.demo-kafka-topic-digitransit-hfp-bus-positions-flattened will be created
+  + resource "aiven_kafka_topic" "demo-kafka-topic-digitransit-hfp-bus-positions-flattened" {
+      + id                     = (known after apply)
+      + partitions             = 3
+      + project                = "dbeech-demo"
+      + replication            = 3
+      + service_name           = "bigdataldn-demo-kafka"
+      + termination_protection = false
+      + topic_name             = "digitransit-hfp-bus-positions-flattened"
+
+      + config {
+          + retention_ms = "1209600000"
+        }
+    }
+
+  # aiven_m3db.demo-metrics will be created
+  + resource "aiven_m3db" "demo-metrics" {
+      + cloud_name         = "google-europe-west2"
+      + components         = (known after apply)
+      + disk_space_cap     = (known after apply)
+      + disk_space_default = (known after apply)
+      + disk_space_step    = (known after apply)
+      + disk_space_used    = (known after apply)
+      + id                 = (known after apply)
+      + m3db               = (known after apply)
+      + plan               = "startup-8"
+      + project            = "dbeech-demo"
+      + service_host       = (known after apply)
+      + service_name       = "bigdataldn-demo-metrics"
+      + service_password   = (sensitive value)
+      + service_port       = (known after apply)
+      + service_type       = "m3db"
+      + service_uri        = (sensitive value)
+      + service_username   = (known after apply)
+      + state              = (known after apply)
+
+      + m3db_user_config {
+          + ip_filter    = []
+          + m3db_version = "1.5"
+
+          + namespaces {
+              + name = "default"
+              + type = "unaggregated"
+
+              + options {
+                  + retention_options {
+                      + blocksize_duration        = "2h"
+                      + retention_period_duration = "8d"
+                    }
+                }
+            }
+        }
+    }
+
+  # aiven_pg.demo-postgres will be created
+  + resource "aiven_pg" "demo-postgres" {
+      + cloud_name         = "google-europe-west2"
+      + components         = (known after apply)
+      + disk_space_cap     = (known after apply)
+      + disk_space_default = (known after apply)
+      + disk_space_step    = (known after apply)
+      + disk_space_used    = (known after apply)
+      + id                 = (known after apply)
+      + plan               = "startup-4"
+      + project            = "dbeech-demo"
+      + service_host       = (known after apply)
+      + service_name       = "bigdataldn-demo-postgres"
+      + service_password   = (sensitive value)
+      + service_port       = (known after apply)
+      + service_type       = "pg"
+      + service_uri        = (sensitive value)
+      + service_username   = (known after apply)
+      + state              = (known after apply)
+
+      + pg (known after apply)
+
+      + pg_user_config {
+          + pg_version = "14"
+        }
+    }
+
+  # aiven_service_integration.demo-dashboard-integration will be created
+  + resource "aiven_service_integration" "demo-dashboard-integration" {
+      + destination_service_name = "bigdataldn-demo-metrics"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "dashboard"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-metrics-dashboard"
+    }
+
+  # aiven_service_integration.demo-flink-kafka-integration will be created
+  + resource "aiven_service_integration" "demo-flink-kafka-integration" {
+      + destination_service_name = "bigdataldn-demo-flink"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "flink"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-kafka"
+    }
+
+  # aiven_service_integration.demo-flink-postgres-integration will be created
+  + resource "aiven_service_integration" "demo-flink-postgres-integration" {
+      + destination_service_name = "bigdataldn-demo-flink"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "flink"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-postgres"
+    }
+
+  # aiven_service_integration.demo-kafka-connect-source-integration will be created
+  + resource "aiven_service_integration" "demo-kafka-connect-source-integration" {
+      + destination_service_name = "bigdataldn-demo-kafka-connect"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "kafka_connect"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-kafka"
+    }
+
+  # aiven_service_integration.demo-metrics-integration-flink will be created
+  + resource "aiven_service_integration" "demo-metrics-integration-flink" {
+      + destination_service_name = "bigdataldn-demo-metrics"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "metrics"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-flink"
+    }
+
+  # aiven_service_integration.demo-metrics-integration-kafka will be created
+  + resource "aiven_service_integration" "demo-metrics-integration-kafka" {
+      + destination_service_name = "bigdataldn-demo-metrics"
+      + id                       = (known after apply)
+      + integration_id           = (known after apply)
+      + integration_type         = "metrics"
+      + project                  = "dbeech-demo"
+      + source_service_name      = "bigdataldn-demo-kafka"
+    }
+
+  # module.digitransit-hfp-bus-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector will be created
+  + resource "aiven_kafka_connector" "digitransit-hfp-kafka-connector" {
+      + config         = (sensitive value)
+      + connector_name = "digitransit-hfp-bus-positions-raw"
+      + id             = (known after apply)
+      + plugin_author  = (known after apply)
+      + plugin_class   = (known after apply)
+      + plugin_doc_url = (known after apply)
+      + plugin_title   = (known after apply)
+      + plugin_type    = (known after apply)
+      + plugin_version = (known after apply)
+      + project        = "dbeech-demo"
+      + service_name   = "bigdataldn-demo-kafka-connect"
+      + task           = (known after apply)
+    }
+
+  # module.digitransit-hfp-bus-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic will be created
+  + resource "aiven_kafka_topic" "digitransit-hfp-kafka-topic" {
+      + id                     = (known after apply)
+      + partitions             = 3
+      + project                = "dbeech-demo"
+      + replication            = 3
+      + service_name           = "bigdataldn-demo-kafka"
+      + termination_protection = false
+      + topic_name             = "digitransit-hfp-bus-positions-raw"
+
+      + config {
+          + retention_ms = "1209600000"
+        }
+    }
+
+  # module.digitransit-hfp-train-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector will be created
+  + resource "aiven_kafka_connector" "digitransit-hfp-kafka-connector" {
+      + config         = (sensitive value)
+      + connector_name = "digitransit-hfp-train-positions-raw"
+      + id             = (known after apply)
+      + plugin_author  = (known after apply)
+      + plugin_class   = (known after apply)
+      + plugin_doc_url = (known after apply)
+      + plugin_title   = (known after apply)
+      + plugin_type    = (known after apply)
+      + plugin_version = (known after apply)
+      + project        = "dbeech-demo"
+      + service_name   = "bigdataldn-demo-kafka-connect"
+      + task           = (known after apply)
+    }
+
+  # module.digitransit-hfp-train-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic will be created
+  + resource "aiven_kafka_topic" "digitransit-hfp-kafka-topic" {
+      + id                     = (known after apply)
+      + partitions             = 3
+      + project                = "dbeech-demo"
+      + replication            = 3
+      + service_name           = "bigdataldn-demo-kafka"
+      + termination_protection = false
+      + topic_name             = "digitransit-hfp-train-positions-raw"
+
+      + config {
+          + retention_ms = "1209600000"
+        }
+    }
+
+Plan: 22 to add, 0 to change, 0 to destroy.

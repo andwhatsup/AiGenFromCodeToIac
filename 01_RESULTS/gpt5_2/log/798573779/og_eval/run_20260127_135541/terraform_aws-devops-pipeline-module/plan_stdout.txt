@@ -1,0 +1,1052 @@
+data.aws_iam_policy_document.assume_role_codepipeline_target: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_iam_policy_document.assume_role_codepipeline: Reading...
+data.aws_subnets.vpc_subnets: Reading...
+data.aws_region.current: Reading...
+data.aws_iam_policy_document.assume_role_codepipeline: Read complete after 0s [id=2245101310]
+data.aws_iam_policy_document.assume_role_codepipeline_target: Read complete after 0s [id=3959961479]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_iam_policy_document.assume_role_codebuild: Reading...
+data.aws_iam_policy_document.assume_role_codebuild: Read complete after 0s [id=1229436035]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_iam_policy_document.codepipeline: Reading...
+data.aws_iam_policy_document.codepipeline_target: Reading...
+data.aws_iam_policy_document.codepipeline_target: Read complete after 0s [id=1389997784]
+data.aws_iam_policy_document.codepipeline: Read complete after 0s [id=3754278527]
+data.aws_subnets.vpc_subnets: Read complete after 1s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.codebuild will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "codebuild" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "codebuild:BatchPutCodeCoverages",
+              + "codebuild:BatchPutTestCases",
+              + "codebuild:CreateReport",
+              + "codebuild:CreateReportGroup",
+              + "codebuild:UpdateReport",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:codebuild:us-east-1:000000000000:project/dev-devops-cicd-aws-codebuild",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "ecr:BatchCheckLayerAvailability",
+              + "ecr:CompleteLayerUpload",
+              + "ecr:InitiateLayerUpload",
+              + "ecr:PutImage",
+              + "ecr:UploadLayerPart",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AllowECRAccess"
+        }
+      + statement {
+          + actions   = [
+              + "ecr:GetAuthorizationToken",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "GetAuthToken"
+        }
+      + statement {
+          + actions   = [
+              + "codecommit:GitPull",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:codecommit:us-east-1:000000000000:dev-devops-cicd-aws-codecommit",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "s3:GetBucketAcl",
+              + "s3:GetBucketLocation",
+              + "s3:GetObject",
+              + "s3:GetObjectVersion",
+              + "s3:PutObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:s3:::dev-devops-cicd-aws-codepipeline-bucket*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:PutLogEvents",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/devops-cicd-aws-codebuild",
+              + "arn:aws:logs:us-east-1:000000000000:log-group:/aws/codebuild/devops-cicd-aws-codebuild:*",
+            ]
+        }
+    }
+
+  # aws_cloudwatch_event_rule.codecommit_event_rule will be created
+  + resource "aws_cloudwatch_event_rule" "codecommit_event_rule" {
+      + arn            = (known after apply)
+      + description    = "Rule to trigger CodePipeline on CodeCommit events"
+      + event_bus_name = "default"
+      + event_pattern  = jsonencode(
+            {
+              + detail      = {
+                  + event         = [
+                      + "referenceCreated",
+                      + "referenceUpdated",
+                    ]
+                  + referenceName = [
+                      + "master",
+                    ]
+                  + referenceType = [
+                      + "branch",
+                    ]
+                }
+              + detail-type = [
+                  + "CodeCommit Repository State Change",
+                ]
+              + resources   = [
+                  + "arn:aws:codecommit:us-east-1:000000000000:dev-devops-cicd-aws-codecommit",
+                ]
+              + source      = [
+                  + "aws.codecommit",
+                ]
+            }
+        )
+      + force_destroy  = false
+      + id             = (known after apply)
+      + name           = "dev-devops-cicd-aws-codecommmit-event-rule"
+      + name_prefix    = (known after apply)
+      + region         = "us-east-1"
+      + tags_all       = (known after apply)
+    }
+
+  # aws_cloudwatch_event_target.codepipeline_target will be created
+  + resource "aws_cloudwatch_event_target" "codepipeline_target" {
+      + arn            = "arn:aws:codepipeline:us-east-1:000000000000:dev-devops-cicd-aws-codepipeline"
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + role_arn       = (known after apply)
+      + rule           = "dev-devops-cicd-aws-codecommmit-event-rule"
+      + target_id      = (known after apply)
+    }
+
+  # aws_codebuild_project.code_build will be created
+  + resource "aws_codebuild_project" "code_build" {
+      + arn                  = (known after apply)
+      + auto_retry_limit     = (known after apply)
+      + badge_enabled        = false
+      + badge_url            = (known after apply)
+      + build_timeout        = 5
+      + description          = "CodeBuild for the devops-cicd-aws project"
+      + encryption_key       = (known after apply)
+      + id                   = (known after apply)
+      + name                 = "dev-devops-cicd-aws-codebuild"
+      + project_visibility   = "PRIVATE"
+      + public_project_alias = (known after apply)
+      + queued_timeout       = 480
+      + region               = "us-east-1"
+      + service_role         = (known after apply)
+      + source_version       = "refs/head/master"
+      + tags                 = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+
+      + artifacts {
+          + encryption_disabled    = false
+          + override_artifact_name = false
+          + type                   = "NO_ARTIFACTS"
+        }
+
+      + cache {
+          + type = "NO_CACHE"
+        }
+
+      + environment {
+          + compute_type                = "BUILD_GENERAL1_SMALL"
+          + image                       = "aws/codebuild/amazonlinux2-x86_64-standard:5.0"
+          + image_pull_credentials_type = "CODEBUILD"
+          + privileged_mode             = true
+          + type                        = "LINUX_CONTAINER"
+
+          + environment_variable {
+              + name  = "AWS_ACCOUNT_ID"
+              + type  = "PLAINTEXT"
+              + value = "000000000000"
+            }
+          + environment_variable {
+              + name  = "AWS_DEFAULT_REGION"
+              + type  = "PLAINTEXT"
+              + value = "us-east-1"
+            }
+          + environment_variable {
+              + name  = "IMAGE_TAG"
+              + type  = "PLAINTEXT"
+              + value = "latest"
+            }
+          + environment_variable {
+              + name  = "IMAGE_REPO_NAME"
+              + type  = "PLAINTEXT"
+              + value = "dev-devops-cicd-aws-ecr"
+            }
+          + environment_variable {
+              + name  = "CONTAINER_NAME"
+              + type  = "PLAINTEXT"
+              + value = "dev-devops-cicd-aws-container"
+            }
+        }
+
+      + logs_config {
+          + cloudwatch_logs {
+              + group_name  = "/aws/codebuild/devops-cicd-aws-codebuild"
+              + status      = "ENABLED"
+              + stream_name = "devops-cicd-aws"
+            }
+        }
+
+      + source {
+          + buildspec       = "buildspec.yml"
+          + git_clone_depth = 1
+          + location        = "dev-devops-cicd-aws-codecommit"
+          + type            = "CODECOMMIT"
+        }
+    }
+
+  # aws_codecommit_repository.repository will be created
+  + resource "aws_codecommit_repository" "repository" {
+      + arn             = (known after apply)
+      + clone_url_http  = (known after apply)
+      + clone_url_ssh   = (known after apply)
+      + description     = "This is the code commit repository for the devops-cicd-aws project"
+      + id              = (known after apply)
+      + kms_key_id      = (known after apply)
+      + region          = "us-east-1"
+      + repository_id   = (known after apply)
+      + repository_name = "dev-devops-cicd-aws-codecommit"
+      + tags            = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all        = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+    }
+
+  # aws_codepipeline.codepipeline will be created
+  + resource "aws_codepipeline" "codepipeline" {
+      + arn            = (known after apply)
+      + execution_mode = "QUEUED"
+      + id             = (known after apply)
+      + name           = "dev-devops-cicd-aws-codepipeline"
+      + pipeline_type  = "V2"
+      + region         = "us-east-1"
+      + role_arn       = (known after apply)
+      + tags           = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all       = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + trigger_all    = (known after apply)
+
+      + artifact_store {
+          + location = "dev-devops-cicd-aws-codepipeline-bucket"
+          + type     = "S3"
+            # (1 unchanged attribute hidden)
+        }
+
+      + stage {
+          + name = "Source"
+
+          + action {
+              + category         = "Source"
+              + configuration    = {
+                  + "BranchName"           = "master"
+                  + "PollForSourceChanges" = "false"
+                  + "RepositoryName"       = "dev-devops-cicd-aws-codecommit"
+                }
+              + name             = "Source"
+              + output_artifacts = [
+                  + "source_output",
+                ]
+              + owner            = "AWS"
+              + provider         = "CodeCommit"
+              + region           = (known after apply)
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+      + stage {
+          + name = "Build"
+
+          + action {
+              + category         = "Build"
+              + configuration    = {
+                  + "ProjectName" = "dev-devops-cicd-aws-codebuild"
+                }
+              + input_artifacts  = [
+                  + "source_output",
+                ]
+              + name             = "Build"
+              + output_artifacts = [
+                  + "build_output",
+                ]
+              + owner            = "AWS"
+              + provider         = "CodeBuild"
+              + region           = (known after apply)
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+      + stage {
+          + name = "Deploy"
+
+          + action {
+              + category        = "Deploy"
+              + configuration   = {
+                  + "ClusterName" = "dev-devops-cicd-aws-cluster"
+                  + "FileName"    = "imagedefinitions.json"
+                  + "ServiceName" = "dev-devops-cicd-aws-service"
+                }
+              + input_artifacts = [
+                  + "build_output",
+                ]
+              + name            = "Deploy"
+              + owner           = "AWS"
+              + provider        = "ECS"
+              + region          = (known after apply)
+              + run_order       = (known after apply)
+              + version         = "1"
+            }
+        }
+    }
+
+  # aws_ecr_repository.repository will be created
+  + resource "aws_ecr_repository" "repository" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "dev-devops-cicd-aws-ecr"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.cluster will be created
+  + resource "aws_ecs_cluster" "cluster" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "dev-devops-cicd-aws-cluster"
+      + region   = "us-east-1"
+      + tags     = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.service will be created
+  + resource "aws_ecs_service" "service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 2
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "dev-devops-cicd-aws-service"
+      + platform_version                   = "LATEST"
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + load_balancer {
+          + container_name   = "dev-devops-cicd-aws-container"
+          + container_port   = 80
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.task_definition will be created
+  + resource "aws_ecs_task_definition" "task_definition" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + essential    = true
+                  + image        = "000000000000.dkr.ecr.us-east-1.amazonaws.com/dev-devops-cicd-aws-ecr:latest"
+                  + name         = "dev-devops-cicd-aws-container"
+                  + portMappings = [
+                      + {
+                          + appProtocol   = "http"
+                          + containerPort = 80
+                          + hostPort      = 80
+                          + name          = "devops-cicd-aws-80-tcp"
+                          + protocol      = "tcp"
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "512"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = "arn:aws:iam::000000000000:role/ecsTaskExecutionRole"
+      + family                   = "dev-devops-cicd-aws-task-definition"
+      + id                       = (known after apply)
+      + memory                   = "1024"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + task_role_arn            = "arn:aws:iam::000000000000:role/ecsTaskExecutionRole"
+      + track_latest             = false
+
+      + runtime_platform {
+          + cpu_architecture        = "X86_64"
+          + operating_system_family = "LINUX"
+        }
+    }
+
+  # aws_iam_policy.codebuild will be created
+  + resource "aws_iam_policy" "codebuild" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Policy used by codebuild for devops-cicd-aws project"
+      + id               = (known after apply)
+      + name             = "dev-devops-cicd-aws-codebuild-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+    }
+
+  # aws_iam_policy.codepipeline will be created
+  + resource "aws_iam_policy" "codepipeline" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Policy used by codepipeline for devops-cicd-aws project"
+      + id               = (known after apply)
+      + name             = "dev-devops-cicd-aws-codepipeline-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "iam:PassRole"
+                      + Condition = {
+                          + StringEqualsIfExists = {
+                              + "iam:PassedToService" = [
+                                  + "cloudformation.amazonaws.com",
+                                  + "elasticbeanstalk.amazonaws.com",
+                                  + "ec2.amazonaws.com",
+                                  + "ecs-tasks.amazonaws.com",
+                                ]
+                            }
+                        }
+                      + Effect    = "Allow"
+                      + Resource  = "*"
+                    },
+                  + {
+                      + Action   = [
+                          + "codecommit:UploadArchive",
+                          + "codecommit:GetUploadArchiveStatus",
+                          + "codecommit:GetRepository",
+                          + "codecommit:GetCommit",
+                          + "codecommit:GetBranch",
+                          + "codecommit:CancelUploadArchive",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:codecommit:us-east-1:000000000000:dev-devops-cicd-aws-codecommit"
+                    },
+                  + {
+                      + Action   = [
+                          + "s3:*",
+                          + "ecs:*",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                  + {
+                      + Action   = [
+                          + "codebuild:StartBuildBatch",
+                          + "codebuild:StartBuild",
+                          + "codebuild:BatchGetBuilds",
+                          + "codebuild:BatchGetBuildBatches",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:codebuild:us-east-1:000000000000:project/dev-devops-cicd-aws-codebuild"
+                    },
+                  + {
+                      + Action   = "ecr:DescribeImages"
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+    }
+
+  # aws_iam_policy.codepipeline_target_policy will be created
+  + resource "aws_iam_policy" "codepipeline_target_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Policy used by cloudwatch event target for codepipeline event rule for devops-cicd-aws project"
+      + id               = (known after apply)
+      + name             = "dev-devops-cicd-aws-codepipeline-target-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = "codepipeline:StartPipelineExecution"
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:codepipeline:us-east-1:000000000000:dev-devops-cicd-aws-codepipeline"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+    }
+
+  # aws_iam_role.codebuild will be created
+  + resource "aws_iam_role" "codebuild" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codebuild.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "dev-devops-cicd-aws-codebuild-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.codepipeline will be created
+  + resource "aws_iam_role" "codepipeline" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codepipeline.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "dev-devops-cicd-aws-codepipeline-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.codepipeline_target_rule will be created
+  + resource "aws_iam_role" "codepipeline_target_rule" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "events.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "dev-devops-cicd-aws-codepipeline-target-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.codebuild will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "dev-devops-cicd-aws-codebuild-role"
+    }
+
+  # aws_iam_role_policy_attachment.codepipeline will be created
+  + resource "aws_iam_role_policy_attachment" "codepipeline" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "dev-devops-cicd-aws-codepipeline-role"
+    }
+
+  # aws_iam_role_policy_attachment.codepipeline_target will be created
+  + resource "aws_iam_role_policy_attachment" "codepipeline_target" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "dev-devops-cicd-aws-codepipeline-target-role"
+    }
+
+  # aws_lb.alb will be created
+  + resource "aws_lb" "alb" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = "ipv4"
+      + load_balancer_type                                           = "application"
+      + name                                                         = "dev-devops-cicd-aws-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all                                                     = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.lb_listener will be created
+  + resource "aws_lb_listener" "lb_listener" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags                                                                  = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all                                                              = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.alb_tg will be created
+  + resource "aws_lb_target_group" "alb_tg" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = "ipv4"
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "dev-devops-cicd-aws-alb-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = "HTTP1"
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags                               = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = "vpc-00000000"
+
+      + health_check (known after apply)
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_s3_bucket.codepipeline will be created
+  + resource "aws_s3_bucket" "codepipeline" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "dev-devops-cicd-aws-codepipeline-bucket"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.codepipeline will be created
+  + resource "aws_s3_bucket_public_access_block" "codepipeline" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_security_group.alb_sg will be created
+  + resource "aws_security_group" "alb_sg" {
+      + arn                    = (known after apply)
+      + description            = "Sg for the ALB"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "dev-devops-cicd-aws-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "dev"
+          + "Name"        = "dev-devops-cicd-aws-alb-sg"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "Name"        = "dev-devops-cicd-aws-alb-sg"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group.ecs_service_sg will be created
+  + resource "aws_security_group" "ecs_service_sg" {
+      + arn                    = (known after apply)
+      + description            = "Sg for the ECS Service"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "dev-devops-cicd-aws-service-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "dev"
+          + "Name"        = "dev-devops-cicd-aws-alb-sg"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "Name"        = "dev-devops-cicd-aws-alb-sg"
+          + "Project"     = "devops-cicd-aws"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group_rule.alb_inbound will be created
+  + resource "aws_security_group_rule" "alb_inbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.alb_outbound will be created
+  + resource "aws_security_group_rule" "alb_outbound" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.service_inbound will be created
+  + resource "aws_security_group_rule" "service_inbound" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.service_outbound_https will be created
+  + resource "aws_security_group_rule" "service_outbound_https" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + region                   = "us-east-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+Plan: 29 to add, 0 to change, 0 to destroy.
+
+Warning: Deprecated attribute
+
+  on locals.tf line 5, in locals:
+   5:   region       = data.aws_region.current.name
+
+The attribute "name" is deprecated. Refer to the provider documentation for
+details.

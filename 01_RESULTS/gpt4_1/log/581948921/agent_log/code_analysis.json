@@ -1,0 +1,51 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell"
+      ],
+      "frameworks": [
+        "MkDocs"
+      ],
+      "dependencies": [
+        "mkdocs (requirements.txt)",
+        "mkdocs-terminal (requirements.txt)",
+        "pymdown-extensions (requirements.txt)",
+        "mkdocs-git-revision-date-plugin (requirements.txt)",
+        "mkdocs-markdown-filter (requirements.txt)",
+        "mkdocs-macros-plugin (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "Makefile",
+        "requirements.txt",
+        "mkdocs.yml"
+      ],
+      "architectural_resources": [
+        "Static site (MkDocs documentation site)",
+        "S3 bucket for artifact storage (from Makefile)",
+        "Docker containers (from docker-compose.yml)"
+      ]
+    },
+    {
+      "project_directory": "infra",
+      "programming_languages": [
+        "Shell"
+      ],
+      "frameworks": [
+        "Terraform"
+      ],
+      "dependencies": [
+        "terraform (infra/Makefile)"
+      ],
+      "deployment_relevant_files": [
+        "infra/Makefile"
+      ],
+      "architectural_resources": [
+        "Terraform-managed AWS resources (e.g., S3 bucket for state, inferred from Makefile and modules)"
+      ]
+    }
+  ]
+}

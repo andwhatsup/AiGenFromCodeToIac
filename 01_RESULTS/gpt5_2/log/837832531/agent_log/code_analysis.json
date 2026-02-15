@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Nginx (static web serving via Docker image)"
+      ],
+      "dependencies": [
+        "No package manager dependencies detected (no package.json/requirements.txt/etc. found).",
+        "External CDN assets referenced in index.html: Font Awesome CSS (cdnjs) and Google Fonts (fonts.googleapis.com)."
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml (Kubernetes Deployment)",
+        "service.yaml (Kubernetes Service type LoadBalancer with AWS ALB annotations)",
+        "manifests/app-deploy.yaml (Kubernetes Deployment)",
+        "manifests/app-svc.yaml (Kubernetes Service type LoadBalancer)",
+        "Jenkinsfile (CI/CD pipeline; references docker/kubectl/terraform/trivy/sonar-scanner)",
+        "/.github/workflows/docker-image.yml (GitHub Actions build)",
+        "/.github/workflows/docker-publish.yml (GitHub Actions build+push+sign to GHCR)"
+      ],
+      "architectural_resources": [
+        "Static web application (Battery Indicator UI) served by Nginx container",
+        "Container image registry (Docker Hub: yash5090/btry-indi:latest; GitHub Container Registry via workflow)",
+        "Kubernetes cluster resources: Deployment (replicas 3/6), Service (LoadBalancer)",
+        "External load balancer (cloud provider LB; AWS ALB implied by service annotations in service.yaml)",
+        "CI/CD resources: Jenkins pipeline; GitHub Actions workflows",
+        "Security/scanning tooling implied by Jenkinsfile: SonarQube, OWASP Dependency-Check, Trivy, Docker Scout",
+        "(Optional/Implied) Terraform usage for infrastructure provisioning (terraform referenced in Jenkinsfile; EKS-Terraform folder contains only logs)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "No Terraform source (*.tf) detected in this directory; only validation output logs present, so no concrete infrastructure resources can be derived from code here."
+      ]
+    }
+  ]
+}

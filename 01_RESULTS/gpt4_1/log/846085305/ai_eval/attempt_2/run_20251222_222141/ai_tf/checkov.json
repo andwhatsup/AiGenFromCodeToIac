@@ -1,0 +1,1341 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudwatch.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/cloudwatch.tf",
+                "repo_file_path": "/cloudwatch.tf",
+                "file_line_range": [
+                    1,
+                    4
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/cloudwatch.tf"
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudwatch.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/cloudwatch.tf",
+                "repo_file_path": "/cloudwatch.tf",
+                "file_line_range": [
+                    1,
+                    4
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/cloudwatch.tf"
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_instance.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "influxdb_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_instance.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "influxdb_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_instance.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "influxdb_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_instance.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "influxdb_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    24,
+                    45
+                ],
+                "resource": "aws_instance.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "grafana_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    24,
+                    45
+                ],
+                "resource": "aws_instance.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "grafana_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    24,
+                    45
+                ],
+                "resource": "aws_instance.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "grafana_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/influxdb_grafana.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "repo_file_path": "/influxdb_grafana.tf",
+                "file_line_range": [
+                    24,
+                    45
+                ],
+                "resource": "aws_instance.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/influxdb_grafana.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "grafana_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_50",
+                "bc_check_id": "BC_AWS_SERVERLESS_4",
+                "check_name": "X-Ray tracing is enabled for Lambda",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_config/[0]/mode"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_lambda_function.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaXrayEnabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-4",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "breadcrumbs": {
+                    "environment.variables.INFLUXDB_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "image_uri": [
+                        {
+                            "type": "tfvar",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.TUYA_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_116",
+                "bc_check_id": "BC_AWS_GENERAL_64",
+                "check_name": "Ensure that AWS Lambda function is configured for a Dead Letter Queue(DLQ)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "dead_letter_config/[0]/target_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_lambda_function.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaDLQConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-a-dead-letter-queue-dlq",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "breadcrumbs": {
+                    "environment.variables.INFLUXDB_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "image_uri": [
+                        {
+                            "type": "tfvar",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.TUYA_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_173",
+                "bc_check_id": "BC_AWS_SERVERLESS_5",
+                "check_name": "Check encryption settings for Lambda environmental variable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_lambda_function.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaEnvironmentEncryptionSettings",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-5",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "breadcrumbs": {
+                    "environment.variables.INFLUXDB_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "image_uri": [
+                        {
+                            "type": "tfvar",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.TUYA_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_272",
+                "bc_check_id": "BC_AWS_General_201",
+                "check_name": "Ensure AWS Lambda function is configured to validate code-signing",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "code_signing_config_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_lambda_function.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaCodeSigningConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-272",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "breadcrumbs": {
+                    "environment.variables.INFLUXDB_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "image_uri": [
+                        {
+                            "type": "tfvar",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.TUYA_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_115",
+                "bc_check_id": "BC_AWS_GENERAL_63",
+                "check_name": "Ensure that AWS Lambda function is configured for function-level concurrent execution limit",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "reserved_concurrent_executions/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    1,
+                    22
+                ],
+                "resource": "aws_lambda_function.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaFunctionLevelConcurrentExecutionLimit",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-function-level-concurrent-execution-limit",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/lambda.tf",
+                "breadcrumbs": {
+                    "environment.variables.INFLUXDB_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "influxdb_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "image_uri": [
+                        {
+                            "type": "tfvar",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "lambda_image_uri",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.TUYA_SECRET_ARN": [
+                        {
+                            "type": "tfvar",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tuya_secret_arn",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_149",
+                "bc_check_id": "BC_AWS_GENERAL_79",
+                "check_name": "Ensure that Secrets Manager secret is encrypted using KMS CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/secrets_manager.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/secrets_manager.tf",
+                "repo_file_path": "/secrets_manager.tf",
+                "file_line_range": [
+                    1,
+                    4
+                ],
+                "resource": "aws_secretsmanager_secret.tuya",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecretManagerSecretEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-secrets-manager-secret-is-encrypted-using-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/secrets_manager.tf"
+            },
+            {
+                "check_id": "CKV_AWS_149",
+                "bc_check_id": "BC_AWS_GENERAL_79",
+                "check_name": "Ensure that Secrets Manager secret is encrypted using KMS CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/secrets_manager.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/secrets_manager.tf",
+                "repo_file_path": "/secrets_manager.tf",
+                "file_line_range": [
+                    6,
+                    9
+                ],
+                "resource": "aws_secretsmanager_secret.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecretManagerSecretEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-secrets-manager-secret-is-encrypted-using-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/secrets_manager.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    1,
+                    16
+                ],
+                "resource": "aws_security_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "lambda-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    1,
+                    16
+                ],
+                "resource": "aws_security_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "lambda-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]",
+                        "ingress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    18,
+                    40
+                ],
+                "resource": "aws_security_group.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    18,
+                    40
+                ],
+                "resource": "aws_security_group.influxdb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "influxdb-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]",
+                        "ingress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    42,
+                    64
+                ],
+                "resource": "aws_security_group.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    42,
+                    64
+                ],
+                "resource": "aws_security_group.grafana",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "grafana-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/vpc.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/vpc.tf",
+                "repo_file_path": "/vpc.tf",
+                "file_line_range": [
+                    17,
+                    26
+                ],
+                "resource": "aws_subnet.public[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "public-subnet-${0 + 1}"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/vpc.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 38,
+        "failed": 24,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 26,
+        "checkov_version": "3.2.490"
+    }
+}

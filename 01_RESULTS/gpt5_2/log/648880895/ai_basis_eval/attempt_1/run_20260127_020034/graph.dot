@@ -1,0 +1,17 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.workshop" [label="aws_s3_bucket.workshop"];
+  "aws_s3_bucket_ownership_controls.workshop" [label="aws_s3_bucket_ownership_controls.workshop"];
+  "aws_s3_bucket_public_access_block.workshop" [label="aws_s3_bucket_public_access_block.workshop"];
+  "aws_s3_bucket_server_side_encryption_configuration.workshop" [label="aws_s3_bucket_server_side_encryption_configuration.workshop"];
+  "aws_s3_bucket_versioning.workshop" [label="aws_s3_bucket_versioning.workshop"];
+  "aws_s3_object.sample_image" [label="aws_s3_object.sample_image"];
+  "random_id.bucket_suffix" [label="random_id.bucket_suffix"];
+  "aws_s3_bucket.workshop" -> "random_id.bucket_suffix";
+  "aws_s3_bucket_ownership_controls.workshop" -> "aws_s3_bucket.workshop";
+  "aws_s3_bucket_public_access_block.workshop" -> "aws_s3_bucket.workshop";
+  "aws_s3_bucket_server_side_encryption_configuration.workshop" -> "aws_s3_bucket.workshop";
+  "aws_s3_bucket_versioning.workshop" -> "aws_s3_bucket.workshop";
+  "aws_s3_object.sample_image" -> "aws_s3_bucket_ownership_controls.workshop";
+}

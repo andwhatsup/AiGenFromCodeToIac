@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_iam_policy_document.lambda_assume_role" [label="data.aws_iam_policy_document.lambda_assume_role"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.reminder_bot" [label="aws_lambda_function.reminder_bot"];
+  "aws_iam_role.lambda_exec" -> "data.aws_iam_policy_document.lambda_assume_role";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.reminder_bot" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.reminder_bot" -> "aws_iam_role.lambda_exec";
+}

@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This architecture is designed for a containerized Node.js (Express) web application, following AWS best practices for scalability, security, and maintainability. The application is built into a Docker container, stored in AWS ECR, and deployed to AWS ECS (Fargate or EC2 launch type) for managed container orchestration. Infrastructure is provisioned using Terraform for repeatability and automation. Logs are centralized in CloudWatch for monitoring and troubleshooting. Networking is secured with a dedicated VPC, public/private subnets, and security groups. IAM roles and policies ensure least-privilege access for ECS tasks and other AWS services. The architecture is suitable for stateless web applications and can be extended with load balancing, HTTPS, and autoscaling as needed.\n\n**Key Components:**\n- The Node.js Express app is containerized and built via Docker.\n- The container image is pushed to AWS ECR (Elastic Container Registry).\n- AWS ECS (Elastic Container Service) runs the container as a service, managing scaling and health.\n- ECS Tasks pull the image from ECR and run the app.\n- Application logs are sent to AWS CloudWatch Logs for centralized monitoring.\n- All infrastructure (ECS, ECR, CloudWatch, networking) is provisioned and managed via Terraform.\n- The architecture includes foundational AWS resources: VPC, subnets, security groups, IAM roles/policies, and optionally an Application Load Balancer (ALB) for public access.\n\n**Deployment Flow:**\n1. Developer builds and pushes the Docker image to ECR.\n2. Terraform provisions the AWS infrastructure.\n3. ECS Service pulls the image from ECR and runs it as ECS Tasks.\n4. ECS Tasks send logs to CloudWatch Logs.\n5. (Optional) ALB routes external traffic to ECS Tasks if public access is required.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (for ALB, if public access is needed)",
+    "Private Subnets (for ECS tasks)",
+    "Internet Gateway (for public subnets)",
+    "NAT Gateway (for outbound internet from private subnets, if needed)",
+    "Route Tables (public and private)",
+    "Security Groups (for ALB, ECS tasks)",
+    "IAM Roles and Policies (for ECS tasks, ECR access, CloudWatch logging)",
+    "ECR Repository (for container images)",
+    "ECS Cluster",
+    "ECS Task Definition (specifying container image, resources, logging)",
+    "ECS Service (to manage task scaling and health)",
+    "CloudWatch Log Group (for application logs)",
+    "(Optional) Application Load Balancer (ALB)",
+    "(Optional) Target Group (for ALB to ECS service)"
+  ]
+}

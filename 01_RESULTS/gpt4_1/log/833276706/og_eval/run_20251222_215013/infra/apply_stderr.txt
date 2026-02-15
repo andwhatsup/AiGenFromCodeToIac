@@ -1,0 +1,21 @@
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/live-orders-dev-alb/1d2f6a32c4e38c92) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: 3eb1d9bd-3f5d-41b8-a02c-e3c5dad6071e, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.ecs_alb,
+  on alb.tf line 1, in resource "aws_lb" "ecs_alb":
+   1: resource "aws_lb" "ecs_alb" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.ecs_alb,
+  on alb.tf line 1, in resource "aws_lb" "ecs_alb":
+   1: resource "aws_lb" "ecs_alb" {
+
+
+Error: creating S3 Bucket (live-orders-327498361889): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://live-orders-327498361889.localhost:4566/": dial tcp: lookup live-orders-327498361889.localhost: no such host
+
+  with aws_s3_bucket.live_orders_bucket,
+  on s3.tf line 1, in resource "aws_s3_bucket" "live_orders_bucket":
+   1: resource "aws_s3_bucket" "live_orders_bucket" {
+

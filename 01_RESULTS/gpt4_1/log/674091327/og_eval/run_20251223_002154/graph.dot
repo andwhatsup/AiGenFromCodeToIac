@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "kubernetes_deployment.app_deployment" [label="kubernetes_deployment.app_deployment"];
+  "kubernetes_ingress_v1.app_ingress" [label="kubernetes_ingress_v1.app_ingress"];
+  "kubernetes_namespace.app_namespace" [label="kubernetes_namespace.app_namespace"];
+  "kubernetes_service.app_service" [label="kubernetes_service.app_service"];
+  "kubernetes_deployment.app_deployment" -> "kubernetes_namespace.app_namespace";
+  "kubernetes_ingress_v1.app_ingress" -> "kubernetes_service.app_service";
+  "kubernetes_service.app_service" -> "kubernetes_namespace.app_namespace";
+}

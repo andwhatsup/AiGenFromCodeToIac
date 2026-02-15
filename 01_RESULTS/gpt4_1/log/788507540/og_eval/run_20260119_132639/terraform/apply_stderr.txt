@@ -1,0 +1,7 @@
+
+Error: command "docker run --name demo-local-control-plane --hostname demo-local-control-plane --label io.x-k8s.kind.role=control-plane --privileged --security-opt seccomp=unconfined --security-opt apparmor=unconfined --tmpfs /tmp --tmpfs /run --volume /var --volume /lib/modules:/lib/modules:ro -e KIND_EXPERIMENTAL_CONTAINERD_SNAPSHOTTER --detach --tty --label io.x-k8s.kind.cluster=demo-local --net kind --restart=on-failure:1 --init=false --cgroupns=private --volume=/ai-code-generation-from-code-to-iac/workspace/788507540/terraform/kind-patches:/patches --publish=0.0.0.0:80:80/TCP --publish=0.0.0.0:443:443/TCP --publish=0.0.0.0:30443:30443/TCP --publish=0.0.0.0:30080:30080/TCP --publish=0.0.0.0:30021:30021/TCP --publish=127.0.0.1:53759:6443/TCP -e KUBECONFIG=/etc/kubernetes/admin.conf kindest/node:v1.27.3@sha256:3966ac761ae0136263ffdb6cfd4db23ef8a83cba8a463690e98317add2c9ba72" failed with error: exit status 125
+
+  with kind_cluster.new,
+  on 2-kind-cluster.tf line 1, in resource "kind_cluster" "new":
+   1: resource "kind_cluster" "new" {
+

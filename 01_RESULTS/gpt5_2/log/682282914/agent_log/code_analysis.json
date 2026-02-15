@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/682282914",
+      "programming_languages": [
+        "Python",
+        "Shell",
+        "HTML"
+      ],
+      "frameworks": [
+        "Flask (Python web framework)"
+      ],
+      "dependencies": [
+        "Flask==2.2.3 (from /requirements.txt)",
+        "boto3==1.21.33 (from /requirements.txt)",
+        "localstack/localstack Docker image (from /docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile (builds and runs Flask app via `flask run`)",
+        "/docker-compose.yml (runs LocalStack + Flask service)",
+        "/requirements.txt (Python dependencies)",
+        "/demo.sh (demo script for docker-compose + tflocal/awslocal workflow)",
+        "/install-dependencies.sh (installs terraform-local and awscli-local)"
+      ],
+      "architectural_resources": [
+        "Flask web application/API (containerized)",
+        "S3-compatible object storage (AWS S3 simulated via LocalStack; bucket `versionedexample` used by app)",
+        "S3 bucket with object versioning behavior (implied by use of `VersionId` in get_object and demo instructions)",
+        "LocalStack service (local AWS cloud emulator)",
+        "Docker network `s3demo` (from docker-compose.yml)"
+      ]
+    }
+  ]
+}

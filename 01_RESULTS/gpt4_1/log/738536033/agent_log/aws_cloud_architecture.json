@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture is designed to securely and efficiently deploy a Python web application built with Dash and Flask, leveraging AWS managed services for scalability, reliability, and ease of management. The main components and their relationships are as follows:\n\n1. **VPC (Virtual Private Cloud):** Provides network isolation and control over networking resources. The Elastic Beanstalk environment will be deployed within this VPC.\n2. **Subnets (Public and Private):** Public subnets for load balancers and private subnets for application instances, following AWS best practices for security and scalability.\n3. **Internet Gateway:** Allows internet access for resources in public subnets (e.g., load balancer).\n4. **NAT Gateway:** Enables instances in private subnets to access the internet for updates and package downloads without exposing them directly.\n5. **Elastic Beanstalk Environment (Python Platform):** Manages the deployment, scaling, and health of the Dash/Flask web application. It provisions EC2 instances, an Application Load Balancer, and handles rolling updates.\n6. **EC2 Instances (Managed by Beanstalk):** Run the Python web application. These are automatically managed (created, scaled, replaced) by Elastic Beanstalk.\n7. **Application Load Balancer:** Distributes incoming HTTP/HTTPS traffic to the EC2 instances running the web application.\n8. **AWS S3 Bucket:** Used for storing static assets, user uploads, or application data. The web application interacts with S3 for data storage and retrieval.\n9. **IAM Roles and Policies:** Securely grant the web application permissions to access S3 and other AWS resources as needed. Includes an instance profile for EC2 instances and service roles for Beanstalk.\n10. **Security Groups:** Control inbound and outbound traffic to the EC2 instances and load balancer, allowing only necessary ports (e.g., 80, 443).\n11. **CloudWatch Logs and Alarms:** Monitor application logs, environment health, and set up alarms for key metrics (e.g., high error rates, CPU utilization).\n12. **(Optional) Route 53:** For custom domain management and DNS routing to the load balancer.\n\nThis architecture ensures the application is scalable, secure, and follows AWS best practices. Elastic Beanstalk abstracts much of the infrastructure management, while foundational AWS resources (networking, IAM, monitoring) provide a robust and secure environment.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Elastic Beanstalk Environment (Python Platform)",
+    "EC2 Instances (managed by Beanstalk)",
+    "Application Load Balancer",
+    "AWS S3 Bucket",
+    "IAM Roles and Policies (for EC2/Beanstalk to access S3)",
+    "Security Groups (for EC2 and Load Balancer)",
+    "CloudWatch Logs",
+    "CloudWatch Alarms",
+    "(Optional) Route 53 Hosted Zone and DNS Records"
+  ]
+}

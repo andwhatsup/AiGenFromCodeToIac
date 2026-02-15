@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 4.0\"\n    }\n  }\n  required_version = \">= 1.3.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"lambda_function_name\" {\n  description = \"Name for the Lambda function.\"\n  type        = string\n  default     = \"rust-lambda-function\"\n}\n\nvariable \"lambda_s3_bucket\" {\n  description = \"S3 bucket to store Lambda deployment artifacts.\"\n  type        = string\n  default     = null\n}\n\nvariable \"lambda_s3_key\" {\n  description = \"S3 key for the Lambda deployment artifact.\"\n  type        = string\n  default     = \"lambda.zip\"\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"random_id\" \"suffix\" {\n  byte_length = 4\n}\n\nresource \"aws_s3_bucket\" \"lambda_artifacts\" {\n  bucket = coalesce(var.lambda_s3_bucket, \"rust-lambda-artifacts-${random_id.suffix.hex}\")\n  force_destroy = true\n\n  tags = {\n    Name = \"LambdaArtifacts\"\n  }\n}\n\nresource \"aws_s3_bucket_versioning\" \"lambda_artifacts\" {\n  bucket = aws_s3_bucket.lambda_artifacts.id\n  versioning_configuration {\n    status = \"Enabled\"\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"lambda_artifacts\" {\n  bucket = aws_s3_bucket.lambda_artifacts.id\n  block_public_acls       = true\n  block_public_policy     = true\n  ignore_public_acls      = true\n  restrict_public_buckets = true\n}\n\nresource \"aws_iam_role\" \"lambda_exec\" {\n  name = \"lambda_exec_role-${random_id.suffix.hex}\"\n  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json\n}\n\ndata \"aws_iam_policy_document\" \"lambda_assume_role\" {\n  statement {\n    actions = [\"sts:AssumeRole\"]\n    principals {\n      type        = \"Service\"\n      identifiers = [\"lambda.amazonaws.com\"]\n    }\n  }\n}\n\nresource \"aws_iam_role_policy_attachment\" \"lambda_basic_execution\" {\n  role       = aws_iam_role.lambda_exec.name\n  policy_arn = \"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole\"\n}\n\nresource \"aws_iam_role_policy\" \"lambda_s3_read\" {\n  name = \"lambda_s3_read_policy-${random_id.suffix.hex}\"\n  role = aws_iam_role.lambda_exec.id\n  policy = data.aws_iam_policy_document.lambda_s3_read.json\n}\n\ndata \"aws_iam_policy_document\" \"lambda_s3_read\" {\n  statement {\n    actions = [\n      \"s3:GetObject\"\n    ]\n    resources = [\n      \"${aws_s3_bucket.lambda_artifacts.arn}/*\"\n    ]\n  }\n}\n\nresource \"aws_lambda_function\" \"rust_lambda\" {\n  function_name = var.lambda_function_name\n  s3_bucket     = aws_s3_bucket.lambda_artifacts.id\n  s3_key        = var.lambda_s3_key\n  handler       = \"bootstrap\"\n  runtime       = \"provided.al2\"\n  role          = aws_iam_role.lambda_exec.arn\n  source_code_hash = filebase64sha256(\"../infra/lambda.zip\")\n\n  environment {\n    variables = {\n      RUST_BACKTRACE = \"1\"\n    }\n  }\n\n  depends_on = [aws_iam_role_policy.lambda_s3_read]\n}\n\nresource \"aws_cloudwatch_log_group\" \"lambda\" {\n  name              = \"/aws/lambda/${aws_lambda_function.rust_lambda.function_name}\"\n  retention_in_days = 14\n}"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"lambda_function_name\" {\n  description = \"The name of the Lambda function.\"\n  value       = aws_lambda_function.rust_lambda.function_name\n}\n\noutput \"lambda_function_arn\" {\n  description = \"The ARN of the Lambda function.\"\n  value       = aws_lambda_function.rust_lambda.arn\n}\n\noutput \"lambda_invoke_arn\" {\n  description = \"The ARN to be used for invoking the Lambda function.\"\n  value       = aws_lambda_function.rust_lambda.invoke_arn\n}\n\noutput \"lambda_s3_bucket\" {\n  description = \"The S3 bucket storing Lambda deployment artifacts.\"\n  value       = aws_s3_bucket.lambda_artifacts.id\n}\n"
+    },
+    {
+      "name": "terraform.tfvars",
+      "content": "aws_region = \"us-east-1\"\nlambda_function_name = \"rust-lambda-function\"\nlambda_s3_key = \"lambda.zip\"\n"
+    }
+  ]
+}

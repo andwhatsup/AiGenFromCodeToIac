@@ -1,0 +1,90 @@
+data.aws_availability_zones.available: Reading...
+aws_cloudwatch_log_group.admin: Refreshing state... [id=/ecs/dynamodb-admin]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:eu-central-1:000000000000:cluster/dynamodb-admin-cluster]
+aws_iam_role.task_execution: Refreshing state... [id=dynamodb-admin-task-exec]
+aws_iam_role.task: Refreshing state... [id=dynamodb-admin-task]
+aws_eip.nat: Refreshing state... [id=eipalloc-3aab5fe85b545f1ea]
+aws_vpc.this: Refreshing state... [id=vpc-7a8d7e99ece110671]
+aws_dynamodb_table.this: Refreshing state... [id=example-table]
+data.aws_availability_zones.available: Read complete after 0s [id=eu-central-1]
+aws_iam_role_policy_attachment.task_execution: Refreshing state... [id=dynamodb-admin-task-exec-20260127083233063500000001]
+aws_ecs_task_definition.admin: Refreshing state... [id=dynamodb-admin]
+aws_route_table.private: Refreshing state... [id=rtb-f6e698b0d2319ce67]
+aws_route_table.public: Refreshing state... [id=rtb-83b00fc1651233649]
+aws_internet_gateway.this: Refreshing state... [id=igw-1f4bce36266529ab3]
+aws_subnet.private["eu-central-1a"]: Refreshing state... [id=subnet-ab3248fb424329ac3]
+aws_subnet.public["eu-central-1a"]: Refreshing state... [id=subnet-b93582c2eee6662eb]
+aws_subnet.public["eu-central-1b"]: Refreshing state... [id=subnet-60c3f1fe4a27e34df]
+aws_lb_target_group.admin: Refreshing state... [id=arn:aws:elasticloadbalancing:eu-central-1:000000000000:targetgroup/dynamodb-admin-tg/b4165b611683c36d]
+aws_subnet.private["eu-central-1b"]: Refreshing state... [id=subnet-d01652b9a1eb4f10a]
+aws_security_group.alb: Refreshing state... [id=sg-043e519643f446faa]
+aws_route.public_inet: Refreshing state... [id=r-rtb-83b00fc16512336491080289494]
+aws_route_table_association.public["eu-central-1a"]: Refreshing state... [id=rtbassoc-1275a73e9b96315f0]
+aws_route_table_association.public["eu-central-1b"]: Refreshing state... [id=rtbassoc-a2bcea2ea5b8dad8d]
+aws_nat_gateway.this: Refreshing state... [id=nat-dca6ba86054f0f077]
+aws_route_table_association.private["eu-central-1a"]: Refreshing state... [id=rtbassoc-1191f664e17674997]
+aws_route_table_association.private["eu-central-1b"]: Refreshing state... [id=rtbassoc-7b4196958faec5daf]
+aws_security_group.ecs: Refreshing state... [id=sg-416a0be26f9d9e514]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:eu-central-1:000000000000:loadbalancer/app/dynamodb-admin-alb/df564fc5c77c751b]
+aws_route.private_nat: Refreshing state... [id=r-rtb-f6e698b0d2319ce671080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:eu-central-1:000000000000:listener/app/dynamodb-admin-alb/df564fc5c77c751b/40efb3d0585ffcce]
+aws_iam_role_policy.task_dynamodb: Refreshing state... [id=dynamodb-admin-task:dynamodb-admin-task-dynamodb]
+aws_ecs_service.admin: Refreshing state... [id=arn:aws:ecs:eu-central-1:000000000000:service/dynamodb-admin-cluster/dynamodb-admin-svc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.admin will be updated in-place
+  ~ resource "aws_ecs_service" "admin" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:eu-central-1:000000000000:service/dynamodb-admin-cluster/dynamodb-admin-svc"
+        name                               = "dynamodb-admin-svc"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:eu-central-1:000000000000:task-definition/dynamodb-admin:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.admin must be replaced
+-/+ resource "aws_ecs_task_definition" "admin" {
+      ~ arn                      = "arn:aws:ecs:eu-central-1:000000000000:task-definition/dynamodb-admin:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:eu-central-1:000000000000:task-definition/dynamodb-admin" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                  - mountPoints      = []
+                    name             = "dynamodb-admin"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 27464
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (4 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "dynamodb-admin" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:eu-central-1:000000000000:listener/app/dynamodb-admin-alb/df564fc5c77c751b/40efb3d0585ffcce"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.

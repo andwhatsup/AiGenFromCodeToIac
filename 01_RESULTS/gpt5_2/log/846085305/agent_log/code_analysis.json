@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS Lambda runtime (container image)"
+      ],
+      "dependencies": [
+        "tinytuya==1.14.0 (requirements.txt)",
+        "influxdb-client==1.43.0 (requirements.txt)",
+        "requests==2.27.1 (requirements.txt, transitive/used by tinytuya)",
+        "cryptography==42.0.8 (requirements.txt, used by TLS/auth libs)",
+        "reactivex==4.0.4 (requirements.txt, influxdb-client dependency)",
+        "python-dateutil==2.9.0.post0 (requirements.txt)",
+        "Sphinx==4.5.0 and sphinx-* packages (requirements.txt; documentation tooling)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (AWS Lambda container image; CMD main.handler)",
+        "docker-compose.yaml (local/VM deployment of InfluxDB + Grafana)",
+        "main.py (Lambda handler and data pipeline logic)",
+        "requirements.txt (Python dependencies)",
+        "grafana/dashboard.json (Grafana dashboard definition)",
+        "ReadMe.md (deployment/run instructions)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (container-based) (inferred from Dockerfile base image public.ecr.aws/lambda/python:3.11 and handler signature in main.py)",
+        "Container image registry for Lambda image (e.g., AWS ECR) (implied by ReadMe.md instructions, though Terraform files are not present in this repo snapshot)",
+        "Tuya Cloud API integration (tinytuya.Cloud; requires TUYA_APIKEY/TUYA_APISECRET/TUYA_APISREGION env vars in main.py)",
+        "InfluxDB 2.x instance (docker-compose.yaml service influxdb; main.py writes to InfluxDB via INFLUXDB_URL/TOKEN/ORG/BUCKET env vars)",
+        "Grafana instance (docker-compose.yaml service grafana; dashboard.json provided)",
+        "Persistent volumes for InfluxDB and Grafana data (docker-compose.yaml volumes influxdb-data, grafana-data)",
+        "Network connectivity from Lambda to InfluxDB endpoint (implied by ReadMe.md: InfluxDB hosted on VM with public internet access)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+
+Error: Failed to save state
+
+Error saving state: failed to upload state: operation error S3: PutObject,
+exceeded maximum number of attempts, 5, https response error StatusCode: 500,
+RequestID: ebe177d8-3a92-46d2-893a-100cac712514, HostID:
+s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=,
+api error InternalError: exception while calling s3 with unknown operation:
+Unable to parse request (not well-formed (invalid token): line 1, column 0),
+invalid XML received:
+b'{\n  "version": 4,\n  "terraform_version": "1.13.5",\n  "serial": 1,\n
+"lineage": "b90a2222-74c0-26cf-3872-04de8daad6de",\n  "outputs": {},\n
+"resources": [\n    {\n      "mode": "data",\n      "type": "archive_file",\n
+"name": "lambda_dummy",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/archive\\"]",\n
+"instances": [\n        {\n          "schema_version": 0,\n
+"attributes": {\n            "exclude_symlink_directories": null,\n
+"excludes": null,\n            "id":
+"58e93fade67637870be5af38eff8d5aa66c7da49",\n
+"output_base64sha256": "wmbalFzzY/wG3ivChKElOZB3+B4gptmQyIat05p+fU4=",\n
+"output_base64sha512":
+"BQYAg1LwEY4tDmry1VoRx6StX0vjH+7LpfB5KAZLVvfJQjioPbBv1QxI6QF6P2U614fU3h9XKBCb9z5Y1ornqA==",\n
+"output_file_mode": null,\n            "output_md5":
+"a0dbd832a6a977d6d5b28ea5c85e30fb",\n            "output_path":
+"./.dummy/lambda.zip",\n            "output_sha":
+"58e93fade67637870be5af38eff8d5aa66c7da49",\n            "output_sha256":
+"c266da945cf363fc06de2bc284a125399077f81e20a6d990c886add39a7e7d4e",\n
+"output_sha512":
+"0506008352f0118e2d0e6af2d55a11c7a4ad5f4be31feecba5f07928064b56f7c94238a83db06fd50c48e9017a3f653ad787d4de1f5728109bf73e58d68ae7a8",\n
+"output_size": 246,\n            "source": [\n              {\n
+"content": "exports.handler = async (event) =\\u003e {\\n
+console.log(\\"Dummy lambda invoked\\");\\n  return { statusCode: 200, body:
+\\"dummy\\" };\\n};\\n",\n                "filename": "index.js"\n
+}\n            ],\n            "source_content": null,\n
+"source_content_filename": null,\n            "source_dir": null,\n
+"source_file": null,\n            "type": "zip"\n          },\n
+"sensitive_attributes": [],\n          "identity_schema_version": 0\n
+}\n      ]\n    },\n    {\n      "mode": "data",\n      "type":
+"aws_caller_identity",\n      "name": "current",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 0,\n          "attributes": {\n
+"account_id": "000000000000",\n            "arn":
+"arn:aws:iam::000000000000:root",\n            "id": "000000000000",\n
+"user_id": "AKIAIOSFODNN7EXAMPLE"\n          },\n
+"sensitive_attributes": [],\n          "identity_schema_version": 0\n
+}\n      ]\n    },\n    {\n      "mode": "managed",\n      "type":
+"aws_cloudwatch_event_rule",\n      "name": "reminder_bot_schedule",\n
+"provider": "provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n
+"instances": [\n        {\n          "schema_version": 1,\n
+"attributes": {\n            "arn":
+"arn:aws:events:eu-central-1:000000000000:rule/reminder-bot-schedule",\n
+"description": "Schedule rule for reminder bot Lambda function",\n
+"event_bus_name": "default",\n            "event_pattern": null,\n
+"force_destroy": false,\n            "id": "reminder-bot-schedule",\n
+"is_enabled": true,\n            "name": "reminder-bot-schedule",\n
+"name_prefix": "",\n            "role_arn": "",\n
+"schedule_expression": "cron(30 20 15,28 * ? *)",\n            "state":
+"ENABLED",\n            "tags": null,\n            "tags_all": {}\n
+},\n          "sensitive_attributes": [],\n
+"identity_schema_version": 0,\n          "private":
+"eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="\n        }\n      ]\n    },\n    {\n
+"mode": "managed",\n      "type": "aws_cloudwatch_event_target",\n
+"name": "reminder_bot_target",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 1,\n          "attributes": {\n
+"appsync_target": [],\n            "arn":
+"arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda",\n
+"batch_target": [],\n            "dead_letter_config": [],\n
+"ecs_target": [],\n            "event_bus_name": "default",\n
+"force_destroy": false,\n            "http_target": [],\n            "id":
+"reminder-bot-schedule-reminder-bot-lambda-target",\n            "input":
+"",\n            "input_path": "",\n            "input_transformer": [],\n
+"kinesis_target": [],\n            "redshift_target": [],\n
+"retry_policy": [],\n            "role_arn": "",\n            "rule":
+"reminder-bot-schedule",\n            "run_command_targets": [],\n
+"sagemaker_pipeline_target": [],\n            "sqs_target": [],\n
+"target_id": "reminder-bot-lambda-target"\n          },\n
+"sensitive_attributes": [],\n          "identity_schema_version": 0,\n
+"private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",\n          "dependencies": [\n
+"aws_cloudwatch_event_rule.reminder_bot_schedule",\n
+"aws_iam_role.lambda_execution_role",\n
+"aws_lambda_function.reminder_bot_lambda"\n          ]\n        }\n      ]\n
+},\n    {\n      "mode": "managed",\n      "type": "aws_iam_policy",\n
+"name": "lambda_policy",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 0,\n          "attributes": {\n
+"arn": "arn:aws:iam::000000000000:policy/reminder-bot-lambda-policy",\n
+"attachment_count": 0,\n            "description": "Policy for reminder bot
+lambda",\n            "id":
+"arn:aws:iam::000000000000:policy/reminder-bot-lambda-policy",\n
+"name": "reminder-bot-lambda-policy",\n            "name_prefix": "",\n
+"path": "/",\n            "policy":
+"{\\"Statement\\":[{\\"Action\\":[\\"logs:CreateLogGroup\\",\\"logs:CreateLogStream\\",\\"logs:PutLogEvents\\"],\\"Effect\\":\\"Allow\\",\\"Resource\\":\\"arn:aws:logs:*:*:*\\"},{\\"Action\\":[\\"lambda:InvokeFunction\\"],\\"Effect\\":\\"Allow\\",\\"Resource\\":\\"arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda\\"}],\\"Version\\":\\"2012-10-17\\"}",\n
+"policy_id": "AP5ULH21BSHIVN29IPR3N",\n            "tags": null,\n
+"tags_all": {}\n          },\n          "sensitive_attributes": [],\n
+"identity_schema_version": 0,\n          "private": "bnVsbA==",\n
+"dependencies": [\n            "aws_iam_role.lambda_execution_role",\n
+"aws_lambda_function.reminder_bot_lambda"\n          ]\n        }\n      ]\n
+},\n    {\n      "mode": "managed",\n      "type": "aws_iam_role",\n
+"name": "lambda_execution_role",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 0,\n          "attributes": {\n
+"arn": "arn:aws:iam::000000000000:role/reminder-bot-lambda-execution-role",\n
+"assume_role_policy":
+"{\\"Statement\\":[{\\"Action\\":\\"sts:AssumeRole\\",\\"Effect\\":\\"Allow\\",\\"Principal\\":{\\"Service\\":\\"lambda.amazonaws.com\\"}}],\\"Version\\":\\"2012-10-17\\"}",\n
+"create_date": "2026-01-27T14:11:18Z",\n            "description": "",\n
+"force_detach_policies": false,\n            "id":
+"reminder-bot-lambda-execution-role",\n            "inline_policy": [],\n
+"managed_policy_arns": [],\n            "max_session_duration": 3600,\n
+"name": "reminder-bot-lambda-execution-role",\n            "name_prefix":
+"",\n            "path": "/",\n            "permissions_boundary": "",\n
+"tags": null,\n            "tags_all": {},\n            "unique_id":
+"AROAQAAAAAAAJO5UROUKO"\n          },\n          "sensitive_attributes":
+[],\n          "identity_schema_version": 0,\n          "private":
+"bnVsbA=="\n        }\n      ]\n    },\n    {\n      "mode": "managed",\n
+"type": "aws_iam_role_policy_attachment",\n      "name":
+"lambda_policy_attachment",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 0,\n          "attributes": {\n
+"id": "reminder-bot-lambda-execution-role-20260127141124562800000001",\n
+"policy_arn":
+"arn:aws:iam::000000000000:policy/reminder-bot-lambda-policy",\n
+"role": "reminder-bot-lambda-execution-role"\n          },\n
+"sensitive_attributes": [],\n          "identity_schema_version": 0,\n
+"private": "bnVsbA==",\n          "dependencies": [\n
+"aws_iam_policy.lambda_policy",\n
+"aws_iam_role.lambda_execution_role",\n
+"aws_lambda_function.reminder_bot_lambda"\n          ]\n        }\n      ]\n
+},\n    {\n      "mode": "managed",\n      "type": "aws_lambda_function",\n
+"name": "reminder_bot_lambda",\n      "provider":
+"provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n      "instances":
+[\n        {\n          "schema_version": 0,\n          "attributes": {\n
+"architectures": [\n              "x86_64"\n            ],\n
+"arn":
+"arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda",\n
+"code_sha256": "iCDOHaaT18ReHqup59iOpiUtncDekIDnM+blZQYqY3o=",\n
+"code_signing_config_arn": "",\n            "dead_letter_config": [],\n
+"description": "",\n            "environment": [\n              {\n
+"variables": {\n                  "bot_token": "terraform",\n
+"chat_id": "terraform",\n                  "end_month_message":
+"terraform",\n                  "half_month_message": "terraform"\n
+}\n              }\n            ],\n            "ephemeral_storage": [\n
+{\n                "size": 512\n              }\n            ],\n
+"file_system_config": [],\n            "filename": "./dummy.jar",\n
+"function_name": "reminder-bot-lambda",\n            "handler":
+"handler.Handler",\n            "id": "reminder-bot-lambda",\n
+"image_config": [],\n            "image_uri": "",\n            "invoke_arn":
+"arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda/invocations",\n
+"kms_key_arn": "",\n            "last_modified":
+"2026-01-27T14:11:19.369231+0000",\n            "layers": null,\n
+"logging_config": [\n              {\n
+"application_log_level": "",\n                "log_format": "Text",\n
+"log_group": "/aws/lambda/reminder-bot-lambda",\n
+"system_log_level": ""\n              }\n            ],\n
+"memory_size": 128,\n            "package_type": "Zip",\n
+"publish": false,\n            "qualified_arn":
+"arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda:$LATEST",\n
+"qualified_invoke_arn":
+"arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-central-1:000000000000:function:reminder-bot-lambda:$LATEST/invocations",\n
+"replace_security_groups_on_destroy": null,\n
+"replacement_security_group_ids": null,\n
+"reserved_concurrent_executions": -1,\n            "role":
+"arn:aws:iam::000000000000:role/reminder-bot-lambda-execution-role",\n
+"runtime": "java21",\n            "s3_bucket": null,\n            "s3_key":
+null,\n            "s3_object_version": null,\n            "signing_job_arn":
+"",\n            "signing_profile_version_arn": "",\n
+"skip_destroy": false,\n            "snap_start": [],\n
+"source_code_hash": "",\n            "source_code_size": 3139129,\n
+"tags": null,\n            "tags_all": {},\n            "timeout": 60,\n
+"timeouts": null,\n            "tracing_config": [\n              {\n
+"mode": "PassThrough"\n              }\n            ],\n
+"version": "$LATEST",\n            "vpc_config": []\n          },\n
+"sensitive_attributes": [\n            [\n              {\n
+"type": "get_attr",\n                "value": "environment"\n
+},\n              {\n                "type": "index",\n
+"value": {\n                  "value": 0,\n                  "type":
+"number"\n                }\n              },\n              {\n
+"type": "get_attr",\n                "value": "variables"\n              },\n
+{\n                "type": "index",\n                "value": {\n
+"value": "bot_token",\n                  "type": "string"\n
+}\n              }\n            ],\n            [\n              {\n
+"type": "get_attr",\n                "value": "environment"\n
+},\n              {\n                "type": "index",\n
+"value": {\n                  "value": 0,\n                  "type":
+"number"\n                }\n              },\n              {\n
+"type": "get_attr",\n                "value": "variables"\n              },\n
+{\n                "type": "index",\n                "value": {\n
+"value": "chat_id",\n                  "type": "string"\n                }\n
+}\n            ],\n            [\n              {\n                "type":
+"get_attr",\n                "value": "environment"\n              },\n
+{\n                "type": "index",\n                "value": {\n
+"value": 0,\n                  "type": "number"\n                }\n
+},\n              {\n                "type": "get_attr",\n
+"value": "variables"\n              },\n              {\n
+"type": "index",\n                "value": {\n                  "value":
+"end_month_message",\n                  "type": "string"\n                }\n
+}\n            ],\n            [\n              {\n                "type":
+"get_attr",\n                "value": "environment"\n              },\n
+{\n                "type": "index",\n                "value": {\n
+"value": 0,\n                  "type": "number"\n                }\n
+},\n              {\n                "type": "get_attr",\n
+"value": "variables"\n              },\n              {\n
+"type": "index",\n                "value": {\n                  "value":
+"half_month_message",\n                  "type": "string"\n
+}\n              }\n            ]\n          ],\n
+"identity_schema_version": 0,\n          "private":
+"eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19",\n
+"dependencies": [\n            "aws_iam_role.lambda_execution_role"\n
+]\n        }\n      ]\n    },\n    {\n      "mode": "managed",\n      "type":
+"aws_lambda_permission",\n      "name": "allow_eventbridge",\n
+"provider": "provider[\\"registry.terraform.io/hashicorp/aws\\"]",\n
+"instances": [\n        {\n          "schema_version": 0,\n
+"attributes": {\n            "action": "lambda:InvokeFunction",\n
+"event_source_token": null,\n            "function_name":
+"reminder-bot-lambda",\n            "function_url_auth_type": null,\n
+"id": "AllowExecutionFromEventBridge",\n            "principal":
+"events.amazonaws.com",\n            "principal_org_id": null,\n
+"qualifier": "",\n            "source_account": null,\n
+"source_arn":
+"arn:aws:events:eu-central-1:000000000000:rule/reminder-bot-schedule",\n
+"statement_id": "AllowExecutionFromEventBridge",\n
+"statement_id_prefix": ""\n          },\n          "sensitive_attributes":
+[],\n          "identity_schema_version": 0,\n          "private":
+"bnVsbA==",\n          "dependencies": [\n
+"aws_cloudwatch_event_rule.reminder_bot_schedule",\n
+"aws_iam_role.lambda_execution_role",\n
+"aws_lambda_function.reminder_bot_lambda"\n          ]\n        }\n      ]\n
+}\n  ],\n  "check_results": null\n}\n'
+
+Error: Failed to persist state to backend
+
+The error shown above has prevented Terraform from writing the updated state
+to the configured backend. To allow for recovery, the state has been written
+to the file "errored.tfstate" in the current working directory.
+
+Running "terraform apply" again at this point will create a forked state,
+making it harder to recover.
+
+To retry writing this state, use the following command:
+    terraform state push errored.tfstate
+

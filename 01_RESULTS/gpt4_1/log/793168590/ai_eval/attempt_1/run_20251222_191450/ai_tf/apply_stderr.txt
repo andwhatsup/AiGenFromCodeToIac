@@ -1,0 +1,21 @@
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/flask-api-alb/cb997c47dd4bfd41) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: e6c9b164-ab2f-4dbf-8740-1f7a6dedbd44, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.main,
+  on alb.tf line 1, in resource "aws_lb" "main":
+   1: resource "aws_lb" "main" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.main,
+  on alb.tf line 1, in resource "aws_lb" "main":
+   1: resource "aws_lb" "main" {
+
+
+Error: creating S3 Bucket (flask-lambda-handler-logs-a9268276): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://flask-lambda-handler-logs-a9268276.localhost:4566/": dial tcp: lookup flask-lambda-handler-logs-a9268276.localhost: no such host
+
+  with aws_s3_bucket.logs,
+  on s3.tf line 1, in resource "aws_s3_bucket" "logs":
+   1: resource "aws_s3_bucket" "logs" {
+

@@ -1,0 +1,216 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_s3_bucket.static_site will be created
+  + resource "aws_s3_bucket" "static_site" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "magic-color-site-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "magic-color"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.static_site will be created
+  + resource "aws_s3_bucket_public_access_block" "static_site" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.static_site will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "static_site" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.static_site will be created
+  + resource "aws_s3_bucket_versioning" "static_site" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_s3_bucket_website_configuration.static_site will be created
+  + resource "aws_s3_bucket_website_configuration" "static_site" {
+      + bucket           = (known after apply)
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + routing_rules    = (known after apply)
+      + website_domain   = (known after apply)
+      + website_endpoint = (known after apply)
+
+      + error_document {
+          + key = "index.html"
+        }
+
+      + index_document {
+          + suffix = "index.html"
+        }
+
+      + routing_rule (known after apply)
+    }
+
+  # aws_s3_object.index will be created
+  + resource "aws_s3_object" "index" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "text/html"
+      + etag                   = "cb958d82d263a5cd4a2bf5f2acab332f"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "index.html"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../index.html"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "magic-color"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_s3_object.script will be created
+  + resource "aws_s3_object" "script" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "application/javascript"
+      + etag                   = "8f8b82b21a489450f5e72ed0519203dd"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "script2.js"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../script2.js"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "magic-color"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_s3_object.style will be created
+  + resource "aws_s3_object" "style" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "text/css"
+      + etag                   = "a7716c6a0bcd2d01b88ec4cb7cac9c6e"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "style2.css"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../style2.css"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "magic-color"
+        }
+      + version_id             = (known after apply)
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + static_site_bucket_name      = (known after apply)
+  + static_site_website_endpoint = (known after apply)
+aws_s3_bucket.static_site: Creating...
+aws_s3_bucket.static_site: Still creating... [00m10s elapsed]
+aws_s3_bucket.static_site: Still creating... [00m20s elapsed]
+aws_s3_bucket.static_site: Still creating... [00m30s elapsed]
+aws_s3_bucket.static_site: Still creating... [00m40s elapsed]
+aws_s3_bucket.static_site: Still creating... [00m50s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m00s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m10s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m20s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m31s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m41s elapsed]
+aws_s3_bucket.static_site: Still creating... [01m51s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m01s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m11s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m21s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m31s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m41s elapsed]
+aws_s3_bucket.static_site: Still creating... [02m51s elapsed]

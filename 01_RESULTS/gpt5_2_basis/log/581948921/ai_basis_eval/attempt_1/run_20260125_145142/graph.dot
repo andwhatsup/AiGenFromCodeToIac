@@ -1,0 +1,30 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.site_public_read" [label="data.aws_iam_policy_document.site_public_read"];
+  "aws_iam_policy.github_actions_deploy" [label="aws_iam_policy.github_actions_deploy"];
+  "aws_iam_role.github_actions_deploy" [label="aws_iam_role.github_actions_deploy"];
+  "aws_iam_role_policy_attachment.github_actions_deploy" [label="aws_iam_role_policy_attachment.github_actions_deploy"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket.site" [label="aws_s3_bucket.site"];
+  "aws_s3_bucket_policy.site" [label="aws_s3_bucket_policy.site"];
+  "aws_s3_bucket_public_access_block.site" [label="aws_s3_bucket_public_access_block.site"];
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.site" [label="aws_s3_bucket_server_side_encryption_configuration.site"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "aws_s3_bucket_versioning.site" [label="aws_s3_bucket_versioning.site"];
+  "aws_s3_bucket_website_configuration.site" [label="aws_s3_bucket_website_configuration.site"];
+  "data.aws_iam_policy_document.site_public_read" -> "aws_s3_bucket.site";
+  "aws_iam_policy.github_actions_deploy" -> "aws_s3_bucket.artifacts";
+  "aws_iam_policy.github_actions_deploy" -> "aws_s3_bucket.site";
+  "aws_iam_role_policy_attachment.github_actions_deploy" -> "aws_iam_policy.github_actions_deploy";
+  "aws_iam_role_policy_attachment.github_actions_deploy" -> "aws_iam_role.github_actions_deploy";
+  "aws_s3_bucket_policy.site" -> "data.aws_iam_policy_document.site_public_read";
+  "aws_s3_bucket_policy.site" -> "aws_s3_bucket_public_access_block.site";
+  "aws_s3_bucket_public_access_block.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_server_side_encryption_configuration.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_website_configuration.site" -> "aws_s3_bucket.site";
+}

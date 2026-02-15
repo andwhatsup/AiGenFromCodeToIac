@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_policy" [label="aws_iam_role_policy.lambda_policy"];
+  "aws_lambda_function.iterator_lambda" [label="aws_lambda_function.iterator_lambda"];
+  "aws_sfn_state_machine.iterator_step_function" [label="aws_sfn_state_machine.iterator_step_function"];
+  "aws_iam_role_policy.lambda_policy" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.iterator_lambda" -> "aws_iam_role.lambda_exec";
+  "aws_sfn_state_machine.iterator_step_function" -> "aws_lambda_function.iterator_lambda";
+}

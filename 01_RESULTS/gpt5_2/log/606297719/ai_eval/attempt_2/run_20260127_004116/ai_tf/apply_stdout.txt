@@ -1,0 +1,954 @@
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.agent will be created
+  + resource "aws_cloudwatch_log_group" "agent" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/prefect-ecs/agent"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "prefect-ecs-cluster"
+      + region   = "us-east-1"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+
+      + setting {
+          + name  = "containerInsights"
+          + value = "enabled"
+        }
+    }
+
+  # aws_ecs_service.agent will be created
+  + resource "aws_ecs_service" "agent" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 50
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "prefect-ecs-agent"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.agent will be created
+  + resource "aws_ecs_task_definition" "agent" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (sensitive value)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "prefect-ecs-agent"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+      + task_role_arn            = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.nat["us-east-1a"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags                 = {
+          + "Name" = "prefect-ecs-nat-eip-us-east-1a"
+        }
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-nat-eip-us-east-1a"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_eip.nat["us-east-1b"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags                 = {
+          + "Name" = "prefect-ecs-nat-eip-us-east-1b"
+        }
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-nat-eip-us-east-1b"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_iam_policy.task_s3 will be created
+  + resource "aws_iam_policy" "task_s3" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Least-privilege access to Prefect S3 bucket/prefix and KMS decrypt"
+      + id               = (known after apply)
+      + name             = "prefect-ecs-task-s3"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_iam_role.task will be created
+  + resource "aws_iam_role" "task" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "prefect-ecs-ecs-task"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.task_execution will be created
+  + resource "aws_iam_role" "task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "prefect-ecs-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-ecs"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "prefect-ecs-ecs-task-exec"
+    }
+
+  # aws_iam_role_policy_attachment.task_s3 will be created
+  + resource "aws_iam_role_policy_attachment" "task_s3" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "prefect-ecs-ecs-task"
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "prefect-ecs-igw"
+        }
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-igw"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_kms_alias.s3 will be created
+  + resource "aws_kms_alias" "s3" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/prefect-ecs-s3"
+      + name_prefix    = (known after apply)
+      + region         = "us-east-1"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # aws_kms_key.s3 will be created
+  + resource "aws_kms_key" "s3" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 30
+      + description                        = "KMS key for Prefect S3 bucket encryption"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "kms:*"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = "arn:aws:iam::000000000000:root"
+                        }
+                      + Resource  = "*"
+                      + Sid       = "EnableRootPermissions"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "us-east-1"
+      + rotation_period_in_days            = (known after apply)
+      + tags                               = {
+          + "Name" = "prefect-ecs-s3-kms"
+        }
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-s3-kms"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_nat_gateway.this["us-east-1a"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "prefect-ecs-nat-us-east-1a"
+        }
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-nat-us-east-1a"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_nat_gateway.this["us-east-1b"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "prefect-ecs-nat-us-east-1b"
+        }
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-nat-us-east-1b"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_default["us-east-1a"] will be created
+  + resource "aws_route" "private_default" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.private_default["us-east-1b"] will be created
+  + resource "aws_route" "private_default" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private["us-east-1a"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "prefect-ecs-private-rt-us-east-1a"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-private-rt-us-east-1a"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private["us-east-1b"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "prefect-ecs-private-rt-us-east-1b"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-private-rt-us-east-1b"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "prefect-ecs-public-rt"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-public-rt"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private["us-east-1a"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private["us-east-1b"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["us-east-1a"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["us-east-1b"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.prefect will be created
+  + resource "aws_s3_bucket" "prefect" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_ownership_controls.prefect will be created
+  + resource "aws_s3_bucket_ownership_controls" "prefect" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_policy.prefect will be created
+  + resource "aws_s3_bucket_policy" "prefect" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_public_access_block.prefect will be created
+  + resource "aws_s3_bucket_public_access_block" "prefect" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.prefect will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "prefect" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.prefect will be created
+  + resource "aws_s3_bucket_versioning" "prefect" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_security_group.ecs_tasks will be created
+  + resource "aws_security_group" "ecs_tasks" {
+      + arn                    = (known after apply)
+      + description            = "Security group for Prefect agent/tasks"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow all egress (restrict further if you use endpoints-only)"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "prefect-ecs-ecs-tasks"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "prefect-ecs-ecs-tasks"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-ecs-tasks"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private["us-east-1a"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.100.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "prefect-ecs-private-us-east-1a"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-private-us-east-1a"
+          + "Project" = "prefect-ecs"
+          + "Tier"    = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private["us-east-1b"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "prefect-ecs-private-us-east-1b"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-private-us-east-1b"
+          + "Project" = "prefect-ecs"
+          + "Tier"    = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["us-east-1a"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "prefect-ecs-public-us-east-1a"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-public-us-east-1a"
+          + "Project" = "prefect-ecs"
+          + "Tier"    = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["us-east-1b"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "prefect-ecs-public-us-east-1b"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-public-us-east-1b"
+          + "Project" = "prefect-ecs"
+          + "Tier"    = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.20.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "prefect-ecs-vpc"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-vpc"
+          + "Project" = "prefect-ecs"
+        }
+    }
+
+  # aws_vpc_endpoint.s3 will be created
+  + resource "aws_vpc_endpoint" "s3" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = (known after apply)
+      + region                = "us-east-1"
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.s3"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "prefect-ecs-s3-endpoint"
+        }
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Name"    = "prefect-ecs-s3-endpoint"
+          + "Project" = "prefect-ecs"
+        }
+      + vpc_endpoint_type     = "Gateway"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # random_id.bucket will be created
+  + resource "random_id" "bucket" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 40 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecs_agent_service_name   = "prefect-ecs-agent"
+  + ecs_cluster_name         = "prefect-ecs-cluster"
+  + prefect_s3_bucket        = (known after apply)
+  + prefect_s3_bucket_prefix = "ecs-agent-bucket"
+  + private_subnet_ids       = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + vpc_id                   = (known after apply)
+random_id.bucket: Creating...
+random_id.bucket: Creation complete after 0s [id=gOuyGA]
+aws_ecs_cluster.this: Creating...
+aws_iam_role.task: Creating...
+aws_cloudwatch_log_group.agent: Creating...
+aws_vpc.this: Creating...
+aws_kms_key.s3: Creating...
+aws_iam_role.task_execution: Creating...
+aws_s3_bucket.prefect: Creating...
+aws_iam_role.task: Creation complete after 0s [id=prefect-ecs-ecs-task]
+aws_iam_role.task_execution: Creation complete after 0s [id=prefect-ecs-ecs-task-exec]
+aws_iam_role_policy_attachment.task_execution: Creating...
+aws_iam_role_policy_attachment.task_execution: Creation complete after 1s [id=prefect-ecs-ecs-task-exec/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_cloudwatch_log_group.agent: Creation complete after 1s [id=/ecs/prefect-ecs/agent]
+aws_kms_key.s3: Still creating... [00m10s elapsed]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_s3_bucket.prefect: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-044d51f54fccd936b]
+aws_internet_gateway.this: Creating...
+aws_subnet.public["us-east-1b"]: Creating...
+aws_route_table.public: Creating...
+aws_subnet.private["us-east-1b"]: Creating...
+aws_subnet.private["us-east-1a"]: Creating...
+aws_subnet.public["us-east-1a"]: Creating...
+aws_security_group.ecs_tasks: Creating...
+aws_subnet.private["us-east-1b"]: Creation complete after 0s [id=subnet-a624b08f02a3beef9]
+aws_subnet.private["us-east-1a"]: Creation complete after 0s [id=subnet-73d540b85d155f987]
+aws_internet_gateway.this: Creation complete after 0s [id=igw-4573373549d23d2ca]
+aws_route_table.private["us-east-1b"]: Creating...
+aws_route_table.private["us-east-1a"]: Creating...
+aws_route_table.public: Creation complete after 0s [id=rtb-bd6d394b88c9a7540]
+aws_route.public_internet: Creating...
+aws_route_table.private["us-east-1a"]: Creation complete after 0s [id=rtb-33890ca93ed1d258c]
+aws_route_table.private["us-east-1b"]: Creation complete after 0s [id=rtb-3b166dc2d1cfe62d8]
+aws_route_table_association.private["us-east-1a"]: Creating...
+aws_route_table_association.private["us-east-1b"]: Creating...
+aws_vpc_endpoint.s3: Creating...
+aws_route_table_association.private["us-east-1a"]: Creation complete after 0s [id=rtbassoc-31590d57e4843b0cc]
+aws_route_table_association.private["us-east-1b"]: Creation complete after 0s [id=rtbassoc-51e6eeea2c5f48984]
+aws_route.public_internet: Creation complete after 0s [id=r-rtb-bd6d394b88c9a75401080289494]
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/prefect-ecs-cluster]
+aws_security_group.ecs_tasks: Creation complete after 0s [id=sg-f1451fa4aa61a8a54]
+aws_kms_key.s3: Creation complete after 12s [id=fccb7cdb-4be2-48a8-8800-b99de83a539f]
+aws_kms_alias.s3: Creating...
+aws_kms_alias.s3: Creation complete after 0s [id=alias/prefect-ecs-s3]
+aws_vpc_endpoint.s3: Creation complete after 5s [id=vpce-6698b03ec81dedcec]
+aws_s3_bucket.prefect: Still creating... [00m20s elapsed]
+aws_subnet.public["us-east-1b"]: Still creating... [00m10s elapsed]
+aws_subnet.public["us-east-1a"]: Still creating... [00m10s elapsed]
+aws_subnet.public["us-east-1b"]: Creation complete after 10s [id=subnet-7c4fc007216ae238c]
+aws_subnet.public["us-east-1a"]: Creation complete after 10s [id=subnet-01eb10ec7f929b668]
+aws_route_table_association.public["us-east-1b"]: Creating...
+aws_route_table_association.public["us-east-1a"]: Creating...
+aws_eip.nat["us-east-1a"]: Creating...
+aws_eip.nat["us-east-1b"]: Creating...
+aws_route_table_association.public["us-east-1a"]: Creation complete after 0s [id=rtbassoc-c0e3fe70ae24a272e]
+aws_route_table_association.public["us-east-1b"]: Creation complete after 0s [id=rtbassoc-0106b584d08f85b15]
+aws_eip.nat["us-east-1a"]: Creation complete after 0s [id=eipalloc-154d17dde6877a28c]
+aws_eip.nat["us-east-1b"]: Creation complete after 0s [id=eipalloc-ace2c8a9181f9f3bf]
+aws_nat_gateway.this["us-east-1a"]: Creating...
+aws_nat_gateway.this["us-east-1b"]: Creating...
+aws_nat_gateway.this["us-east-1a"]: Creation complete after 0s [id=nat-ad5b538e12bc0cb7b]
+aws_nat_gateway.this["us-east-1b"]: Creation complete after 0s [id=nat-26cf7957a626f17cf]
+aws_route.private_default["us-east-1b"]: Creating...
+aws_route.private_default["us-east-1a"]: Creating...
+aws_route.private_default["us-east-1a"]: Creation complete after 0s [id=r-rtb-33890ca93ed1d258c1080289494]
+aws_route.private_default["us-east-1b"]: Creation complete after 0s [id=r-rtb-3b166dc2d1cfe62d81080289494]
+aws_s3_bucket.prefect: Still creating... [00m30s elapsed]
+aws_s3_bucket.prefect: Still creating... [00m40s elapsed]
+aws_s3_bucket.prefect: Still creating... [00m50s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m00s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m10s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m20s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m30s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m40s elapsed]
+aws_s3_bucket.prefect: Still creating... [01m50s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m00s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m10s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m20s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m30s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m40s elapsed]
+aws_s3_bucket.prefect: Still creating... [02m50s elapsed]

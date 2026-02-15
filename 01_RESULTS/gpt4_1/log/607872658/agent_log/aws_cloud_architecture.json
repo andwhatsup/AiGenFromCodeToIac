@@ -1,0 +1,16 @@
+{
+  "aws_architecture_description": "This system is a secure, serverless AWS solution for backing up and managing parameters, implemented in Python using boto3 and botocore. The architecture is designed for scalability, security, and operational simplicity, leveraging AWS managed services. The main components and their relationships are as follows:\n\n1. **AWS Lambda Function**: The core compute resource, written in Python, is responsible for orchestrating the backup process. It is triggered (either on a schedule or via an event) to read parameters from AWS SSM Parameter Store and store backups in an S3 bucket. The Lambda function uses the boto3 SDK to interact with AWS services.\n\n2. **AWS SSM Parameter Store**: Used for storing and retrieving configuration parameters or secrets. The Lambda function reads from and writes to this service as part of its backup logic.\n\n3. **AWS S3 Bucket**: Serves as the storage location for backup data. The bucket is configured to use server-side encryption with AWS KMS to ensure data at rest is protected.\n\n4. **AWS KMS (Key Management Service)**: Provides the encryption keys used by S3 for server-side encryption of backup data. The Lambda function is granted permission to use the KMS key for encryption and decryption operations.\n\n5. **Networking and Security**: The Lambda function runs in a secure VPC (if required for compliance or access to private resources), with appropriate IAM roles and policies granting least-privilege access to SSM, S3, and KMS. Security groups and VPC endpoints may be used for private connectivity to S3 and SSM if needed.\n\n6. **Monitoring and Logging**: AWS CloudWatch is used for logging Lambda execution and monitoring metrics, ensuring operational visibility and alerting on failures or anomalies.\n\nThis architecture is highly available, cost-effective, and follows AWS best practices for security (encryption, least-privilege IAM, managed services) and scalability (serverless, event-driven compute).",
+  "aws_resources": [
+    "AWS Lambda Function (Python, with boto3 and botocore dependencies)",
+    "IAM Role for Lambda (with permissions for SSM, S3, KMS, and CloudWatch)",
+    "AWS SSM Parameter Store",
+    "AWS S3 Bucket (with default encryption using AWS KMS)",
+    "AWS KMS Key (for S3 server-side encryption)",
+    "VPC (optional, if Lambda needs private networking)",
+    "Subnets (if VPC is used)",
+    "Security Groups (if VPC is used)",
+    "VPC Endpoints for S3 and SSM (optional, for private access)",
+    "CloudWatch Log Group (for Lambda logs)",
+    "CloudWatch Alarms (optional, for monitoring Lambda errors or invocations)"
+  ]
+}

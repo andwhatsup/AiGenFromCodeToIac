@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/711161962/lambda",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "AWS Lambda (aws-lambda-go)"
+      ],
+      "dependencies": [
+        "github.com/aws/aws-lambda-go (lambda runtime + events types) — lambda/go.mod",
+        "github.com/aws/aws-sdk-go-v2 and submodules (config/credentials/sts/etc.) — lambda/go.mod (listed as indirect; not used in lambda/handler.go)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/711161962/docker-compose.yml (LocalStack: s3,lambda,sqs,iam)",
+        "/ai-gen-from-code-to-iac/workspace/711161962/lambda/build/bootstrap (custom runtime bootstrap artifact)",
+        "/ai-gen-from-code-to-iac/workspace/711161962/lambda/build/handler.zip (packaged lambda artifact)",
+        "/ai-gen-from-code-to-iac/workspace/711161962/lambda/go.mod",
+        "/ai-gen-from-code-to-iac/workspace/711161962/lambda/go.sum"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (Go) consuming SQS events — lambda/handler.go",
+        "Amazon SQS queue (event source for Lambda) — README.md + handler signature events.SQSEvent",
+        "Amazon S3 bucket (publishes notifications to SQS on CSV upload) — README.md",
+        "IAM (needed for S3->SQS and Lambda execution permissions; emulated in LocalStack) — docker-compose.yml SERVICES includes iam",
+        "LocalStack container for local AWS emulation — docker-compose.yml"
+      ]
+    }
+  ]
+}

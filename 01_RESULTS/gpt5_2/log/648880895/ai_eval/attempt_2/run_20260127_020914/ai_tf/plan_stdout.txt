@@ -1,0 +1,172 @@
+data.aws_partition.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.workshop_cli will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "workshop_cli" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetBucketLocation",
+              + "s3:ListBucket",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "S3ListBucket"
+
+          + condition {
+              + test     = "StringLike"
+              + values   = [
+                  + "imagenes/",
+                  + "imagenes/*",
+                ]
+              + variable = "s3:prefix"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "s3:AbortMultipartUpload",
+              + "s3:DeleteObject",
+              + "s3:GetObject",
+              + "s3:ListBucketMultipartUploads",
+              + "s3:ListMultipartUploadParts",
+              + "s3:PutObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "S3ObjectRWWithinPrefix"
+        }
+      + statement {
+          + actions   = [
+              + "ec2:DescribeAvailabilityZones",
+              + "ec2:DescribeInstances",
+              + "ec2:DescribeRegions",
+              + "ec2:DescribeTags",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "EC2DescribeReadOnly"
+        }
+    }
+
+  # aws_s3_bucket.workshop will be created
+  + resource "aws_s3_bucket" "workshop" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "s3-bucket-workshop-1001-pyday"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "aws-boto3-workshop"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_ownership_controls.workshop will be created
+  + resource "aws_s3_bucket_ownership_controls" "workshop" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_policy.workshop will be created
+  + resource "aws_s3_bucket_policy" "workshop" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.workshop will be created
+  + resource "aws_s3_bucket_public_access_block" "workshop" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.workshop will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "workshop" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + bucket_key_enabled = true
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.workshop will be created
+  + resource "aws_s3_bucket_versioning" "workshop" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + bucket_arn    = (known after apply)
+  + bucket_name   = "s3-bucket-workshop-1001-pyday"
+  + images_prefix = "imagenes/"

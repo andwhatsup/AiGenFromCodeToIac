@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "HTML",
+        "CSS"
+      ],
+      "frameworks": [
+        "Flask (Python web framework)"
+      ],
+      "dependencies": [
+        "flask (from ./requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile (container build)",
+        "./deployment.yaml (Kubernetes Deployment)",
+        "./service.yaml (Kubernetes Service type LoadBalancer; AWS ALB annotations)",
+        "./manifest/app-deploy.yaml (Kubernetes Deployment)",
+        "./manifest/app-svc.yaml (Kubernetes Service type LoadBalancer)",
+        "./Jenkinsfile (CI/CD pipeline: SonarQube, OWASP Dependency-Check, Trivy, Docker build/push, kubectl apply)",
+        "./.github/workflows/docker-publish.yml (GitHub Actions: build/push/sign image to GHCR)",
+        "./requirements.txt (Python deps)"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP API (Flask app in ./app.py serving templates)",
+        "Container image (built via ./Dockerfile; pushed to DockerHub/GHCR per CI)",
+        "Kubernetes cluster (implied by kubectl apply and k8s manifests)",
+        "Kubernetes Deployment (calculator-deployment; replicas=2)",
+        "Kubernetes Service (type LoadBalancer)",
+        "AWS Load Balancer (implied by service annotations service.beta.kubernetes.io/aws-load-balancer-*)",
+        "CI/CD resources: Jenkins (pipeline in ./Jenkinsfile), GitHub Actions (./.github/workflows/docker-publish.yml)",
+        "Code quality/security tooling: SonarQube, OWASP Dependency-Check, Trivy, Docker Scout (referenced in Jenkinsfile)"
+      ]
+    }
+  ]
+}

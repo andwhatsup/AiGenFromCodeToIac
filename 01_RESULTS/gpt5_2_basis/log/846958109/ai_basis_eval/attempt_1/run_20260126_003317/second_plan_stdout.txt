@@ -1,0 +1,49 @@
+data.aws_vpc.default: Reading...
+data.aws_region.current: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/tribute-cluster]
+aws_iam_role.task_execution: Refreshing state... [id=tribute-ecs-task-exec]
+aws_cloudwatch_log_group.this: Refreshing state... [id=/ecs/tribute]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+aws_iam_role_policy_attachment.task_execution: Refreshing state... [id=tribute-ecs-task-exec-20260125233342181000000001]
+aws_ecs_task_definition.this: Refreshing state... [id=tribute]
+data.aws_vpc.default: Read complete after 0s [id=vpc-f3f18fb4d9b37035b]
+data.aws_subnets.default: Reading...
+aws_security_group.alb: Refreshing state... [id=sg-364faea72a1337938]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/tribute-tg/ff2ae60eb00dec0f]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+aws_security_group.service: Refreshing state... [id=sg-7581491270224bff6]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/tribute-alb/b872788d12da8aa2]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/tribute-alb/b872788d12da8aa2/695e9b43ec507ce1]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/tribute-cluster/tribute-service]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/tribute-cluster/tribute-service"
+        name                               = "tribute-service"
+        tags                               = {
+            "Application" = "tribute"
+            "ManagedBy"   = "terraform"
+        }
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/tribute-alb/b872788d12da8aa2/695e9b43ec507ce1"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

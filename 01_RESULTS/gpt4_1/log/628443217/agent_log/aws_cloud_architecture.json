@@ -1,0 +1,17 @@
+{
+  "aws_architecture_description": "This system is a classic single-EC2 web application stack, automated with Infrastructure as Code (IaC) using Terraform (run via Docker). The architecture is designed for simplicity, reproducibility, and security, suitable for small to medium workloads or development/staging environments.\n\n**High-Level AWS Architecture:**\n\n1. **Networking Layer:**\n   - A dedicated VPC with public and private subnets to isolate resources and control traffic.\n   - An Internet Gateway attached to the VPC for outbound internet access.\n   - Route tables configured to allow the EC2 instance to communicate with the internet (for updates, package installs, etc.).\n\n2. **Compute Layer:**\n   - A single Amazon EC2 instance (Amazon Linux) deployed in a public subnet.\n   - The EC2 instance runs nginx as a web server and php-fpm (PHP 8.2) as the application server.\n   - The instance is provisioned and configured using Terraform, which is executed from a Docker container (outside AWS, e.g., on a developer machine or CI/CD runner).\n\n3. **Security:**\n   - A Security Group attached to the EC2 instance, allowing inbound HTTP (port 80) and SSH (port 22) from trusted IPs.\n   - An EC2 Key Pair (SSH key) for secure administrative access.\n   - IAM Role for the EC2 instance (if needed, e.g., for SSM or CloudWatch logging).\n\n4. **Automation & Management:**\n   - Terraform state can be stored locally or in AWS S3 (with DynamoDB for state locking, if remote state is desired).\n   - Optionally, CloudWatch for basic monitoring and logging.\n\n**Scalability & Best Practices:**\n- For production, consider using an Application Load Balancer and Auto Scaling Group for high availability and scalability.\n- For this setup, a single EC2 instance suffices, but the architecture can be extended as needed.\n- All resources are provisioned via Terraform for repeatability and version control.\n\n**Summary:**\nThis architecture provides a secure, automated, and reproducible environment for running a PHP web application on AWS, with all foundational AWS resources included and following best practices for networking and access control.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet",
+    "Private Subnet (optional, for future DB or app tier)",
+    "Internet Gateway",
+    "Route Table and Route Table Association",
+    "Security Group (allow HTTP/80, SSH/22)",
+    "EC2 Instance (Amazon Linux)",
+    "EC2 Key Pair (SSH key)",
+    "IAM Role for EC2 (optional, for SSM/CloudWatch)",
+    "S3 Bucket (optional, for Terraform remote state)",
+    "DynamoDB Table (optional, for Terraform state locking)",
+    "CloudWatch Log Group (optional, for logging/monitoring)"
+  ]
+}

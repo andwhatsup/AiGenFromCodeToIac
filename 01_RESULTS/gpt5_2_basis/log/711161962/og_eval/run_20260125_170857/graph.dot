@@ -1,0 +1,29 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.function_archive" [label="data.archive_file.function_archive"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_iam_policy_document.assume_lambda_role" [label="data.aws_iam_policy_document.assume_lambda_role"];
+  "data.aws_iam_policy_document.sqs_policy_document" [label="data.aws_iam_policy_document.sqs_policy_document"];
+  "aws_iam_policy.test_policy" [label="aws_iam_policy.test_policy"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_lambda_event_source_mapping.sqs" [label="aws_lambda_event_source_mapping.sqs"];
+  "aws_lambda_function.function" [label="aws_lambda_function.function"];
+  "aws_s3_bucket.test_bucket" [label="aws_s3_bucket.test_bucket"];
+  "aws_s3_bucket_notification.bucket_notification" [label="aws_s3_bucket_notification.bucket_notification"];
+  "aws_sqs_queue.test_queue" [label="aws_sqs_queue.test_queue"];
+  "null_resource.function_binary" [label="null_resource.function_binary"];
+  "random_string.bucket_name_suffix" [label="random_string.bucket_name_suffix"];
+  "data.archive_file.function_archive" -> "null_resource.function_binary";
+  "data.aws_iam_policy_document.sqs_policy_document" -> "aws_s3_bucket.test_bucket";
+  "data.aws_iam_policy_document.sqs_policy_document" -> "aws_sqs_queue.test_queue";
+  "aws_iam_policy.test_policy" -> "data.aws_iam_policy_document.sqs_policy_document";
+  "aws_iam_role.lambda" -> "data.aws_iam_policy_document.assume_lambda_role";
+  "aws_lambda_event_source_mapping.sqs" -> "aws_lambda_function.function";
+  "aws_lambda_event_source_mapping.sqs" -> "aws_sqs_queue.test_queue";
+  "aws_lambda_function.function" -> "data.archive_file.function_archive";
+  "aws_lambda_function.function" -> "aws_iam_role.lambda";
+  "aws_s3_bucket.test_bucket" -> "random_string.bucket_name_suffix";
+  "aws_s3_bucket_notification.bucket_notification" -> "aws_s3_bucket.test_bucket";
+  "aws_s3_bucket_notification.bucket_notification" -> "aws_sqs_queue.test_queue";
+}

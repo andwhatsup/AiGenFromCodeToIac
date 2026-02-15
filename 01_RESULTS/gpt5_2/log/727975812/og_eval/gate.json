@@ -1,0 +1,139 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group",
+            "aws_cloudwatch_log_metric_filter"
+          ]
+        },
+        "scheduler": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_scheduler_schedule",
+            "aws_scheduler_schedule_group"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_policy",
+            "aws_sns_topic_subscription"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs",
+          "sns"
+        ],
+        "partial": [
+          "cloudwatch",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "scheduler"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/727975812/terraform",
+      "variables": {
+        "venmo_auth_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/terraform/variables.tf"
+        }
+      },
+      "required_missing": [
+        "venmo_auth_token"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_log_group",
+        "aws_cloudwatch_log_metric_filter",
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_scheduler_schedule",
+        "aws_scheduler_schedule_group",
+        "aws_sns_topic",
+        "aws_sns_topic_policy",
+        "aws_sns_topic_subscription"
+      ],
+      "resource_type_counts": {
+        "aws_sns_topic": 1,
+        "aws_sns_topic_subscription": 1,
+        "aws_cloudwatch_log_metric_filter": 1,
+        "aws_cloudwatch_metric_alarm": 1,
+        "aws_scheduler_schedule_group": 1,
+        "aws_scheduler_schedule": 1,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy": 1,
+        "aws_iam_policy": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_sns_topic_policy": 1,
+        "aws_iam_policy_document": 1,
+        "aws_lambda_function": 1,
+        "aws_cloudwatch_log_group": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/terraform/main.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

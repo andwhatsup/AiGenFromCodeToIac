@@ -1,0 +1,23 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_log_group.lambda" [label="aws_cloudwatch_log_group.lambda"];
+  "aws_cloudwatch_metric_alarm.lambda_errors" [label="aws_cloudwatch_metric_alarm.lambda_errors"];
+  "aws_cloudwatch_metric_alarm.lambda_throttles" [label="aws_cloudwatch_metric_alarm.lambda_throttles"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_logs" [label="aws_iam_role_policy.lambda_logs"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_lambda_function_url.this" [label="aws_lambda_function_url.this"];
+  "aws_lambda_permission.allow_public_invoke" [label="aws_lambda_permission.allow_public_invoke"];
+  "aws_cloudwatch_metric_alarm.lambda_errors" -> "aws_lambda_function.this";
+  "aws_cloudwatch_metric_alarm.lambda_throttles" -> "aws_lambda_function.this";
+  "aws_iam_role_policy.lambda_logs" -> "aws_cloudwatch_log_group.lambda";
+  "aws_iam_role_policy.lambda_logs" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.this" -> "aws_cloudwatch_log_group.lambda";
+  "aws_lambda_function.this" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function_url.this" -> "aws_lambda_function.this";
+  "aws_lambda_permission.allow_public_invoke" -> "aws_lambda_function.this";
+}

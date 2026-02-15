@@ -1,0 +1,28 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (Node.js proxy HTTP client + Terraform)\n\n### 1) Runtime: run the Node.js script as a scheduled, containerized job\nBecause the application is a **script-style Node.js program** (not a long-running web server) that makes **outbound HTTP(S) requests via external proxies**, the leanest AWS-native deployment is:\n\n- **Amazon ECS on Fargate (Scheduled Task)**\n  - Package the Node.js app into a small container image.\n  - Store the image in **Amazon ECR**.\n  - Use **Amazon EventBridge Scheduler** (or EventBridge rule) to run the task on a schedule (e.g., every N minutes/hours) or on-demand.\n  - The task runs in **private subnets** (no inbound access required).\n\nThis avoids managing EC2 instances and matches the “run a script” execution model.\n\n### 2) Networking: private compute with controlled egress\nThe script needs outbound internet access to reach:\n- external proxy endpoints (HTTP(S) proxies), and\n- third-party websites (often reached *through* the proxies).\n\nRecommended network layout:\n- **VPC across 2 AZs**\n- **Private subnets** for ECS tasks\n- **Public subnets** only for NAT\n- **NAT Gateway (per AZ if you want HA; single NAT if cost-optimized)**\n- **VPC endpoints** (Gateway/Interface) for AWS services so tasks don’t need NAT for AWS API calls:\n  - ECR (api + dkr), S3 (gateway), CloudWatch Logs, Secrets Manager, KMS (as needed)\n\nSecurity posture:\n- ECS tasks have **no inbound security group rules**.\n- Egress is allowed to the internet (via NAT) on **TCP 443** (and TCP 80 only if truly required).\n- If you have a known fixed set of proxy IPs, you can restrict egress further (otherwise it will be broad).\n\n### 3) Configuration & secrets: replace local .env with managed secrets\nThe repo uses `dotenv` and a local `.env`. In AWS:\n- Store proxy URLs, credentials (if any), and target configuration in **AWS Secrets Manager** (or SSM Parameter Store for non-secrets).\n- ECS task definition injects these as environment variables at runtime.\n- Encrypt secrets with **AWS KMS**.\n\n### 4) Observability: logs, metrics, and failure alerting\n- Send stdout/stderr from the Node.js container to **CloudWatch Logs**.\n- Create **CloudWatch Alarms** on:\n  - ECS task failures / non-zero exits (via EventBridge + alarm/notification),\n  - log metric filters for error patterns (optional).\n- Notify via **SNS** (email/Slack via webhook lambda if needed).\n\n### 5) CI/CD and IaC workflow (Terraform)\nTerraform is already used. A clean AWS approach:\n- Use an **S3 bucket** for Terraform remote state and a **DynamoDB table** for state locking.\n- Run Terraform from:\n  - your existing CI runner, or\n  - **AWS CodeBuild** (optional) with an IAM role.\n\nContainer build/push:\n- CI builds the Docker image and pushes to ECR.\n- Terraform updates the ECS task definition to the new image digest/tag.\n\n### 6) DigitalOcean resources\nYour Terraform also targets DigitalOcean, but since the exact DO resources aren’t visible, keep that as a separate Terraform module/workspace. The AWS side above is independent and only needs outbound internet to reach any DO endpoints if the script interacts with them.\n\n---\n\n## Deployment relationships (at a glance)\n- Operator/CI → (build) → ECR\n- Operator/CI → (terraform apply) → VPC/ECS/EventBridge/Secrets/etc.\n- EventBridge Scheduler → ECS Fargate Task → (via NAT) → External Proxy Pool → Third-party websites\n- ECS Task → CloudWatch Logs/metrics → Alarms → SNS notifications\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (2+ AZs): private subnets for compute, public subnets for NAT",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (1 cost-optimized or 2 for HA)",
+    "Route tables (public + private) and routes",
+    "Security Groups (ECS task SG; optional VPC endpoint SGs)",
+    "Amazon ECS Cluster (Fargate)",
+    "ECS Task Definition (Node.js container, env vars from Secrets Manager)",
+    "ECS Service (optional; for scheduled tasks you can run without a service)",
+    "Amazon EventBridge Scheduler (or EventBridge Rule) to trigger ECS tasks",
+    "Amazon ECR repository (container images)",
+    "AWS Secrets Manager (proxy URLs/credentials/config)",
+    "AWS KMS key (encrypt Secrets Manager and optionally logs/state)",
+    "Amazon CloudWatch Logs log group(s) for ECS task logs",
+    "Amazon CloudWatch Alarms (task failures / error metrics)",
+    "Amazon SNS topic + subscriptions (alerting)",
+    "VPC Endpoints: S3 Gateway Endpoint",
+    "VPC Interface Endpoints: ECR (api), ECR (dkr), CloudWatch Logs, Secrets Manager (and KMS if needed)",
+    "IAM Roles: ECS task execution role, ECS task role (least privilege), Terraform/CI deploy role",
+    "S3 bucket for Terraform remote state (with versioning + encryption)",
+    "DynamoDB table for Terraform state locking",
+    "AWS CloudTrail (account-level auditing; recommended baseline)",
+    "AWS Config (optional baseline compliance; include only if required)"
+  ]
+}

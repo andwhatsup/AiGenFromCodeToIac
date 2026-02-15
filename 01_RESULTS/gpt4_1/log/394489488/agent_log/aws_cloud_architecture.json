@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to securely and scalably deploy a containerized MLflow Tracking Server with artifact storage and metadata persistence. The solution leverages AWS managed services to minimize operational overhead and maximize reliability.\n\n**Key Components:**\n\n1. **Networking & Security:**\n   - A dedicated VPC with public and private subnets for secure, isolated networking.\n   - Security Groups to restrict access to only necessary ports (e.g., 80/443 for Nginx, 5000 for MLflow, 5432 for PostgreSQL).\n   - IAM roles and policies to grant least-privilege access to AWS resources (notably S3 for artifact storage).\n\n2. **Containerized Application Deployment:**\n   - **AWS App Runner** is used to deploy the MLflow Tracking Server container, providing a fully managed, scalable, and secure environment for running the application. App Runner handles container orchestration, scaling, and HTTPS endpoints.\n   - **Nginx** is included in the container image as a reverse proxy, providing basic authentication and routing to the MLflow server.\n\n3. **Database:**\n   - **Amazon RDS for PostgreSQL** is provisioned in private subnets for storing MLflow tracking metadata. RDS provides automated backups, patching, and high availability options.\n\n4. **Artifact Storage:**\n   - **Amazon S3** is used for storing MLflow experiment artifacts (models, files, etc.).\n   - An **IAM Role** is created for the App Runner service to allow secure, programmatic access to the S3 bucket.\n\n5. **Monitoring & Logging:**\n   - **Amazon CloudWatch** is used for collecting logs and metrics from App Runner, RDS, and other AWS resources.\n\n6. **Foundational Resources:**\n   - **VPC, subnets, route tables, NAT Gateway/Internet Gateway** for secure networking.\n   - **Secrets Manager or SSM Parameter Store** for securely storing database credentials and other sensitive configuration.\n\n**Deployment Flow:**\n- Users access the MLflow Tracking Server via the App Runner HTTPS endpoint, which is fronted by Nginx for authentication and proxying.\n- MLflow stores experiment metadata in RDS PostgreSQL and artifacts in S3.\n- All access to S3 is controlled by IAM roles attached to the App Runner service.\n- Logs and metrics are centralized in CloudWatch for monitoring and troubleshooting.\n\nThis architecture is secure (private networking, IAM, encrypted storage), scalable (managed services, auto-scaling), and follows AWS best practices for containerized workloads.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway (if RDS is in private subnet)",
+    "Route Tables",
+    "Security Groups (for App Runner, RDS, etc.)",
+    "AWS App Runner Service (for MLflow + Nginx container)",
+    "Amazon RDS for PostgreSQL",
+    "Amazon S3 Bucket (artifact storage)",
+    "IAM Role for App Runner (with S3 access policy)",
+    "IAM Policy (for S3 access)",
+    "AWS Secrets Manager or SSM Parameter Store (for DB credentials)",
+    "Amazon CloudWatch (logs and metrics)"
+  ]
+}

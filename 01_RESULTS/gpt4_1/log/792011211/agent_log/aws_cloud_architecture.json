@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This architecture is designed to securely and efficiently deploy a Python Flask web application using AWS managed Kubernetes (EKS) and supporting AWS services. The system is containerized and orchestrated with Kubernetes, leveraging AWS-native integrations for security, scalability, and operational best practices.\n\n**Key Components and Flow:**\n\n1. **Networking Foundation:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones ensures high availability and isolation for the EKS cluster and its resources.\n   - Internet Gateway and NAT Gateway(s) provide controlled internet access for public-facing and private resources, respectively.\n\n2. **EKS Cluster:**\n   - The Flask application is containerized (Docker) and deployed to an AWS EKS cluster.\n   - EKS worker nodes (EC2 or Fargate) run the application pods.\n   - Kubernetes resources (Deployment, Service, Ingress, ServiceAccount, RBAC) manage app lifecycle, scaling, and access control.\n\n3. **AWS Load Balancer Controller & Ingress:**\n   - The AWS Load Balancer Controller automatically provisions an Application Load Balancer (ALB) for Kubernetes Ingress resources, exposing the Flask app securely to the internet.\n   - Ingress rules route HTTP(S) traffic to the appropriate Kubernetes Service and pods.\n\n4. **Secrets Management:**\n   - AWS Secrets Manager securely stores API keys (e.g., OpenWeatherMap) and other sensitive configuration, which are accessed by the Flask app at runtime.\n   - Kubernetes ServiceAccount and RBAC policies ensure only authorized pods can access secrets.\n\n5. **Deployment Automation:**\n   - Helm is used for templating and deploying Kubernetes manifests, ensuring repeatable and manageable deployments.\n\n6. **External API Integration:**\n   - The Flask app communicates with the OpenWeatherMap API over the internet.\n\n7. **Security & IAM:**\n   - IAM roles for EKS nodes and ServiceAccounts grant least-privilege access to AWS resources (e.g., Secrets Manager, ALB management).\n   - Security groups and NACLs restrict network access to only necessary ports and sources.\n\n8. **Monitoring & Logging:**\n   - Amazon CloudWatch is used for logging, metrics, and alerting for both EKS and application-level events.\n\nThis architecture is scalable (via EKS/Kubernetes autoscaling), secure (network segmentation, IAM, secrets management), and follows AWS best practices for cloud-native, containerized workloads.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "EKS Cluster",
+    "EKS Node Group(s) (EC2 or Fargate)",
+    "ECR Repository (for Docker images)",
+    "IAM Roles and Policies (for EKS nodes, ServiceAccounts, ALB controller, Secrets Manager access)",
+    "Kubernetes ServiceAccount and RBAC resources",
+    "Kubernetes Deployment, Service, and Ingress resources (managed via Helm)",
+    "AWS Load Balancer Controller (Kubernetes add-on)",
+    "Application Load Balancer (ALB, provisioned by the controller)",
+    "AWS Secrets Manager (for API keys and secrets)",
+    "Security Groups (for EKS nodes, ALB, etc.)",
+    "CloudWatch Log Groups (for EKS and application logs)",
+    "CloudWatch Alarms (for monitoring and alerting)"
+  ]
+}

@@ -1,0 +1,12 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_role.pod_identity_source" [label="aws_iam_role.pod_identity_source"];
+  "aws_iam_role_policy.pod_identity_source_s3_list" [label="aws_iam_role_policy.pod_identity_source_s3_list"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_iam_role_policy.pod_identity_source_s3_list" -> "aws_iam_role.pod_identity_source";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+}

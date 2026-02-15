@@ -1,0 +1,71 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)"
+      ],
+      "frameworks": [
+        "Node.js built-in http module (no web framework)"
+      ],
+      "dependencies": [
+        "No runtime dependencies declared (package.json has no dependencies/devDependencies): package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "package.json",
+        "package-lock.json",
+        ".github/workflows/ci.yml",
+        ".eslintrc.js",
+        ".prettierrc"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP service (listens on PORT/3000): index.js",
+        "Container image build (Docker): Dockerfile",
+        "Container registry (Docker Hub) implied by CI push step: .github/workflows/ci.yml"
+      ]
+    },
+    {
+      "project_directory": "Terraform/Kubernetes",
+      "programming_languages": [
+        "YAML (Kubernetes manifests)"
+      ],
+      "frameworks": [
+        "Kubernetes"
+      ],
+      "dependencies": [
+        "Kubernetes cluster (e.g., Minikube in CI): .github/workflows/ci.yml"
+      ],
+      "deployment_relevant_files": [
+        "Terraform/Kubernetes/1 namespace.yaml",
+        "Terraform/Kubernetes/2 deployment.yaml",
+        "Terraform/Kubernetes/3 service.yaml",
+        ".github/workflows/ci.yml"
+      ],
+      "architectural_resources": [
+        "Kubernetes Namespace 'node': Terraform/Kubernetes/1 namespace.yaml",
+        "Kubernetes Deployment (3 replicas) running container image hendawyy/node-img:v1: Terraform/Kubernetes/2 deployment.yaml",
+        "Kubernetes Service (NodePort) exposing app (targetPort 3000, service port 8081): Terraform/Kubernetes/3 service.yaml",
+        "Kubernetes cluster (Minikube used in CI): .github/workflows/ci.yml"
+      ]
+    },
+    {
+      "project_directory": "Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [
+        "Terraform CLI used in CI, but no .tf configuration files present in repo (only logs/artifacts): Terraform/init_validate_stdout.txt, Terraform/validate_stdout.txt, .github/workflows/ci.yml"
+      ],
+      "deployment_relevant_files": [
+        "Terraform/init_validate_stdout.txt",
+        "Terraform/init_validate_stderr.txt",
+        "Terraform/validate_stdout.txt",
+        "Terraform/validate_stderr.txt",
+        ".github/workflows/ci.yml"
+      ],
+      "architectural_resources": [
+        "Terraform execution pipeline stage (init/validate/plan/apply) implied, but actual IaC definitions missing from repository: .github/workflows/ci.yml"
+      ]
+    }
+  ]
+}

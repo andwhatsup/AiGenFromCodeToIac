@@ -1,0 +1,390 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_65",
+                "bc_check_id": "BC_AWS_LOGGING_11",
+                "check_name": "Ensure container insights are enabled on ECS cluster",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    1,
+                    4
+                ],
+                "resource": "aws_ecs_cluster.cluster",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSClusterContainerInsights",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "expire-on": "2023-03-01",
+                    "owner": "carlos.castro",
+                    "purpose": "opportunity"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-logging-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    18,
+                    23
+                ],
+                "resource": "aws_cloudwatch_log_group.mongodb_aws_ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "expire-on": "2023-03-01",
+                    "owner": "carlos.castro",
+                    "purpose": "opportunity"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    18,
+                    23
+                ],
+                "resource": "aws_cloudwatch_log_group.mongodb_aws_ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "expire-on": "2023-03-01",
+                    "owner": "carlos.castro",
+                    "purpose": "opportunity"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_336",
+                "bc_check_id": "BC_AWS_GENERAL_241",
+                "check_name": "Ensure ECS containers are limited to read-only access to root filesystems",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "container_definitions/[0]/[0]/readonlyRootFilesystem"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    25,
+                    67
+                ],
+                "resource": "aws_ecs_task_definition.mongodb_aws_ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSContainerReadOnlyRoot",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-336",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "container_definitions": [
+                        {
+                            "type": "tfvar",
+                            "name": "MONGODB_URI",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "MONGODB_URI",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "task_role_arn": [
+                        {
+                            "type": "tfvar",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "execution_role_arn": [
+                        {
+                            "type": "tfvar",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_249",
+                "bc_check_id": "BC_AWS_IAM_68",
+                "check_name": "Ensure that the Execution Role ARN and the Task Role ARN are different in ECS Task definitions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "execution_role_arn",
+                        "task_role_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    25,
+                    67
+                ],
+                "resource": "aws_ecs_task_definition.mongodb_aws_ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSTaskDefinitionRoleCheck",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-the-aws-execution-role-arn-and-task-role-arn-are-different-in-ecs-task-definitions",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "container_definitions": [
+                        {
+                            "type": "tfvar",
+                            "name": "MONGODB_URI",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "MONGODB_URI",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "task_role_arn": [
+                        {
+                            "type": "tfvar",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "execution_role_arn": [
+                        {
+                            "type": "tfvar",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "execution_role_arn",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_333",
+                "bc_check_id": "BC_AWS_LOGGING_45",
+                "check_name": "Ensure ECS services do not have public IP addresses assigned to them automatically",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "network_configuration/[0]/assign_public_ip"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    69,
+                    108
+                ],
+                "resource": "aws_ecs_service.mongodb_aws_ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSServicePublicIP",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-333",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/main.tf",
+                "breadcrumbs": {
+                    "network_configuration.security_groups": [
+                        {
+                            "type": "variable",
+                            "name": "security_groups",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "network_configuration.subnets": [
+                        {
+                            "type": "variable",
+                            "name": "subnets",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 6,
+        "failed": 6,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 5,
+        "checkov_version": "3.2.490"
+    }
+}

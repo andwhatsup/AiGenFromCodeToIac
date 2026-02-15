@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture for deploying the Python/Flask URL shortener web application is as follows:\n\n1. **Networking Layer:**\n   - A dedicated Virtual Private Cloud (VPC) will be created to isolate and secure all resources. The VPC will have both public and private subnets across at least two Availability Zones for high availability.\n   - An Internet Gateway will be attached to the VPC to allow internet access for public-facing resources.\n   - Route Tables will be configured to manage traffic between subnets and the internet.\n\n2. **Compute Layer:**\n   - The Flask web application will be deployed on an EC2 instance within a public subnet. The instance will be provisioned with an IAM role to allow secure access to other AWS services if needed (e.g., S3 for logs or backups).\n   - Security Groups will be configured to allow HTTP/HTTPS traffic to the EC2 instance and restrict other access.\n\n3. **Database Layer:**\n   - Instead of SQLite (which is not recommended for production), an Amazon RDS instance (e.g., PostgreSQL or MySQL) will be provisioned in a private subnet for persistent, managed, and scalable relational storage. The EC2 instance will connect to RDS using SQLAlchemy.\n   - Security Groups will restrict database access to only the EC2 instance.\n\n4. **Storage Layer (Optional/Recommended):**\n   - An S3 bucket can be provisioned for storing application logs, static assets, or database backups.\n\n5. **IAM & Security:**\n   - IAM roles and policies will be created for the EC2 instance and CI/CD pipeline to ensure least-privilege access to AWS resources.\n   - Secrets Manager or SSM Parameter Store can be used to securely store database credentials and other sensitive configuration.\n\n6. **CI/CD Integration:**\n   - The GitHub Actions pipeline will use SSH or AWS Systems Manager Session Manager to deploy the application to the EC2 instance. An IAM user or role with limited permissions will be created for this purpose.\n\n7. **Monitoring & Logging:**\n   - CloudWatch will be enabled for EC2 and RDS to collect logs and metrics for monitoring and alerting.\n\nThis architecture is secure, scalable, and follows AWS best practices for a typical Flask web application with a relational backend and automated CI/CD deployment.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "Route Table(s)",
+    "EC2 Instance (for Flask app)",
+    "Security Group (for EC2)",
+    "Amazon RDS Instance (PostgreSQL or MySQL)",
+    "Security Group (for RDS)",
+    "IAM Role (for EC2)",
+    "IAM User/Role (for CI/CD deployment)",
+    "S3 Bucket (for logs/assets/backups, optional)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets)",
+    "CloudWatch (for monitoring/logging)"
+  ]
+}

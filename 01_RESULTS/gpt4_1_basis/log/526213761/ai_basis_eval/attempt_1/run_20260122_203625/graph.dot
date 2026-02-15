@@ -1,0 +1,16 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.flink_assume_role_policy" [label="data.aws_iam_policy_document.flink_assume_role_policy"];
+  "data.aws_iam_policy_document.flink_job_policy" [label="data.aws_iam_policy_document.flink_job_policy"];
+  "aws_iam_role.flink_job_role" [label="aws_iam_role.flink_job_role"];
+  "aws_iam_role_policy.flink_job_policy" [label="aws_iam_role_policy.flink_job_policy"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.flink_job_policy" -> "aws_s3_bucket.artifacts";
+  "aws_iam_role.flink_job_role" -> "data.aws_iam_policy_document.flink_assume_role_policy";
+  "aws_iam_role.flink_job_role" -> "random_id.suffix";
+  "aws_iam_role_policy.flink_job_policy" -> "data.aws_iam_policy_document.flink_job_policy";
+  "aws_iam_role_policy.flink_job_policy" -> "aws_iam_role.flink_job_role";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+}

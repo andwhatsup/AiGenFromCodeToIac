@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system is a containerized Python web server deployed on Kubernetes, leveraging AWS managed services for scalability, security, and operational efficiency. The architecture is as follows:\n\n1. **Amazon EKS (Elastic Kubernetes Service)**: The Kubernetes cluster is provisioned using Amazon EKS, which manages the control plane and provides a scalable, secure environment for running containerized workloads. Helm is used for application deployment and management.\n\n2. **Amazon ECR (Elastic Container Registry)**: Docker images for the Python web server are built and pushed to ECR. EKS worker nodes pull images from ECR during deployment.\n\n3. **VPC (Virtual Private Cloud)**: The EKS cluster is deployed within a dedicated VPC, providing network isolation and control. The VPC includes both public and private subnets across multiple Availability Zones for high availability.\n\n4. **Subnets**: Public subnets are used for load balancer endpoints, while private subnets host the EKS worker nodes (Kubernetes nodes running the application pods).\n\n5. **Internet Gateway & NAT Gateway**: The Internet Gateway allows inbound/outbound internet access for public subnets (e.g., for the Load Balancer). NAT Gateways enable private subnet resources (EKS nodes) to access the internet securely (e.g., for pulling images from ECR).\n\n6. **Elastic Load Balancer (ELB/ALB)**: An AWS-managed Load Balancer (provisioned by the Kubernetes Service of type LoadBalancer) exposes the application to the internet, distributing HTTP traffic to the application pods.\n\n7. **IAM Roles and Policies**: IAM roles are created for EKS nodes and the Kubernetes service account, granting least-privilege access to ECR and other AWS resources as needed.\n\n8. **Security Groups**: Security groups control inbound and outbound traffic to the EKS nodes and Load Balancer, allowing only necessary ports (e.g., HTTP/HTTPS).\n\n9. **CloudWatch**: AWS CloudWatch is used for logging and monitoring the EKS cluster, application logs, and infrastructure metrics.\n\n10. **(Optional) S3 Bucket**: For storing Helm charts or application artifacts, if needed.\n\nThis architecture follows AWS best practices for security (private subnets, IAM least privilege), scalability (managed Kubernetes, load balancing), and operational excellence (monitoring, logging).",
+  "aws_resources": [
+    "Amazon EKS Cluster",
+    "Amazon ECR Repository",
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (at least 2, across AZs)",
+    "Private Subnets (at least 2, across AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Elastic Load Balancer (ALB/NLB, provisioned by Kubernetes Service)",
+    "EKS Node Group (EC2 worker nodes or Fargate profiles)",
+    "IAM Roles for EKS Cluster and Node Group",
+    "IAM Policy for ECR access",
+    "Security Groups for EKS nodes and Load Balancer",
+    "CloudWatch Log Group and Metrics",
+    "(Optional) S3 Bucket for Helm charts or artifacts"
+  ]
+}

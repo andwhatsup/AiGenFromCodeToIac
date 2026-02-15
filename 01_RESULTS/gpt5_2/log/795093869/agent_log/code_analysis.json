@@ -1,0 +1,90 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell"
+      ],
+      "frameworks": [
+        "Apache Airflow (MWAA integration via boto3)"
+      ],
+      "dependencies": [
+        "apache-airflow==2.9.3 (requirements.txt)",
+        "boto3==1.34.2 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "deploy.sh (runs terraform -chdir=infra init/apply)",
+        "infra/ (Terraform working directory referenced by deploy.sh; actual *.tf files not present in this repo snapshot)",
+        "README.md (deployment/testing instructions)"
+      ],
+      "architectural_resources": [
+        "AWS MWAA (Managed Workflows for Apache Airflow) environment (described in README.md; referenced by Lambda env var MWAA_ENV_NAME in infra/src/lambda/trigger-dag/index.py)",
+        "AWS Lambda function to trigger MWAA DAG (infra/src/lambda/trigger-dag/index.py)",
+        "Amazon S3 bucket for input events (described in README.md; S3 event structure processed in infra/src/lambda/trigger-dag/index.py; DAG reads S3 object in infra/src/dags/hello-world-dag.py)",
+        "S3 event notifications to Lambda (described in README.md)",
+        "AWS MWAA CLI endpoint invocation over HTTPS (infra/src/lambda/trigger-dag/index.py uses mwaa.create_cli_token + HTTPSConnection)",
+        "IAM roles/policies for Lambda/MWAA/S3 access (implied by use of boto3 clients and MWAA token creation)",
+        "(Potential/unused) Amazon DynamoDB table (infra/src/lambda/trigger-dag/index.py creates dynamodb client but does not use it)"
+      ]
+    },
+    {
+      "project_directory": "infra/src/lambda/trigger-dag",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS Lambda (Python runtime)"
+      ],
+      "dependencies": [
+        "boto3 (infra/src/lambda/trigger-dag/index.py)",
+        "Python stdlib: http.client, base64, ast, logging, json, os (infra/src/lambda/trigger-dag/index.py)"
+      ],
+      "deployment_relevant_files": [
+        "infra/builds/e9eec75a0cec7ebf92e4b02b775b3b44299ee11376c4a3b2cab9ca5a835297e4.plan.json (lambda build plan: zip ./src/lambda/trigger-dag/, runtime python3.12)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function triggered by S3 events",
+        "Amazon S3 (event source)",
+        "AWS MWAA environment (create_cli_token + /aws_mwaa/cli call)",
+        "CloudWatch Logs (implied by Python logging in Lambda)"
+      ]
+    },
+    {
+      "project_directory": "infra/src/dags",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Apache Airflow DAG (MWAA)"
+      ],
+      "dependencies": [
+        "apache-airflow (airflow.decorators.dag/task, EmptyOperator, Param) (infra/src/dags/hello-world-dag.py)",
+        "boto3 (S3 client) (infra/src/dags/hello-world-dag.py)"
+      ],
+      "deployment_relevant_files": [
+        "infra/src/dags/hello-world-dag.py (DAG definition to be deployed to MWAA)"
+      ],
+      "architectural_resources": [
+        "AWS MWAA (Airflow scheduler/webserver)",
+        "Amazon S3 (DAG reads input.json via boto3 get_object)"
+      ]
+    },
+    {
+      "project_directory": "test",
+      "programming_languages": [
+        "Shell",
+        "JSON"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "test/run-test.sh",
+        "test/input.json"
+      ],
+      "architectural_resources": [
+        "Amazon S3 object upload used to trigger the workflow (per README.md)"
+      ]
+    }
+  ]
+}

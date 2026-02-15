@@ -1,0 +1,19 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.archive_file.lambda_zip" [label="data.archive_file.lambda_zip"];
+  "aws_cloudwatch_event_rule.venmo_schedule" [label="aws_cloudwatch_event_rule.venmo_schedule"];
+  "aws_cloudwatch_event_target.lambda_target" [label="aws_cloudwatch_event_target.lambda_target"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic_execution" [label="aws_iam_role_policy_attachment.lambda_basic_execution"];
+  "aws_lambda_function.venmo_action" [label="aws_lambda_function.venmo_action"];
+  "aws_lambda_permission.allow_cloudwatch" [label="aws_lambda_permission.allow_cloudwatch"];
+  "aws_cloudwatch_event_target.lambda_target" -> "aws_cloudwatch_event_rule.venmo_schedule";
+  "aws_cloudwatch_event_target.lambda_target" -> "aws_lambda_function.venmo_action";
+  "aws_iam_role_policy_attachment.lambda_basic_execution" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.venmo_action" -> "data.archive_file.lambda_zip";
+  "aws_lambda_function.venmo_action" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_permission.allow_cloudwatch" -> "aws_cloudwatch_event_rule.venmo_schedule";
+  "aws_lambda_permission.allow_cloudwatch" -> "aws_lambda_function.venmo_action";
+}

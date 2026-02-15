@@ -1,0 +1,61 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Dockerfile",
+        "YAML (Kubernetes manifests)",
+        "Groovy (Jenkins Pipeline)"
+      ],
+      "frameworks": [
+        "Nginx (static web serving)",
+        "Kubernetes (Deployment/Service)",
+        "Jenkins Pipeline",
+        "GitHub Actions"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile: ./Dockerfile)",
+        "Docker build/push/sign actions (./.github/workflows/docker-publish.yml)",
+        "jekyll/builder:latest container used in CI (./.github/workflows/jekyll-docker.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "Jenkinsfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/docker-publish.yml",
+        ".github/workflows/jekyll-docker.yml"
+      ],
+      "architectural_resources": [
+        "Static web application (served by Nginx container)",
+        "Container image registry (Docker Hub: yash5090/range-slider:latest referenced in Kubernetes manifests; GitHub Container Registry ghcr.io used in workflow)",
+        "Kubernetes cluster (implied; manifests deploy Deployment+Service)",
+        "External Load Balancer (Kubernetes Service type LoadBalancer; AWS ALB annotations in service.yaml)",
+        "CI/CD system (Jenkins; GitHub Actions)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "Text (Terraform command outputs)"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "None detected in-repo (no .tf files present; directory contains only Terraform init/validate logs)"
+      ]
+    }
+  ]
+}

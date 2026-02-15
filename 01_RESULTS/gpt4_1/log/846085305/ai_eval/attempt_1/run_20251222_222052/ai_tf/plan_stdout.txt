@@ -1,0 +1,557 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_availability_zones.available: Reading...
+data.aws_ami.ubuntu: Reading...
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/tuya-influxdb-collector"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_iam_policy.lambda_secrets will be created
+  + resource "aws_iam_policy" "lambda_secrets" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Allow Lambda to access Secrets Manager for Tuya and InfluxDB credentials"
+      + id               = (known after apply)
+      + name             = "lambda-secrets-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "secretsmanager:GetSecretValue",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = [
+                          + "arn:aws:iam:us-east-1:000000000000:ai-tf",
+                          + "arn:aws:iam:us-east-1:000000000000:ai-tf",
+                        ]
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_policy_attachment.lambda_secrets_attach will be created
+  + resource "aws_iam_policy_attachment" "lambda_secrets_attach" {
+      + id         = (known after apply)
+      + name       = "lambda-secrets-attach"
+      + policy_arn = (known after apply)
+      + roles      = [
+          + "lambda-exec-role",
+        ]
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "lambda-exec-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_logs will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_logs" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "lambda-exec-role"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_vpc will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_vpc" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+      + role       = "lambda-exec-role"
+    }
+
+  # aws_internet_gateway.main will be created
+  + resource "aws_internet_gateway" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "main-igw"
+        }
+      + tags_all = {
+          + "Name" = "main-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lambda_function.main will be created
+  + resource "aws_lambda_function" "main" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "tuya-influxdb-collector"
+      + id                             = (known after apply)
+      + image_uri                      = "ai-tf"
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 1024
+      + package_type                   = "Image"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 60
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "INFLUXDB_SECRET_ARN" = "arn:aws:iam:us-east-1:000000000000:ai-tf"
+              + "TUYA_SECRET_ARN"     = "arn:aws:iam:us-east-1:000000000000:ai-tf"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+
+      + vpc_config {
+          + ipv6_allowed_for_dual_stack = false
+          + security_group_ids          = (known after apply)
+          + subnet_ids                  = (known after apply)
+          + vpc_id                      = (known after apply)
+        }
+    }
+
+  # aws_nat_gateway.main will be created
+  + resource "aws_nat_gateway" "main" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "main-nat-gw"
+        }
+      + tags_all                           = {
+          + "Name" = "main-nat-gw"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_nat_gateway will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet_access will be created
+  + resource "aws_route" "public_internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "private-rt"
+        }
+      + tags_all         = {
+          + "Name" = "private-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_secretsmanager_secret.influxdb will be created
+  + resource "aws_secretsmanager_secret" "influxdb" {
+      + arn                            = (known after apply)
+      + description                    = "InfluxDB credentials for Lambda"
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "influxdb-credentials"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + region                         = "us-east-1"
+      + tags_all                       = (known after apply)
+
+      + replica (known after apply)
+    }
+
+  # aws_secretsmanager_secret.tuya will be created
+  + resource "aws_secretsmanager_secret" "tuya" {
+      + arn                            = (known after apply)
+      + description                    = "Tuya API credentials for Lambda"
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "tuya-api-credentials"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + region                         = "us-east-1"
+      + tags_all                       = (known after apply)
+
+      + replica (known after apply)
+    }
+
+  # aws_security_group.grafana will be created
+  + resource "aws_security_group" "grafana" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP/HTTPS access to Grafana and access to InfluxDB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "grafana-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "grafana-sg"
+        }
+      + tags_all               = {
+          + "Name" = "grafana-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.influxdb will be created
+  + resource "aws_security_group" "influxdb" {
+      + arn                    = (known after apply)
+      + description            = "Allow access to InfluxDB from Lambda and Grafana"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + from_port        = 8086
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 8086
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "influxdb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "influxdb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "influxdb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.lambda will be created
+  + resource "aws_security_group" "lambda" {
+      + arn                    = (known after apply)
+      + description            = "Allow Lambda to access InfluxDB and internet"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "lambda-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "lambda-sg"
+        }
+      + tags_all               = {
+          + "Name" = "lambda-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "private-subnet-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "private-subnet-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "public-subnet-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "public-subnet-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "main-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "main-vpc"
+        }
+    }
+
+Plan: 24 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_name = "tuya-influxdb-collector"
+  + private_subnet_ids   = [
+      + (known after apply),
+    ]
+  + public_subnet_ids    = [
+      + (known after apply),
+    ]
+  + vpc_id               = (known after apply)

@@ -1,0 +1,21 @@
+
+Error: creating S3 Bucket (mlflow-server-artifacts-aff1be4a): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://mlflow-server-artifacts-aff1be4a.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.mlflow_artifacts,
+  on main.tf line 1, in resource "aws_s3_bucket" "mlflow_artifacts":
+   1: resource "aws_s3_bucket" "mlflow_artifacts" {
+
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/mlflow-server-alb/b1203c26e182fbe2) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: 819db9cd-7767-45f7-b4e1-9e8a1c15c6a5, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.mlflow,
+  on main.tf line 77, in resource "aws_lb" "mlflow":
+  77: resource "aws_lb" "mlflow" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.mlflow,
+  on main.tf line 77, in resource "aws_lb" "mlflow":
+  77: resource "aws_lb" "mlflow" {
+

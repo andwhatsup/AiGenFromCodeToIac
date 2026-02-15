@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "# Terraform provider configuration for AWS\nterraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 4.0\"\n    }\n  }\n  required_version = \">= 1.0.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "# Input variables for AWS provider\nvariable \"aws_region\" {\n  description = \"The AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "# No outputs defined as there are no resources\n"
+    }
+  ]
+}

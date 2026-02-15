@@ -1,0 +1,42 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell",
+        "YAML (config)",
+        "Nginx config"
+      ],
+      "frameworks": [
+        "MLflow Tracking Server (mlflow server)",
+        "Gunicorn (via MLflow) with gevent worker",
+        "Nginx (reverse proxy + basic auth)",
+        "Supervisor (process manager)"
+      ],
+      "dependencies": [
+        "Python (requirements.txt): mlflow==2.4.1 (MLflow server), pymysql==1.0.3 (MySQL backend option), psycopg2-binary==2.9.6 (PostgreSQL backend), protobuf==4.23.3, gevent==22.10.2 (gunicorn worker class), boto3==1.26.155 (AWS/S3 artifact store)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (./Dockerfile)",
+        "Docker Compose stack (./docker-compose.yml)",
+        "Supervisor config (./supervisord.conf)",
+        "Nginx config template (./nginx.conf)",
+        "Entrypoint scripts (./scripts/mlflow.sh, ./scripts/nginx.sh)",
+        "Heroku container deployment (./heroku.yml, ./app.json)",
+        "GitHub Actions CI/CD (./.github/workflows/build_branch.yml, ./.github/workflows/build_tag.yml, ./.github/workflows/terraform_validate.yml)",
+        "Docker ignore (./.dockerignore)"
+      ],
+      "architectural_resources": [
+        "Containerized web application: MLflow Tracking Server (listens behind Nginx; MLflow runs on internal port 5001)",
+        "Reverse proxy + HTTP Basic Authentication: Nginx using htpasswd (nginx.conf + scripts/nginx.sh)",
+        "Process supervision: supervisord running mlflow and nginx (supervisord.conf)",
+        "Relational database for MLflow backend store: PostgreSQL (docker-compose.yml postgres service) and/or MySQL (pymysql dependency; configurable via env vars in scripts/mlflow.sh)",
+        "Object storage for artifacts: local filesystem (default ./mlruns) or AWS S3 (boto3 + MLFLOW_ARTIFACT_URI like s3://...; AWS credentials env vars in docker-compose.yml/app.json/README.md)",
+        "CI/CD + container registry: GitHub Actions building/pushing to Amazon ECR Public (workflows build_branch.yml/build_tag.yml)",
+        "Heroku deployment: container stack with Heroku Postgres addon (heroku.yml, app.json)",
+        "(Implied by README) Terraform-based infrastructure for AWS deployment (referenced in README and workflow terraform_validate.yml, but no terraform/ directory present in this repository snapshot)"
+      ]
+    }
+  ]
+}

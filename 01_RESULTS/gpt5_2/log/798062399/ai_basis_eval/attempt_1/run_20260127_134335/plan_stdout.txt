@@ -1,0 +1,179 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_s3_bucket.site will be created
+  + resource "aws_s3_bucket" "site" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "notes-app-site-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "notes-app"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_policy.public_read will be created
+  + resource "aws_s3_bucket_policy" "public_read" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_public_access_block.site will be created
+  + resource "aws_s3_bucket_public_access_block" "site" {
+      + block_public_acls       = true
+      + block_public_policy     = false
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = false
+    }
+
+  # aws_s3_bucket_website_configuration.site will be created
+  + resource "aws_s3_bucket_website_configuration" "site" {
+      + bucket           = (known after apply)
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + routing_rules    = (known after apply)
+      + website_domain   = (known after apply)
+      + website_endpoint = (known after apply)
+
+      + error_document {
+          + key = "index.html"
+        }
+
+      + index_document {
+          + suffix = "index.html"
+        }
+
+      + routing_rule (known after apply)
+    }
+
+  # aws_s3_object.index will be created
+  + resource "aws_s3_object" "index" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "text/html"
+      + etag                   = "dec97c054ceac7355288576e7c757b0b"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "index.html"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../index.html"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "notes-app"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_s3_object.script will be created
+  + resource "aws_s3_object" "script" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "application/javascript"
+      + etag                   = "62212d9c1341c908d965e62482aaffea"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "script.js"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../script.js"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "notes-app"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_s3_object.style will be created
+  + resource "aws_s3_object" "style" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "text/css"
+      + etag                   = "d97435a1cdca9eb6a2826833d7ec1627"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "style.css"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../style.css"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "notes-app"
+        }
+      + version_id             = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + s3_bucket_name   = (known after apply)
+  + website_domain   = (known after apply)
+  + website_endpoint = (known after apply)

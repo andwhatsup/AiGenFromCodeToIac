@@ -1,0 +1,75 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/782556535",
+      "programming_languages": [
+        "YAML (Docker Compose)",
+        "Markdown"
+      ],
+      "frameworks": [
+        "LocalStack (local AWS cloud emulator via Docker)"
+      ],
+      "dependencies": [
+        "localstack/localstack Docker image (docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "LocalStack container (emulated AWS services endpoint on :4566)",
+        "Docker network/volume for LocalStack state (compose volume mapping)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/782556535/infra_tests",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "Terratest (Gruntwork)",
+        "AWS SDK for Go v1",
+        "Testify"
+      ],
+      "dependencies": [
+        "github.com/gruntwork-io/terratest v0.46.13 (go.mod)",
+        "github.com/aws/aws-sdk-go v1.44.122 (go.mod)",
+        "github.com/stretchr/testify v1.9.0 (go.mod)",
+        "replace github.com/gruntwork-io/terratest => github.com/rudolfolah/terratest v0.0.0-20240407004131-6521e5a9ee0b (go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod",
+        "go.sum",
+        "example_test.go"
+      ],
+      "architectural_resources": [
+        "Terraform-managed infrastructure under ../infra (referenced by tests via TerraformDir: \"../infra\")",
+        "AWS S3 bucket (created and asserted in example_test.go)",
+        "S3 bucket policy (asserted via aws.AssertS3BucketPolicyExists)",
+        "S3 bucket access logging target bucket/prefix (asserted via GetBucketLogging)",
+        "LocalStack endpoint usage for AWS APIs (http://localhost:4566 and http://s3.localhost.localstack.cloud:4566)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/782556535/infra",
+      "programming_languages": [
+        "(expected) Terraform HCL"
+      ],
+      "frameworks": [
+        "Terraform (implied by repository purpose and tests)"
+      ],
+      "dependencies": [
+        "Terraform AWS provider configuration for LocalStack is referenced in README.md (./infra/provider.tf), but *.tf files were not present in the accessible filesystem listing; only stdout/stderr logs exist in this folder."
+      ],
+      "deployment_relevant_files": [
+        "init_validate_stdout.txt",
+        "init_validate_stderr.txt",
+        "validate_stdout.txt",
+        "validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "(intended) AWS resources via Terraform (README references S3 and RDS examples), but actual Terraform source (*.tf) not found in repository snapshot; only test code references S3 outputs like bucket_id."
+      ]
+    }
+  ]
+}

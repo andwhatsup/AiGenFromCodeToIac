@@ -1,0 +1,26 @@
+{
+  "aws_architecture_description": "### Target deployment pattern (recommended): S3 + CloudFront static SPA\n\n#### 1) Build & deploy flow\n- **Source**: Your React (Create React App) SPA repository.\n- **CI/CD**: A pipeline (e.g., CodePipeline + CodeBuild) runs `npm ci` and `npm run build` to produce the static bundle (`index.html`, hashed JS/CSS under `/static/*`, Tailwind output).\n- **Artifact publish**: The pipeline syncs the build output to an **S3 bucket** configured for **private** access (no public bucket policy).\n- **Cache invalidation**: After upload, the pipeline triggers a **CloudFront invalidation** (at least for `/index.html`; static hashed assets can be long-lived).\n\n#### 2) Content delivery & SPA routing\n- **CloudFront** is the public entry point (HTTPS only) and serves the SPA globally.\n- **Origin**: CloudFront fetches objects from the private S3 bucket using **Origin Access Control (OAC)**.\n- **SPA deep links** (React Router): Configure CloudFront custom error responses so 403/404 from S3 return `/index.html` with HTTP 200. This ensures routes like `/products/123` load correctly.\n\n#### 3) DNS + TLS\n- **Route 53** hosts the public DNS zone (or integrates with an existing one) and points your domain (e.g., `app.example.com`) to CloudFront via an **Alias A/AAAA** record.\n- **ACM certificate** (in **us-east-1** for CloudFront) provides TLS for the custom domain.\n\n#### 4) Calling external APIs securely (browser → external)\n- The SPA uses **axios** from the browser to call external HTTPS APIs.\n- If those APIs require secrets (API keys) that must not be exposed to the browser, add a lightweight AWS “backend-for-frontend” later (API Gateway + Lambda) to proxy/sign requests. For now, keep it out unless required.\n- If you do need to restrict where calls come from, enforce **CORS** and consider allowlisting your CloudFront domain at the API side.\n\n#### 5) Security, observability, and operations\n- **S3**: Block Public Access enabled; bucket policy allows only CloudFront OAC.\n- **CloudFront**: Attach **AWS WAF** (optional but recommended for internet-facing apps) with managed rule groups.\n- **Logging/metrics**:\n  - CloudFront access logs to S3 (or real-time logs if needed).\n  - CloudWatch metrics/alarms for 4xx/5xx, origin latency, WAF blocks.\n- **Secrets**: If the build needs environment values (e.g., API base URL), store them in **SSM Parameter Store** (or Secrets Manager if sensitive) and inject during build.\n\n---\n\n### Alternative pattern (only if you must run the provided Dockerfile as a web server)\nIf you need to serve via a containerized Nginx/Node image (instead of pure static hosting), run it on **ECS Fargate** behind an **Application Load Balancer**, still fronted by CloudFront for caching and TLS. This is typically more expensive/operationally heavy than S3+CloudFront for a CRA SPA, so I would only choose it if you have hard requirements (custom server-side headers, auth at edge not possible, etc.).\n",
+  "aws_resources": [
+    "Amazon S3 bucket (SPA static assets)",
+    "S3 Block Public Access configuration",
+    "S3 bucket policy allowing CloudFront Origin Access Control (OAC) access",
+    "Amazon CloudFront distribution",
+    "CloudFront Origin Access Control (OAC)",
+    "CloudFront cache policy (optimized for static assets)",
+    "CloudFront origin request policy (minimal headers/query strings as needed)",
+    "CloudFront custom error responses (SPA fallback to /index.html)",
+    "AWS Certificate Manager (ACM) public certificate in us-east-1 (for CloudFront)",
+    "Amazon Route 53 hosted zone (if not existing)",
+    "Route 53 Alias A/AAAA record to CloudFront distribution",
+    "AWS WAFv2 Web ACL (optional but recommended)",
+    "WAFv2 managed rule groups (optional)",
+    "Amazon S3 bucket for CloudFront/WAF logs (optional)",
+    "AWS CodePipeline (CI/CD)",
+    "AWS CodeBuild project (build React app)",
+    "IAM role for CodeBuild",
+    "IAM role for CodePipeline",
+    "Artifact store S3 bucket for CodePipeline (can be separate from hosting bucket)",
+    "SSM Parameter Store parameters for build-time config (e.g., REACT_APP_* values)",
+    "Amazon CloudWatch alarms (CloudFront 4xx/5xx, WAF blocks, etc.)"
+  ]
+}

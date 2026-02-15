@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to securely and efficiently deploy a Python FastAPI web application, leveraging AWS managed services and best practices for scalability, security, and maintainability. The architecture consists of the following components:\n\n1. **Networking & Security**:\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Security Groups to restrict inbound/outbound traffic to only necessary ports (e.g., HTTPS for the API, Vault communication).\n   - NAT Gateway for secure outbound internet access from private subnets.\n\n2. **Compute**:\n   - The FastAPI application, served by Uvicorn, is deployed on AWS ECS (Fargate) for serverless container management, or alternatively on EC2 Auto Scaling Group if more control is needed.\n   - An Application Load Balancer (ALB) routes HTTPS traffic from users to the FastAPI service.\n\n3. **Secrets Management**:\n   - HashiCorp Vault is deployed on EC2 instances in a private subnet, with security group rules allowing only the FastAPI app to communicate with it. Alternatively, AWS Secrets Manager or AWS KMS can be used if Vault is not a strict requirement.\n\n4. **Storage & State**:\n   - S3 bucket for storing application assets, logs, or Terraform state files if needed.\n   - (Optional) RDS or DynamoDB if a database is required in the future (not currently in use but provisioned for extensibility).\n\n5. **IAM & Access Control**:\n   - IAM roles and policies for ECS/EC2, Vault, and other services, following least privilege principles.\n\n6. **Monitoring & Logging**:\n   - CloudWatch for application and infrastructure logs, metrics, and alarms.\n\n7. **Infrastructure as Code**:\n   - All resources are provisioned and managed using Terraform, ensuring reproducibility and version control.\n\nThis setup ensures the FastAPI app is highly available, secure, and easily maintainable, with clear separation of concerns and the ability to scale as needed. Vault is isolated in a private subnet, and all sensitive data is managed securely. The architecture is cloud-native and ready for CI/CD integration.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB, ECS/EC2, Vault)",
+    "Application Load Balancer (ALB)",
+    "ECS Cluster (Fargate) or EC2 Auto Scaling Group (for FastAPI/Uvicorn)",
+    "ECS Task Definitions or EC2 Launch Templates",
+    "EC2 Instances (for HashiCorp Vault, in private subnet)",
+    "IAM Roles and Policies (for ECS/EC2, Vault, ALB, S3, etc.)",
+    "S3 Bucket (for assets/logs/Terraform state)",
+    "CloudWatch Log Groups and Metrics",
+    "(Optional) RDS Instance or DynamoDB Table (if/when a database is needed)",
+    "VPC Endpoints (for S3, if private access is required)",
+    "Elastic IP (for NAT Gateway)"
+  ]
+}

@@ -1,0 +1,523 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_86",
+                "bc_check_id": "BC_AWS_LOGGING_20",
+                "check_name": "Ensure CloudFront distribution has Access Logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_config/[0]/bucket"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudfront.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "repo_file_path": "/cloudfront.tf",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "aws_cloudfront_distribution.prod_distribution",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudfrontDistributionLogging",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "tfvar",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "origin.origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "default_cache_behavior.target_origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "viewer_certificate.acm_certificate_arn": [
+                        {
+                            "type": "resource",
+                            "name": "aws_acm_certificate_validation.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/route53.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_174",
+                "bc_check_id": "BC_AWS_NETWORKING_63",
+                "check_name": "Verify CloudFront Distribution Viewer Certificate is using TLS v1.2 or higher",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "viewer_certificate/[0]/minimum_protocol_version"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudfront.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "repo_file_path": "/cloudfront.tf",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "aws_cloudfront_distribution.prod_distribution",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudfrontTLS12",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-networking-63",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "tfvar",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "origin.origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "default_cache_behavior.target_origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "viewer_certificate.acm_certificate_arn": [
+                        {
+                            "type": "resource",
+                            "name": "aws_acm_certificate_validation.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/route53.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_68",
+                "bc_check_id": "BC_AWS_GENERAL_27",
+                "check_name": "CloudFront Distribution should have WAF enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "web_acl_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudfront.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "repo_file_path": "/cloudfront.tf",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "aws_cloudfront_distribution.prod_distribution",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.WAFEnabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-27",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "tfvar",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "origin.origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "default_cache_behavior.target_origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "viewer_certificate.acm_certificate_arn": [
+                        {
+                            "type": "resource",
+                            "name": "aws_acm_certificate_validation.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/route53.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_310",
+                "bc_check_id": "BC_AWS_GENERAL_222",
+                "check_name": "Ensure CloudFront distributions should have origin failover configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/cloudfront.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "repo_file_path": "/cloudfront.tf",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "aws_cloudfront_distribution.prod_distribution",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudfrontDistributionOriginFailover",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-310",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "tfvar",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "origin.origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "default_cache_behavior.target_origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "viewer_certificate.acm_certificate_arn": [
+                        {
+                            "type": "resource",
+                            "name": "aws_acm_certificate_validation.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/route53.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_374",
+                "bc_check_id": "BC_AWS_NETWORKING_97",
+                "check_name": "Ensure AWS CloudFront web distribution has geo restriction enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "restrictions/[0]/geo_restriction/[0]/restriction_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/cloudfront.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "repo_file_path": "/cloudfront.tf",
+                "file_line_range": [
+                    3,
+                    57
+                ],
+                "resource": "aws_cloudfront_distribution.prod_distribution",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudFrontGeoRestrictionDisabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-374",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/cloudfront.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "tfvar",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "origin.origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "default_cache_behavior.target_origin_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "bucket_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.website_bucket",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "viewer_certificate.acm_certificate_arn": [
+                        {
+                            "type": "resource",
+                            "name": "aws_acm_certificate_validation.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/route53.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 20,
+        "failed": 5,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 13,
+        "checkov_version": "3.2.490"
+    }
+}

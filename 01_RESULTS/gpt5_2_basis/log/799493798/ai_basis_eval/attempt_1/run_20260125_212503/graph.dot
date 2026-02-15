@@ -1,0 +1,33 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_apigatewayv2_api.http" [label="aws_apigatewayv2_api.http"];
+  "aws_apigatewayv2_integration.lambda" [label="aws_apigatewayv2_integration.lambda"];
+  "aws_apigatewayv2_route.folder" [label="aws_apigatewayv2_route.folder"];
+  "aws_apigatewayv2_route.root" [label="aws_apigatewayv2_route.root"];
+  "aws_apigatewayv2_stage.stage" [label="aws_apigatewayv2_stage.stage"];
+  "aws_cloudwatch_log_group.lambda" [label="aws_cloudwatch_log_group.lambda"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy.lambda" [label="aws_iam_role_policy.lambda"];
+  "aws_lambda_function.app" [label="aws_lambda_function.app"];
+  "aws_lambda_permission.apigw" [label="aws_lambda_permission.apigw"];
+  "aws_s3_bucket.app" [label="aws_s3_bucket.app"];
+  "aws_s3_bucket_public_access_block.app" [label="aws_s3_bucket_public_access_block.app"];
+  "aws_apigatewayv2_integration.lambda" -> "aws_apigatewayv2_api.http";
+  "aws_apigatewayv2_integration.lambda" -> "aws_lambda_function.app";
+  "aws_apigatewayv2_route.folder" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_route.root" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_stage.stage" -> "aws_apigatewayv2_api.http";
+  "aws_cloudwatch_log_group.lambda" -> "aws_lambda_function.app";
+  "aws_iam_role_policy.lambda" -> "aws_iam_role.lambda";
+  "aws_iam_role_policy.lambda" -> "aws_s3_bucket.app";
+  "aws_lambda_function.app" -> "aws_iam_role_policy.lambda";
+  "aws_lambda_permission.apigw" -> "aws_apigatewayv2_api.http";
+  "aws_lambda_permission.apigw" -> "aws_lambda_function.app";
+  "aws_s3_bucket.app" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket.app" -> "data.aws_region.current";
+  "aws_s3_bucket_public_access_block.app" -> "aws_s3_bucket.app";
+}

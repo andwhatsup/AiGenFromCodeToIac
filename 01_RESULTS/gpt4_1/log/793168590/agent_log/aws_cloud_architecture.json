@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system is a cloud-native, serverless architecture designed for scalable and secure deployment of a machine learning-powered API. The main components are:\n\n1. **Flask API Server (Python, Flask):**\n   - Deployed as a containerized application using AWS Elastic Container Service (ECS) with Fargate launch type for serverless compute, or optionally as an AWS Elastic Beanstalk environment for managed deployment. The API server exposes REST endpoints to clients.\n   - The Flask server is placed in private subnets within a VPC for security, and exposed to the internet via an Application Load Balancer (ALB).\n\n2. **AWS Lambda Function:**\n   - Handles requests from the Flask API server. The Lambda function is written in Python and uses boto3 to interact with AWS services. It is responsible for invoking the SageMaker endpoint.\n   - Lambda is deployed in private subnets within the same VPC for secure communication with SageMaker.\n\n3. **AWS SageMaker Endpoint:**\n   - Provides machine learning inference. The endpoint is managed by SageMaker and is invoked by the Lambda function.\n\n4. **Networking and Security:**\n   - All compute resources (ECS tasks, Lambda, SageMaker) are deployed within a dedicated VPC with public and private subnets.\n   - Security groups and IAM roles are configured to allow only necessary communication (e.g., Flask API to Lambda, Lambda to SageMaker).\n   - An Internet Gateway is attached to the VPC for public access to the API via the ALB.\n\n5. **IAM and Monitoring:**\n   - IAM roles and policies are created for ECS tasks, Lambda, and SageMaker to allow least-privilege access.\n   - CloudWatch is used for logging and monitoring of ECS, Lambda, and SageMaker.\n\n6. **Optional Enhancements:**\n   - S3 buckets for storing logs, model artifacts, or temporary data.\n   - AWS Secrets Manager or SSM Parameter Store for managing sensitive configuration.\n\nThis architecture ensures scalability, security, and maintainability by leveraging AWS managed services and best practices for network isolation and access control.",
+  "aws_resources": [
+    "VPC (with public and private subnets)",
+    "Internet Gateway",
+    "NAT Gateway (for private subnet outbound access)",
+    "Route Tables (for subnet routing)",
+    "Security Groups (for ECS, Lambda, ALB, SageMaker)",
+    "Elastic Container Service (ECS) Cluster (with Fargate tasks for Flask API) OR Elastic Beanstalk Environment (for Flask API)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS/Beanstalk)",
+    "AWS Lambda Function (Python)",
+    "IAM Roles and Policies (for ECS tasks, Lambda, SageMaker)",
+    "AWS SageMaker Endpoint",
+    "CloudWatch Log Groups (for ECS, Lambda, SageMaker)",
+    "S3 Bucket (for logs, model artifacts, or temp data)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets/configuration)"
+  ]
+}

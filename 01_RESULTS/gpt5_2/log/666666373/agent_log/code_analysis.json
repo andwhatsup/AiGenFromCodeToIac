@@ -1,0 +1,50 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Java",
+        "JSP/HTML",
+        "Groovy (Jenkins Pipeline DSL)",
+        "YAML (Kubernetes/Ansible)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Java Servlet API (WAR webapp)",
+        "Apache Tomcat (runtime container)",
+        "JUnit (tests)",
+        "Log4j 2 (logging)",
+        "Kubernetes (Deployment/Service manifests)",
+        "Jenkins Pipeline"
+      ],
+      "dependencies": [
+        "Maven: javax.servlet:servlet-api:2.5 (pom.xml)",
+        "Maven: junit:junit:4.12 (test scope) (pom.xml)",
+        "Maven: org.apache.logging.log4j:log4j-api:2.5 (pom.xml)",
+        "Maven: org.apache.logging.log4j:log4j-core:2.5 (pom.xml)",
+        "Container base image: tomcat:8.0 (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "pom.xml",
+        "Dockerfile",
+        "Jenkinsfile",
+        "k8smvndeployment.yaml",
+        "nodePort.yaml",
+        "Installation & configuration files/Ansible.yaml",
+        "bin/pom.xml (duplicate project copy)",
+        "bin/Dockerfile (alternate Dockerfile)",
+        "bin/Jenkinsfile (alternate pipeline)",
+        "bin/k8smvndeployment.yaml (duplicate manifest)",
+        "bin/nodePort.yaml (duplicate manifest)"
+      ],
+      "architectural_resources": [
+        "Java web application packaged as WAR (mvn-hello-world)",
+        "Container image built and pushed to Docker Hub (balcha/banking_domin:latest per Jenkinsfile; loksaieta/loksai-eta-app:latest per bin/Jenkinsfile)",
+        "Tomcat application server (in-container)",
+        "CI/CD pipeline (Jenkins)",
+        "Kubernetes Deployment (replicas=2) and Service (NodePort) exposing the app (k8smvndeployment.yaml, nodePort.yaml)",
+        "Ansible-managed host provisioning for build/runtime prerequisites (git, maven, tomcat, docker, openjdk) (Installation & configuration files/Ansible.yaml)"
+      ]
+    }
+  ]
+}

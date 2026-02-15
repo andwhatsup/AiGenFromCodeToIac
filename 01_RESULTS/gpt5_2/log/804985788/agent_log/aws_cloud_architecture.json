@@ -1,0 +1,29 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (containerized build + batch execution)\n\n### 1) Source → build container image (CI)\n- **Source control**: Store the repo in **AWS CodeCommit** (or connect GitHub via CodePipeline). A commit triggers the pipeline.\n- **Build**: **AWS CodeBuild** runs `docker build` using your existing Dockerfile (Rust toolchain + GnuCOBOL + shell scripts) and tags the image with the git SHA (avoid relying on `latest` for production). ([docs.aws.amazon.com](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-considerations.html?utm_source=openai))\n- **Container registry**: CodeBuild pushes the resulting image to **Amazon ECR**. ([docs.aws.amazon.com](https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html?utm_source=openai))\n\n### 2) Run the toolchain as an on-demand batch job\nBecause this repo is a *CLI/batch toolchain* (not a long-running web service), the leanest production runtime is a job runner:\n\n**Option A (recommended for batch): AWS Batch**\n- **AWS Batch Job Definition** references the ECR image and defines CPU/memory, command/entrypoint, environment variables, and IAM role.\n- **AWS Batch Compute Environment** (Fargate or EC2) runs jobs. If you expect large images or high parallelism, follow container-size/layering best practices to reduce cold-start pull time. ([docs.aws.amazon.com](https://docs.aws.amazon.com/batch/latest/userguide/bestpractice3.html?utm_source=openai))\n- **AWS Batch Job Queue** controls priority and concurrency.\n\n**Orchestration**\n- **Amazon EventBridge** triggers runs on a schedule (cron) or on events (e.g., new input uploaded).\n- **AWS Step Functions** orchestrates the workflow (e.g., validate inputs → submit Batch job → wait for completion → notify). Step Functions has a native integration to submit Batch jobs and wait synchronously for completion. ([docs.aws.amazon.com](https://docs.aws.amazon.com/step-functions/latest/dg/connect-batch.html?utm_source=openai))\n\n### 3) Artifact and log storage\n- **Amazon S3** stores:\n  - inputs (if any),\n  - generated artifacts (COBOL sources/binaries/reports),\n  - optional build outputs.\n- The container writes artifacts to an attached ephemeral filesystem and uploads to S3 at the end of the run (or streams intermediate outputs).\n- **Amazon CloudWatch Logs** captures stdout/stderr from CodeBuild and from the Batch job.\n\n### 4) Security and access\n- **IAM** is used to:\n  - allow CodeBuild to push to ECR,\n  - allow Batch jobs to pull from ECR and write artifacts to S3,\n  - allow Step Functions/EventBridge to submit jobs.\n- **KMS** encrypts S3 buckets (and optionally ECR) and can encrypt any secrets.\n- **AWS Secrets Manager / SSM Parameter Store** stores any runtime secrets (if needed).\n\n### 5) Notifications and observability\n- **Amazon SNS** (or Slack via webhook) for job success/failure notifications.\n- **CloudWatch Alarms** on job failures, queue depth, and pipeline failures.\n\n### 6) Networking (minimal but best-practice)\n- Run Batch/CodeBuild in a dedicated **VPC** with **private subnets**.\n- Use **VPC endpoints** (S3, ECR API/DKR, CloudWatch Logs) to avoid public egress where possible.\n- If outbound internet is required (e.g., apt/cargo downloads during build), use a **NAT Gateway** for private subnets.\n\n## Deployment flow summary\n1. Developer pushes code → CodePipeline triggers.\n2. CodeBuild builds Docker image → pushes to ECR (tagged by git SHA). ([docs.aws.amazon.com](https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html?utm_source=openai))\n3. EventBridge schedule/event triggers Step Functions.\n4. Step Functions submits AWS Batch job and waits for completion. ([docs.aws.amazon.com](https://docs.aws.amazon.com/step-functions/latest/dg/connect-batch.html?utm_source=openai))\n5. Job runs container (Rust CLI generates/invokes COBOL) → uploads artifacts to S3 → logs to CloudWatch.\n6. SNS notifies success/failure.\n\n",
+  "aws_resources": [
+    "AWS CodeCommit repository (or CodeStar Connection to GitHub)",
+    "AWS CodePipeline pipeline",
+    "AWS CodeBuild project",
+    "Amazon ECR repository",
+    "Amazon S3 bucket(s) for inputs/artifacts (with bucket policy)",
+    "AWS Batch Compute Environment (Fargate or EC2)",
+    "AWS Batch Job Queue",
+    "AWS Batch Job Definition",
+    "AWS Step Functions State Machine",
+    "Amazon EventBridge rule(s) (schedule/event trigger)",
+    "Amazon CloudWatch Logs log groups (CodeBuild + Batch)",
+    "Amazon CloudWatch Alarms (pipeline/job failure, queue depth, etc.)",
+    "Amazon SNS topic + subscriptions (notifications)",
+    "AWS IAM roles and policies (CodeBuild service role, Batch job execution role, Batch job role, Step Functions role, EventBridge invoke role)",
+    "AWS KMS key(s) for encryption (S3, optionally ECR/Secrets)",
+    "AWS Secrets Manager and/or SSM Parameter Store (if runtime secrets/config are needed)",
+    "Amazon VPC",
+    "Private subnets (at least 2 AZs)",
+    "Public subnets (if using NAT)",
+    "Route tables",
+    "Internet Gateway (if public subnets exist)",
+    "NAT Gateway + Elastic IP (if private subnets need outbound internet)",
+    "Security groups (for Batch/ECS networking as applicable)",
+    "VPC endpoints: S3 Gateway Endpoint, ECR (api and dkr) Interface Endpoints, CloudWatch Logs Interface Endpoint (recommended)"
+  ]
+}

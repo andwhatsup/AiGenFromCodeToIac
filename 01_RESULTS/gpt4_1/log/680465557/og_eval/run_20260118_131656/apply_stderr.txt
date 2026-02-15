@@ -1,0 +1,21 @@
+
+Error: waiting for Lambda Function (680465557) create: unexpected state 'Failed', wanted target 'Active, ActiveNonInvocable'. last error: InternalError: Error while creating lambda: 
+
+  with aws_lambda_function.lambda_function,
+  on main.tf line 169, in resource "aws_lambda_function" "lambda_function":
+ 169: resource "aws_lambda_function" "lambda_function" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lambda_function.lambda_function,
+  on main.tf line 169, in resource "aws_lambda_function" "lambda_function":
+ 169: resource "aws_lambda_function" "lambda_function" {
+
+
+Error: creating S3 Bucket (680465557): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://680465557.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.cloudtrail_bucket,
+  on main.tf line 185, in resource "aws_s3_bucket" "cloudtrail_bucket":
+ 185: resource "aws_s3_bucket" "cloudtrail_bucket" {
+

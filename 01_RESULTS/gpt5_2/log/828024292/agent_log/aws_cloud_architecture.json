@@ -1,0 +1,15 @@
+{
+  "aws_architecture_description": "### Target deployment model (lean, best-fit)\nThis repository is a **Go command-line tool** that calls AWS APIs (S3 `ListBuckets`, and optionally STS for role sessions). It does **not** expose a network service and does **not** require always-on compute. The most appropriate “deployment” is therefore:\n\n1. **Build & package the CLI**\n   - Build a static Go binary (or a small container image) in CI.\n   - Publish the artifact for users/automation to run.\n\n2. **Distribute the artifact**\n   - Store versioned binaries (and/or container image) in AWS-managed artifact storage.\n   - Optionally sign artifacts.\n\n3. **Run the CLI from a trusted execution environment**\n   - Primary: developer workstation / dev container (as you already do).\n   - Optional enterprise pattern: run in a controlled environment such as **AWS CloudShell** or a short-lived **CodeBuild** job for “run on demand” execution.\n\n4. **Authenticate securely (no long-lived keys)**\n   - Use **IAM Identity Center (SSO)** or **AssumeRole** into a dedicated role for this tool.\n   - The CLI uses the standard AWS SDK credential chain; when using SSO/assume-role, the SDK will obtain temporary credentials via **STS**.\n\n5. **Authorization scope**\n   - The tool needs only:\n     - `s3:ListAllMyBuckets` (account-level list)\n     - (Optional) `sts:GetCallerIdentity` and/or `sts:AssumeRole` depending on how you source credentials.\n\n6. **Observability / audit**\n   - API calls are captured by **CloudTrail** (management events) for audit.\n\n#### Runtime flow\n- User/automation runs the `awsS3BucketList` binary (locally, CloudShell, or CodeBuild).\n- Credentials are obtained via IAM Identity Center / role assumption (STS).\n- The CLI calls `ListBuckets` against Amazon S3 and prints results.\n\n### Optional “run as a managed job” variant (only if you need central execution)\nIf you want a fully AWS-hosted execution (e.g., scheduled inventory), run the binary in **CodeBuild** on a schedule (EventBridge) and write output to **CloudWatch Logs** and/or **S3**. This keeps the system serverless and avoids EC2/ECS.\n\n",
+  "aws_resources": [
+    "Amazon S3 bucket (artifact distribution for compiled binaries)",
+    "AWS IAM role (execution role for the CLI when run in AWS-hosted environments)",
+    "AWS IAM policy (least-privilege: s3:ListAllMyBuckets; optional sts:GetCallerIdentity / sts:AssumeRole)",
+    "AWS IAM Identity Center (SSO) permission set (optional, recommended for human users)",
+    "AWS CloudTrail (management events for auditing S3/STS API calls)",
+    "Amazon CloudWatch Logs log group (optional; for CodeBuild/CloudShell/automation logs)",
+    "AWS CodeBuild project (optional; build and/or run-on-demand job)",
+    "AWS CodePipeline (optional; CI/CD pipeline to build and publish artifacts)",
+    "Amazon EventBridge rule (optional; schedule CodeBuild runs)",
+    "AWS KMS key (optional; encrypt S3 artifact bucket and/or sign/encrypt artifacts)"
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda"
+        ],
+        "partial": [
+          "events",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform",
+      "variables": {
+        "bot_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/vars.tf"
+        },
+        "chat_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/vars.tf"
+        },
+        "half_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/vars.tf"
+        },
+        "end_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/vars.tf"
+        }
+      },
+      "required_missing": [
+        "bot_token",
+        "chat_id",
+        "end_month_message",
+        "half_month_message"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_iam_policy",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_lambda_permission"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_iam_role": 1,
+        "aws_iam_policy": 1,
+        "aws_lambda_function": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_lambda_permission": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": {
+        "type": "s3",
+        "decl_files": [
+          "/ai-code-generation-from-code-to-iac/workspace/809928380/terraform/provider.tf"
+        ]
+      },
+      "existing_varfiles": []
+    }
+  ]
+}

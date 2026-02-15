@@ -1,0 +1,14 @@
+
+Error: creating S3 Bucket (energi-node-closing-yak): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://energi-node-closing-yak.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.artifacts,
+  on main.tf line 8, in resource "aws_s3_bucket" "artifacts":
+   8: resource "aws_s3_bucket" "artifacts" {
+
+
+Error: creating IAM Policy (energi-node-assume-role-policy): operation error IAM: CreatePolicy, https response error StatusCode: 400, RequestID: 082a7604-a400-48a8-a78f-672b6a22b36c, MalformedPolicyDocument: Policy statement must contain resources.
+
+  with aws_iam_policy.assume_role_policy,
+  on main.tf line 34, in resource "aws_iam_policy" "assume_role_policy":
+  34: resource "aws_iam_policy" "assume_role_policy" {
+

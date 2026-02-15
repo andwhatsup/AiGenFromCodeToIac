@@ -1,0 +1,22 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_cloudwatch_event_rule.lambda_cron" [label="aws_cloudwatch_event_rule.lambda_cron"];
+  "aws_cloudwatch_event_target.lambda_target" [label="aws_cloudwatch_event_target.lambda_target"];
+  "aws_iam_policy.lambda_sagemaker_invoke" [label="aws_iam_policy.lambda_sagemaker_invoke"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_policy" [label="aws_iam_role_policy_attachment.lambda_policy"];
+  "aws_iam_role_policy_attachment.lambda_sagemaker_attach" [label="aws_iam_role_policy_attachment.lambda_sagemaker_attach"];
+  "aws_lambda_function.example" [label="aws_lambda_function.example"];
+  "aws_lambda_permission.allow_eventbridge" [label="aws_lambda_permission.allow_eventbridge"];
+  "aws_cloudwatch_event_target.lambda_target" -> "aws_cloudwatch_event_rule.lambda_cron";
+  "aws_cloudwatch_event_target.lambda_target" -> "aws_lambda_function.example";
+  "aws_iam_role_policy_attachment.lambda_policy" -> "aws_iam_role.lambda_exec";
+  "aws_iam_role_policy_attachment.lambda_sagemaker_attach" -> "aws_iam_policy.lambda_sagemaker_invoke";
+  "aws_iam_role_policy_attachment.lambda_sagemaker_attach" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.example" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.example" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_cloudwatch_event_rule.lambda_cron";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_lambda_function.example";
+}

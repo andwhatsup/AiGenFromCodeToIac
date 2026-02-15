@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is best deployed on AWS using a container orchestration service, with secure managed services for the database and networking. The main application is packaged as a Docker container, which requires access to both a MySQL database and an FTP server. The recommended AWS architecture is as follows:\n\n1. **VPC (Virtual Private Cloud)**: All resources are deployed within a dedicated VPC for network isolation and security. The VPC will have both public and private subnets.\n\n2. **ECS (Elastic Container Service) with Fargate**: The Docker container is deployed as a task in ECS using Fargate, which provides serverless compute for containers. This eliminates the need to manage EC2 instances directly. The ECS service will be placed in private subnets for security.\n\n3. **RDS (Relational Database Service) for MySQL**: The MySQL database is provisioned using Amazon RDS, which provides a managed, scalable, and secure MySQL instance. The RDS instance is deployed in private subnets and is only accessible from the ECS tasks.\n\n4. **FTP Server**: If the FTP server is external, the ECS task will connect to it over the internet. If the FTP server should be managed within AWS, an EC2 instance can be provisioned in a public subnet and configured as an FTP server. Security groups will restrict access to only necessary sources.\n\n5. **IAM Roles and Policies**: An IAM role is created for the ECS task, granting it permissions to access necessary AWS resources (e.g., S3, CloudWatch Logs). Least privilege principles are followed.\n\n6. **Security Groups**: Security groups are configured to control traffic between ECS, RDS, and the FTP server. The ECS service can access RDS on the MySQL port, and the FTP server is accessible only as needed.\n\n7. **CloudWatch Logs**: ECS task logs are sent to CloudWatch Logs for monitoring and troubleshooting.\n\n8. **(Optional) S3 Bucket**: If rclone is used for S3 as well as FTP, an S3 bucket can be provisioned for file storage.\n\n9. **(Optional) Secrets Manager or Parameter Store**: Store database credentials and FTP credentials securely, and inject them into the ECS task at runtime.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized workloads with managed database and external file transfer requirements.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "ECS Cluster",
+    "ECS Task Definition (Fargate)",
+    "ECS Service",
+    "IAM Role for ECS Task",
+    "IAM Policy for ECS Task",
+    "Security Group for ECS Tasks",
+    "Security Group for RDS",
+    "Security Group for FTP Server (if managed in AWS)",
+    "RDS MySQL Instance",
+    "CloudWatch Log Group",
+    "(Optional) EC2 Instance for FTP Server (if not external)",
+    "(Optional) S3 Bucket",
+    "(Optional) Secrets Manager Secret or SSM Parameter"
+  ]
+}

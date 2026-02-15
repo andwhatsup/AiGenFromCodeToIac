@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 4.0\"\n    }\n  }\n  required_version = \">= 1.3.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"lambda_function_name\" {\n  description = \"Name for the Lambda function.\"\n  type        = string\n  default     = \"venmo-api-lambda\"\n}\n\nvariable \"lambda_handler\" {\n  description = \"Handler for the Lambda function.\"\n  type        = string\n  default     = \"handler.lambda_handler\"\n}\n\nvariable \"lambda_runtime\" {\n  description = \"Runtime for the Lambda function.\"\n  type        = string\n  default     = \"python3.11\"\n}\n\nvariable \"lambda_memory_size\" {\n  description = \"Memory size for the Lambda function (MB).\"\n  type        = number\n  default     = 128\n}\n\nvariable \"lambda_timeout\" {\n  description = \"Timeout for the Lambda function (seconds).\"\n  type        = number\n  default     = 10\n}\n"
+    },
+    {
+      "name": "lambda.tf",
+      "content": "resource \"aws_iam_role\" \"lambda_exec\" {\n  name = \"${var.lambda_function_name}-exec-role\"\n  assume_role_policy = jsonencode({\n    Version = \"2012-10-17\"\n    Statement = [{\n      Action = \"sts:AssumeRole\"\n      Effect = \"Allow\"\n      Principal = {\n        Service = \"lambda.amazonaws.com\"\n      }\n    }]\n  })\n}\n\nresource \"aws_iam_role_policy_attachment\" \"lambda_basic_execution\" {\n  role       = aws_iam_role.lambda_exec.name\n  policy_arn = \"arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole\"\n}\n\nresource \"aws_lambda_function\" \"venmo_api\" {\n  function_name = var.lambda_function_name\n  handler       = var.lambda_handler\n  runtime       = var.lambda_runtime\n  role          = aws_iam_role.lambda_exec.arn\n  memory_size   = var.lambda_memory_size\n  timeout       = var.lambda_timeout\n\n  filename         = \"./lambda_package.zip\"\n  source_code_hash = filebase64sha256(\"./lambda_package.zip\")\n\n  environment {\n    variables = {\n      # Add environment variables here if needed\n    }\n  }\n\n  depends_on = [aws_iam_role_policy_attachment.lambda_basic_execution]\n}\n\nresource \"aws_cloudwatch_log_group\" \"lambda_log\" {\n  name              = \"/aws/lambda/${aws_lambda_function.venmo_api.function_name}\"\n  retention_in_days = 14\n}\n"
+    },
+    {
+      "name": "api_gateway.tf",
+      "content": "resource \"aws_apigatewayv2_api\" \"lambda_api\" {\n  name          = \"${var.lambda_function_name}-api\"\n  protocol_type = \"HTTP\"\n}\n\nresource \"aws_apigatewayv2_integration\" \"lambda_integration\" {\n  api_id                 = aws_apigatewayv2_api.lambda_api.id\n  integration_type       = \"AWS_PROXY\"\n  integration_uri        = aws_lambda_function.venmo_api.invoke_arn\n  integration_method     = \"POST\"\n  payload_format_version = \"2.0\"\n}\n\nresource \"aws_apigatewayv2_route\" \"lambda_route\" {\n  api_id    = aws_apigatewayv2_api.lambda_api.id\n  route_key = \"ANY /{proxy+}\"\n  target    = \"integrations/${aws_apigatewayv2_integration.lambda_integration.id}\"\n}\n\nresource \"aws_apigatewayv2_stage\" \"lambda_stage\" {\n  api_id      = aws_apigatewayv2_api.lambda_api.id\n  name        = \"$default\"\n  auto_deploy = true\n}\n\nresource \"aws_lambda_permission\" \"apigw_invoke\" {\n  statement_id  = \"AllowAPIGatewayInvoke\"\n  action        = \"lambda:InvokeFunction\"\n  function_name = aws_lambda_function.venmo_api.function_name\n  principal     = \"apigateway.amazonaws.com\"\n  source_arn    = \"${aws_apigatewayv2_api.lambda_api.execution_arn}/*/*\"\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"lambda_function_name\" {\n  description = \"Name of the deployed Lambda function.\"\n  value       = aws_lambda_function.venmo_api.function_name\n}\n\noutput \"lambda_function_arn\" {\n  description = \"ARN of the deployed Lambda function.\"\n  value       = aws_lambda_function.venmo_api.arn\n}\n\noutput \"api_endpoint\" {\n  description = \"Invoke URL for the API Gateway.\"\n  value       = aws_apigatewayv2_api.lambda_api.api_endpoint\n}\n"
+    },
+    {
+      "name": "README.md",
+      "content": "# AWS Lambda + API Gateway Terraform Configuration\n\nThis configuration provisions a Python AWS Lambda function (with external Venmo API access) and exposes it via an HTTP API Gateway. It includes:\n- Lambda function and IAM role\n- API Gateway HTTP API\n- CloudWatch log group\n\n## Deployment Steps\n\n1. **Package your Lambda code** (handler.py, requirements.txt, etc.) into a `lambda_package.zip` file in this directory.\n2. Initialize Terraform:\n   ```sh\n   terraform init\n   ```\n3. Review the plan:\n   ```sh\n   terraform plan\n   ```\n4. Apply the configuration:\n   ```sh\n   terraform apply\n   ```\n\n## Variables\n- `aws_region`: AWS region to deploy to (default: us-east-1)\n- `lambda_function_name`: Name for the Lambda function\n- `lambda_handler`: Lambda handler (default: handler.lambda_handler)\n- `lambda_runtime`: Python runtime (default: python3.11)\n- `lambda_memory_size`: Memory (default: 128 MB)\n- `lambda_timeout`: Timeout (default: 10s)\n\n## Notes\n- You must provide a `lambda_package.zip` file containing your code and dependencies.\n- The Lambda function will have basic execution permissions (CloudWatch logging).\n- The API Gateway exposes the Lambda via an HTTP endpoint.\n"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system is a containerized JavaScript (Express) web application deployed on AWS using Kubernetes (EKS) and exposed via an AWS-managed Load Balancer. The CI/CD pipeline is managed by GitHub Actions, which builds Docker images and deploys them to the Kubernetes cluster. The architecture is designed for scalability, security, and operational efficiency, following AWS best practices:\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for outbound internet access from private subnets.\n\n2. **Compute & Orchestration:**\n   - Amazon EKS (Elastic Kubernetes Service) cluster for managing Kubernetes workloads.\n   - EKS worker nodes (EC2 instances or managed node groups) in private subnets.\n\n3. **Container Registry:**\n   - Amazon ECR (Elastic Container Registry) for storing Docker images built by GitHub Actions.\n\n4. **Load Balancing & Networking:**\n   - AWS Network Load Balancer (NLB) or Application Load Balancer (ALB) provisioned by the Kubernetes Service of type LoadBalancer, exposing the application to the internet.\n   - Security Groups to control inbound/outbound traffic to the EKS nodes and Load Balancer.\n\n5. **IAM & Security:**\n   - IAM roles and policies for EKS, worker nodes, and GitHub Actions (for ECR push/pull and EKS deploy permissions).\n   - Kubernetes RBAC for workload-level security.\n\n6. **CI/CD Integration:**\n   - GitHub Actions workflows for building, pushing Docker images to ECR, and deploying to EKS using kubectl.\n\n7. **Monitoring & Logging:**\n   - Amazon CloudWatch for monitoring EKS cluster and application logs.\n   - AWS CloudTrail for auditing API activity.\n\nThis architecture ensures the application is highly available, scalable, and secure, with automated deployment pipelines and AWS-managed infrastructure components.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group (EC2 instances)",
+    "Amazon ECR Repository",
+    "Security Groups (for EKS nodes and Load Balancer)",
+    "IAM Roles and Policies (for EKS, worker nodes, GitHub Actions)",
+    "Kubernetes Service of type LoadBalancer (provisions AWS NLB/ALB)",
+    "CloudWatch Log Group (for EKS and application logs)",
+    "CloudTrail (for auditing)"
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_alb",
+            "aws_alb_listener",
+            "aws_alb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group",
+            "aws_cloudwatch_log_metric_filter"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_subscription"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs",
+          "sns"
+        ],
+        "partial": [
+          "cloudwatch",
+          "ec2",
+          "ecr",
+          "ecs",
+          "elbv2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "internet",
+          "nat",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform",
+      "variables": {
+        "aws_access_key": {
+          "type": null,
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "aws_secret_key": {
+          "type": null,
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "aws_region": {
+          "type": null,
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "az_count": {
+          "type": null,
+          "has_default": true,
+          "default": "\"2\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "app_image": {
+          "type": null,
+          "has_default": true,
+          "default": "\"256111890451.dkr.ecr.us-east-1.amazonaws.com/pw_ecr_dsop_webapp:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "app_port": {
+          "type": null,
+          "has_default": true,
+          "default": "8080",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "create_ecr_repository": {
+          "type": null,
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "app_count": {
+          "type": null,
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "fargate_cpu": {
+          "type": null,
+          "has_default": true,
+          "default": "\"256\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        },
+        "fargate_memory": {
+          "type": null,
+          "has_default": true,
+          "default": "\"512\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/variables.tf"
+        }
+      },
+      "required_missing": [
+        "aws_access_key",
+        "aws_region",
+        "aws_secret_key"
+      ],
+      "aws_services": [
+        "aws_alb",
+        "aws_alb_listener",
+        "aws_alb_target_group",
+        "aws_availability_zones",
+        "aws_cloudwatch_log_group",
+        "aws_cloudwatch_log_metric_filter",
+        "aws_cloudwatch_metric_alarm",
+        "aws_ecr_repository",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_eip",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_nat_gateway",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_security_group",
+        "aws_sns_topic",
+        "aws_sns_topic_subscription",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_subnet": 2,
+        "aws_internet_gateway": 1,
+        "aws_route": 1,
+        "aws_eip": 1,
+        "aws_nat_gateway": 1,
+        "aws_route_table": 1,
+        "aws_route_table_association": 1,
+        "aws_security_group": 2,
+        "aws_alb": 1,
+        "aws_alb_target_group": 1,
+        "aws_alb_listener": 1,
+        "aws_ecs_cluster": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_sns_topic": 2,
+        "aws_cloudwatch_log_group": 1,
+        "aws_cloudwatch_log_metric_filter": 1,
+        "aws_sns_topic_subscription": 1,
+        "aws_cloudwatch_metric_alarm": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/715498026/terraform/aws_ecr_repository.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

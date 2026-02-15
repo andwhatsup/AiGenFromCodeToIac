@@ -1,0 +1,32 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (EKS + ALB, containerized Nginx static site)\n\n### 1) Networking foundation\n- Create a dedicated **VPC** spanning **2–3 Availability Zones** for high availability.\n- In each AZ:\n  - **Public subnets** host the internet-facing **Application Load Balancer (ALB)**.\n  - **Private subnets** host the **EKS worker nodes** (and therefore the pods).\n- Add an **Internet Gateway** for public subnets and **NAT Gateway(s)** so private subnets can reach the internet for image pulls/updates (or reach AWS endpoints privately via VPC endpoints).\n\n### 2) Container image registry\n- Use **Amazon ECR** as the primary registry (recommended on AWS) instead of Docker Hub/GHCR for production runtime pulls.\n- CI (Jenkins or GitHub Actions) builds the Nginx image and pushes to ECR.\n- EKS pulls images from ECR using **IRSA** (IAM Roles for Service Accounts) and/or node IAM permissions.\n\n### 3) Compute: Amazon EKS\n- Provision an **EKS cluster** with:\n  - **Managed Node Group(s)** in private subnets (minimum 2 AZs).\n  - Kubernetes **Deployment** with **replicas=6** (as in your manifests).\n  - **Horizontal Pod Autoscaler (HPA)** optional if you want scaling beyond 6 based on CPU/requests.\n- Install key EKS add-ons:\n  - **VPC CNI**, **CoreDNS**, **kube-proxy** (standard).\n  - **EBS CSI driver** (not strictly required for a static Nginx container, but commonly installed for cluster completeness).\n\n### 4) Ingress / Load balancing (ALB)\n- Use the **AWS Load Balancer Controller** in the cluster to provision and manage ALBs from Kubernetes resources.\n- Prefer **Kubernetes Ingress** (or Gateway API) to create an **internet-facing ALB** with:\n  - **HTTPS listener (443)** using an **ACM certificate**.\n  - Target group routing to the Nginx service/pods.\n- If you keep `Service type: LoadBalancer` you may get an NLB by default; to reliably get ALB behavior, use **Ingress + AWS Load Balancer Controller**.\n\n### 5) DNS + TLS\n- Use **Route 53** for your domain.\n- Use **ACM** to issue/attach TLS certs to the ALB.\n\n### 6) CI/CD integration\nTwo lean options:\n- **Option A (AWS-native, recommended):** GitHub Actions → push to **ECR** → deploy to EKS using `kubectl` (with OIDC federation to AWS) or Helm.\n- **Option B (keep Jenkins):** Jenkins (self-hosted or on EC2) → push to ECR → deploy to EKS.\n\n### 7) Observability, security, and operations\n- **CloudWatch Container Insights** (or Prometheus/Grafana) for cluster/pod metrics.\n- **CloudWatch Logs** for control plane logs and application logs (via Fluent Bit/CloudWatch agent).\n- **AWS WAF** on the ALB for basic L7 protection.\n- **Secrets**: store registry/CI secrets in **AWS Secrets Manager** (or SSM Parameter Store) and mount into CI runners; in-cluster secrets via Kubernetes Secrets (optionally encrypted with KMS).\n- **KMS** for encrypting EKS secrets and ECR at-rest encryption (and optionally log groups).\n\n### Request flow\nEnd user → Route 53 DNS → ALB (HTTPS, ACM cert, optional WAF) → Kubernetes Ingress/Service → Nginx pods (6 replicas) on EKS nodes in private subnets.\n\n---\n\n## Notes on “static web app” alternative (even leaner)\nBecause this is a static HTML/CSS/JS site, the simplest/cheapest AWS architecture is often **S3 + CloudFront** (no Kubernetes). However, since your repo already has Kubernetes manifests and an Nginx container, the design above keeps your current deployment model while aligning it with AWS best practices.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (public, private across 2–3 AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway(s)",
+    "Route tables (public/private)",
+    "Security Groups (ALB SG, EKS node SG)",
+    "Network ACLs (optional, if you manage beyond defaults)",
+    "VPC Endpoints (recommended/optional: ECR API, ECR DKR, S3 Gateway, CloudWatch Logs)",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group(s) (EC2 worker nodes)",
+    "EKS Add-ons: VPC CNI, CoreDNS, kube-proxy",
+    "IAM Roles: EKS cluster role, node instance role",
+    "IAM OIDC Provider for EKS (for IRSA)",
+    "IAM Roles for Service Accounts (IRSA) for: AWS Load Balancer Controller, external-dns (if used), logging agent (if used)",
+    "Amazon ECR Repository",
+    "AWS Load Balancer Controller (Kubernetes add-on deployed via Helm/manifest)",
+    "Application Load Balancer (provisioned by controller)",
+    "ALB Target Group(s)",
+    "ALB Listener(s) (HTTP/HTTPS)",
+    "AWS Certificate Manager (ACM) certificate",
+    "Amazon Route 53 Hosted Zone + DNS records (A/AAAA alias to ALB)",
+    "AWS WAF Web ACL (associated to ALB)",
+    "Amazon CloudWatch Log Groups (EKS control plane logs, app logs)",
+    "CloudWatch Container Insights (optional)",
+    "AWS Secrets Manager (for CI/CD and/or app secrets)",
+    "AWS KMS Key (for secrets encryption / EKS secret envelope encryption / log encryption as needed)",
+    "CI/CD integration resources (choose one): GitHub Actions OIDC IAM role for deployments OR Jenkins host (EC2 instance + IAM role + Security Group)"
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "terraform": false
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "dynamodb": {
+          "status": "full",
+          "resource_types": [
+            "aws_dynamodb_table"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc",
+            "aws_vpc_security_group_egress_rule"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "eks": {
+          "status": "none",
+          "resource_types": [
+            "aws_eks_cluster",
+            "aws_eks_identity_provider_config",
+            "aws_eks_node_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_openid_connect_provider",
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "dynamodb",
+          "s3"
+        ],
+        "partial": [
+          "ec2",
+          "ecr",
+          "iam"
+        ],
+        "none": [
+          "eks"
+        ],
+        "unknown": [
+          "availability",
+          "internet",
+          "nat",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_eks_cluster",
+        "aws_eks_identity_provider_config",
+        "aws_eks_node_group"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "terraform": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform",
+      "variables": {
+        "private_subnet_cidrs": {
+          "type": null,
+          "has_default": true,
+          "default": "[",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": null,
+          "has_default": true,
+          "default": "[",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "aws_account_id": {
+          "type": null,
+          "has_default": true,
+          "default": "\"AWS_ACCOUNT_ID\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "aws_managed_key_id_secrets_manager": {
+          "type": null,
+          "has_default": true,
+          "default": "\"AWS_MANAGED_KEY_ID\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "region": {
+          "type": null,
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "secret": {
+          "type": null,
+          "has_default": true,
+          "default": "\"python-weather-app/api-key-######\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "tf_state_bucket": {
+          "type": null,
+          "has_default": true,
+          "default": "\"STATE_BUCKET_NAME\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        },
+        "tags": {
+          "type": "map(any)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_availability_zones",
+        "aws_dynamodb_table",
+        "aws_ecr_repository",
+        "aws_eip",
+        "aws_eks_cluster",
+        "aws_eks_identity_provider_config",
+        "aws_eks_node_group",
+        "aws_iam_openid_connect_provider",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_nat_gateway",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_s3_bucket",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc",
+        "aws_vpc_security_group_egress_rule"
+      ],
+      "resource_type_counts": {
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_dynamodb_table": 1,
+        "aws_ecr_repository": 1,
+        "aws_eks_cluster": 1,
+        "aws_eks_node_group": 1,
+        "aws_iam_policy_document": 6,
+        "aws_iam_role": 4,
+        "aws_iam_openid_connect_provider": 1,
+        "aws_eks_identity_provider_config": 1,
+        "aws_iam_policy": 2,
+        "aws_iam_role_policy_attachment": 9,
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_subnet": 2,
+        "aws_internet_gateway": 1,
+        "aws_route_table": 2,
+        "aws_route_table_association": 2,
+        "aws_route": 1,
+        "aws_nat_gateway": 1,
+        "aws_eip": 1,
+        "aws_security_group": 1,
+        "aws_vpc_security_group_egress_rule": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/792011211/terraform/backend.tf"
+          ],
+          "versions": [
+            "5.38.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

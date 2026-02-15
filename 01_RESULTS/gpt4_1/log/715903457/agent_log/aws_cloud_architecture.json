@@ -1,0 +1,26 @@
+{
+  "aws_architecture_description": "This system is a modern, containerized web application stack using React for the frontend and Strapi (Node.js) for the backend, with MySQL as the production database and AWS as the cloud provider. The architecture is designed for scalability, security, and maintainability, leveraging AWS managed services and best practices.\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all resources within a dedicated VPC for network isolation and security.\n   - Use public and private subnets across multiple Availability Zones for high availability.\n   - NAT Gateway(s) to allow outbound internet access for private resources.\n\n2. **Compute:**\n   - Use Amazon ECS (Elastic Container Service) with Fargate launch type to run containerized Strapi API and React frontend. This removes the need to manage EC2 instances directly.\n   - ECS Service for Strapi API (Node.js) in private subnets.\n   - ECS Service for React frontend (can be served as a static site from S3/CloudFront, or as a container if SSR is needed).\n\n3. **Database:**\n   - Amazon RDS for MySQL as the production database, deployed in private subnets for security.\n   - (Optional) SQLite is used only for local development and is not deployed in AWS.\n\n4. **Storage:**\n   - Amazon S3 for static asset storage (media uploads, frontend static files if not containerized).\n   - S3 can also be used for storing Terraform state files (as referenced in the Makefile).\n\n5. **Content Delivery & API Exposure:**\n   - Amazon CloudFront as a CDN for the React frontend (if served from S3) and for caching API responses if needed.\n   - AWS Application Load Balancer (ALB) to expose the Strapi API securely to the internet, with HTTPS termination.\n\n6. **IAM & Security:**\n   - IAM roles and policies for ECS tasks, S3 access, and RDS access.\n   - Security Groups to restrict access to ECS services, RDS, and ALB.\n   - AWS Secrets Manager or SSM Parameter Store for managing sensitive configuration (DB credentials, API keys).\n\n7. **Monitoring & Logging:**\n   - Amazon CloudWatch for logs, metrics, and alarms (ECS, RDS, ALB).\n   - AWS X-Ray for distributed tracing (optional, for advanced monitoring).\n\n8. **CI/CD (Optional):**\n   - AWS CodePipeline/CodeBuild or GitHub Actions for automated deployment.\n\n**Deployment Strategy:**\n- Use Terraform for infrastructure as code, as referenced in the Makefile.\n- Deploy backend and frontend as separate ECS services, or serve frontend from S3/CloudFront for static hosting.\n- Use environment variables and Secrets Manager for configuration.\n- Ensure all resources are deployed across multiple AZs for high availability.\n\nThis architecture is secure, scalable, and cost-effective, following AWS best practices for containerized web applications.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for ALB, ECS, RDS)",
+    "Amazon ECS Cluster (Fargate)",
+    "ECS Task Definitions (Strapi API, React frontend if containerized)",
+    "ECS Services (Strapi API, React frontend if containerized)",
+    "Application Load Balancer (ALB)",
+    "Target Groups (for ALB)",
+    "Amazon RDS for MySQL (Multi-AZ, in private subnets)",
+    "Amazon S3 Bucket (for static assets, media, and optionally frontend)",
+    "Amazon S3 Bucket (for Terraform state, if needed)",
+    "Amazon CloudFront Distribution (for S3 static site and/or API caching)",
+    "IAM Roles and Policies (ECS task roles, S3 access, RDS access)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets/config)",
+    "CloudWatch Log Groups (for ECS, RDS, ALB)",
+    "CloudWatch Alarms (for monitoring)",
+    "(Optional) AWS CodePipeline/CodeBuild (for CI/CD)"
+  ]
+}

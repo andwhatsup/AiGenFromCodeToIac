@@ -1,0 +1,25 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture for deploying the containerized SonarQube service with its supporting components is as follows:\n\n1. **Networking & Security:**\n   - Deploy all resources within a dedicated VPC for network isolation and security.\n   - Use public and private subnets across at least two Availability Zones for high availability.\n   - An Internet Gateway allows inbound/outbound internet access for public-facing components (reverse proxy).\n   - NAT Gateway(s) enable outbound internet access for private resources if needed.\n   - Security Groups restrict access to only necessary ports (e.g., 80/443 for reverse proxy, 9000 for SonarQube, 5432 for PostgreSQL).\n   - Network ACLs provide additional subnet-level security.\n\n2. **Compute & Containerization:**\n   - Use Amazon ECS (Elastic Container Service) with Fargate launch type for running containerized workloads (SonarQube and reverse proxy), providing serverless container management and scaling.\n   - ECS Task Definitions for SonarQube and the reverse proxy, each mounting a shared volume for custom CA certificates.\n   - Application Load Balancer (ALB) in front of the reverse proxy to handle HTTP/HTTPS traffic, SSL termination, and health checks.\n\n3. **Database:**\n   - Amazon RDS for PostgreSQL, deployed in private subnets for security, with Multi-AZ enabled for high availability and automated backups.\n   - Security group rules allow only the SonarQube ECS task to connect to the database on port 5432.\n\n4. **Storage:**\n   - Amazon EFS (Elastic File System) for storing and sharing custom CA certificates between the reverse proxy and SonarQube containers. EFS is mounted by both ECS tasks.\n   - Optionally, Amazon S3 for SonarQube backups or additional persistent storage needs.\n\n5. **IAM & Secrets Management:**\n   - IAM roles for ECS tasks to allow access to EFS, S3, and AWS Secrets Manager.\n   - AWS Secrets Manager for securely storing and retrieving database credentials and other sensitive configuration.\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch for collecting logs and metrics from ECS tasks, RDS, and ALB.\n   - CloudWatch Alarms for alerting on resource health and performance.\n\n7. **Foundational Resources:**\n   - Route 53 for DNS management if a custom domain is required.\n   - AWS Certificate Manager (ACM) for managing SSL/TLS certificates for the ALB.\n\nThis architecture ensures secure, scalable, and maintainable deployment of the SonarQube service, with all dependencies and best practices for AWS cloud environments.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2)",
+    "Private Subnets (at least 2)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables and Associations",
+    "Security Groups (for ALB, ECS tasks, RDS)",
+    "Network ACLs",
+    "Amazon ECS Cluster (Fargate)",
+    "ECS Task Definitions (SonarQube, Reverse Proxy)",
+    "Application Load Balancer (ALB)",
+    "Target Groups (for ECS services)",
+    "Amazon RDS for PostgreSQL (Multi-AZ)",
+    "Amazon EFS (for shared CA certificates)",
+    "Amazon S3 (optional, for backups)",
+    "IAM Roles and Policies (for ECS, EFS, RDS, Secrets Manager)",
+    "AWS Secrets Manager (for DB credentials, secrets)",
+    "Amazon CloudWatch (logs, metrics, alarms)",
+    "AWS Certificate Manager (ACM)",
+    "Amazon Route 53 (optional, for DNS)"
+  ]
+}

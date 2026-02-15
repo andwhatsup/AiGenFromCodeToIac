@@ -1,0 +1,24 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_eip.squid" [label="aws_eip.squid"];
+  "aws_instance.squid" [label="aws_instance.squid"];
+  "aws_internet_gateway.main" [label="aws_internet_gateway.main"];
+  "aws_route.internet_access" [label="aws_route.internet_access"];
+  "aws_route_table.public" [label="aws_route_table.public"];
+  "aws_route_table_association.public" [label="aws_route_table_association.public"];
+  "aws_security_group.squid" [label="aws_security_group.squid"];
+  "aws_subnet.public" [label="aws_subnet.public"];
+  "aws_vpc.main" [label="aws_vpc.main"];
+  "aws_eip.squid" -> "aws_instance.squid";
+  "aws_instance.squid" -> "aws_security_group.squid";
+  "aws_instance.squid" -> "aws_subnet.public";
+  "aws_internet_gateway.main" -> "aws_vpc.main";
+  "aws_route.internet_access" -> "aws_internet_gateway.main";
+  "aws_route.internet_access" -> "aws_route_table.public";
+  "aws_route_table.public" -> "aws_vpc.main";
+  "aws_route_table_association.public" -> "aws_route_table.public";
+  "aws_route_table_association.public" -> "aws_subnet.public";
+  "aws_security_group.squid" -> "aws_vpc.main";
+  "aws_subnet.public" -> "aws_vpc.main";
+}

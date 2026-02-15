@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This MLflow-based system will be deployed on AWS using a secure, scalable, and containerized architecture. The main components are:\n\n1. **Networking & Security:**\n   - A dedicated VPC with public and private subnets across two Availability Zones for high availability.\n   - Security Groups to restrict access to only necessary ports (e.g., 80/443 for Nginx, 5432 for PostgreSQL, etc.).\n   - IAM roles and policies for least-privilege access, especially for MLflow to access S3.\n\n2. **Compute Layer:**\n   - An Amazon ECS (Elastic Container Service) cluster (Fargate launch type for serverless containers) to run the Dockerized stack (Nginx, Supervisor, MLflow Tracking Server). ECS Service will manage the containers, ensuring high availability and auto-recovery.\n   - Alternatively, EC2 Auto Scaling Group can be used if more control over the underlying instances is required, but ECS Fargate is recommended for simplicity and scalability.\n\n3. **Load Balancing:**\n   - An Application Load Balancer (ALB) in front of the ECS service to route HTTP(S) traffic to the Nginx container, providing SSL termination and health checks.\n\n4. **Database Layer:**\n   - Amazon RDS for PostgreSQL, deployed in private subnets for security, with Multi-AZ enabled for high availability and automated backups.\n\n5. **Artifact Storage:**\n   - An S3 bucket for MLflow artifact storage, with appropriate bucket policies to restrict access to only the MLflow service role.\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch for container logs, ECS service metrics, and RDS monitoring.\n   - AWS CloudTrail for auditing API calls.\n\n7. **Other Foundation:**\n   - AWS Secrets Manager or SSM Parameter Store for securely managing database credentials and other sensitive configuration.\n   - Route 53 for DNS management if a custom domain is required.\n\n**Deployment Strategy:**\n- All application components (Nginx, Supervisor, MLflow) are containerized and deployed as ECS tasks within a single ECS service, using a shared task definition.\n- The ALB forwards requests to the Nginx container, which proxies to the MLflow server managed by Supervisor.\n- MLflow connects to RDS PostgreSQL for metadata and to S3 for artifact storage, using IAM roles for secure access.\n- All resources are provisioned in a secure, isolated VPC, following AWS best practices for security, scalability, and maintainability.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (2+)",
+    "Private Subnets (2+)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks, RDS)",
+    "IAM Roles and Policies (ECS Task Role for S3 access, RDS access, etc.)",
+    "ECS Cluster (Fargate)",
+    "ECS Service and Task Definitions (for Nginx, Supervisor, MLflow)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ECS tasks)",
+    "Amazon RDS for PostgreSQL (Multi-AZ)",
+    "Amazon S3 Bucket (for MLflow artifacts)",
+    "CloudWatch Log Groups (for ECS and RDS logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets)",
+    "CloudTrail (for auditing)",
+    "Route 53 Hosted Zone (if custom domain is needed)"
+  ]
+}

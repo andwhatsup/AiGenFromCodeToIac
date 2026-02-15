@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is currently designed for local development using Docker, Localstack (to emulate AWS services), and a DynamoDB Admin UI. To deploy this system in AWS for production or shared development, we will replace the emulated services with real AWS managed services and provide secure, scalable, and maintainable infrastructure.\n\n**Proposed AWS Architecture:**\n\n- **VPC (Virtual Private Cloud):** Provides network isolation and security for all AWS resources.\n- **Subnets (Public and Private):** Public subnets for load balancers and bastion hosts (if needed); private subnets for application and database resources.\n- **Security Groups:** Control inbound and outbound traffic to EC2 instances, RDS, and other resources.\n- **IAM Roles and Policies:** Grant least-privilege access to AWS resources for EC2, Lambda, and users.\n- **EC2 Instances (optional):** If you need to run custom admin UIs or legacy workloads not suited for serverless/container platforms.\n- **Elastic Container Service (ECS) or AWS Fargate:** Deploy the DynamoDB Admin UI as a containerized service, managed and scalable.\n- **Elastic Load Balancer (ALB):** Expose the DynamoDB Admin UI securely to users (if needed).\n- **Amazon DynamoDB:** Fully managed NoSQL database, replacing the Localstack-emulated DynamoDB.\n- **AWS CloudWatch:** For logging, monitoring, and alerting on all resources.\n- **AWS Systems Manager (SSM):** For secure management and automation of EC2 instances (if used).\n- **AWS Secrets Manager or Parameter Store:** Securely store and manage sensitive configuration (e.g., DynamoDB credentials).\n- **(Optional) S3:** For storing logs, backups, or other artifacts.\n\n**Deployment Strategy:**\n- The DynamoDB Admin UI is containerized and deployed to ECS/Fargate for scalability and ease of management.\n- The application connects to a real DynamoDB table in AWS.\n- All resources are provisioned within a secure VPC, with appropriate IAM roles and security groups.\n- Monitoring and logging are enabled via CloudWatch.\n- Infrastructure can be managed via Terraform or AWS CloudFormation for repeatability and version control.\n\nThis architecture provides a secure, scalable, and production-ready environment that closely mirrors the local development setup, but leverages managed AWS services for reliability and operational excellence.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway (if private subnets need outbound access)",
+    "Route Tables",
+    "Security Groups (for ECS, ALB, DynamoDB, etc.)",
+    "IAM Roles and Policies (for ECS tasks, users, etc.)",
+    "ECS Cluster",
+    "ECS Task Definition (for DynamoDB Admin UI container)",
+    "ECS Service (to run and manage the container)",
+    "Elastic Load Balancer (ALB)",
+    "Amazon DynamoDB Table(s)",
+    "CloudWatch Log Groups and Metrics",
+    "AWS Systems Manager (for EC2, if used)",
+    "AWS Secrets Manager or Parameter Store (for secrets/config)",
+    "(Optional) EC2 Instance(s) (if needed for custom workloads)",
+    "(Optional) S3 Bucket (for logs, backups, or artifacts)"
+  ]
+}

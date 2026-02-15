@@ -1,0 +1,145 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "cloudfront": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudfront_distribution",
+            "aws_cloudfront_origin_access_identity"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record",
+            "aws_route53_zone"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_policy",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "cloudfront",
+          "s3"
+        ],
+        "partial": [
+          "iam",
+          "route53"
+        ],
+        "none": [],
+        "unknown": [
+          "acm"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf/variables.tf"
+        },
+        "site_domain": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf/variables.tf"
+        },
+        "alternate_domains": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf/variables.tf"
+        },
+        "enable_logging": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "site_domain"
+      ],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_cloudfront_distribution",
+        "aws_cloudfront_origin_access_identity",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_route53_record",
+        "aws_route53_zone",
+        "aws_s3_bucket",
+        "aws_s3_bucket_policy",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration"
+      ],
+      "resource_type_counts": {
+        "aws_acm_certificate": 1,
+        "aws_route53_record": 2,
+        "aws_acm_certificate_validation": 1,
+        "aws_route53_zone": 1,
+        "aws_cloudfront_origin_access_identity": 1,
+        "aws_cloudfront_distribution": 1,
+        "aws_iam_policy": 1,
+        "aws_iam_policy_document": 2,
+        "aws_s3_bucket": 2,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_s3_bucket_policy": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/739739960/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 4.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

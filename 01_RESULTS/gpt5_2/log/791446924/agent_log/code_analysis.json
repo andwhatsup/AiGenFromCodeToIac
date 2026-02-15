@@ -1,0 +1,45 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Shell (Bash)",
+        "YAML"
+      ],
+      "frameworks": [
+        "LocalStack (AWS emulator)"
+      ],
+      "dependencies": [
+        "localstack/localstack-pro Docker image (docker-compose.yml)",
+        "tflocal (Terraform LocalStack wrapper) referenced in README.md and invoke scripts",
+        "curl (invoke.sh, invoke-aws.sh)"
+      ],
+      "deployment_relevant_files": [
+        "README.md",
+        "docker-compose.yml",
+        "invoke.sh",
+        "invoke-aws.sh",
+        "architecture-diagram.png"
+      ],
+      "architectural_resources": [
+        "LocalStack container (local AWS cloud emulator)",
+        "API Gateway REST API (implied by README.md and invoke scripts using execute-api hostnames)",
+        "AWS Lambda function (implied by product-lambda.jar and .dummy/lambda.zip artifacts)"
+      ]
+    },
+    {
+      "project_directory": ".dummy",
+      "programming_languages": [
+        "(artifact) ZIP bundle"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        ".dummy/lambda.zip"
+      ],
+      "architectural_resources": [
+        "AWS Lambda deployment package (zip artifact)"
+      ]
+    }
+  ]
+}

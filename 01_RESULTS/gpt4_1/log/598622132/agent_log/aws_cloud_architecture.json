@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "To deploy the described Minecraft server environment (with RCON management) on AWS, the architecture should provide secure, scalable, and manageable hosting for Docker containers. The recommended approach is to use Amazon ECS (Elastic Container Service) with Fargate launch type for serverless container management, or alternatively, EC2 with Docker if persistent host-level control is required. For most use cases, ECS Fargate is preferred for simplicity and scalability.\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all resources within a dedicated VPC for network isolation and security.\n   - Use public and private subnets across at least two Availability Zones for high availability.\n   - Configure security groups to allow only necessary inbound/outbound traffic (e.g., Minecraft port 25565, RCON port 25575, and SSH if needed).\n\n2. **Container Orchestration:**\n   - Use Amazon ECS (Fargate) to run the Minecraft and RCON containers as separate ECS tasks within a single ECS service or as two services, depending on scaling needs.\n   - Store Docker Compose configuration in S3 or as part of the ECS task definition.\n\n3. **Storage:**\n   - Use Amazon EFS (Elastic File System) for persistent storage of Minecraft world data, mounted to the Minecraft container.\n   - Optionally, use S3 for backups or storing configuration files.\n\n4. **IAM & Security:**\n   - Create IAM roles for ECS tasks to allow access to EFS, S3, and other AWS services as needed.\n   - Use AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., RCON passwords).\n\n5. **Monitoring & Logging:**\n   - Enable Amazon CloudWatch for container logs, metrics, and alarms.\n\n6. **Optional:**\n   - Use an Application Load Balancer (ALB) if you want to expose the Minecraft server or RCON interface to the internet with managed access.\n   - Use AWS Systems Manager Session Manager for secure shell access to containers if needed.\n\n**Summary:**\n- The Minecraft and RCON servers run as containers on ECS Fargate, with persistent data on EFS, all within a secure VPC. Security groups restrict access, and IAM roles manage permissions. CloudWatch provides monitoring and logging.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway (if outbound internet access is needed from private subnets)",
+    "Route Tables",
+    "Security Groups (for Minecraft, RCON, and management access)",
+    "Amazon ECS Cluster",
+    "ECS Task Definitions (for Minecraft and RCON containers)",
+    "ECS Services (for Minecraft and RCON)",
+    "Amazon EFS (for persistent Minecraft data)",
+    "EFS Mount Targets (in each subnet)",
+    "IAM Roles and Policies (for ECS tasks, EFS, S3, etc.)",
+    "Amazon S3 Bucket (for configuration/backups, optional)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets)",
+    "Amazon CloudWatch Log Groups and Alarms",
+    "Application Load Balancer (optional, for public access)",
+    "AWS Systems Manager (optional, for management access)"
+  ]
+}

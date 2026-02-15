@@ -1,0 +1,10 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_ecr_lifecycle_policy.app" [label="aws_ecr_lifecycle_policy.app"];
+  "aws_ecr_repository.app" [label="aws_ecr_repository.app"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_ecr_lifecycle_policy.app" -> "aws_ecr_repository.app";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+}

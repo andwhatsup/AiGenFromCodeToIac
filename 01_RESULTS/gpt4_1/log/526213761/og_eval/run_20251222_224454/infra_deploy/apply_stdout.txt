@@ -1,0 +1,43 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # kafka-connect_connector.fleet_mgmt_sensors will be created
+  + resource "kafka-connect_connector" "fleet_mgmt_sensors" {
+      + config = {
+          + "connector.class"                     = "io.confluent.kafka.connect.datagen.DatagenConnector"
+          + "kafka.topic"                         = "fleet_mgmt_sensors"
+          + "key.converter"                       = "org.apache.kafka.connect.storage.StringConverter"
+          + "max.interval"                        = "50"
+          + "name"                                = "fleet_mgmt"
+          + "quickstart"                          = "fleet_mgmt_sensors"
+          + "tasks.max"                           = "1"
+          + "value.converter"                     = "io.confluent.connect.avro.AvroConverter"
+          + "value.converter.schema.registry.url" = "http://schema-registry-conf:8081"
+        }
+      + id     = (known after apply)
+      + name   = "fleet_mgmt"
+    }
+
+  # kafka-connect_connector.orders will be created
+  + resource "kafka-connect_connector" "orders" {
+      + config = {
+          + "connector.class" = "io.confluent.kafka.connect.datagen.DatagenConnector"
+          + "kafka.topic"     = "orders"
+          + "key.converter"   = "org.apache.kafka.connect.storage.StringConverter"
+          + "max.interval"    = "30000"
+          + "name"            = "orders"
+          + "quickstart"      = "orders"
+          + "tasks.max"       = "1"
+          + "value.converter" = "org.apache.kafka.connect.json.JsonConverter"
+        }
+      + id     = (known after apply)
+      + name   = "orders"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+kafka-connect_connector.orders: Creating...
+kafka-connect_connector.fleet_mgmt_sensors: Creating...

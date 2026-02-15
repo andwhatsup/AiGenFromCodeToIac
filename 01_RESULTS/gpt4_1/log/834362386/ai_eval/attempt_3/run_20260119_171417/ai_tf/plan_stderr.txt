@@ -1,0 +1,29 @@
+
+Error: Invalid combination of "count" and "for_each"
+
+  on /ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/.terraform/modules/eks/modules/self-managed-node-group/main.tf line 116, in resource "aws_launch_template" "this":
+ 116:     for_each = var.elastic_gpu_specifications
+
+The "count" and "for_each" meta-arguments are mutually-exclusive, only one
+should be used to be explicit about the number of resources to be created.
+
+Error: Unsupported argument
+
+  on /ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/.terraform/modules/eks/modules/self-managed-node-group/main.tf line 124:
+ 124:     for_each = length(var.elastic_inference_accelerator) > 0 ? [var.elastic_inference_accelerator] : []
+
+An argument named "for_each" is not expected here.
+
+Error: Unsupported block type
+
+  on /ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/.terraform/modules/eks/modules/self-managed-node-group/main.tf line 126:
+ 126:     content {
+
+Blocks of type "content" are not expected here.
+
+Error: Argument or block definition required
+
+  on /ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/.terraform/modules/eks/modules/self-managed-node-group/main.tf line 129:
+ 129:   }
+
+An argument or block definition is required here.

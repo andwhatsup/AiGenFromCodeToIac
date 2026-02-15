@@ -1,0 +1,209 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "codebuild": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_codebuild_project"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "kms": {
+          "status": "partial",
+          "resource_types": [
+            "aws_kms_alias",
+            "aws_kms_key"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_lifecycle_configuration",
+            "aws_s3_bucket_ownership_controls",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs",
+          "s3"
+        ],
+        "partial": [
+          "events",
+          "iam",
+          "kms"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "codebuild",
+          "partition",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"awsS3BucketList\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "artifact_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "enable_codebuild": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "codebuild_schedule_expression": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        },
+        "codebuild_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"aws/codebuild/standard:7.0\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_cloudwatch_log_group",
+        "aws_codebuild_project",
+        "aws_iam_policy",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_kms_alias",
+        "aws_kms_key",
+        "aws_partition",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_s3_bucket_lifecycle_configuration",
+        "aws_s3_bucket_ownership_controls",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_partition": 1,
+        "aws_region": 1,
+        "aws_kms_key": 1,
+        "aws_kms_alias": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_s3_bucket_ownership_controls": 1,
+        "aws_s3_bucket_lifecycle_configuration": 1,
+        "aws_iam_role": 2,
+        "aws_iam_policy": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_codebuild_project": 1,
+        "aws_iam_role_policy": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+data.aws_availability_zones.available: Reading...
+data.aws_ami.al2: Reading...
+data.aws_availability_zones.available: Read complete after 0s [id=ap-northeast-1]
+data.aws_ami.al2: Read complete after 6s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_instance_profile.ec2 will be created
+  + resource "aws_iam_instance_profile" "ec2" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "squid-proxy-ip-"
+      + path        = "/"
+      + role        = (known after apply)
+      + tags        = {
+          + "Managed" = "terraform"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all    = {
+          + "Managed" = "terraform"
+          + "Project" = "squid-proxy"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_role.ec2 will be created
+  + resource "aws_iam_role" "ec2" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "squid-proxy-ec2-"
+      + path                  = "/"
+      + tags                  = {
+          + "Managed" = "terraform"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "squid-proxy"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ssm will be created
+  + resource "aws_iam_role_policy_attachment" "ssm" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      + role       = (known after apply)
+    }
+
+  # aws_instance.squid will be created
+  + resource "aws_instance" "squid" {
+      + ami                                  = "ami-04681a1dbd79675a5"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-northeast-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-ec2"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-ec2"
+          + "Project" = "squid-proxy"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            set -euo pipefail
+            
+            timedatectl set-timezone Asia/Tokyo || true
+            
+            yum update -y
+            yum install -y squid
+            
+            cat > /etc/squid/squid.conf <<'SQUIDCONF'
+            #
+            # Recommended minimum configuration:
+            #
+            
+            # Example rule allowing access from your local networks.
+            # Adapt to list your (internal) IP networks from where browsing
+            # should be allowed
+            # acl localnet src 10.0.0.0/16     # RFC1918 possible internal network
+            # acl localnet src 172.16.0.0/12  # RFC1918 possible internal network
+            # acl localnet src 192.168.0.0/16 # RFC1918 possible internal network
+            # acl localnet src fc00::/7       # RFC 4193 local private network range
+            # acl localnet src fe80::/10      # RFC 4291 link-local (directly plugged) machines
+            acl localnet src 10.159.0.0/24
+            
+            acl SSL_ports port 443
+            acl Safe_ports port 80          # http
+            #acl Safe_ports port 21          # ftp
+            acl Safe_ports port 443         # https
+            #acl Safe_ports port 70          # gopher
+            #acl Safe_ports port 210         # wais
+            #acl Safe_ports port 1025-65535  # unregistered ports
+            #acl Safe_ports port 280         # http-mgmt
+            #acl Safe_ports port 488         # gss-http
+            #acl Safe_ports port 591         # filemaker
+            #acl Safe_ports port 777         # multiling http
+            acl CONNECT method CONNECT
+            
+            #
+            # Recommended minimum Access Permission configuration:
+            #
+            # Deny requests to certain unsafe ports
+            http_access deny !Safe_ports
+            
+            # Deny CONNECT to other than secure SSL ports
+            http_access deny CONNECT !SSL_ports
+            
+            # Only allow cachemgr access from localhost
+            http_access allow localhost manager
+            http_access deny manager
+            
+            # We strongly recommend the following be uncommented to protect innocent
+            # web applications running on the proxy server who think the only
+            # one who can access services on "localhost" is a local user
+            #http_access deny to_localhost
+            
+            #
+            # INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
+            #
+            
+            # Example rule allowing access from your local networks.
+            # Adapt localnet in the ACL section to list your (internal) IP networks
+            # from where browsing should be allowed
+            http_access allow localnet
+            http_access allow localhost
+            
+            # And finally deny all other access to this proxy
+            http_access deny all
+            
+            # Squid normally listens to port 3128
+            http_port 3128
+            
+            # Uncomment and adjust the following to add a disk cache directory.
+            #cache_dir ufs /var/spool/squid 100 16 256
+            
+            # Leave coredumps in the first cache dir
+            coredump_dir /var/spool/squid
+            
+            #
+            # Add any of your own refresh_pattern entries above these.
+            #
+            refresh_pattern ^ftp:           1440    20%     10080
+            refresh_pattern ^gopher:        1440    0%      1440
+            refresh_pattern -i (/cgi-bin/|\?) 0     0%      0
+            refresh_pattern .               0       20%     4320
+            
+            # Others
+            visible_hostname unknown
+            logformat squid %tl %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt
+            SQUIDCONF
+            
+            systemctl enable squid
+            systemctl restart squid
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = "disabled"
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = true
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags_all              = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 8
+          + volume_type           = "gp3"
+        }
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "ap-northeast-1"
+      + tags     = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-igw"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-igw"
+          + "Project" = "squid-proxy"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-northeast-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-public-rt"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-public-rt"
+          + "Project" = "squid-proxy"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.public will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "ap-northeast-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.squid will be created
+  + resource "aws_security_group" "squid" {
+      + arn                    = (known after apply)
+      + description            = "Security group for Squid proxy"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow all egress"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "10.159.0.0/24",
+                ]
+              + description      = "Squid proxy"
+              + from_port        = 3128
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3128
+            },
+        ]
+      + name                   = "squid-proxy-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "ap-northeast-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-sg"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-sg"
+          + "Project" = "squid-proxy"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.public will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-northeast-1"
+      + tags                                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-public-ap-northeast-1a"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-public-ap-northeast-1a"
+          + "Project" = "squid-proxy"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "ap-northeast-1"
+      + tags                                 = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-vpc"
+          + "Project" = "squid-proxy"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "squid-proxy-vpc"
+          + "Project" = "squid-proxy"
+        }
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ami_id            = "ami-04681a1dbd79675a5"
+  + instance_id       = (known after apply)
+  + proxy_endpoint    = (known after apply)
+  + public_dns        = (known after apply)
+  + public_ip         = (known after apply)
+  + security_group_id = (known after apply)
+  + subnet_id         = (known after apply)
+  + vpc_id            = (known after apply)

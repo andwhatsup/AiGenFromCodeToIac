@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.al2023" [label="data.aws_ami.al2023"];
+  "aws_iam_instance_profile.vault" [label="aws_iam_instance_profile.vault"];
+  "aws_iam_role.vault" [label="aws_iam_role.vault"];
+  "aws_iam_role_policy_attachment.ssm" [label="aws_iam_role_policy_attachment.ssm"];
+  "aws_instance.vault" [label="aws_instance.vault"];
+  "aws_security_group.vault" [label="aws_security_group.vault"];
+  "aws_iam_instance_profile.vault" -> "aws_iam_role.vault";
+  "aws_iam_role_policy_attachment.ssm" -> "aws_iam_role.vault";
+  "aws_instance.vault" -> "data.aws_ami.al2023";
+  "aws_instance.vault" -> "aws_iam_instance_profile.vault";
+  "aws_instance.vault" -> "aws_security_group.vault";
+}

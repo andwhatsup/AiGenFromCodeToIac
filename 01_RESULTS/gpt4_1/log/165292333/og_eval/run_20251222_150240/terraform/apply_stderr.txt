@@ -1,0 +1,28 @@
+
+Error: creating API Gateway Deployment: operation error API Gateway: CreateDeployment, https response error StatusCode: 400, RequestID: 101ffbee-c38b-413d-83dc-8aa2e8ab4a62, NotFoundException: No integration defined for method
+
+  with aws_api_gateway_deployment.main,
+  on apig.tf line 9, in resource "aws_api_gateway_deployment" "main":
+   9: resource "aws_api_gateway_deployment" "main" {
+
+
+Error: putting API Gateway Integration Response: operation error API Gateway: PutIntegrationResponse, https response error StatusCode: 400, RequestID: c668e5db-94b6-47af-b9d7-38cd4ff05568, NotFoundException: No integration defined for method
+
+  with aws_api_gateway_integration_response.root_response,
+  on apig_routes.tf line 30, in resource "aws_api_gateway_integration_response" "root_response":
+  30: resource "aws_api_gateway_integration_response" "root_response" {
+
+
+Error: reading Route 53 Hosted Zone (terraform): couldn't find resource
+
+  with aws_route53_record.secret,
+  on route53.tf line 1, in resource "aws_route53_record" "secret":
+   1: resource "aws_route53_record" "secret" {
+
+
+Error: creating S3 Bucket (terraform): operation error S3: CreateBucket, https response error StatusCode: 400, RequestID: 2e1a0565-7e3c-4f27-ba27-16c831d550ff, HostID: s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=, api error MalformedXML: The XML you provided was not well-formed or did not validate against our published schema
+
+  with aws_s3_bucket.url_shortener_site,
+  on s3.tf line 1, in resource "aws_s3_bucket" "url_shortener_site":
+   1: resource "aws_s3_bucket" "url_shortener_site" {
+

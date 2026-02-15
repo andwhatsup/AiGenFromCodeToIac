@@ -1,0 +1,387 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_vpc.default: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+data.aws_vpc.default: Read complete after 1s [id=vpc-3759df9ae20232afe]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/http-echo"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 7
+      + skip_destroy      = false
+      + tags_all          = {
+          + "App" = "http-echo"
+        }
+    }
+
+  # aws_ecr_repository.this will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "http-echo"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "App" = "http-echo"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "http-echo-cluster"
+      + tags_all = {
+          + "App" = "http-echo"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "http-echo-svc"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "App" = "http-echo"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "http-echo"
+          + container_port   = 5678
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-0d5e028b52f54efd2",
+              + "subnet-18476f21305548e49",
+              + "subnet-45eec8a326b5a6f09",
+              + "subnet-cee7d36aeb03c78ac",
+              + "subnet-d6e30ad63ee445163",
+              + "subnet-daf983756c109235b",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "http-echo"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "App" = "http-echo"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.task_execution will be created
+  + resource "aws_iam_role" "task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "http-echo-exec-"
+      + path                  = "/"
+      + tags_all              = {
+          + "App" = "http-echo"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = (known after apply)
+    }
+
+  # aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "http-echo-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "subnet-0d5e028b52f54efd2",
+          + "subnet-18476f21305548e49",
+          + "subnet-45eec8a326b5a6f09",
+          + "subnet-cee7d36aeb03c78ac",
+          + "subnet-d6e30ad63ee445163",
+          + "subnet-daf983756c109235b",
+        ]
+      + tags_all                                                     = {
+          + "App" = "http-echo"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "App" = "http-echo"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.this will be created
+  + resource "aws_lb_target_group" "this" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "http-echo-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 5678
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "App" = "http-echo"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = "vpc-3759df9ae20232afe"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200"
+          + path                = "/health"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = "http-echo-alb-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "App" = "http-echo"
+        }
+      + vpc_id                 = "vpc-3759df9ae20232afe"
+    }
+
+  # aws_security_group.ecs will be created
+  + resource "aws_security_group" "ecs" {
+      + arn                    = (known after apply)
+      + description            = "ECS tasks security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "From ALB"
+              + from_port        = 5678
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 5678
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = "http-echo-ecs-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "App" = "http-echo"
+        }
+      + vpc_id                 = "vpc-3759df9ae20232afe"
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name       = (known after apply)
+  + ecr_repository_url = (known after apply)
+  + ecs_cluster_name   = "http-echo-cluster"

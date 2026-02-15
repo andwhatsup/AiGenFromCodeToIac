@@ -1,0 +1,14 @@
+{
+  "aws_architecture_description": "This system is a serverless, event-driven application built in Go, leveraging AWS Lambda as the compute layer. The Lambda function is responsible for executing business logic and interacts with AWS S3 for object storage and AWS SQS for message queuing. The Lambda function is granted permissions via an IAM role, ensuring secure access to S3 and SQS. The architecture is designed for scalability, security, and cost-effectiveness, following AWS best practices for serverless deployments.\n\nKey components and their relationships:\n- The AWS Lambda function (written in Go) is the core compute resource. It is triggered either by events (such as SQS messages or S3 events) or invoked directly.\n- AWS S3 is used for storing and retrieving objects. The Lambda function can read from and write to S3 buckets as needed.\n- AWS SQS is used for decoupling and asynchronous message processing. The Lambda function can send messages to, or process messages from, SQS queues.\n- An IAM role is created and assigned to the Lambda function, granting it least-privilege permissions to access S3 and SQS.\n- Foundational AWS resources such as a VPC, subnets, and security groups are included for network isolation and security, even though Lambda can run outside a VPC by default. This allows for future extensibility and best practice adherence.\n- CloudWatch is used for logging and monitoring Lambda executions and system health.\n\nThis architecture is highly scalable, as Lambda automatically adjusts to the workload. It is also secure, as IAM roles and security groups restrict access to only what is necessary. The use of managed services (S3, SQS, Lambda) reduces operational overhead and increases reliability.",
+  "aws_resources": [
+    "AWS Lambda Function (Go)",
+    "AWS S3 Bucket",
+    "AWS SQS Queue",
+    "IAM Role for Lambda (with policies for S3 and SQS access)",
+    "VPC (Virtual Private Cloud)",
+    "Subnets (public/private as needed)",
+    "Security Group(s) for Lambda (if VPC is used)",
+    "CloudWatch Log Group (for Lambda logging and monitoring)",
+    "VPC Endpoints for S3 and SQS (if Lambda is in a VPC)"
+  ]
+}

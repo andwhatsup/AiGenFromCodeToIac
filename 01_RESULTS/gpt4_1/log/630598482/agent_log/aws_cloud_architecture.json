@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "To deploy the Pynecone-based Python web application on AWS, the architecture should ensure scalability, security, and maintainability while supporting the application's dependencies and external integrations. The following high-level AWS architecture is proposed:\n\n1. **VPC (Virtual Private Cloud):** All resources are deployed within a dedicated VPC for network isolation and security.\n\n2. **Subnets:** Use public subnets for the web application (if directly internet-facing) and private subnets for backend resources. At minimum, two subnets in different Availability Zones for high availability.\n\n3. **EC2 Instance(s):** Deploy the Pynecone web application on one or more EC2 instances. Use an Amazon Linux 2 or Ubuntu AMI with Python installed. The SQLite database will reside on the instance's local storage (EBS volume). For production, consider using an Auto Scaling Group for scalability and redundancy.\n\n4. **Elastic Load Balancer (ELB):** If high availability or scaling is required, place an Application Load Balancer in front of the EC2 instances to distribute incoming traffic.\n\n5. **Security Groups:** Configure security groups to allow HTTP/HTTPS traffic to the web application and restrict access to only necessary ports. Outbound access to the internet is required for Google API calls.\n\n6. **IAM Roles:** Assign an IAM role to the EC2 instance(s) with least-privilege permissions, allowing access to AWS resources if needed (e.g., S3 for logs or backups).\n\n7. **NAT Gateway:** If private subnets are used, a NAT Gateway allows outbound internet access for the EC2 instances to reach Google APIs.\n\n8. **S3 Bucket:** For storing application logs, static assets, or backups of the SQLite database if needed.\n\n9. **CloudWatch:** Use Amazon CloudWatch for monitoring EC2 instance health, application logs, and setting up alarms.\n\n10. **Route 53 (optional):** For custom domain management and DNS routing to the load balancer or EC2 instance.\n\n**Notes:**\n- The SQLite database is file-based and not suitable for distributed or highly available setups. For production, consider migrating to Amazon RDS (e.g., PostgreSQL or MySQL) for better reliability and scalability.\n- The application will require outbound internet access to communicate with Google APIs (Gmail API). Ensure the security group and route tables allow this.\n- If HTTPS is required, provision an SSL certificate via AWS Certificate Manager (ACM) and attach it to the load balancer.\n\nThis architecture is lean, secure, and follows AWS best practices for a small-to-medium web application with external API dependencies and local file-based storage.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway (if using private subnets)",
+    "Route Table(s)",
+    "EC2 Instance(s) (Amazon Linux 2 or Ubuntu)",
+    "Elastic Load Balancer (Application Load Balancer)",
+    "Security Group(s)",
+    "IAM Role for EC2",
+    "EBS Volume (for EC2 instance storage)",
+    "S3 Bucket (for logs/backups/static assets)",
+    "CloudWatch (logs, metrics, alarms)",
+    "Route 53 Hosted Zone (optional, for custom domain)",
+    "AWS Certificate Manager (ACM) certificate (optional, for HTTPS)"
+  ]
+}

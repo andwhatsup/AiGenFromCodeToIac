@@ -1,0 +1,50 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Dockerfile",
+        "YAML (Kubernetes manifests)",
+        "Groovy (Jenkins Pipeline)"
+      ],
+      "frameworks": [
+        "Nginx (static web serving in container)",
+        "Kubernetes (Deployment/Service)",
+        "GitHub Actions (CI)",
+        "Jenkins (CI/CD)"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile: /Dockerfile)",
+        "Docker CLI usage in CI (/.github/workflows/docker-image.yml, /Jenkinsfile)",
+        "kubectl usage in CI/CD (/Jenkinsfile)",
+        "terraform usage in CI/CD (/Jenkinsfile)",
+        "trivy usage in CI/CD (/Jenkinsfile)",
+        "SonarQube scanner usage in CI/CD (/Jenkinsfile)",
+        "OWASP Dependency-Check usage in CI/CD (/Jenkinsfile)",
+        "Docker Scout usage in CI/CD (/Jenkinsfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (/Dockerfile)",
+        "Kubernetes Deployment (/deployment.yaml)",
+        "Kubernetes Service (/service.yaml)",
+        "Kubernetes manifests (/manifests/app-deploy.yaml, /manifests/app-svc.yaml)",
+        "GitHub Actions workflow (/.github/workflows/docker-image.yml)",
+        "Jenkins pipeline (/Jenkinsfile)"
+      ],
+      "architectural_resources": [
+        "Static web application (Jump Game) served by Nginx",
+        "Container image build/push to Docker Hub (implied by Jenkinsfile: yash5090/box-game:latest)",
+        "Kubernetes cluster (implied; manifests + kubectl apply in Jenkinsfile)",
+        "Kubernetes Deployment (box-deployment) with 2 replicas (deployment.yaml, manifests/app-deploy.yaml)",
+        "Kubernetes Service type LoadBalancer exposing port 5000 (service.yaml, manifests/app-svc.yaml)",
+        "AWS Load Balancer integration (annotation service.beta.kubernetes.io/aws-load-balancer-type: \"alb\" in /service.yaml)",
+        "CI/CD resources: GitHub Actions runner, Jenkins controller/agents",
+        "Code quality/security tooling: SonarQube, Trivy, OWASP Dependency-Check, Docker Scout",
+        "Potential IaC component placeholder: EKS-Terraform directory exists but contains only validation logs (EKS-Terraform/*.txt)"
+      ]
+    }
+  ]
+}

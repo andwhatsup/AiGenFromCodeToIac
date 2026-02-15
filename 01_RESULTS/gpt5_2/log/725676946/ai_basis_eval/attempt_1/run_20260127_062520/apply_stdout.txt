@@ -1,0 +1,449 @@
+data.aws_region.current: Reading...
+data.aws_vpc.default: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_vpc.default: Read complete after 0s [id=vpc-bb833f832daae5461]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/flask-hello-world"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 7
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+    }
+
+  # aws_ecr_repository.app will be created
+  + resource "aws_ecr_repository" "app" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = (known after apply)
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.app will be created
+  + resource "aws_ecs_cluster" "app" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "flask-hello-world-cluster"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.app will be created
+  + resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "flask-hello-world-service"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "flask-hello-world"
+          + container_port   = 5000
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-748766430ab0da0fe",
+              + "subnet-7fb508af617948757",
+              + "subnet-9207c74e7ccddbe39",
+              + "subnet-c70c483fb463e87ee",
+              + "subnet-d3cf611575b4f7935",
+              + "subnet-fa7b5092711bbeec9",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "flask-hello-world"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = (known after apply)
+    }
+
+  # aws_lb.app will be created
+  + resource "aws_lb" "app" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = (known after apply)
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "subnet-748766430ab0da0fe",
+          + "subnet-7fb508af617948757",
+          + "subnet-9207c74e7ccddbe39",
+          + "subnet-c70c483fb463e87ee",
+          + "subnet-d3cf611575b4f7935",
+          + "subnet-fa7b5092711bbeec9",
+        ]
+      + tags_all                                                     = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app will be created
+  + resource "aws_lb_target_group" "app" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = (known after apply)
+      + name_prefix                        = (known after apply)
+      + port                               = 5000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = "vpc-bb833f832daae5461"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + vpc_id                 = "vpc-bb833f832daae5461"
+    }
+
+  # aws_security_group.ecs_service will be created
+  + resource "aws_security_group" "ecs_service" {
+      + arn                    = (known after apply)
+      + description            = "ECS service security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "From ALB"
+              + from_port        = 5000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 5000
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "flask-hello-world"
+        }
+      + vpc_id                 = "vpc-bb833f832daae5461"
+    }
+
+  # random_id.suffix will be created
+  + resource "random_id" "suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 3
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 13 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name       = (known after apply)
+  + ecr_repository_url = (known after apply)
+random_id.suffix: Creating...
+random_id.suffix: Creation complete after 0s [id=eYgq]
+aws_cloudwatch_log_group.app: Creating...
+aws_ecr_repository.app: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_ecs_cluster.app: Creating...
+aws_security_group.alb: Creating...
+aws_lb_target_group.app: Creating...
+aws_security_group.alb: Creation complete after 0s [id=sg-aa86a85cfc255a4e0]
+aws_security_group.ecs_service: Creating...
+aws_lb.app: Creating...
+aws_security_group.ecs_service: Creation complete after 1s [id=sg-60e29eab25a36ac5e]
+aws_iam_role.ecs_task_execution: Creation complete after 1s [id=flask-hello-world-ecs-task-exec-79882a]
+aws_iam_role_policy_attachment.ecs_task_execution: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution: Creation complete after 0s [id=flask-hello-world-ecs-task-exec-79882a-20260127052547241900000001]
+aws_lb_target_group.app: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/flask-hello-world-79882a/c586237fa174063f]
+aws_cloudwatch_log_group.app: Creation complete after 1s [id=/ecs/flask-hello-world]
+aws_ecr_repository.app: Creation complete after 3s [id=flask-hello-world-79882a]
+aws_ecs_task_definition.app: Creating...
+aws_ecs_task_definition.app: Creation complete after 0s [id=flask-hello-world]
+aws_ecs_cluster.app: Still creating... [00m10s elapsed]
+aws_lb.app: Still creating... [00m10s elapsed]
+aws_ecs_cluster.app: Creation complete after 11s [id=arn:aws:ecs:us-east-1:000000000000:cluster/flask-hello-world-cluster]
+aws_lb.app: Still creating... [00m20s elapsed]
+aws_lb.app: Still creating... [00m30s elapsed]
+aws_lb.app: Still creating... [00m40s elapsed]
+aws_lb.app: Still creating... [00m50s elapsed]
+aws_lb.app: Still creating... [01m00s elapsed]
+aws_lb.app: Creation complete after 1m1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/flask-hello-world-79882a/31d724dcaf60e459]
+aws_lb_listener.http: Creating...
+aws_lb_listener.http: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/flask-hello-world-79882a/31d724dcaf60e459/809b8f6e3c0f208a]
+aws_ecs_service.app: Creating...
+aws_ecs_service.app: Still creating... [00m10s elapsed]
+aws_ecs_service.app: Still creating... [00m20s elapsed]
+aws_ecs_service.app: Creation complete after 21s [id=arn:aws:ecs:us-east-1:000000000000:service/flask-hello-world-cluster/flask-hello-world-service]
+
+Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+alb_dns_name = "flask-hello-world-79882a.elb.localhost.localstack.cloud"
+ecr_repository_url = "000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/flask-hello-world-79882a"

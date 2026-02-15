@@ -1,0 +1,67 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Flask"
+      ],
+      "dependencies": [
+        "awscli (requirements.txt)",
+        "blinker (requirements.txt)",
+        "boto3 (requirements.txt)",
+        "botocore (requirements.txt)",
+        "certifi (requirements.txt)",
+        "charset-normalizer (requirements.txt)",
+        "click (requirements.txt)",
+        "colorama (requirements.txt)",
+        "docutils (requirements.txt)",
+        "Flask (requirements.txt)",
+        "idna (requirements.txt)",
+        "itsdangerous (requirements.txt)",
+        "Jinja2 (requirements.txt)",
+        "jmespath (requirements.txt)",
+        "MarkupSafe (requirements.txt)",
+        "pyasn1 (requirements.txt)",
+        "python-dateutil (requirements.txt)",
+        "PyYAML (requirements.txt)",
+        "requests (requirements.txt)",
+        "rsa (requirements.txt)",
+        "s3transfer (requirements.txt)",
+        "six (requirements.txt)",
+        "urllib3 (requirements.txt)",
+        "Werkzeug (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "requirements.txt",
+        "serve",
+        "app.py"
+      ],
+      "architectural_resources": [
+        "Flask web application (API server)",
+        "AWS SageMaker endpoint (referenced in lambda/src/lambda_function.py)",
+        "AWS Lambda function (lambda/src/lambda_function.py)"
+      ]
+    },
+    {
+      "project_directory": "lambda/src",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "boto3 (used in lambda_function.py)"
+      ],
+      "deployment_relevant_files": [
+        "lambda/src/lambda_function.py"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function",
+        "AWS SageMaker endpoint (invoked by Lambda)"
+      ]
+    }
+  ]
+}

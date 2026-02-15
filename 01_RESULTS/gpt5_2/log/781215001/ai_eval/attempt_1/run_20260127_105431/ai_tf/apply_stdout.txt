@@ -1,0 +1,1702 @@
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.task_role will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "task_role" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:DeleteObject",
+              + "s3:GetObject",
+              + "s3:ListBucket",
+              + "s3:PutObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "S3Access"
+        }
+      + statement {
+          + actions   = [
+              + "secretsmanager:GetSecretValue",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "SecretsRead"
+        }
+      + statement {
+          + actions   = [
+              + "kms:Decrypt",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "KmsDecrypt"
+        }
+    }
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + kms_key_id        = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/ai-tf-dev"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 30
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_db_instance.this will be created
+  + resource "aws_db_instance" "this" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = 7
+      + backup_target                         = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + database_insights_mode                = (known after apply)
+      + db_name                               = "app"
+      + db_subnet_group_name                  = "ai-tf-dev-db-subnets"
+      + dedicated_log_volume                  = false
+      + delete_automated_backups              = true
+      + deletion_protection                   = false
+      + domain_fqdn                           = (known after apply)
+      + enabled_cloudwatch_logs_exports       = [
+          + "postgresql",
+          + "upgrade",
+        ]
+      + endpoint                              = (known after apply)
+      + engine                                = "postgres"
+      + engine_lifecycle_support              = (known after apply)
+      + engine_version                        = "16.3"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "ai-tf-dev-db"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t4g.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = false
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password                              = (sensitive value)
+      + password_wo                           = (write-only attribute)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = 5432
+      + publicly_accessible                   = false
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_encrypted                     = true
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = (known after apply)
+      + tags                                  = {
+          + "Name" = "ai-tf-dev-db"
+        }
+      + tags_all                              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-db"
+          + "Project"     = "ai-tf"
+        }
+      + timezone                              = (known after apply)
+      + username                              = "appuser"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_subnet_group.this will be created
+  + resource "aws_db_subnet_group" "this" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "ai-tf-dev-db-subnets"
+      + name_prefix             = (known after apply)
+      + subnet_ids              = (known after apply)
+      + supported_network_types = (known after apply)
+      + tags                    = {
+          + "Name" = "ai-tf-dev-db-subnets"
+        }
+      + tags_all                = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-db-subnets"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                  = (known after apply)
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "ai-tf-dev-cluster"
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+
+      + setting {
+          + name  = "containerInsights"
+          + value = "enabled"
+        }
+    }
+
+  # aws_ecs_service.app will be created
+  + resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 50
+      + desired_count                      = 2
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "ai-tf-dev-svc"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "app"
+          + container_port   = 80
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "ai-tf-dev-task"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + task_role_arn            = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.nat[0] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "ai-tf-dev-nat-eip-0"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-nat-eip-0"
+          + "Project"     = "ai-tf"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # aws_iam_role.ecs_task will be created
+  + resource "aws_iam_role" "ecs_task" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ai-tf-dev-ecs-task"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ai-tf-dev-ecs-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.ecs_task will be created
+  + resource "aws_iam_role_policy" "ecs_task" {
+      + id          = (known after apply)
+      + name        = "ai-tf-dev-ecs-task-policy"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_exec will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_exec" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "ai-tf-dev-ecs-exec"
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "ai-tf-dev-igw"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-igw"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_kms_alias.main will be created
+  + resource "aws_kms_alias" "main" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/ai-tf-dev-main"
+      + name_prefix    = (known after apply)
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # aws_kms_key.main will be created
+  + resource "aws_kms_key" "main" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 7
+      + description                        = "ai-tf-dev main KMS key"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = (known after apply)
+      + rotation_period_in_days            = (known after apply)
+      + tags                               = {
+          + "Name" = "ai-tf-dev-kms"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-kms"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "ai-tf-dev-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "ai-tf-dev-alb"
+        }
+      + tags_all                                                     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-alb"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app will be created
+  + resource "aws_lb_target_group" "app" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "ai-tf-dev-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "ai-tf-dev-tg"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-tg"
+          + "Project"     = "ai-tf"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 3
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_nat_gateway.this[0] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "ai-tf-dev-nat-0"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-nat-0"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_route_table.private_app["us-east-1a"] will be created
+  + resource "aws_route_table" "private_app" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "ai-tf-dev-rt-private-app-us-east-1a"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-rt-private-app-us-east-1a"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private_app["us-east-1b"] will be created
+  + resource "aws_route_table" "private_app" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "ai-tf-dev-rt-private-app-us-east-1b"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-rt-private-app-us-east-1b"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private_data["us-east-1a"] will be created
+  + resource "aws_route_table" "private_data" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "ai-tf-dev-rt-private-data-us-east-1a"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-rt-private-data-us-east-1a"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private_data["us-east-1b"] will be created
+  + resource "aws_route_table" "private_data" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "ai-tf-dev-rt-private-data-us-east-1b"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-rt-private-data-us-east-1b"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "ai-tf-dev-rt-public"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-rt-public"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private_app["us-east-1a"] will be created
+  + resource "aws_route_table_association" "private_app" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private_app["us-east-1b"] will be created
+  + resource "aws_route_table_association" "private_app" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private_data["us-east-1a"] will be created
+  + resource "aws_route_table_association" "private_data" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private_data["us-east-1b"] will be created
+  + resource "aws_route_table_association" "private_data" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["us-east-1a"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["us-east-1b"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.app will be created
+  + resource "aws_s3_bucket" "app" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "ai-tf-dev-app-bucket"
+        }
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-app-bucket"
+          + "Project"     = "ai-tf"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.app will be created
+  + resource "aws_s3_bucket_public_access_block" "app" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.app will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "app" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.app will be created
+  + resource "aws_s3_bucket_versioning" "app" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_secretsmanager_secret.db will be created
+  + resource "aws_secretsmanager_secret" "db" {
+      + arn                            = (known after apply)
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + kms_key_id                     = (known after apply)
+      + name                           = "ai-tf-dev/db"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 7
+      + tags_all                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+
+      + replica (known after apply)
+    }
+
+  # aws_secretsmanager_secret_version.db will be created
+  + resource "aws_secretsmanager_secret_version" "db" {
+      + arn                  = (known after apply)
+      + has_secret_string_wo = (known after apply)
+      + id                   = (known after apply)
+      + secret_id            = (known after apply)
+      + secret_string        = (sensitive value)
+      + secret_string_wo     = (write-only attribute)
+      + version_id           = (known after apply)
+      + version_stages       = (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP (optional redirect)"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "ai-tf-dev-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "ai-tf-dev-alb-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-alb-sg"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.app will be created
+  + resource "aws_security_group" "app" {
+      + arn                    = (known after apply)
+      + description            = "App (ECS tasks) security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "From ALB"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = "ai-tf-dev-app-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "ai-tf-dev-app-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-app-sg"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.db will be created
+  + resource "aws_security_group" "db" {
+      + arn                    = (known after apply)
+      + description            = "RDS security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "From app"
+              + from_port        = 5432
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 5432
+            },
+        ]
+      + name                   = "ai-tf-dev-db-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "ai-tf-dev-db-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-db-sg"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.vpce[0] will be created
+  + resource "aws_security_group" "vpce" {
+      + arn                    = (known after apply)
+      + description            = "Security group for interface VPC endpoints"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + description      = "HTTPS from VPC"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "ai-tf-dev-vpce-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private_app["us-east-1a"] will be created
+  + resource "aws_subnet" "private_app" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.10.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-private-app-us-east-1a"
+          + "Tier" = "private-app"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-private-app-us-east-1a"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "private-app"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private_app["us-east-1b"] will be created
+  + resource "aws_subnet" "private_app" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.11.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-private-app-us-east-1b"
+          + "Tier" = "private-app"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-private-app-us-east-1b"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "private-app"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private_data["us-east-1a"] will be created
+  + resource "aws_subnet" "private_data" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.20.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-private-data-us-east-1a"
+          + "Tier" = "private-data"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-private-data-us-east-1a"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "private-data"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private_data["us-east-1b"] will be created
+  + resource "aws_subnet" "private_data" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.21.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-private-data-us-east-1b"
+          + "Tier" = "private-data"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-private-data-us-east-1b"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "private-data"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["us-east-1a"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-public-us-east-1a"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-public-us-east-1a"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["us-east-1b"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ai-tf-dev-public-us-east-1b"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-public-us-east-1b"
+          + "Project"     = "ai-tf"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "ai-tf-dev-vpc"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpc"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_vpc_endpoint.interface["ecr.api"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.ecr.api"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-ecr-api"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-ecr-api"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.interface["ecr.dkr"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.ecr.dkr"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-ecr-dkr"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-ecr-dkr"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.interface["logs"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.logs"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-logs"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-logs"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.interface["secretsmanager"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.secretsmanager"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-secretsmanager"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-secretsmanager"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.interface["ssm"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.ssm"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-ssm"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-ssm"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.interface["sts"] will be created
+  + resource "aws_vpc_endpoint" "interface" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = true
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.sts"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-sts"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-sts"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Interface"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # aws_vpc_endpoint.s3[0] will be created
+  + resource "aws_vpc_endpoint" "s3" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = (known after apply)
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.s3"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "ai-tf-dev-vpce-s3"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "ai-tf-dev-vpce-s3"
+          + "Project"     = "ai-tf"
+        }
+      + vpc_endpoint_type     = "Gateway"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+  # random_id.bucket will be created
+  + resource "random_id" "bucket" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+  # random_password.db will be created
+  + resource "random_password" "db" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 24
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = true
+      + upper       = true
+    }
+
+Plan: 55 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name   = (known after apply)
+  + app_url        = (known after apply)
+  + db_endpoint    = (known after apply)
+  + db_secret_arn  = (known after apply)
+  + s3_bucket_name = (known after apply)
+  + vpc_id         = (known after apply)
+random_id.bucket: Creating...
+random_password.db: Creating...
+random_id.bucket: Creation complete after 0s [id=BnWaDw]
+random_password.db: Creation complete after 0s [id=none]
+aws_iam_role.ecs_task: Creating...
+aws_kms_key.main: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_vpc.this: Creating...
+aws_eip.nat[0]: Creating...
+aws_ecs_cluster.this: Creating...
+aws_s3_bucket.app: Creating...
+aws_eip.nat[0]: Creation complete after 0s [id=eipalloc-b225e5bd384761e94]
+aws_iam_role.ecs_task: Creation complete after 0s [id=ai-tf-dev-ecs-task]
+aws_iam_role.ecs_task_execution: Creation complete after 0s [id=ai-tf-dev-ecs-exec]
+aws_iam_role_policy_attachment.ecs_exec: Creating...
+aws_iam_role_policy_attachment.ecs_exec: Creation complete after 0s [id=ai-tf-dev-ecs-exec-20260127095456276500000001]
+aws_kms_key.main: Creation complete after 8s [id=919373c0-31bb-4c21-a1d8-e675dba9d647]
+aws_kms_alias.main: Creating...
+aws_secretsmanager_secret.db: Creating...
+aws_cloudwatch_log_group.app: Creating...
+aws_kms_alias.main: Creation complete after 0s [id=alias/ai-tf-dev-main]
+aws_secretsmanager_secret.db: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:ai-tf-dev/db-bBdhCd]
+aws_secretsmanager_secret_version.db: Creating...
+aws_secretsmanager_secret_version.db: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:ai-tf-dev/db-bBdhCd|terraform-20260127095504394600000003]
+aws_cloudwatch_log_group.app: Creation complete after 1s [id=/ecs/ai-tf-dev]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_s3_bucket.app: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-d85d458a13a78f68b]
+aws_internet_gateway.this: Creating...
+aws_subnet.public["us-east-1a"]: Creating...
+aws_subnet.private_data["us-east-1a"]: Creating...
+aws_subnet.private_app["us-east-1a"]: Creating...
+aws_subnet.public["us-east-1b"]: Creating...
+aws_security_group.vpce[0]: Creating...
+aws_security_group.alb: Creating...
+aws_lb_target_group.app: Creating...
+aws_subnet.private_app["us-east-1a"]: Creation complete after 0s [id=subnet-c3ca4755532d6e2bf]
+aws_internet_gateway.this: Creation complete after 0s [id=igw-61e80531ea70c1f80]
+aws_subnet.private_data["us-east-1b"]: Creating...
+aws_subnet.private_data["us-east-1a"]: Creation complete after 0s [id=subnet-38ffb686f11070915]
+aws_subnet.private_app["us-east-1b"]: Creating...
+aws_route_table.public: Creating...
+aws_subnet.private_data["us-east-1b"]: Creation complete after 0s [id=subnet-cb8d8dd7c404cea65]
+aws_subnet.private_app["us-east-1b"]: Creation complete after 0s [id=subnet-ec7e10a67ede786d5]
+aws_db_subnet_group.this: Creating...
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/ai-tf-dev-cluster]
+aws_security_group.vpce[0]: Creation complete after 0s [id=sg-8341dd3202bfe07de]
+aws_route_table.public: Creation complete after 0s [id=rtb-1d4858f541131c603]
+aws_vpc_endpoint.interface["ssm"]: Creating...
+aws_vpc_endpoint.interface["ecr.api"]: Creating...
+aws_vpc_endpoint.interface["secretsmanager"]: Creating...
+aws_vpc_endpoint.interface["sts"]: Creating...
+aws_security_group.alb: Creation complete after 0s [id=sg-7aca3a1233c48fc3f]
+aws_vpc_endpoint.interface["logs"]: Creating...
+aws_lb_target_group.app: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/ai-tf-dev-tg/28b8dc83b4d816b7]
+aws_vpc_endpoint.interface["ecr.dkr"]: Creating...
+aws_db_subnet_group.this: Creation complete after 1s [id=ai-tf-dev-db-subnets]
+aws_security_group.app: Creating...
+aws_security_group.app: Creation complete after 0s [id=sg-ad2cbf931465d0693]
+aws_security_group.db: Creating...
+aws_security_group.db: Creation complete after 0s [id=sg-a1fe2288c14a666c2]
+aws_db_instance.this: Creating...
+aws_vpc_endpoint.interface["ssm"]: Creation complete after 5s [id=vpce-60802977f337f07ea]
+aws_vpc_endpoint.interface["sts"]: Creation complete after 5s [id=vpce-ae5f9231311b7aed7]
+aws_vpc_endpoint.interface["ecr.api"]: Creation complete after 5s [id=vpce-70a9c0577b84b97ea]
+aws_vpc_endpoint.interface["logs"]: Creation complete after 5s [id=vpce-4004e2b9db8490032]
+aws_vpc_endpoint.interface["ecr.dkr"]: Creation complete after 5s [id=vpce-f93f77034a801983b]
+aws_vpc_endpoint.interface["secretsmanager"]: Creation complete after 5s [id=vpce-caae3191494d75581]
+aws_s3_bucket.app: Still creating... [00m20s elapsed]
+aws_subnet.public["us-east-1a"]: Still creating... [00m10s elapsed]
+aws_subnet.public["us-east-1b"]: Still creating... [00m10s elapsed]
+aws_subnet.public["us-east-1b"]: Creation complete after 10s [id=subnet-59e7a68c623e60588]
+aws_subnet.public["us-east-1a"]: Creation complete after 10s [id=subnet-581ea0e0575cb1d55]
+aws_route_table_association.public["us-east-1b"]: Creating...
+aws_route_table_association.public["us-east-1a"]: Creating...
+aws_nat_gateway.this[0]: Creating...
+aws_lb.this: Creating...
+aws_route_table_association.public["us-east-1b"]: Creation complete after 0s [id=rtbassoc-07603c52b0c302884]
+aws_nat_gateway.this[0]: Creation complete after 0s [id=nat-b5d8b49398228d5d4]
+aws_route_table_association.public["us-east-1a"]: Creation complete after 0s [id=rtbassoc-db54479f3c9fbf976]
+aws_route_table.private_app["us-east-1a"]: Creating...
+aws_route_table.private_data["us-east-1b"]: Creating...
+aws_route_table.private_data["us-east-1a"]: Creating...
+aws_route_table.private_app["us-east-1b"]: Creating...
+aws_route_table.private_data["us-east-1a"]: Creation complete after 0s [id=rtb-c94e813f209cc0c2b]
+aws_route_table.private_app["us-east-1b"]: Creation complete after 0s [id=rtb-d13a8263477419f22]
+aws_route_table.private_data["us-east-1b"]: Creation complete after 0s [id=rtb-f38a81c5ae5672505]
+aws_route_table.private_app["us-east-1a"]: Creation complete after 0s [id=rtb-e5a934406527c4975]
+aws_route_table_association.private_data["us-east-1a"]: Creating...
+aws_route_table_association.private_app["us-east-1b"]: Creating...
+aws_route_table_association.private_app["us-east-1a"]: Creating...
+aws_route_table_association.private_data["us-east-1b"]: Creating...
+aws_vpc_endpoint.s3[0]: Creating...
+aws_route_table_association.private_app["us-east-1a"]: Creation complete after 0s [id=rtbassoc-8fbb98f0c7ad46828]
+aws_route_table_association.private_data["us-east-1a"]: Creation complete after 0s [id=rtbassoc-9fa62c6a9c5eaa3d3]
+aws_route_table_association.private_data["us-east-1b"]: Creation complete after 0s [id=rtbassoc-68c7d5d0e1592ab53]
+aws_route_table_association.private_app["us-east-1b"]: Creation complete after 0s [id=rtbassoc-6cffd5f1862b0348b]
+aws_db_instance.this: Still creating... [00m10s elapsed]
+aws_vpc_endpoint.s3[0]: Creation complete after 5s [id=vpce-c28b34677c9c15067]
+aws_s3_bucket.app: Still creating... [00m30s elapsed]
+aws_lb.this: Still creating... [00m10s elapsed]
+aws_db_instance.this: Still creating... [00m20s elapsed]
+aws_s3_bucket.app: Still creating... [00m40s elapsed]
+aws_lb.this: Still creating... [00m20s elapsed]
+aws_db_instance.this: Still creating... [00m30s elapsed]
+aws_s3_bucket.app: Still creating... [00m50s elapsed]
+aws_lb.this: Still creating... [00m30s elapsed]
+aws_db_instance.this: Still creating... [00m40s elapsed]
+aws_s3_bucket.app: Still creating... [01m00s elapsed]
+aws_lb.this: Still creating... [00m40s elapsed]
+aws_db_instance.this: Still creating... [00m50s elapsed]
+aws_s3_bucket.app: Still creating... [01m10s elapsed]
+aws_lb.this: Still creating... [00m50s elapsed]
+aws_db_instance.this: Still creating... [01m00s elapsed]
+aws_s3_bucket.app: Still creating... [01m20s elapsed]
+aws_lb.this: Still creating... [01m00s elapsed]
+aws_lb.this: Creation complete after 1m0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/ai-tf-dev-alb/17f0f630b9bdd70b]
+aws_lb_listener.http: Creating...
+aws_lb_listener.http: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/ai-tf-dev-alb/17f0f630b9bdd70b/a73cde91fec6265f]
+aws_db_instance.this: Still creating... [01m10s elapsed]
+aws_s3_bucket.app: Still creating... [01m30s elapsed]
+aws_db_instance.this: Still creating... [01m20s elapsed]
+aws_db_instance.this: Creation complete after 1m27s [id=db-295A8ECF]
+aws_s3_bucket.app: Still creating... [01m40s elapsed]
+aws_s3_bucket.app: Still creating... [01m50s elapsed]
+aws_s3_bucket.app: Still creating... [02m00s elapsed]
+aws_s3_bucket.app: Still creating... [02m10s elapsed]
+aws_s3_bucket.app: Still creating... [02m20s elapsed]
+aws_s3_bucket.app: Still creating... [02m30s elapsed]
+aws_s3_bucket.app: Still creating... [02m40s elapsed]
+aws_s3_bucket.app: Still creating... [02m50s elapsed]

@@ -1,0 +1,414 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.allow_access_from_another_account will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "allow_access_from_another_account" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+              + "s3:ListBucket",
+            ]
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+
+          + principals {
+              + identifiers = [
+                  + "729158664723",
+                ]
+              + type        = "AWS"
+            }
+        }
+    }
+
+  # aws_autoscaling_group.demo_autoscaling will be created
+  + resource "aws_autoscaling_group" "demo_autoscaling" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 2
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = (known after apply)
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + launch_configuration             = "placeholder-demo-lc"
+      + load_balancers                   = [
+          + "demo-elb-elbb",
+        ]
+      + max_size                         = 2
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "demo-asg-instance-1"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + launch_template (known after apply)
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "demo-asg-instance-1"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_elb.demo-elb will be created
+  + resource "aws_elb" "demo-elb" {
+      + arn                         = (known after apply)
+      + availability_zones          = (known after apply)
+      + connection_draining         = false
+      + connection_draining_timeout = 300
+      + cross_zone_load_balancing   = true
+      + desync_mitigation_mode      = "defensive"
+      + dns_name                    = (known after apply)
+      + id                          = (known after apply)
+      + idle_timeout                = 60
+      + instances                   = (known after apply)
+      + internal                    = (known after apply)
+      + name                        = "demo-elb-elbb"
+      + name_prefix                 = (known after apply)
+      + security_groups             = (known after apply)
+      + source_security_group       = (known after apply)
+      + source_security_group_id    = (known after apply)
+      + subnets                     = (known after apply)
+      + tags_all                    = (known after apply)
+      + zone_id                     = (known after apply)
+
+      + health_check {
+          + healthy_threshold   = 2
+          + interval            = 29
+          + target              = "HTTP:80/"
+          + timeout             = 3
+          + unhealthy_threshold = 2
+        }
+
+      + listener {
+          + instance_port      = 80
+          + instance_protocol  = "http"
+          + lb_port            = 80
+          + lb_protocol        = "http"
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_internet_gateway.ig-demo will be created
+  + resource "aws_internet_gateway" "ig-demo" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Principal Internet Gateway"
+        }
+      + tags_all = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Principal Internet Gateway"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_launch_configuration.demo_configuration will be created
+  + resource "aws_launch_configuration" "demo_configuration" {
+      + arn                         = (known after apply)
+      + associate_public_ip_address = true
+      + ebs_optimized               = (known after apply)
+      + enable_monitoring           = true
+      + id                          = (known after apply)
+      + image_id                    = "ami-0261755bbcb8c4a84"
+      + instance_type               = "t2.micro"
+      + key_name                    = "candidate"
+      + name                        = "placeholder-demo-lc"
+      + name_prefix                 = (known after apply)
+      + security_groups             = (known after apply)
+      + user_data                   = "7bc5091ee5c3d6e9c479c20b7c69604d794bd4ea"
+
+      + ebs_block_device (known after apply)
+
+      + metadata_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_route_table.demo_route_table will be created
+  + resource "aws_route_table" "demo_route_table" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "demo-rtb"
+        }
+      + tags_all         = {
+          + "Name" = "demo-rtb"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.public1 will be created
+  + resource "aws_route_table_association" "public1" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.s3Bucket will be created
+  + resource "aws_s3_bucket" "s3Bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "terraform-resources-test"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_policy.allow_access_from_another_account will be created
+  + resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_s3_bucket_versioning.versioning_for_s3Bucket will be created
+  + resource "aws_s3_bucket_versioning" "versioning_for_s3Bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_security_group.demo-sg-01 will be created
+  + resource "aws_security_group" "demo-sg-01" {
+      + arn                    = (known after apply)
+      + description            = "Allow SSH and web ports for inbound traffic"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = [
+                  + "::/0",
+                ]
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH connection from VPC"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "TLS from VPC"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Web server port from VPC"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = "allow_ssh_and_web_server_ports"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "allow_ssh_and_web_ports"
+        }
+      + tags_all               = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "allow_ssh_and_web_ports"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.demo-sub-01 will be created
+  + resource "aws_subnet" "demo-sub-01" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.1.0.0/16"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Particular subnet for us-east-1"
+        }
+      + tags_all                                       = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Particular subnet for us-east-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.demo-vpc will be created
+  + resource "aws_vpc" "demo-vpc" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.1.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Particular VPC"
+        }
+      + tags_all                             = {
+          + "Author" = "Mateo Matta"
+          + "Name"   = "Particular VPC"
+        }
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lb_url = (known after apply)
+aws_vpc.demo-vpc: Creating...
+aws_s3_bucket.s3Bucket: Creating...
+aws_vpc.demo-vpc: Creation complete after 1s [id=vpc-82efc72addb29be8b]
+aws_internet_gateway.ig-demo: Creating...
+aws_subnet.demo-sub-01: Creating...
+aws_security_group.demo-sg-01: Creating...
+aws_internet_gateway.ig-demo: Creation complete after 0s [id=igw-64e36b958c66b4976]
+aws_route_table.demo_route_table: Creating...
+aws_route_table.demo_route_table: Creation complete after 1s [id=rtb-df2370e950aca1983]
+aws_security_group.demo-sg-01: Creation complete after 1s [id=sg-a338840324f45e8e3]
+aws_launch_configuration.demo_configuration: Creating...
+aws_s3_bucket.s3Bucket: Still creating... [00m10s elapsed]
+aws_subnet.demo-sub-01: Still creating... [00m10s elapsed]
+aws_subnet.demo-sub-01: Creation complete after 10s [id=subnet-47ecd8cffe6c09142]
+aws_route_table_association.public1: Creating...
+aws_elb.demo-elb: Creating...
+aws_route_table_association.public1: Creation complete after 0s [id=rtbassoc-226ba02f3a8204014]
+aws_elb.demo-elb: Creation complete after 1s [id=demo-elb-elbb]
+aws_s3_bucket.s3Bucket: Still creating... [00m20s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [00m30s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [00m40s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [00m50s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m00s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m10s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m20s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m30s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m40s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [01m50s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m00s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m10s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m20s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m30s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m40s elapsed]
+aws_s3_bucket.s3Bucket: Still creating... [02m50s elapsed]

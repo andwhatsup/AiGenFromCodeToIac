@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "Go net/http (standard library HTTP server)"
+      ],
+      "dependencies": [
+        "Go standard library only (no third-party modules listed in go.mod): net/http, context, flag, log, os, os/signal, syscall, time, fmt, io (evidence: main.go, handlers.go, go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod (./go.mod)",
+        "Dockerfile (./Dockerfile)",
+        "Makefile (./Makefile)",
+        "GitHub Actions workflows (./.github/workflows/build.yml, ./.github/workflows/main.yml, ./.github/workflows/docker-image.yml, ./.github/workflows/buildandpush.yml)",
+        "Version metadata (./version/VERSION, ./version/version.go)",
+        "Docs (./docs/release.md)"
+      ],
+      "architectural_resources": [
+        "Containerized web application / HTTP API (listens on configurable address, default :5678) (evidence: main.go, Dockerfile)",
+        "Health check endpoint /health (evidence: main.go)",
+        "CI/CD pipeline for building binaries and Docker images (evidence: .github/workflows/*.yml)",
+        "Docker image registry (push in workflow) (evidence: .github/workflows/build.yml, .github/workflows/buildandpush.yml)",
+        "AWS ECS service deployment restart (implies ECS cluster/service) (evidence: .github/workflows/buildandpush.yml: aws ecs update-service --cluster POC-Assesment-1 --service Poc-Assessment --force-new-deployment)"
+      ]
+    }
+  ]
+}

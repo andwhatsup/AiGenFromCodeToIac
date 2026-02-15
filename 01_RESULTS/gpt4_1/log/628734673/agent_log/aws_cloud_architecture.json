@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a containerized Python Flask web application with a CI/CD pipeline, currently using DockerHub and a generic Kubernetes cluster. To deploy this on AWS following best practices, the architecture will leverage managed AWS services for scalability, security, and operational efficiency. The main AWS components and their relationships are as follows:\n\n1. **VPC (Virtual Private Cloud):** Provides isolated networking for all AWS resources, with public and private subnets for security and scalability.\n2. **EKS (Elastic Kubernetes Service):** Managed Kubernetes cluster to orchestrate and run the Flask application containers. EKS nodes will be deployed in private subnets for security.\n3. **ECR (Elastic Container Registry):** Replaces DockerHub as the private, secure container image registry for storing Docker images built by the CI/CD pipeline.\n4. **EC2 (Jenkins Server):** An EC2 instance (or optionally, AWS CodeBuild/CodePipeline for a fully managed solution) running Jenkins for CI/CD. This instance will have access to ECR and EKS for image push and deployment.\n5. **IAM Roles and Policies:** Secure access management for EC2 (Jenkins), EKS nodes, and ECR, following least privilege principles.\n6. **ALB (Application Load Balancer):** Exposes the Flask application to the internet, routing traffic to the EKS service. The ALB will be deployed in public subnets and target the Flask app pods in EKS.\n7. **Security Groups:** Control inbound and outbound traffic for EC2, EKS nodes, and ALB.\n8. **S3 (Optional):** For storing build artifacts, logs, or static assets if needed by the application or CI/CD pipeline.\n9. **CloudWatch:** For centralized logging, monitoring, and alerting for all AWS resources (EKS, EC2, ALB, etc.).\n10. **NAT Gateway:** Allows private subnet resources (EKS nodes, Jenkins) to access the internet for updates and image pulls without exposing them directly.\n\n**Deployment Flow:**\n- Developers push code to Jenkins (EC2).\n- Jenkins builds the Docker image and pushes it to ECR.\n- Jenkins deploys the application to EKS using Kubernetes manifests.\n- EKS pulls the image from ECR and runs the Flask app as a service.\n- ALB routes external traffic to the Flask app running in EKS.\n\nThis architecture is secure, scalable, and leverages AWS managed services to reduce operational overhead and improve reliability.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Elastic Kubernetes Service (EKS) Cluster",
+    "EKS Node Groups (EC2 worker nodes or Fargate)",
+    "Elastic Container Registry (ECR)",
+    "EC2 Instance (for Jenkins)",
+    "IAM Roles and Policies (for EC2, EKS, ECR, ALB)",
+    "Application Load Balancer (ALB)",
+    "Security Groups (for EC2, EKS nodes, ALB)",
+    "S3 Bucket (optional, for artifacts/logs)",
+    "CloudWatch (logs, metrics, alarms)"
+  ]
+}

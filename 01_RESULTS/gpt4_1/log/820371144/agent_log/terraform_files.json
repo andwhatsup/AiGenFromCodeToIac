@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 6.28.0\"\n    }\n  }\n  required_version = \">= 1.3.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"eks_cluster_name\" {\n  description = \"Name of the EKS cluster.\"\n  type        = string\n  default     = \"react-eks-cluster\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidrs\" {\n  description = \"List of public subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.1.0/24\", \"10.0.2.0/24\"]\n}\n\nvariable \"private_subnet_cidrs\" {\n  description = \"List of private subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.101.0/24\", \"10.0.102.0/24\"]\n}\n\nvariable \"eks_node_instance_type\" {\n  description = \"EC2 instance type for EKS worker nodes.\"\n  type        = string\n  default     = \"t3.medium\"\n}\n\nvariable \"desired_capacity\" {\n  description = \"Desired number of worker nodes.\"\n  type        = number\n  default     = 2\n}\n\nvariable \"max_capacity\" {\n  description = \"Maximum number of worker nodes.\"\n  type        = number\n  default     = 3\n}\n\nvariable \"min_capacity\" {\n  description = \"Minimum number of worker nodes.\"\n  type        = number\n  default     = 1\n}\n\nvariable \"ecr_repo_name\" {\n  description = \"Name of the ECR repository for the React app Docker image.\"\n  type        = string\n  default     = \"react-app-repo\"\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"eks_cluster_name\" {\n  description = \"EKS cluster name\"\n  value       = module.eks.cluster_name\n}\n\noutput \"eks_cluster_endpoint\" {\n  description = \"EKS cluster endpoint\"\n  value       = module.eks.cluster_endpoint\n}\n\noutput \"eks_cluster_security_group_id\" {\n  description = \"EKS cluster security group id\"\n  value       = module.eks.cluster_security_group_id\n}\n\noutput \"ecr_repository_url\" {\n  description = \"ECR repository URL\"\n  value       = aws_ecr_repository.react_app.repository_url\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "module \"vpc\" {\n  source  = \"terraform-aws-modules/vpc/aws\"\n  version = \"5.1.0\"\n\n  name = \"react-vpc\"\n  cidr = var.vpc_cidr\n\n  azs             = [\"${var.aws_region}a\", \"${var.aws_region}b\"]\n  public_subnets  = var.public_subnet_cidrs\n  private_subnets = var.private_subnet_cidrs\n\n  enable_nat_gateway   = true\n  single_nat_gateway   = true\n  enable_dns_hostnames = true\n  enable_dns_support   = true\n\n  tags = {\n    Name = \"react-vpc\"\n  }\n}\n\nresource \"aws_ecr_repository\" \"react_app\" {\n  name = var.ecr_repo_name\n  image_scanning_configuration {\n    scan_on_push = true\n  }\n  tags = {\n    Name = var.ecr_repo_name\n  }\n}\n\nmodule \"eks\" {\n  source  = \"terraform-aws-modules/eks/aws\"\n  version = \"21.14.0\"\n\n  name                   = var.eks_cluster_name\n  kubernetes_version     = \"1.29\"\n  subnet_ids             = module.vpc.private_subnets\n  vpc_id                 = module.vpc.vpc_id\n  enable_irsa            = true\n\n  eks_managed_node_groups = {\n    default = {\n      min_size      = var.min_capacity\n      max_size      = var.max_capacity\n      desired_size  = var.desired_capacity\n      instance_types = [var.eks_node_instance_type]\n      subnet_ids     = module.vpc.private_subnets\n    }\n  }\n\n  tags = {\n    Name = var.eks_cluster_name\n  }\n}\n"
+    }
+  ]
+}

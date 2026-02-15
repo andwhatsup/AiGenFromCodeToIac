@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "github.com/go-fuego/fuego (HTTP API/server framework)",
+        "OpenTelemetry (tracing/metrics instrumentation)"
+      ],
+      "dependencies": [
+        "github.com/go-fuego/fuego v0.13.4 (go.mod)",
+        "go.opentelemetry.io/otel v1.25.0 and related exporters/sdk/trace/metric packages (go.mod, utils/otel.go)",
+        "Indirect notable deps: github.com/getkin/kin-openapi (OpenAPI tooling), github.com/golang-jwt/jwt/v5 (auth token lib), google.golang.org/grpc + grpc-gateway (go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "Makefile (./Makefile)",
+        "Dockerfile (./ci/Dockerfile)",
+        "Kubernetes/Istio manifests (./ci/deployment.yaml)",
+        "OpenAPI spec (./doc/openapi.json)",
+        "Go module files (./go.mod, ./go.sum)"
+      ],
+      "architectural_resources": [
+        "Go HTTP API service (built as a single binary; entrypoint main.go)",
+        "Container image build pipeline (multi-stage Docker build in ci/Dockerfile)",
+        "Kubernetes resources: Deployments (2), Services (2), Ingresses (2) (ci/deployment.yaml)",
+        "Istio resources: VirtualServices (2) and an external Istio Gateway reference (istio-ingress/ingress-gateway) (ci/deployment.yaml)",
+        "Distributed tracing backend dependency: Grafana Tempo via OTLP/HTTP endpoint tempo-distributor.monitoring.svc.cluster.local:4318 (main.go flags, ci/deployment.yaml, utils/otel.go)",
+        "Observability/metrics: OpenTelemetry metrics exporter (stdoutmetric) and trace exporter (OTLP) (utils/otel.go)",
+        "Inter-service HTTP call dependency: service2 proxies to service1 via --proxy-endpoint http://my-go-app-service:8080/svc1 (main.go, ci/deployment.yaml)"
+      ]
+    }
+  ]
+}

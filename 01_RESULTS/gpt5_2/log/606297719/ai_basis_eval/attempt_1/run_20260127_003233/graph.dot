@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_ecr_lifecycle_policy.agent" [label="aws_ecr_lifecycle_policy.agent"];
+  "aws_ecr_repository.agent" [label="aws_ecr_repository.agent"];
+  "aws_s3_bucket.prefect_artifacts" [label="aws_s3_bucket.prefect_artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.prefect_artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.prefect_artifacts"];
+  "aws_s3_bucket_versioning.prefect_artifacts" [label="aws_s3_bucket_versioning.prefect_artifacts"];
+  "aws_ecr_lifecycle_policy.agent" -> "aws_ecr_repository.agent";
+  "aws_s3_bucket_server_side_encryption_configuration.prefect_artifacts" -> "aws_s3_bucket.prefect_artifacts";
+  "aws_s3_bucket_versioning.prefect_artifacts" -> "aws_s3_bucket.prefect_artifacts";
+}

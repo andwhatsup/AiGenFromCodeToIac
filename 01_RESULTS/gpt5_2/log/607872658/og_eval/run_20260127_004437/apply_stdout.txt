@@ -1,0 +1,407 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_kms_key.s3: Reading...
+data.aws_kms_key.ssm: Reading...
+data.aws_kms_key.ssm: Read complete after 0s [id=2c6e35fa-7d27-419e-9044-59832c0a529a]
+data.aws_kms_key.s3: Read complete after 0s [id=faefc46d-d57b-4790-b833-85f60ed1f6ce]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.archive_file.lambda will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "archive_file" "lambda" {
+      + id                  = (known after apply)
+      + output_base64sha256 = (known after apply)
+      + output_base64sha512 = (known after apply)
+      + output_file_mode    = "0666"
+      + output_md5          = (known after apply)
+      + output_path         = "./ssm_backup.zip"
+      + output_sha          = (known after apply)
+      + output_sha256       = (known after apply)
+      + output_sha512       = (known after apply)
+      + output_size         = (known after apply)
+      + source_dir          = "./function/"
+      + type                = "zip"
+    }
+
+  # aws_cloudwatch_event_rule.this will be created
+  + resource "aws_cloudwatch_event_rule" "this" {
+      + arn                 = (known after apply)
+      + description         = "To invoke the 607872658-dev-ssm-parameter-store-backup Lambda function once daily."
+      + event_bus_name      = "default"
+      + force_destroy       = false
+      + id                  = (known after apply)
+      + name                = "607872658-dev-ssm-parameter-store-backup-rule"
+      + name_prefix         = (known after apply)
+      + region              = "us-east-1"
+      + schedule_expression = "rate(1 day)"
+      + tags_all            = {
+          + "Project" = "607872658"
+        }
+    }
+
+  # aws_cloudwatch_event_target.this will be created
+  + resource "aws_cloudwatch_event_target" "this" {
+      + arn            = (known after apply)
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + rule           = "607872658-dev-ssm-parameter-store-backup-rule"
+      + target_id      = "InvokeSSMLambda"
+    }
+
+  # aws_iam_policy.this will be created
+  + resource "aws_iam_policy" "this" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "607872658-dev-ssm-parameter-store-backup-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ssm:DescribeParameters",
+                          + "ssm:GetParameterHistory",
+                          + "ssm:GetParametersByPath",
+                          + "ssm:GetParameters",
+                          + "ssm:GetParameter",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                  + {
+                      + Action   = [
+                          + "logs:CreateLogGroup",
+                          + "logs:CreateLogStream",
+                          + "logs:PutLogEvents",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                  + {
+                      + Action   = [
+                          + "s3:ListAllMyBuckets",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:s3:::*"
+                    },
+                  + {
+                      + Action   = [
+                          + "s3:ListBucket",
+                          + "s3:ListBucketMultipartUploads",
+                          + "s3:GetBucketLocation",
+                          + "s3:AbortMultipartUpload",
+                          + "s3:GetObjectAcl",
+                          + "s3:GetObjectVersion",
+                          + "s3:DeleteObject",
+                          + "s3:DeleteObjectVersion",
+                          + "s3:GetObject",
+                          + "s3:PutObjectAcl",
+                          + "s3:PutObject",
+                          + "s3:GetObjectVersionAcl",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = [
+                          + "arn:aws:s3:::607872658-dev-ssm-parameter-store-backups-bucket",
+                          + "arn:aws:s3:::607872658-dev-ssm-parameter-store-backups-bucket/*",
+                        ]
+                    },
+                  + {
+                      + Action   = [
+                          + "kms:Encrypt",
+                          + "kms:Decrypt",
+                          + "kms:GenerateDataKey",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = [
+                          + "arn:aws:kms:us-east-1:000000000000:key/2c6e35fa-7d27-419e-9044-59832c0a529a",
+                          + "arn:aws:kms:us-east-1:000000000000:key/faefc46d-d57b-4790-b833-85f60ed1f6ce",
+                        ]
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Project" = "607872658"
+        }
+    }
+
+  # aws_iam_role.this will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "607872658-dev-ssm-parameter-store-backup-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Project" = "607872658"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_lambda_function.this will be created
+  + resource "aws_lambda_function" "this" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + description                    = "To take backup in the `.json` format of all the parameters residing on AWS SSM Parameter Store and store it on an AWS S3 bucket."
+      + filename                       = "./ssm_backup.zip"
+      + function_name                  = "607872658-dev-ssm-parameter-store-backup"
+      + handler                        = "ssm_backup.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.9"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Project" = "607872658"
+        }
+      + timeout                        = 120
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "KMS_KEY_ARN" = "arn:aws:kms:us-east-1:000000000000:key/faefc46d-d57b-4790-b833-85f60ed1f6ce"
+              + "S3_BUCKET"   = "607872658-dev-ssm-parameter-store-backups-bucket"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.cloudwatch will be created
+  + resource "aws_lambda_permission" "cloudwatch" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "607872658-dev-ssm-parameter-store-backup"
+      + id                  = (known after apply)
+      + principal           = "events.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromCloudWatch"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.this will be created
+  + resource "aws_s3_bucket" "this" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "607872658-dev-ssm-parameter-store-backups-bucket"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "dev"
+          + "Name"        = "607872658-dev-ssm-parameter-store-backups-bucket"
+        }
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "Name"        = "607872658-dev-ssm-parameter-store-backups-bucket"
+          + "Project"     = "607872658"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.this will be created
+  + resource "aws_s3_bucket_acl" "this" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_lifecycle_configuration.this will be created
+  + resource "aws_s3_bucket_lifecycle_configuration" "this" {
+      + bucket                                 = (known after apply)
+      + expected_bucket_owner                  = (known after apply)
+      + id                                     = (known after apply)
+      + region                                 = "us-east-1"
+      + transition_default_minimum_object_size = "all_storage_classes_128K"
+
+      + rule {
+          + id     = "backups"
+          + status = "Enabled"
+            # (1 unchanged attribute hidden)
+
+          + expiration {
+              + days                         = 365
+              + expired_object_delete_marker = false
+            }
+
+          + filter {
+              + prefix = "backups/"
+            }
+
+          + transition {
+              + days          = 180
+              + storage_class = "DEEP_ARCHIVE"
+            }
+          + transition {
+              + days          = 90
+              + storage_class = "GLACIER_IR"
+            }
+        }
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.this will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = "arn:aws:kms:us-east-1:000000000000:key/faefc46d-d57b-4790-b833-85f60ed1f6ce"
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # null_resource.local_package will be created
+  + resource "null_resource" "local_package" {
+      + id       = (known after apply)
+      + triggers = {
+          + "always_run" = (known after apply)
+        }
+    }
+
+Plan: 11 to add, 0 to change, 0 to destroy.
+null_resource.local_package: Creating...
+null_resource.local_package: Provisioning with 'local-exec'...
+null_resource.local_package (local-exec): Executing: ["/bin/sh" "-c" "pip3 install -r ./requirements.txt -t ./function --no-cache-dir --upgrade"]
+aws_iam_policy.this: Creating...
+aws_cloudwatch_event_rule.this: Creating...
+aws_s3_bucket.this: Creating...
+aws_cloudwatch_event_rule.this: Creation complete after 0s [id=607872658-dev-ssm-parameter-store-backup-rule]
+aws_iam_policy.this: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/607872658-dev-ssm-parameter-store-backup-policy]
+aws_iam_role.this: Creating...
+aws_iam_role.this: Creation complete after 0s [id=607872658-dev-ssm-parameter-store-backup-role]
+null_resource.local_package (local-exec): Collecting boto3 (from -r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading boto3-1.42.35-py3-none-any.whl.metadata (6.8 kB)
+null_resource.local_package (local-exec): Collecting botocore<1.43.0,>=1.42.35 (from boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading botocore-1.42.35-py3-none-any.whl.metadata (5.9 kB)
+null_resource.local_package (local-exec): Collecting jmespath<2.0.0,>=0.7.1 (from boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+null_resource.local_package (local-exec): Collecting s3transfer<0.17.0,>=0.16.0 (from boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading s3transfer-0.16.0-py3-none-any.whl.metadata (1.7 kB)
+null_resource.local_package (local-exec): Collecting python-dateutil<3.0.0,>=2.1 (from botocore<1.43.0,>=1.42.35->boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+null_resource.local_package (local-exec): Collecting urllib3!=2.2.0,<3,>=1.25.4 (from botocore<1.43.0,>=1.42.35->boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+null_resource.local_package (local-exec): Collecting six>=1.5 (from python-dateutil<3.0.0,>=2.1->botocore<1.43.0,>=1.42.35->boto3->-r ./requirements.txt (line 1))
+null_resource.local_package (local-exec):   Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+null_resource.local_package (local-exec): Downloading boto3-1.42.35-py3-none-any.whl (140 kB)
+null_resource.local_package (local-exec): Downloading botocore-1.42.35-py3-none-any.whl (14.6 MB)
+null_resource.local_package (local-exec):    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.6/14.6 MB 122.0 MB/s  0:00:00
+null_resource.local_package (local-exec): Downloading jmespath-1.1.0-py3-none-any.whl (20 kB)
+null_resource.local_package (local-exec): Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+null_resource.local_package (local-exec): Downloading s3transfer-0.16.0-py3-none-any.whl (86 kB)
+null_resource.local_package (local-exec): Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+null_resource.local_package (local-exec): Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+null_resource.local_package (local-exec): Installing collected packages: urllib3, six, jmespath, python-dateutil, botocore, s3transfer, boto3
+
+null_resource.local_package (local-exec): Successfully installed boto3-1.42.35 botocore-1.42.35 jmespath-1.1.0 python-dateutil-2.9.0.post0 s3transfer-0.16.0 six-1.17.0 urllib3-2.6.3
+null_resource.local_package: Creation complete after 2s [id=2696757759028015480]
+data.archive_file.lambda: Reading...
+data.archive_file.lambda: Read complete after 1s [id=46fa5c5ef60fbd18855ca451e7ebcd8a9e28254a]
+aws_lambda_function.this: Creating...
+aws_lambda_function.this: Creation complete after 6s [id=607872658-dev-ssm-parameter-store-backup]
+aws_lambda_permission.cloudwatch: Creating...
+aws_cloudwatch_event_target.this: Creating...
+aws_lambda_permission.cloudwatch: Creation complete after 0s [id=AllowExecutionFromCloudWatch]
+aws_cloudwatch_event_target.this: Creation complete after 0s [id=607872658-dev-ssm-parameter-store-backup-rule-InvokeSSMLambda]
+aws_s3_bucket.this: Still creating... [00m10s elapsed]
+aws_s3_bucket.this: Still creating... [00m20s elapsed]
+aws_s3_bucket.this: Still creating... [00m30s elapsed]
+aws_s3_bucket.this: Still creating... [00m40s elapsed]
+aws_s3_bucket.this: Still creating... [00m50s elapsed]
+aws_s3_bucket.this: Still creating... [01m00s elapsed]
+aws_s3_bucket.this: Still creating... [01m10s elapsed]
+aws_s3_bucket.this: Still creating... [01m20s elapsed]
+aws_s3_bucket.this: Still creating... [01m30s elapsed]
+aws_s3_bucket.this: Still creating... [01m40s elapsed]
+aws_s3_bucket.this: Still creating... [01m50s elapsed]
+aws_s3_bucket.this: Still creating... [02m00s elapsed]
+aws_s3_bucket.this: Still creating... [02m10s elapsed]
+aws_s3_bucket.this: Still creating... [02m20s elapsed]
+aws_s3_bucket.this: Still creating... [02m30s elapsed]
+aws_s3_bucket.this: Still creating... [02m40s elapsed]
+aws_s3_bucket.this: Still creating... [02m50s elapsed]

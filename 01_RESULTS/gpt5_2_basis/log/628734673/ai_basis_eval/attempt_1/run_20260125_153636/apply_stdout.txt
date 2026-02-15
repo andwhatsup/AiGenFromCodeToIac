@@ -1,0 +1,253 @@
+data.aws_vpc.default: Reading...
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_vpc.default: Read complete after 0s [id=vpc-55cfea9f47c0cb232]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/python-webapp"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 7
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "python-webapp-cluster"
+      + region   = "us-east-1"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "python-webapp-svc"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-54c7c01f70c25c7d1",
+              + "subnet-ce02ecdf94a2544dc",
+              + "subnet-cf24af3e3a750eb58",
+              + "subnet-d72c1a6760171ae30",
+              + "subnet-f33bc1b5de324d795",
+              + "subnet-fd04666bf55b6a99a",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + essential        = true
+                  + image            = "xmaeltht/python-webapp:latest"
+                  + logConfiguration = {
+                      + logDriver = "awslogs"
+                      + options   = {
+                          + awslogs-group         = "/ecs/python-webapp"
+                          + awslogs-region        = "us-east-1"
+                          + awslogs-stream-prefix = "ecs"
+                        }
+                    }
+                  + name             = "python-webapp"
+                  + portMappings     = [
+                      + {
+                          + containerPort = 8080
+                          + hostPort      = 8080
+                          + protocol      = "tcp"
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "python-webapp"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.task_execution will be created
+  + resource "aws_iam_role" "task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "python-webapp-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "python-webapp-task-exec"
+    }
+
+  # aws_security_group.task will be created
+  + resource "aws_security_group" "task" {
+      + arn                    = (known after apply)
+      + description            = "Allow inbound HTTP to the container"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 8080
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 8080
+            },
+        ]
+      + name                   = "python-webapp-task-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "python-webapp"
+        }
+      + vpc_id                 = "vpc-55cfea9f47c0cb232"
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + default_vpc_id         = "vpc-55cfea9f47c0cb232"
+  + ecs_cluster_name       = "python-webapp-cluster"
+  + ecs_service_name       = "python-webapp-svc"
+  + task_security_group_id = (known after apply)
+aws_iam_role.task_execution: Creating...
+aws_ecs_cluster.this: Creating...
+aws_cloudwatch_log_group.this: Creating...
+aws_security_group.task: Creating...
+aws_iam_role.task_execution: Creation complete after 0s [id=python-webapp-task-exec]
+aws_iam_role_policy_attachment.task_execution: Creating...
+aws_security_group.task: Creation complete after 0s [id=sg-56126e2eee8d53f1b]
+aws_iam_role_policy_attachment.task_execution: Creation complete after 0s [id=python-webapp-task-exec/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_cloudwatch_log_group.this: Creation complete after 0s [id=/ecs/python-webapp]
+aws_ecs_task_definition.this: Creating...
+aws_ecs_task_definition.this: Creation complete after 0s [id=python-webapp]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/python-webapp-cluster]
+aws_ecs_service.this: Creating...
+aws_ecs_service.this: Still creating... [00m10s elapsed]
+aws_ecs_service.this: Creation complete after 19s [id=arn:aws:ecs:us-east-1:000000000000:service/python-webapp-cluster/python-webapp-svc]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+default_vpc_id = "vpc-55cfea9f47c0cb232"
+ecs_cluster_name = "python-webapp-cluster"
+ecs_service_name = "python-webapp-svc"
+task_security_group_id = "sg-56126e2eee8d53f1b"

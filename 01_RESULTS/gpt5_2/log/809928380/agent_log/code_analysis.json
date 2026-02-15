@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/809928380",
+      "programming_languages": [
+        "Java"
+      ],
+      "frameworks": [
+        "AWS Lambda (Java runtime)"
+      ],
+      "dependencies": [
+        "Maven project (pom.xml)",
+        "com.amazonaws:aws-lambda-java-core:1.2.3 (pom.xml)",
+        "com.amazonaws:aws-lambda-java-events:3.11.5 (pom.xml)",
+        "com.amazonaws:aws-lambda-java-log4j2:1.6.0 (pom.xml)",
+        "Java 21 toolchain/bytecode target (pom.xml: maven.compiler.source/target=21)",
+        "Uses org.joda.time.DateTime in code but no explicit Maven dependency found (src/main/java/handler/Handler.java)"
+      ],
+      "deployment_relevant_files": [
+        "pom.xml (Maven build; shade plugin creates fat jar)",
+        "src/main/java/handler/Handler.java (Lambda handler entrypoint)",
+        "version.txt",
+        "/.github/workflows/ci.yml (GitHub Actions CI: mvn verify)",
+        "/.github/workflows/release.yml (GitHub Actions release: mvn package + aws lambda update-function-code)",
+        "/.github/workflows/infrastructure.yml (GitHub Actions Terraform plan/apply; references ./terraform/ but directory not present in this repo snapshot)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (Java) (implied by aws-lambda-java-core and release workflow updating function code: reminder-bot-lambda)",
+        "AWS IAM credentials/secrets for CI/CD (AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY used in workflows)",
+        "External HTTP integration: Telegram Bot API (Handler.java calls https://api.telegram.org/.../sendMessage)",
+        "Configuration via environment variables: bot_token, chat_id, half_month_message, end_month_message (Handler.java)"
+      ]
+    }
+  ]
+}

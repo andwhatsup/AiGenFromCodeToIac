@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "docker_container.sonarqube" [label="docker_container.sonarqube"];
+  "docker_image.sonarqube" [label="docker_image.sonarqube"];
+  "docker_volume.sonarqube_data" [label="docker_volume.sonarqube_data"];
+  "docker_volume.sonarqube_extensions" [label="docker_volume.sonarqube_extensions"];
+  "docker_volume.sonarqube_logs" [label="docker_volume.sonarqube_logs"];
+  "docker_container.sonarqube" -> "docker_image.sonarqube";
+  "docker_container.sonarqube" -> "docker_volume.sonarqube_data";
+  "docker_container.sonarqube" -> "docker_volume.sonarqube_extensions";
+  "docker_container.sonarqube" -> "docker_volume.sonarqube_logs";
+}

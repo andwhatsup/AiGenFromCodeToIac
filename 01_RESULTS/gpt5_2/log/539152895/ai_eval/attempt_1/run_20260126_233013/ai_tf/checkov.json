@@ -1,0 +1,1519 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    34,
+                    46
+                ],
+                "resource": "aws_subnet.public",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-public-${each.value}",
+                    "Tier": "public"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "cidr_block": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "for_each": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    127,
+                    142
+                ],
+                "resource": "aws_ecr_repository.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_51",
+                "bc_check_id": "BC_AWS_GENERAL_24",
+                "check_name": "Ensure ECR Image Tags are immutable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "image_tag_mutability"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    127,
+                    142
+                ],
+                "resource": "aws_ecr_repository.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRImmutableTags",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    168,
+                    175
+                ],
+                "resource": "aws_cloudwatch_log_group.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-logs"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_in_days",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    168,
+                    175
+                ],
+                "resource": "aws_cloudwatch_log_group.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-logs"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_in_days",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_260",
+                "bc_check_id": "BC_AWS_NETWORKING_67",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ingress/[0]/from_port",
+                        "ingress/[0]/to_port",
+                        "ingress/[0]/cidr_blocks",
+                        "ingress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    212,
+                    247
+                ],
+                "resource": "aws_security_group.alb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-alb-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.for_each": [
+                        {
+                            "type": "variable",
+                            "name": "enable_https",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "enable_https",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    212,
+                    247
+                ],
+                "resource": "aws_security_group.alb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-alb-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.for_each": [
+                        {
+                            "type": "variable",
+                            "name": "enable_https",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "enable_https",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    249,
+                    273
+                ],
+                "resource": "aws_security_group.ecs",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-ecs-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "ingress.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_150",
+                "bc_check_id": "BC_AWS_NETWORKING_62",
+                "check_name": "Ensure that Load Balancer has deletion protection enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "enable_deletion_protection"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    278,
+                    290
+                ],
+                "resource": "aws_lb.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LBDeletionProtection",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-alb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-150",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_91",
+                "bc_check_id": "BC_AWS_LOGGING_22",
+                "check_name": "Ensure the ELBv2 (Application/Network) has access logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "access_logs/0/enabled/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    278,
+                    290
+                ],
+                "resource": "aws_lb.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ELBv2AccessLogs",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-ecs-app-prod-alb"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-logging-22",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_cluster.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecs_service.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_appautoscaling_target.ecs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_2",
+                "bc_check_id": "BC_AWS_NETWORKING_29",
+                "check_name": "Ensure ALB protocol is HTTPS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "protocol"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    314,
+                    323
+                ],
+                "resource": "aws_lb_listener.http",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ALBListenerHTTPS",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-29",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/539152895/ai_tf/main.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 40,
+        "failed": 11,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 31,
+        "checkov_version": "3.2.490"
+    }
+}

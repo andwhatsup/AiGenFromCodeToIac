@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture for deploying the containerized RenovateBot automation system is designed for simplicity, security, and scalability. The core component is the RenovateBot container, which will be orchestrated using AWS Fargate (a serverless compute engine for containers) within Amazon ECS (Elastic Container Service). This approach eliminates the need to manage EC2 instances directly and allows for easy scaling and management.\n\nKey components and relationships:\n1. **Networking**: A dedicated VPC with public and private subnets will be created. The ECS service will run in private subnets, with a NAT Gateway for outbound internet access (to pull images and interact with external services like GitHub).\n2. **Container Orchestration**: Amazon ECS (with Fargate launch type) will manage the RenovateBot container lifecycle. The ECS Task Definition will specify the use of the official RenovateBot image and mount the configuration file (renovate.json) via AWS Secrets Manager or S3.\n3. **Configuration Management**: The renovate.json configuration file will be stored securely in AWS Secrets Manager or S3, and injected into the container at runtime.\n4. **IAM and Security**: IAM roles and policies will be created to grant the ECS task permissions to pull images, read configuration, and access any required AWS resources. Security groups will restrict network access to only what is necessary.\n5. **Logging and Monitoring**: CloudWatch Logs will be used to capture container logs for monitoring and troubleshooting. CloudWatch Alarms can be set up for alerting on failures or anomalies.\n6. **Optional Scheduling**: If RenovateBot should run on a schedule (e.g., nightly), an EventBridge (CloudWatch Events) rule can trigger the ECS task at defined intervals.\n\nThis architecture is lean, secure, and leverages AWS managed services to minimize operational overhead while ensuring the RenovateBot automation runs reliably and can scale as needed.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Group(s) for ECS Tasks",
+    "Amazon ECS Cluster",
+    "ECS Task Definition (Fargate)",
+    "ECS Service (optional, if running continuously)",
+    "IAM Role for ECS Task Execution",
+    "IAM Policy for ECS Task (access to S3/Secrets Manager, CloudWatch)",
+    "AWS Secrets Manager Secret or S3 Bucket (for renovate.json)",
+    "CloudWatch Log Group",
+    "CloudWatch Alarms (optional)",
+    "EventBridge Rule (optional, for scheduled runs)"
+  ]
+}

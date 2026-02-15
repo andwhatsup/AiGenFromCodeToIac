@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/675972236",
+      "programming_languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "AWS Lambda (Rust) via lambda_runtime",
+        "Tokio (async runtime)"
+      ],
+      "dependencies": [
+        "aws_lambda_events = \"0.10.0\" (Cargo.toml)",
+        "lambda_runtime = \"0.8.1\" (Cargo.toml)",
+        "serde = \"1.0.183\" (Cargo.toml)",
+        "serde_json = \"1.0.104\" (Cargo.toml)",
+        "tokio = { version = \"1.29.1\", features = [\"macros\"] } (Cargo.toml)",
+        "tracing = { version = \"0.1\", features = [\"log\"] } (Cargo.toml)",
+        "tracing-subscriber = { version = \"0.3\", default-features = false, features = [\"fmt\"] } (Cargo.toml)"
+      ],
+      "deployment_relevant_files": [
+        "Cargo.toml (/ai-code-generation-from-code-to-iac/workspace/675972236/Cargo.toml)",
+        "Cargo.lock (/ai-code-generation-from-code-to-iac/workspace/675972236/Cargo.lock)",
+        "infra/README.md (/ai-code-generation-from-code-to-iac/workspace/675972236/infra/README.md)",
+        "infra/.gitignore (ignores backend.tf) (/ai-code-generation-from-code-to-iac/workspace/675972236/infra/.gitignore)",
+        "infra/.dummy/lambda.zip (/ai-code-generation-from-code-to-iac/workspace/675972236/infra/.dummy/lambda.zip)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (Rust runtime) (inferred from lambda_runtime usage in src/main.rs and aws_lambda_events dependency)",
+        "AWS Lambda Function URL / HTTP endpoint (inferred from aws_lambda_events::lambda_function_urls::LambdaFunctionUrlRequest in src/main.rs)",
+        "Logging/observability pipeline (inferred from tracing + tracing-subscriber dependencies)",
+        "Terraform remote state backend (Hashicorp Cloud/Terraform Cloud) is suggested but not included in-repo (infra/README.md; backend.tf is ignored via infra/.gitignore)"
+      ]
+    }
+  ]
+}

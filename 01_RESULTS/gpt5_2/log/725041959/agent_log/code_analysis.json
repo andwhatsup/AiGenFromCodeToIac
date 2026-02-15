@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/725041959",
+      "programming_languages": [
+        "Shell",
+        "Dockerfile"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "alpine:latest base image (Dockerfile)",
+        "rclone (Dockerfile: `apk add rclone`)",
+        "mysql-client / mysqldump (Dockerfile: `apk add mysql-client`)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "entrypoint.sh",
+        ".github/workflows/docker-publish.yml",
+        "renovate.json",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "Container image (built/published to ghcr.io via GitHub Actions: .github/workflows/docker-publish.yml)",
+        "Kubernetes CronJob workload (implied by README: \"kubernetes cronjob\"; manifests/terraform not present in this repo snapshot)",
+        "MySQL/MariaDB database to back up (entrypoint.sh uses `mysqldump` against DB_HOST; dumps `nextcloud` and `mysql` databases)",
+        "FTP server as backup target (entrypoint.sh uses rclone FTP remote with FTP_HOST/FTP_USER/FTP_PASS)",
+        "Nextcloud instance filesystem (expects Nextcloud directory structure and edits `config/config.php` maintenance flag)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1345 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    9
+                ],
+                "resource": "aws_ecr_repository.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-app"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/ecr.tf"
+            },
+            {
+                "check_id": "CKV_AWS_51",
+                "bc_check_id": "BC_AWS_GENERAL_24",
+                "check_name": "Ensure ECR Image Tags are immutable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "image_tag_mutability"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    9
+                ],
+                "resource": "aws_ecr_repository.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRImmutableTags",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "flask-app"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/ecr.tf"
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "eks",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/eks.tf",
+                "breadcrumbs": {
+                    "cluster_name": [
+                        {
+                            "type": "variable",
+                            "name": "eks_cluster_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_group_defaults.instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "node_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "node_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default": [
+                        {
+                            "type": "variable",
+                            "name": "min_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_group_defaults.desired_size": [
+                        {
+                            "type": "variable",
+                            "name": "desired_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.desired_size": [
+                        {
+                            "type": "variable",
+                            "name": "desired_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_group_defaults.max_size": [
+                        {
+                            "type": "variable",
+                            "name": "max_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.max_size": [
+                        {
+                            "type": "variable",
+                            "name": "max_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_group_defaults.min_size": [
+                        {
+                            "type": "variable",
+                            "name": "min_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "eks_managed_node_groups.default.min_size": [
+                        {
+                            "type": "variable",
+                            "name": "min_capacity",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/iam.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/iam.tf",
+                "repo_file_path": "/iam.tf",
+                "file_line_range": [
+                    1,
+                    16
+                ],
+                "resource": "eks_irsa",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/iam.tf"
+            },
+            {
+                "check_id": "CKV_K8S_8",
+                "bc_check_id": "BC_K8S_7",
+                "check_name": "Liveness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/container/[0]/liveness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.LivenessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-7",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_13",
+                "bc_check_id": "BC_K8S_12",
+                "check_name": "Memory requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryRequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-12",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_15",
+                "bc_check_id": "BC_K8S_14",
+                "check_name": "Image Pull Policy should be Always",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImagePullPolicyAlways",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_12",
+                "bc_check_id": "BC_K8S_11",
+                "check_name": "Memory Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryLimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_10",
+                "bc_check_id": "BC_K8S_9",
+                "check_name": "CPU requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPURequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-9",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_9",
+                "bc_check_id": "BC_K8S_8",
+                "check_name": "Readiness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/readiness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ReadinessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-8",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_28",
+                "bc_check_id": "BC_K8S_27",
+                "check_name": "Minimize the admission of containers with the NET_RAW capability",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DropCapabilities",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-27",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_29",
+                "bc_check_id": "BC_K8S_43",
+                "check_name": "Apply security context to your pods, deployments and daemon_sets",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.PodSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_30",
+                "bc_check_id": "BC_K8S_28",
+                "check_name": "Apply security context to your pods and containers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/security_context"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ContainerSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-28",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_21",
+                "bc_check_id": "BC_K8S_20",
+                "check_name": "The default namespace should not be used",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata/[0]/namespace"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DefaultNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": "BC_K8S_39",
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/image"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_11",
+                "bc_check_id": "BC_K8S_10",
+                "check_name": "CPU Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    1,
+                    36
+                ],
+                "resource": "kubernetes_deployment.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPULimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-10",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_21",
+                "bc_check_id": "BC_K8S_20",
+                "check_name": "The default namespace should not be used",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata/[0]/namespace"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_activemq.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf",
+                "repo_file_path": "/k8s_activemq.tf",
+                "file_line_range": [
+                    38,
+                    60
+                ],
+                "resource": "kubernetes_service.activemq",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DefaultNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_activemq.tf"
+            },
+            {
+                "check_id": "CKV_K8S_8",
+                "bc_check_id": "BC_K8S_7",
+                "check_name": "Liveness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/container/[0]/liveness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.LivenessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-7",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_13",
+                "bc_check_id": "BC_K8S_12",
+                "check_name": "Memory requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryRequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-12",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_15",
+                "bc_check_id": "BC_K8S_14",
+                "check_name": "Image Pull Policy should be Always",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImagePullPolicyAlways",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-14",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_12",
+                "bc_check_id": "BC_K8S_11",
+                "check_name": "Memory Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.MemoryLimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_10",
+                "bc_check_id": "BC_K8S_9",
+                "check_name": "CPU requests should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPURequests",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-9",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_9",
+                "bc_check_id": "BC_K8S_8",
+                "check_name": "Readiness Probe Should be Configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/readiness_probe/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ReadinessProbe",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-8",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_28",
+                "bc_check_id": "BC_K8S_27",
+                "check_name": "Minimize the admission of containers with the NET_RAW capability",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DropCapabilities",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-27",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_29",
+                "bc_check_id": "BC_K8S_43",
+                "check_name": "Apply security context to your pods, deployments and daemon_sets",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.PodSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/ensure-securitycontext-is-applied-to-pods-and-containers",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_30",
+                "bc_check_id": "BC_K8S_28",
+                "check_name": "Apply security context to your pods and containers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/security_context"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ContainerSecurityContext",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-28",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_14",
+                "bc_check_id": "BC_K8S_13",
+                "check_name": "Image Tag should be fixed - not latest or blank",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/image"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImageTagFixed",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_21",
+                "bc_check_id": "BC_K8S_20",
+                "check_name": "The default namespace should not be used",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata/[0]/namespace"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DefaultNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_43",
+                "bc_check_id": "BC_K8S_39",
+                "check_name": "Image should use digest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]/image"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.ImageDigest",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-39",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_11",
+                "bc_check_id": "BC_K8S_10",
+                "check_name": "CPU Limits should be set",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "spec/[0]/template/[0]/spec/[0]/container/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    1,
+                    33
+                ],
+                "resource": "kubernetes_deployment.flask_app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.CPULimits",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-10",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_K8S_21",
+                "bc_check_id": "BC_K8S_20",
+                "check_name": "The default namespace should not be used",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata/[0]/namespace"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/k8s_flask_app.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf",
+                "repo_file_path": "/k8s_flask_app.tf",
+                "file_line_range": [
+                    35,
+                    53
+                ],
+                "resource": "kubernetes_service.flask_app_lb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.kubernetes.DefaultNamespace",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/kubernetes-policies/kubernetes-policy-index/bc-k8s-20",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/k8s_flask_app.tf"
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/vpc.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/vpc.tf",
+                "repo_file_path": "/vpc.tf",
+                "file_line_range": [
+                    1,
+                    20
+                ],
+                "resource": "vpc",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/vpc.tf",
+                "breadcrumbs": {
+                    "azs": [
+                        {
+                            "type": "variable",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "cidr": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "public_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "public_subnet_cidrs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "private_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "private_subnet_cidrs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 36,
+        "failed": 32,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 5,
+        "checkov_version": "3.2.490"
+    }
+}

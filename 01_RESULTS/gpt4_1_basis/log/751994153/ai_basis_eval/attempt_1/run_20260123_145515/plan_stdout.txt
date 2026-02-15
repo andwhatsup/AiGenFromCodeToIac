@@ -1,0 +1,88 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.amazon_linux: Reading...
+data.aws_vpc.default: Read complete after 2s [id=vpc-d0e1ae45402558b9b]
+data.aws_subnet.default: Reading...
+data.aws_ami.amazon_linux: Read complete after 7s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # aws_security_group.app_sg will be created
+  + resource "aws_security_group" "app_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP, HTTPS, and SSH"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "portfolio-website-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "portfolio-website-sg"
+        }
+      + tags_all               = {
+          + "Name" = "portfolio-website-sg"
+        }
+      + vpc_id                 = "vpc-d0e1ae45402558b9b"
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.

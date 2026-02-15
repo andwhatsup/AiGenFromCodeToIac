@@ -1,0 +1,155 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ami",
+            "aws_instance",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "key": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_key_pair"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "internet",
+          "key",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        },
+        "public_subnet_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.1.0/24\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        },
+        "instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3.micro\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        },
+        "key_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        },
+        "allowed_ssh_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"0.0.0.0/0\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "key_name"
+      ],
+      "aws_services": [
+        "aws_ami",
+        "aws_availability_zones",
+        "aws_instance",
+        "aws_internet_gateway",
+        "aws_key_pair",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_key_pair": 1,
+        "aws_instance": 1,
+        "aws_ami": 1,
+        "aws_security_group": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 1,
+        "aws_route_table": 1,
+        "aws_route": 1,
+        "aws_route_table_association": 1,
+        "aws_availability_zones": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 4.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/ai_tf/localstack.auto.tfvars.json"
+      ]
+    }
+  ]
+}

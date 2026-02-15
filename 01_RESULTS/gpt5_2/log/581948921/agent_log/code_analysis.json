@@ -1,0 +1,83 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "YAML",
+        "Makefile"
+      ],
+      "frameworks": [
+        "MkDocs",
+        "MkDocs Terminal theme"
+      ],
+      "dependencies": [
+        "mkdocs (requirements.txt)",
+        "mkdocs-terminal (requirements.txt)",
+        "pymdown-extensions (requirements.txt)",
+        "mkdocs-git-revision-date-plugin (requirements.txt)",
+        "mkdocs-markdown-filter (requirements.txt)",
+        "mkdocs-macros-plugin (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml (local dev container)",
+        "Makefile (build/serve/deploy via mkdocs + aws s3 sync)",
+        "mkdocs.yml (site config/plugins/theme)",
+        "variables.yml (environment variable sets for builds)",
+        "requirements.txt (python deps)",
+        "README.md (deployment instructions)",
+        "/.github/workflows/dev-deploy.yml (GitHub Actions deploy pipeline)",
+        "/.github/workflows/prod-deploy.yml (GitHub Actions deploy pipeline)",
+        "/.github/workflows/pr-deploy.yml (PR env deploy pipeline)",
+        "/.github/workflows/pages-deploy.yml (GitHub Pages deploy pipeline)"
+      ],
+      "architectural_resources": [
+        "Static documentation website (MkDocs-generated)",
+        "AWS S3 buckets for static website hosting (dev/prod; referenced in README and workflows)",
+        "AWS S3 artifact bucket for build archives (Makefile: artifact-bucket s3://factually-settled-boxer-artifacts)",
+        "GitHub Actions CI/CD with AWS OIDC authentication and IAM roles (README + workflows; e.g., secrets.DEVELOPMENT_IAM_ROLE_ARN)"
+      ]
+    },
+    {
+      "project_directory": "infra",
+      "programming_languages": [
+        "Makefile"
+      ],
+      "frameworks": [
+        "Terraform (implied by infra/Makefile invoking terraform)"
+      ],
+      "dependencies": [
+        "terraform CLI (infra/Makefile: terraform init/validate/plan/apply)"
+      ],
+      "deployment_relevant_files": [
+        "infra/Makefile (terraform init/plan/apply; remote state bucket/key conventions)",
+        "infra/modules/simple-site-bucket/templates/policy.tpl (bucket policy template)",
+        "infra/modules/simple-site-bucket/init_validate_stdout.txt (terraform validation output)",
+        "infra/modules/simple-site-bucket/validate_stdout.txt (terraform validation output)"
+      ],
+      "architectural_resources": [
+        "Terraform-managed AWS infrastructure (implied)",
+        "Terraform remote state backend in S3 (infra/Makefile: terraform-backend-bucket tf-state-<region>-<env>)",
+        "S3 buckets for static site hosting (per repo README; infra intended to create dev/prod site buckets)",
+        "IAM roles for GitHub Actions workflows to assume (per repo README; created by infra)"
+      ]
+    },
+    {
+      "project_directory": ".github/ci",
+      "programming_languages": [
+        "YAML"
+      ],
+      "frameworks": [
+        "AWS CloudFormation"
+      ],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        ".github/ci/s3-website.yml (CloudFormation template for S3 static website bucket + policy)"
+      ],
+      "architectural_resources": [
+        "AWS S3 bucket configured for static website hosting (IndexDocument/ErrorDocument)",
+        "S3 BucketPolicy allowing public read and enforcing SSE-S3 (AES256) on uploads"
+      ]
+    }
+  ]
+}

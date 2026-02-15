@@ -1,0 +1,28 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_cloudwatch_event_rule.daily" [label="aws_cloudwatch_event_rule.daily"];
+  "aws_cloudwatch_event_target.lambda" [label="aws_cloudwatch_event_target.lambda"];
+  "aws_iam_policy.lambda" [label="aws_iam_policy.lambda"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy_attachment.lambda" [label="aws_iam_role_policy_attachment.lambda"];
+  "aws_kms_key.ssm_backup" [label="aws_kms_key.ssm_backup"];
+  "aws_lambda_function.ssm_backup" [label="aws_lambda_function.ssm_backup"];
+  "aws_lambda_permission.allow_cloudwatch" [label="aws_lambda_permission.allow_cloudwatch"];
+  "aws_s3_bucket.ssm_backup" [label="aws_s3_bucket.ssm_backup"];
+  "random_id.bucket_suffix" [label="random_id.bucket_suffix"];
+  "aws_cloudwatch_event_target.lambda" -> "aws_cloudwatch_event_rule.daily";
+  "aws_cloudwatch_event_target.lambda" -> "aws_lambda_function.ssm_backup";
+  "aws_iam_policy.lambda" -> "aws_kms_key.ssm_backup";
+  "aws_iam_policy.lambda" -> "aws_s3_bucket.ssm_backup";
+  "aws_iam_role_policy_attachment.lambda" -> "aws_iam_policy.lambda";
+  "aws_iam_role_policy_attachment.lambda" -> "aws_iam_role.lambda";
+  "aws_lambda_function.ssm_backup" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.ssm_backup" -> "aws_iam_role.lambda";
+  "aws_lambda_function.ssm_backup" -> "aws_kms_key.ssm_backup";
+  "aws_lambda_function.ssm_backup" -> "aws_s3_bucket.ssm_backup";
+  "aws_lambda_permission.allow_cloudwatch" -> "aws_cloudwatch_event_rule.daily";
+  "aws_lambda_permission.allow_cloudwatch" -> "aws_lambda_function.ssm_backup";
+  "aws_s3_bucket.ssm_backup" -> "random_id.bucket_suffix";
+}

@@ -1,0 +1,31 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (Renovate Bot as a scheduled container job)\n\n### Overview\nRun Renovate Bot as a **scheduled, serverless container task** on AWS. The Renovate container image is stored in **Amazon ECR**, executed on **Amazon ECS on Fargate**, and triggered on a schedule by **Amazon EventBridge Scheduler**. Secrets (e.g., GitHub/GitLab token, Renovate config overrides) are stored in **AWS Secrets Manager** and injected into the task at runtime. Logs go to **CloudWatch Logs**. The task runs in private subnets with controlled egress to the Git hosting provider.\n\n### Main components and relationships\n1. **Container image management**\n   - Build/publish a Renovate image (either your Dockerfile that references `ghcr.io/renovatebot/renovate:36.72.0`, or a direct re-tag) into **Amazon ECR**.\n   - ECS pulls the image from ECR at task start.\n\n2. **Execution environment (serverless compute)**\n   - **Amazon ECS (Fargate)** runs Renovate as a **one-off task** (not a long-running service).\n   - An **ECS Task Definition** defines:\n     - Container image (ECR)\n     - CPU/memory\n     - Environment variables\n     - Secrets injection (token, optional Renovate settings)\n     - CloudWatch log driver\n\n3. **Scheduling / triggering**\n   - **EventBridge Scheduler** triggers the ECS task on a cron/rate schedule (e.g., hourly or nightly).\n   - Optionally add a second schedule for “on-demand” runs (manual trigger via AWS Console/CLI) by allowing `ecs:RunTask` from a controlled IAM principal.\n\n4. **Networking and security**\n   - Deploy ECS tasks into a dedicated **VPC** with **private subnets** across at least two AZs.\n   - Use **VPC endpoints** for private access to AWS services used by the task (recommended):\n     - ECR (api + dkr)\n     - CloudWatch Logs\n     - Secrets Manager\n     - (Optional) S3, KMS\n   - Provide outbound internet access for Git hosting (GitHub/GitLab/Bitbucket) via a **NAT Gateway** in a public subnet.\n   - Use tight **security groups** (no inbound; egress only as needed).\n\n5. **Secrets and configuration**\n   - Store Git platform token(s) in **AWS Secrets Manager**.\n   - (Optional) Store Renovate runtime config overrides in Secrets Manager or SSM Parameter Store.\n   - Use **IAM roles**:\n     - ECS Task Execution Role: pull from ECR, write logs.\n     - ECS Task Role: read specific secrets, decrypt via KMS if used.\n\n6. **Observability and operations**\n   - **CloudWatch Logs** captures Renovate output.\n   - **CloudWatch Alarms** on task failures (via metrics/Events) and log-based alarms if desired.\n   - **EventBridge rules** (or Scheduler DLQ) can route failed invocations to an **SQS DLQ** and/or notify via **SNS**.\n\n### Deployment strategy (lean)\n- Use IaC (CloudFormation/CDK/Terraform) to provision the VPC, ECS cluster, task definition, scheduler, IAM, and logging.\n- Use a CI pipeline (outside scope, but commonly GitHub Actions) to build and push the container to ECR when Renovate version/config changes.\n\n### Notes / assumptions\n- Git hosting remains external (e.g., GitHub). Renovate needs outbound HTTPS to the Git provider APIs and git clone endpoints.\n- No persistent storage is required; Renovate can operate with ephemeral task storage.\n\n## Optional variants (if you want even leaner)\n- If you already have a Kubernetes platform (EKS), run Renovate as a **Kubernetes CronJob** instead of ECS.\n- If you want to avoid NAT costs and can accept public egress, you can run the task in a public subnet with no inbound rules; however, private subnets + NAT is the more standard posture.\n",
+  "aws_resources": [
+    "Amazon ECR repository (for Renovate container image)",
+    "Amazon ECS cluster (Fargate)",
+    "ECS task definition (Renovate container, env vars, secrets, logging)",
+    "ECS task execution IAM role (ECR pull, CloudWatch Logs write)",
+    "ECS task IAM role (Secrets Manager read, optional KMS decrypt)",
+    "Amazon EventBridge Scheduler schedule (cron/rate)",
+    "IAM role for EventBridge Scheduler to call ecs:RunTask",
+    "VPC",
+    "Public subnets (at least 2 AZs)",
+    "Private subnets (at least 2 AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (for private subnet egress)",
+    "Elastic IP (for NAT Gateway)",
+    "Route tables (public and private) + routes",
+    "Security group for ECS tasks (no inbound; controlled egress)",
+    "VPC endpoints: ECR (api)",
+    "VPC endpoints: ECR (dkr)",
+    "VPC endpoint: CloudWatch Logs",
+    "VPC endpoint: Secrets Manager",
+    "(Optional) VPC endpoint: S3 (gateway endpoint)",
+    "AWS Secrets Manager secret(s) (Git platform token, optional Renovate config)",
+    "AWS KMS key (optional, for custom encryption of secrets)",
+    "CloudWatch Log Group (ECS task logs)",
+    "CloudWatch Alarms (task failures / scheduler failures)",
+    "(Optional) Amazon SQS queue (DLQ for Scheduler failures)",
+    "(Optional) Amazon SNS topic (notifications for failures)"
+  ]
+}

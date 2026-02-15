@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_api_gateway_deployment.product_api_deployment" [label="aws_api_gateway_deployment.product_api_deployment"];
+  "aws_api_gateway_integration.product_post_integration" [label="aws_api_gateway_integration.product_post_integration"];
+  "aws_api_gateway_method.product_post" [label="aws_api_gateway_method.product_post"];
+  "aws_api_gateway_resource.product" [label="aws_api_gateway_resource.product"];
+  "aws_api_gateway_rest_api.product_api" [label="aws_api_gateway_rest_api.product_api"];
+  "aws_api_gateway_stage.dev" [label="aws_api_gateway_stage.dev"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.product_lambda" [label="aws_lambda_function.product_lambda"];
+  "aws_lambda_permission.apigw" [label="aws_lambda_permission.apigw"];
+  "aws_api_gateway_deployment.product_api_deployment" -> "aws_api_gateway_integration.product_post_integration";
+  "aws_api_gateway_integration.product_post_integration" -> "aws_api_gateway_method.product_post";
+  "aws_api_gateway_integration.product_post_integration" -> "aws_lambda_function.product_lambda";
+  "aws_api_gateway_method.product_post" -> "aws_api_gateway_resource.product";
+  "aws_api_gateway_resource.product" -> "aws_api_gateway_rest_api.product_api";
+  "aws_api_gateway_stage.dev" -> "aws_api_gateway_deployment.product_api_deployment";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.product_lambda" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_permission.apigw" -> "aws_api_gateway_rest_api.product_api";
+  "aws_lambda_permission.apigw" -> "aws_lambda_function.product_lambda";
+}

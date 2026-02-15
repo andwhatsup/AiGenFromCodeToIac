@@ -1,0 +1,213 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_zip: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.archive_file.lambda_zip: Read complete after 0s [id=c87e8cc84e677c80a616b9e8da989e9167e813b9]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_metric_alarm.lambda_errors will be created
+  + resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "Alarm when the Lambda function reports errors"
+      + alarm_name                            = "venmo-action-automation-lambda-errors"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanOrEqualToThreshold"
+      + dimensions                            = {
+          + "FunctionName" = "venmo-action-automation-handler"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "Errors"
+      + namespace                             = "AWS/Lambda"
+      + period                                = 60
+      + statistic                             = "Sum"
+      + tags_all                              = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+      + threshold                             = 1
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_iam_role.lambda_role will be created
+  + resource "aws_iam_role" "lambda_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "venmo-action-automation-lambda-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.scheduler_role will be created
+  + resource "aws_iam_role" "scheduler_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "scheduler.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "venmo-action-automation-scheduler-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.scheduler_invoke_lambda will be created
+  + resource "aws_iam_role_policy" "scheduler_invoke_lambda" {
+      + id          = (known after apply)
+      + name        = "venmo-action-automation-scheduler-invoke-lambda"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "venmo-action-automation-lambda-role"
+    }
+
+  # aws_lambda_function.this will be created
+  + resource "aws_lambda_function" "this" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./handler.zip"
+      + function_name                  = "venmo-action-automation-handler"
+      + handler                        = "handler.handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.11"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "09kKfsEd1TiKYp2YS+zAIdeCkyUBe5a+5wAgvwtFNfA="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "VENMO_AUTH_TOKEN" = (sensitive value)
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_sns_topic.alarms will be created
+  + resource "aws_sns_topic" "alarms" {
+      + arn                         = (known after apply)
+      + beginning_archive_time      = (known after apply)
+      + content_based_deduplication = false
+      + fifo_throughput_scope       = (known after apply)
+      + fifo_topic                  = false
+      + id                          = (known after apply)
+      + name                        = "venmo-action-automation-alarms"
+      + name_prefix                 = (known after apply)
+      + owner                       = (known after apply)
+      + policy                      = (known after apply)
+      + signature_version           = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+      + tracing_config              = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_name     = "venmo-action-automation-handler"
+  + scheduler_schedule_names = []
+  + sns_topic_arn            = (known after apply)
+aws_iam_role.scheduler_role: Creating...
+aws_iam_role.lambda_role: Creating...
+aws_sns_topic.alarms: Creating...
+aws_iam_role.lambda_role: Creation complete after 0s [id=venmo-action-automation-lambda-role]
+aws_iam_role.scheduler_role: Creation complete after 0s [id=venmo-action-automation-scheduler-role]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_lambda_function.this: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=venmo-action-automation-lambda-role-20260127054829008100000001]
+aws_sns_topic.alarms: Creation complete after 0s [id=arn:aws:sns:us-east-1:000000000000:venmo-action-automation-alarms]
+aws_lambda_function.this: Creation complete after 6s [id=venmo-action-automation-handler]
+aws_iam_role_policy.scheduler_invoke_lambda: Creating...
+aws_cloudwatch_metric_alarm.lambda_errors: Creating...
+aws_iam_role_policy.scheduler_invoke_lambda: Creation complete after 0s [id=venmo-action-automation-scheduler-role:venmo-action-automation-scheduler-invoke-lambda]
+aws_cloudwatch_metric_alarm.lambda_errors: Creation complete after 0s [id=venmo-action-automation-lambda-errors]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lambda_function_name = "venmo-action-automation-handler"
+scheduler_schedule_names = []
+sns_topic_arn = "arn:aws:sns:us-east-1:000000000000:venmo-action-automation-alarms"

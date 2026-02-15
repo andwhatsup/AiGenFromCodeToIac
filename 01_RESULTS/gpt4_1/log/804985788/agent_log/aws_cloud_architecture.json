@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a code generation and processing pipeline involving a Rust CLI application, COBOL source code, and automation scripts (Shell/PowerShell). The primary goal is to provide a secure, automated, and scalable environment for running the Rust CLI to generate/process COBOL code, with supporting automation for setup and cleanup. The architecture is designed for batch or on-demand execution, not as a persistent web service.\n\n**Proposed AWS Architecture:**\n\n1. **VPC and Networking:**\n   - Deploy all resources within a dedicated VPC for network isolation and security. Use public and private subnets as needed.\n\n2. **Compute Layer:**\n   - Use AWS **EC2** instances (Amazon Linux 2 or Ubuntu) to run the Rust CLI and automation scripts. EC2 provides flexibility for running custom CLI tools and legacy code. Instances can be started on-demand (manually, via automation, or scheduled).\n   - Alternatively, for fully managed, event-driven execution, use **AWS Lambda** (with custom runtime for Rust) for the Rust CLI if the workload fits Lambda's limits. For COBOL, if compilation/execution is needed, EC2 is preferred due to legacy dependencies.\n\n3. **Storage:**\n   - Use **Amazon S3** to store COBOL source files (both static and generated), Rust CLI artifacts, and any output or logs. S3 provides durable, scalable storage and easy integration with other AWS services.\n\n4. **Automation and Orchestration:**\n   - Use **AWS Systems Manager (SSM)** to automate environment setup, script execution, and cleanup on EC2 instances. SSM Run Command and Automation documents can invoke shell/PowerShell scripts securely.\n   - Optionally, use **AWS Step Functions** to orchestrate multi-step workflows (setup, run CLI, process output, cleanup) if the process is complex.\n\n5. **IAM and Security:**\n   - Create IAM roles for EC2 and Lambda with least-privilege access to S3, SSM, and logging.\n   - Use Security Groups to restrict network access to EC2 instances.\n\n6. **Monitoring and Logging:**\n   - Use **Amazon CloudWatch** for logging (CLI output, script logs) and monitoring (EC2/Lambda metrics, alarms).\n\n**Deployment Strategy:**\n- Upload COBOL and Rust source files to S3.\n- Launch EC2 instance (or trigger Lambda) to run the Rust CLI and automation scripts, using SSM for orchestration.\n- Store generated COBOL files and logs back to S3.\n- Use SSM or Step Functions for repeatable, auditable execution.\n\nThis architecture is secure, scalable, and cost-effective for batch or on-demand code generation/processing pipelines.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet",
+    "Private Subnet",
+    "Internet Gateway",
+    "NAT Gateway (if outbound internet needed from private subnet)",
+    "Route Tables",
+    "Security Group (for EC2)",
+    "EC2 Instance (Amazon Linux 2 or Ubuntu, with Rust and COBOL toolchains)",
+    "IAM Role for EC2 (access to S3, SSM, CloudWatch)",
+    "Amazon S3 Bucket (for COBOL/Rust source, artifacts, logs)",
+    "AWS Systems Manager (SSM) - for automation and remote command execution",
+    "CloudWatch Log Group (for EC2/Lambda logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "(Optional) AWS Lambda Function (custom runtime for Rust CLI, if feasible)",
+    "(Optional) Step Functions State Machine (for workflow orchestration)"
+  ]
+}

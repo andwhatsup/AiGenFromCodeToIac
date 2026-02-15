@@ -1,0 +1,33 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda" [label="data.archive_file.lambda"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_kms_key.s3" [label="data.aws_kms_key.s3"];
+  "data.aws_kms_key.ssm" [label="data.aws_kms_key.ssm"];
+  "aws_cloudwatch_event_rule.this" [label="aws_cloudwatch_event_rule.this"];
+  "aws_cloudwatch_event_target.this" [label="aws_cloudwatch_event_target.this"];
+  "aws_iam_policy.this" [label="aws_iam_policy.this"];
+  "aws_iam_role.this" [label="aws_iam_role.this"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_lambda_permission.cloudwatch" [label="aws_lambda_permission.cloudwatch"];
+  "aws_s3_bucket.this" [label="aws_s3_bucket.this"];
+  "aws_s3_bucket_acl.this" [label="aws_s3_bucket_acl.this"];
+  "aws_s3_bucket_lifecycle_configuration.this" [label="aws_s3_bucket_lifecycle_configuration.this"];
+  "aws_s3_bucket_server_side_encryption_configuration.this" [label="aws_s3_bucket_server_side_encryption_configuration.this"];
+  "null_resource.local_package" [label="null_resource.local_package"];
+  "data.archive_file.lambda" -> "null_resource.local_package";
+  "aws_cloudwatch_event_target.this" -> "aws_cloudwatch_event_rule.this";
+  "aws_cloudwatch_event_target.this" -> "aws_lambda_function.this";
+  "aws_iam_policy.this" -> "data.aws_kms_key.s3";
+  "aws_iam_policy.this" -> "data.aws_kms_key.ssm";
+  "aws_iam_role.this" -> "aws_iam_policy.this";
+  "aws_lambda_function.this" -> "data.archive_file.lambda";
+  "aws_lambda_function.this" -> "aws_iam_role.this";
+  "aws_lambda_permission.cloudwatch" -> "aws_cloudwatch_event_rule.this";
+  "aws_lambda_permission.cloudwatch" -> "aws_lambda_function.this";
+  "aws_s3_bucket_acl.this" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_lifecycle_configuration.this" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_server_side_encryption_configuration.this" -> "data.aws_kms_key.s3";
+  "aws_s3_bucket_server_side_encryption_configuration.this" -> "aws_s3_bucket.this";
+}

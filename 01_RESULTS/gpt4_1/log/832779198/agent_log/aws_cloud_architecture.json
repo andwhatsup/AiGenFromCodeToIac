@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system leverages a hybrid serverless and containerized architecture on AWS, designed for scalability, automation, and secure integration with blockchain technology (Litecoin). The main components and their deployment strategies are as follows:\n\n1. **AWS Lambda (Python, boto3):** The core business logic is implemented as a Lambda function, which interacts with both AWS S3 for persistent storage and a Litecoin node for blockchain operations. The Lambda function is deployed with the necessary IAM permissions to access S3 and network resources.\n\n2. **AWS S3 Bucket:** Used for storing data that the Lambda function reads and writes. S3 provides durable, scalable, and secure object storage.\n\n3. **Litecoin Node (Docker on ECS):** The Litecoin node is containerized using Docker. For AWS-native deployment, the Docker image (built and pushed to Docker Hub via CI/CD) is pulled and run as a service on AWS Fargate (ECS), providing a managed, scalable, and secure environment for the Litecoin node. ECS Service is placed in private subnets for security, with access controlled via security groups.\n\n4. **Networking (VPC, Subnets, Security Groups):** All resources are deployed within a dedicated VPC. Private subnets are used for ECS tasks (Litecoin node), and Lambda is configured to access these subnets. Security groups restrict access to only necessary ports and resources.\n\n5. **IAM Roles and Policies:** IAM roles are created for Lambda and ECS tasks, granting least-privilege access to S3, networking, and other AWS resources as needed.\n\n6. **CI/CD Integration:** GitHub Actions is used for CI/CD, building the Docker image and pushing it to Docker Hub. ECS is configured to pull the latest image from Docker Hub for deployment.\n\n7. **Monitoring and Logging:** AWS CloudWatch is used for logging Lambda and ECS task output, as well as for monitoring resource health and performance.\n\nThis architecture ensures:\n- Serverless compute for business logic (Lambda)\n- Managed, scalable container hosting for the Litecoin node (ECS Fargate)\n- Secure, isolated networking (VPC, subnets, security groups)\n- Automated deployment pipelines (GitHub Actions)\n- Centralized logging and monitoring (CloudWatch)\n- Least-privilege access (IAM roles/policies)\n\nOptional enhancements (not required for MVP):\n- API Gateway in front of Lambda for external API access\n- Secrets Manager for managing sensitive Litecoin node credentials\n- S3 bucket policies for fine-grained access control",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Private and Public Subnets",
+    "Internet Gateway (if outbound internet access is needed)",
+    "NAT Gateway (for ECS tasks to access Docker Hub)",
+    "Route Tables",
+    "Security Groups (for Lambda, ECS tasks, S3 access)",
+    "AWS Lambda Function (Python, boto3)",
+    "IAM Role for Lambda (with S3 and VPC access)",
+    "AWS S3 Bucket",
+    "ECS Cluster (Fargate)",
+    "ECS Task Definition (Litecoin node, Docker image from Docker Hub)",
+    "ECS Service (Fargate, running Litecoin node)",
+    "IAM Role for ECS Task (with network and logging permissions)",
+    "CloudWatch Log Groups (for Lambda and ECS)",
+    "CloudWatch Alarms (optional, for monitoring)"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/628443217",
+      "programming_languages": [
+        "YAML (Docker Compose)",
+        "Shell (Bash)",
+        "HCL (Terraform) — implied by docs/logs"
+      ],
+      "frameworks": [
+        "Terraform (HashiCorp) — implied by docker image and init logs",
+        "Docker Compose"
+      ],
+      "dependencies": [
+        "hashicorp/terraform:1.4.5 (Docker image) — docker-compose.yml",
+        "Terraform providers (from source/init_validate_stdout.txt): hashicorp/aws (~> 6.27.0), hashicorp/archive (>= 2.0.0), hashicorp/local, hashicorp/tls, hashicorp/http"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/docker-compose.yml",
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/README.md",
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/source/nginx-php-inst.sh",
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/source/init_validate_stdout.txt",
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/source/validate_stdout.txt",
+        "/ai-code-generation-from-code-to-iac/workspace/628443217/source/.security/my-net-keypair.id_rsa"
+      ],
+      "architectural_resources": [
+        "Terraform execution environment (containerized via Docker Compose)",
+        "AWS account credentials usage via mounted ~/.aws and AWS_PROFILE (docker-compose.yml)",
+        "AWS VPC networking (implied by README: “modify variables.tf according to the VPC configuration”)",
+        "AWS EC2 instance (web server) (README)",
+        "Security Group / IP allowlisting (implied by README: access only from runner’s global IP)",
+        "SSH key pair for EC2 access (source/.security/my-net-keypair.id_rsa referenced in README)",
+        "Nginx web server + PHP-FPM on Amazon Linux 2 (provisioning script source/nginx-php-inst.sh)"
+      ]
+    }
+  ]
+}

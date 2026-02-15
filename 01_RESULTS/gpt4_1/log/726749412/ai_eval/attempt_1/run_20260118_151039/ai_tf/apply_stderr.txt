@@ -1,0 +1,28 @@
+
+Error: creating S3 Bucket (express-app-codepipeline-artifacts-e8a675b6): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://express-app-codepipeline-artifacts-e8a675b6.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.codepipeline_artifacts,
+  on codepipeline.tf line 62, in resource "aws_s3_bucket" "codepipeline_artifacts":
+  62: resource "aws_s3_bucket" "codepipeline_artifacts" {
+
+
+Error: attaching IAM Policy (arn:aws:iam::aws:policy/AWSCodePipelineFullAccess) to IAM Role (express-app-codepipeline-role): operation error IAM: AttachRolePolicy, https response error StatusCode: 404, RequestID: b318c97d-9df4-47ed-8f16-c612c8b23df1, NoSuchEntity: Policy arn:aws:iam::aws:policy/AWSCodePipelineFullAccess does not exist or is not attachable.
+
+  with aws_iam_role_policy_attachment.codepipeline_policy,
+  on codepipeline.tf line 86, in resource "aws_iam_role_policy_attachment" "codepipeline_policy":
+  86: resource "aws_iam_role_policy_attachment" "codepipeline_policy" {
+
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/express-app-alb/a3151fa410027363) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: ad6d3236-6a9d-46b6-9503-76d54d1a23f4, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app_lb,
+  on main.tf line 156, in resource "aws_lb" "app_lb":
+ 156: resource "aws_lb" "app_lb" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app_lb,
+  on main.tf line 156, in resource "aws_lb" "app_lb":
+ 156: resource "aws_lb" "app_lb" {
+

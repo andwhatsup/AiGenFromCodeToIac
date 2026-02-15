@@ -1,0 +1,56 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/846958109",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "HTML"
+      ],
+      "frameworks": [
+        "Express.js",
+        "Nginx (container image used for static serving)"
+      ],
+      "dependencies": [
+        "express (^4.17.1) (from /package.json)"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile (nginx:alpine; copies repo into /usr/share/nginx/html; EXPOSE 3000)",
+        "/deployment.yaml (Kubernetes Deployment; image yash5090/tribute:latest; containerPort 3000; replicas 6)",
+        "/service.yaml (Kubernetes Service type LoadBalancer; AWS ALB annotations; port 3000)",
+        "/manifests/app-deploy.yaml (Kubernetes Deployment; image yash5090/tribute:latest; port 3000)",
+        "/manifests/app-svc.yaml (Kubernetes Service type LoadBalancer; port 3000)",
+        "/.github/workflows/docker-image.yml (GitHub Actions: docker build)",
+        "/.github/workflows/docker-publish.yml (GitHub Actions: build/push/sign to GHCR)",
+        "/Jenkinsfile (CI pipeline: SonarQube, OWASP dependency-check, Trivy, Docker build/tag/push)",
+        "/Jenkinsfile-CI --- Dev Env (CI pipeline variant)",
+        "/Jenkinsfile-CD --- Prod Env (CD: kubectl apply deployment.yaml/service.yaml)"
+      ],
+      "architectural_resources": [
+        "Web application (Node/Express serving static site)",
+        "Container image build/publish (Docker; pushes to DockerHub yash5090/tribute:latest and/or GHCR via GitHub Actions)",
+        "Kubernetes Deployment (replicated pods)",
+        "Kubernetes Service type LoadBalancer (implies external cloud load balancer; AWS ALB annotations present in /service.yaml)",
+        "CI/CD tooling: Jenkins pipeline (SonarQube, OWASP Dependency-Check, Trivy), GitHub Actions (Docker build/publish)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/846958109/EKS-Terraform",
+      "programming_languages": [
+        "Terraform (inferred from terraform init/validate outputs)"
+      ],
+      "frameworks": [
+        "Terraform AWS Provider (hashicorp/aws ~> 5.0)"
+      ],
+      "dependencies": [
+        "hashicorp/aws provider v5.100.0 (from init output in /EKS-Terraform/init_validate_stdout.txt)"
+      ],
+      "deployment_relevant_files": [
+        "/EKS-Terraform/init_validate_stdout.txt (terraform init output; provider selection)",
+        "/EKS-Terraform/validate_stdout.txt (terraform validate output)"
+      ],
+      "architectural_resources": [
+        "(Intended) AWS infrastructure managed by Terraform (at least AWS provider configured); likely EKS-related given directory name, but no .tf sources are present in this repo snapshot"
+      ]
+    }
+  ]
+}

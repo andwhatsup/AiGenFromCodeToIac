@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a Go-based application designed to interact with AWS S3, typically run in a containerized environment (Docker) for development and deployment. The application uses the AWS SDK for Go to perform operations on S3, and relies on AWS credentials/configuration for authentication. The architecture is simple and focused on secure, scalable, and maintainable access to S3 from a containerized workload.\n\n**Proposed AWS Architecture:**\n\n1. **Networking/Foundation:**\n   - Deploy the application within a dedicated Virtual Private Cloud (VPC) to isolate network traffic and control access.\n   - Use public and private subnets for flexibility, though the application can run in a private subnet if it does not require inbound internet access.\n   - Configure appropriate route tables and a NAT Gateway if outbound internet access is needed from private subnets.\n\n2. **Compute:**\n   - Use AWS Elastic Container Service (ECS) with Fargate launch type for serverless, managed container orchestration, or alternatively, AWS Lambda (if the Go application can be run as a function and is event-driven).\n   - ECS Task Definitions will specify the Docker image for the Go application.\n   - ECS Service to manage the desired count and deployment of tasks.\n\n3. **Storage:**\n   - AWS S3 bucket(s) for storage, as required by the application.\n\n4. **IAM & Security:**\n   - IAM Role for ECS Task (or Lambda) with least-privilege permissions to access S3 and retrieve credentials/configuration.\n   - Security Groups to restrict network access to/from the ECS tasks.\n   - (Optional) Use AWS Secrets Manager or Parameter Store for secure storage of sensitive configuration or credentials.\n\n5. **Monitoring & Logging:**\n   - Enable Amazon CloudWatch Logs for application and container logs.\n   - Use CloudWatch metrics and alarms for monitoring application health and resource usage.\n\n6. **CI/CD (Optional but recommended):**\n   - Use AWS CodeBuild/CodePipeline for automated build and deployment of the Docker image to ECS.\n\n**Deployment Strategy:**\n- Build the Go application into a Docker image and push it to Amazon Elastic Container Registry (ECR).\n- Deploy the container to ECS Fargate, granting it an IAM role with S3 access.\n- Application retrieves AWS credentials/configuration via IAM role (no hardcoded secrets).\n- All S3 access is logged and monitored via CloudTrail and S3 access logs.\n\nThis architecture is secure (using IAM roles and VPC isolation), scalable (managed ECS), and follows AWS best practices for containerized workloads accessing S3.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway (if private subnets require outbound internet)",
+    "Route Tables",
+    "Security Group(s) for ECS Tasks",
+    "Elastic Container Registry (ECR) Repository",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Task Definition (for Go application Docker image)",
+    "ECS Service (to run/manage tasks)",
+    "IAM Role for ECS Task (with S3 access policy)",
+    "IAM Policy for S3 access (attached to ECS Task Role)",
+    "S3 Bucket(s) (as required by the application)",
+    "CloudWatch Log Group (for ECS Task logs)",
+    "CloudWatch Alarms (for monitoring)",
+    "(Optional) AWS Secrets Manager or Parameter Store (for sensitive config)",
+    "(Optional) CodeBuild Project (for CI/CD)",
+    "(Optional) CodePipeline (for CI/CD)"
+  ]
+}

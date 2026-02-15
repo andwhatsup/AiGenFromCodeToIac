@@ -1,0 +1,36 @@
+data.aws_availability_zones.available: Reading...
+data.aws_ami.al2023: Reading...
+aws_vpc.this: Refreshing state... [id=vpc-70a0080f449e30d8b]
+aws_iam_role.ec2: Refreshing state... [id=express-ec2-dev-ec2-role]
+data.aws_availability_zones.available: Read complete after 1s [id=us-west-2]
+aws_iam_role_policy_attachment.ssm: Refreshing state... [id=express-ec2-dev-ec2-role/arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore]
+aws_iam_instance_profile.ec2: Refreshing state... [id=express-ec2-dev-ec2-profile]
+aws_internet_gateway.this: Refreshing state... [id=igw-fc9f2fdab83b77868]
+aws_subnet.public: Refreshing state... [id=subnet-cf3beedf9ea1184b6]
+aws_security_group.instance: Refreshing state... [id=sg-b5b0b3b2d3c40ad43]
+aws_route_table.public: Refreshing state... [id=rtb-04f365fceb37b5b34]
+aws_route_table_association.public: Refreshing state... [id=rtbassoc-0f08e9cdcb823e0bd]
+data.aws_ami.al2023: Read complete after 5s [id=ami-06a974f9b8a97ecf2]
+aws_instance.app: Refreshing state... [id=i-55979498df8f700f6]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.app will be updated in-place
+  ~ resource "aws_instance" "app" {
+        id                                   = "i-55979498df8f700f6"
+        tags                                 = {
+            "Name" = "express-ec2-dev-ec2"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-b5b0b3b2d3c40ad43",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

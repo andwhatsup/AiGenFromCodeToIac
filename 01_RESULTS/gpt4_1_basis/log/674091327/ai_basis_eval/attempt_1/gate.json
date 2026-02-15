@@ -1,0 +1,170 @@
+{
+  "roots_scanned": [
+    "."
+  ],
+  "recommended_roots": [
+    "."
+  ],
+  "varfiles_created": {
+    ".": true
+  },
+  "services_report": {
+    ".": {
+      "by_service": {
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_vpc"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        },
+        "subnets": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_subnets"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2",
+          "ecr",
+          "ecs",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "security",
+          "subnets"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf",
+      "variables": {
+        "region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"helloworld-app\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/variables.tf"
+        },
+        "kube_host": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/variables.tf"
+        },
+        "kube_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/variables.tf"
+        },
+        "kube_ca_cert": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "kube_ca_cert",
+        "kube_host",
+        "kube_token"
+      ],
+      "aws_services": [
+        "aws_ecr_repository",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_security_group",
+        "aws_subnets",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_iam_role": 1,
+        "aws_iam_policy_document": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_ecs_cluster": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_vpc": 1,
+        "aws_subnets": 1,
+        "aws_security_group": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 6.28.0"
+          ]
+        },
+        "kubernetes": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 3.0.1"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/674091327/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.7.1"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_s3_bucket.static" [label="aws_s3_bucket.static"];
+  "aws_s3_bucket_public_access_block.static" [label="aws_s3_bucket_public_access_block.static"];
+  "aws_s3_bucket_server_side_encryption_configuration.static" [label="aws_s3_bucket_server_side_encryption_configuration.static"];
+  "aws_s3_bucket_versioning.static" [label="aws_s3_bucket_versioning.static"];
+  "aws_s3_bucket_website_configuration.static" [label="aws_s3_bucket_website_configuration.static"];
+  "aws_s3_bucket.static" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket.static" -> "data.aws_region.current";
+  "aws_s3_bucket_public_access_block.static" -> "aws_s3_bucket.static";
+  "aws_s3_bucket_server_side_encryption_configuration.static" -> "aws_s3_bucket.static";
+  "aws_s3_bucket_versioning.static" -> "aws_s3_bucket.static";
+  "aws_s3_bucket_website_configuration.static" -> "aws_s3_bucket.static";
+}

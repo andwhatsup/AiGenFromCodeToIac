@@ -1,0 +1,720 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.ecs_task_assume_role: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.lambda_assume_role: Reading...
+data.aws_iam_policy_document.ecs_task_assume_role: Read complete after 0s [id=1077804475]
+data.aws_iam_policy_document.lambda_assume_role: Read complete after 0s [id=2690255455]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.ecs_log will be created
+  + resource "aws_cloudwatch_log_group" "ecs_log" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/litecoin-lambda-litecoin-node"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_cloudwatch_log_group.lambda_log will be created
+  + resource "aws_cloudwatch_log_group" "lambda_log" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/litecoin-lambda-fn"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_ecs_cluster.main will be created
+  + resource "aws_ecs_cluster" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "litecoin-lambda-ecs-cluster"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.litecoin_service will be created
+  + resource "aws_ecs_service" "litecoin_service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "litecoin-lambda-litecoin-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.litecoin_node will be created
+  + resource "aws_ecs_task_definition" "litecoin_node" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + essential        = true
+                  + image            = "ai-tf"
+                  + logConfiguration = {
+                      + logDriver = "awslogs"
+                      + options   = {
+                          + awslogs-group         = "/ecs/litecoin-lambda-litecoin-node"
+                          + awslogs-region        = "us-east-1"
+                          + awslogs-stream-prefix = "ecs"
+                        }
+                    }
+                  + name             = "litecoin-node"
+                  + portMappings     = [
+                      + {
+                          + containerPort = 9332
+                          + hostPort      = 9332
+                          + protocol      = "tcp"
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "512"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "litecoin-lambda-litecoin-node"
+      + id                       = (known after apply)
+      + memory                   = "1024"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_iam_role.ecs_task_exec will be created
+  + resource "aws_iam_role" "ecs_task_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "litecoin-lambda-ecs-task-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "litecoin-lambda-lambda-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_exec_policy will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_exec_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "litecoin-lambda-ecs-task-role"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "litecoin-lambda-lambda-role"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_s3 will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_s3" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      + role       = "litecoin-lambda-lambda-role"
+    }
+
+  # aws_internet_gateway.gw will be created
+  + resource "aws_internet_gateway" "gw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "litecoin-lambda-igw"
+        }
+      + tags_all = {
+          + "Name" = "litecoin-lambda-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lambda_function.litecoin_lambda will be created
+  + resource "aws_lambda_function" "litecoin_lambda" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./.dummy/lambda.zip"
+      + function_name                  = "litecoin-lambda-fn"
+      + handler                        = "lambda_function.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.11"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "wmbalFzzY/wG3ivChKElOZB3+B4gptmQyIat05p+fU4="
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "LITECOIN_NODE_URL" = null
+              + "S3_BUCKET"         = "ai-tf"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+
+      + vpc_config {
+          + ipv6_allowed_for_dual_stack = false
+          + security_group_ids          = (known after apply)
+          + subnet_ids                  = (known after apply)
+          + vpc_id                      = (known after apply)
+        }
+    }
+
+  # aws_nat_gateway.nat will be created
+  + resource "aws_nat_gateway" "nat" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "litecoin-lambda-nat"
+        }
+      + tags_all                           = {
+          + "Name" = "litecoin-lambda-nat"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "litecoin-lambda-private-rt"
+        }
+      + tags_all         = {
+          + "Name" = "litecoin-lambda-private-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "litecoin-lambda-public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "litecoin-lambda-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.litecoin_bucket will be created
+  + resource "aws_s3_bucket" "litecoin_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-tf"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "litecoin-lambda-bucket"
+        }
+      + tags_all                    = {
+          + "Name" = "litecoin-lambda-bucket"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_security_group.ecs_sg will be created
+  + resource "aws_security_group" "ecs_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow ECS to receive Lambda and outbound internet"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "Allow Lambda to access Litecoin node RPC"
+              + from_port        = 9332
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 9332
+            },
+        ]
+      + name                   = "litecoin-lambda-ecs-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.lambda_sg will be created
+  + resource "aws_security_group" "lambda_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow Lambda to access ECS and S3"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "litecoin-lambda-lambda-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "litecoin-lambda-private-0"
+        }
+      + tags_all                                       = {
+          + "Name" = "litecoin-lambda-private-0"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.16.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "litecoin-lambda-private-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "litecoin-lambda-private-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.32.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "litecoin-lambda-public-0"
+        }
+      + tags_all                                       = {
+          + "Name" = "litecoin-lambda-public-0"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.48.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "litecoin-lambda-public-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "litecoin-lambda-public-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "litecoin-lambda-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "litecoin-lambda-vpc"
+        }
+    }
+
+Plan: 28 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecs_service_name     = "litecoin-lambda-litecoin-service"
+  + lambda_function_name = "litecoin-lambda-fn"
+  + s3_bucket_name       = (known after apply)
+aws_eip.nat: Creating...
+aws_iam_role.ecs_task_exec: Creating...
+aws_cloudwatch_log_group.lambda_log: Creating...
+aws_iam_role.lambda_exec: Creating...
+aws_ecs_cluster.main: Creating...
+aws_vpc.main: Creating...
+aws_cloudwatch_log_group.ecs_log: Creating...
+aws_s3_bucket.litecoin_bucket: Creating...
+aws_eip.nat: Creation complete after 0s [id=eipalloc-f571e5277b760554e]
+aws_vpc.main: Creation complete after 0s [id=vpc-15ed695734d257294]
+aws_internet_gateway.gw: Creating...
+aws_subnet.public[0]: Creating...
+aws_security_group.lambda_sg: Creating...
+aws_subnet.private[0]: Creating...
+aws_subnet.private[1]: Creating...
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-0796db10ad388e260]
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-94a96380994e0a75d]
+aws_subnet.public[1]: Creating...
+aws_internet_gateway.gw: Creation complete after 0s [id=igw-48e0e22fe5b5105b3]
+aws_route_table.public: Creating...
+aws_security_group.lambda_sg: Creation complete after 0s [id=sg-65c315bae078761f4]
+aws_security_group.ecs_sg: Creating...
+aws_route_table.public: Creation complete after 0s [id=rtb-b48a87d71e7699d61]
+aws_iam_role.ecs_task_exec: Creation complete after 0s [id=litecoin-lambda-ecs-task-role]
+aws_iam_role.lambda_exec: Creation complete after 0s [id=litecoin-lambda-lambda-role]
+aws_iam_role_policy_attachment.ecs_task_exec_policy: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_s3: Creating...
+aws_iam_role_policy_attachment.lambda_s3: Creation complete after 0s [id=litecoin-lambda-lambda-role/arn:aws:iam::aws:policy/AmazonS3FullAccess]
+aws_iam_role_policy_attachment.ecs_task_exec_policy: Creation complete after 0s [id=litecoin-lambda-ecs-task-role/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=litecoin-lambda-lambda-role/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_cloudwatch_log_group.lambda_log: Creation complete after 0s [id=/aws/lambda/litecoin-lambda-fn]
+aws_cloudwatch_log_group.ecs_log: Creation complete after 0s [id=/ecs/litecoin-lambda-litecoin-node]
+aws_ecs_task_definition.litecoin_node: Creating...
+aws_ecs_task_definition.litecoin_node: Creation complete after 0s [id=litecoin-lambda-litecoin-node]
+aws_security_group.ecs_sg: Creation complete after 0s [id=sg-64d94b3c83abc5a87]
+aws_ecs_cluster.main: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 10s [id=subnet-537d8f767047422c8]
+aws_subnet.public[1]: Creation complete after 10s [id=subnet-1e9ffe4806457c37f]
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creating...
+aws_nat_gateway.nat: Creating...
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-74a15ef2be8c916ab]
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-4aed0a05661c6d8d3]
+aws_nat_gateway.nat: Creation complete after 0s [id=nat-10c20e6a603d2e6bc]
+aws_route_table.private: Creating...
+aws_ecs_cluster.main: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/litecoin-lambda-ecs-cluster]
+aws_ecs_service.litecoin_service: Creating...
+aws_route_table.private: Creation complete after 1s [id=rtb-2d0a88ae353e9e7ae]
+aws_route_table_association.private[0]: Creating...
+aws_route_table_association.private[1]: Creating...
+aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-a451898df33d46986]
+aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-1699aaeed3bc9141a]
+aws_ecs_service.litecoin_service: Still creating... [00m10s elapsed]
+aws_ecs_service.litecoin_service: Still creating... [00m20s elapsed]
+aws_ecs_service.litecoin_service: Creation complete after 22s [id=arn:aws:ecs:us-east-1:000000000000:service/litecoin-lambda-ecs-cluster/litecoin-lambda-litecoin-service]

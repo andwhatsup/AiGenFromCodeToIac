@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_db_instance.postgres" [label="aws_db_instance.postgres"];
+  "aws_db_subnet_group.this" [label="aws_db_subnet_group.this"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_security_group.postgres" [label="aws_security_group.postgres"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_db_instance.postgres" -> "aws_db_subnet_group.this";
+  "aws_db_instance.postgres" -> "aws_security_group.postgres";
+  "aws_db_subnet_group.this" -> "data.aws_subnets.default";
+  "aws_security_group.postgres" -> "data.aws_vpc.default";
+}

@@ -1,0 +1,240 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "dynamodb": {
+          "status": "full",
+          "resource_types": [
+            "aws_dynamodb_table"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "kms": {
+          "status": "partial",
+          "resource_types": [
+            "aws_kms_alias",
+            "aws_kms_key"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_event_source_mapping",
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_subscription"
+          ]
+        },
+        "ssm": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ssm_parameter"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "dynamodb",
+          "lambda",
+          "logs",
+          "sns"
+        ],
+        "partial": [
+          "events",
+          "iam",
+          "kms",
+          "ssm"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf",
+      "variables": {
+        "region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"eu-west-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "base_url": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"http://www.gobcan.es/educacion/Nombramientos/Documentos\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "date_format": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"02-01-06\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "schedule_expression": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "announcements": {
+          "type": "map(object({",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "telegram_auth_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "lambda_artifacts_dir": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../dist\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "log_retention_in_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "14",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        },
+        "telegram_lambda_reserved_concurrency": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "announcements",
+        "schedule_expression",
+        "telegram_auth_token"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_cloudwatch_log_group",
+        "aws_dynamodb_table",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_kms_alias",
+        "aws_kms_key",
+        "aws_lambda_event_source_mapping",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_region",
+        "aws_sns_topic",
+        "aws_sns_topic_subscription",
+        "aws_ssm_parameter"
+      ],
+      "resource_type_counts": {
+        "aws_dynamodb_table": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_lambda_permission": 2,
+        "aws_iam_policy_document": 4,
+        "aws_iam_role": 3,
+        "aws_iam_policy": 3,
+        "aws_iam_role_policy_attachment": 3,
+        "aws_kms_key": 1,
+        "aws_kms_alias": 1,
+        "aws_lambda_function": 3,
+        "aws_cloudwatch_log_group": 3,
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_sns_topic": 1,
+        "aws_ssm_parameter": 3,
+        "aws_lambda_event_source_mapping": 1,
+        "aws_sns_topic_subscription": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-gen-from-code-to-iac/workspace/349860094/ai_tf/localstack.auto.tfvars.json"
+      ]
+    }
+  ]
+}

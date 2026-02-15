@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a static web application (VAT Calculator) served by Nginx, containerized with Docker, and deployed on AWS using Elastic Kubernetes Service (EKS). The infrastructure is provisioned and managed using Terraform. The CI/CD pipeline (GitHub Actions and/or Jenkins) builds the Docker image and deploys it to the EKS cluster using Kubernetes manifests. The application is exposed to the internet via a Kubernetes Service of type LoadBalancer, which integrates with AWS Application Load Balancer (ALB) for secure, scalable access. The architecture ensures high availability, scalability, and security by leveraging AWS best practices for networking, IAM, and monitoring. All resources are contained within a dedicated VPC with public and private subnets, and security groups restrict access to only necessary ports. IAM roles and policies are used for least-privilege access. CloudWatch is used for logging and monitoring. S3 may be used for storing build artifacts or logs if needed by the CI/CD pipeline.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (for ALB)",
+    "Private Subnets (for EKS worker nodes)",
+    "Internet Gateway",
+    "NAT Gateway (for outbound internet access from private subnets)",
+    "Route Tables (public and private)",
+    "Security Groups (for ALB, EKS nodes, and CI/CD access)",
+    "EKS Cluster (Elastic Kubernetes Service)",
+    "EKS Node Group (managed EC2 worker nodes or Fargate profiles)",
+    "IAM Roles and Policies (for EKS, worker nodes, and CI/CD integration)",
+    "Application Load Balancer (ALB, integrated with Kubernetes Service)",
+    "Elastic IPs (for NAT Gateway and/or ALB)",
+    "CloudWatch (for logging and monitoring)",
+    "S3 Bucket (optional, for CI/CD artifacts or logs)",
+    "ECR (Elastic Container Registry, for storing Docker images)"
+  ]
+}

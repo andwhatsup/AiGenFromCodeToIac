@@ -1,0 +1,32 @@
+{
+  "aws_architecture_description": "### Target outcome\nDeploy a **containerized Terraform tooling image** (Alpine + Terraform CLI + `tf-migrate`) and run it in AWS as a repeatable, auditable “Terraform runner” that can be triggered on-demand (or on a schedule) to execute Terraform / migrations against AWS accounts. The image is built from your GitHub repo and stored in AWS, then executed in an isolated runtime with least-privilege IAM.\n\n---\n## High-level AWS architecture\n\n### 1) Source + CI build (GitHub → AWS)\n- **GitHub** remains the source of truth.\n- A **GitHub Actions workflow** builds the Docker image (using Buildx) and pushes it to **Amazon ECR**.\n- Authentication from GitHub to AWS uses **OIDC federation** (no long-lived AWS keys in GitHub). GitHub assumes an **IAM role** that has permission to push to ECR.\n- The workflow can still call the **HashiCorp Checkpoint API** to determine the latest Terraform version, and the Docker build can still download Terraform from **releases.hashicorp.com**.\n\n### 2) Image storage\n- **Amazon ECR** stores the versioned image `custom-alpine-terraform`.\n- Enable **ECR image scanning** and lifecycle policies (retain last N images).\n\n### 3) Running Terraform in AWS (execution plane)\nChoose one execution option (lean default: ECS Fargate):\n\n**Option A (recommended): ECS Fargate “Terraform Runner”**\n- A small **ECS cluster** (Fargate) runs tasks using the ECR image.\n- Tasks run in **private subnets** (no inbound access). Outbound internet access (to HashiCorp endpoints) is via **NAT Gateway**.\n- The task uses an **IAM task role** with least privilege to the target AWS resources Terraform will manage.\n- Logs go to **CloudWatch Logs**.\n\n**Triggering / orchestration**\n- Use **EventBridge** to trigger runs:\n  - scheduled (e.g., nightly drift check), and/or\n  - on-demand via an API.\n- For on-demand runs, a small **Lambda** function (or API Gateway → Lambda) calls `RunTask` on ECS.\n\n### 4) Terraform state and locking (if you run real applies)\nIf this runner will execute `terraform plan/apply` against AWS:\n- Store Terraform remote state in **S3** (versioning + SSE-KMS).\n- Use **DynamoDB** for state locking.\n- Restrict S3/DynamoDB access to the ECS task role.\n\n### 5) Networking and security posture\n- **VPC** with at least 2 AZs:\n  - **Public subnets**: NAT Gateway (and optionally VPC endpoints if you want to reduce NAT usage).\n  - **Private subnets**: ECS tasks.\n- **Security groups**:\n  - ECS tasks: no inbound; outbound to required endpoints.\n- **Secrets**:\n  - If Terraform needs credentials for external systems, store them in **Secrets Manager** and inject into the task.\n\n### 6) Observability and audit\n- **CloudWatch Logs** for task output.\n- **CloudTrail** enabled for auditing AWS API calls made by Terraform.\n- Optional: **AWS Config** for drift/compliance reporting (only if you need it).\n\n---\n## Deployment strategy (practical)\n1. Create ECR repo and IAM OIDC role for GitHub.\n2. Update GitHub Actions to:\n   - assume the AWS role via OIDC,\n   - login to ECR,\n   - build and push `custom-alpine-terraform:<git-sha>`.\n3. Provision VPC + ECS Fargate runner.\n4. Add S3+DynamoDB backend for Terraform state (if applies are executed).\n5. Add EventBridge + Lambda (or Step Functions if you later need approvals) to trigger ECS tasks.\n\n---\n## Notes / assumptions\n- This repo is a **tooling container**, not an application serving traffic. So the AWS architecture focuses on **secure build + secure execution** rather than load balancers.\n- If you only need the image published (and not executed in AWS), you can stop at **ECR + OIDC role**.\n",
+  "aws_resources": [
+    "Amazon ECR repository (for custom-alpine-terraform image)",
+    "ECR lifecycle policy",
+    "ECR image scanning configuration",
+    "IAM OIDC identity provider (GitHub Actions)",
+    "IAM role for GitHub Actions (assume-role with OIDC)",
+    "IAM policy for GitHub role (ECR push/pull permissions)",
+    "Amazon VPC",
+    "Public subnets (2+ AZs)",
+    "Private subnets (2+ AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (1 or 2)",
+    "Elastic IP(s) for NAT Gateway",
+    "Route tables (public/private) + routes",
+    "Security group for ECS tasks",
+    "Amazon ECS cluster (Fargate)",
+    "ECS task definition (uses ECR image)",
+    "ECS task execution role (pull from ECR, write logs)",
+    "ECS task role (Terraform permissions to manage AWS resources)",
+    "CloudWatch Log Group (ECS task logs)",
+    "Amazon EventBridge rule (schedule or event trigger)",
+    "AWS Lambda function (trigger ECS RunTask)",
+    "Lambda execution role (ecs:RunTask, iam:PassRole, logs permissions)",
+    "Amazon S3 bucket for Terraform remote state (versioning enabled)",
+    "AWS KMS key (for S3 state encryption and/or secrets)",
+    "Amazon DynamoDB table for Terraform state locking",
+    "AWS Secrets Manager secrets (optional, for external credentials)",
+    "AWS CloudTrail trail (audit)"
+  ]
+}

@@ -1,0 +1,463 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.rancher2_cluster.local will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "rancher2_cluster" "local" {
+      + agent_env_vars                                             = (known after apply)
+      + aks_config                                                 = (known after apply)
+      + aks_config_v2                                              = (known after apply)
+      + annotations                                                = (known after apply)
+      + ca_cert                                                    = (sensitive value)
+      + cluster_auth_endpoint                                      = (known after apply)
+      + cluster_monitoring_input                                   = (known after apply)
+      + cluster_registration_token                                 = (known after apply)
+      + cluster_template_answers                                   = (known after apply)
+      + cluster_template_id                                        = (known after apply)
+      + cluster_template_questions                                 = (known after apply)
+      + cluster_template_revision_id                               = (known after apply)
+      + default_pod_security_admission_configuration_template_name = (known after apply)
+      + default_pod_security_policy_template_id                    = (known after apply)
+      + default_project_id                                         = (known after apply)
+      + description                                                = (known after apply)
+      + driver                                                     = (known after apply)
+      + eks_config                                                 = (known after apply)
+      + eks_config_v2                                              = (known after apply)
+      + enable_cluster_alerting                                    = (known after apply)
+      + enable_cluster_monitoring                                  = (known after apply)
+      + enable_network_policy                                      = (known after apply)
+      + fleet_workspace_name                                       = (known after apply)
+      + gke_config                                                 = (known after apply)
+      + gke_config_v2                                              = (known after apply)
+      + id                                                         = (known after apply)
+      + k3s_config                                                 = (known after apply)
+      + kube_config                                                = (known after apply)
+      + labels                                                     = (known after apply)
+      + name                                                       = "local"
+      + oke_config                                                 = (known after apply)
+      + rke2_config                                                = (known after apply)
+      + rke_config                                                 = (known after apply)
+      + system_project_id                                          = (known after apply)
+    }
+
+  # github_branch_default.main will be created
+  + resource "github_branch_default" "main" {
+      + branch     = "main"
+      + etag       = (known after apply)
+      + id         = (known after apply)
+      + rename     = false
+      + repository = "rke-setting"
+    }
+
+  # github_repository.main will be created
+  + resource "github_repository" "main" {
+      + allow_auto_merge            = false
+      + allow_forking               = (known after apply)
+      + allow_merge_commit          = true
+      + allow_rebase_merge          = true
+      + allow_squash_merge          = true
+      + archived                    = false
+      + auto_init                   = true
+      + default_branch              = (known after apply)
+      + delete_branch_on_merge      = false
+      + etag                        = (known after apply)
+      + fork                        = (known after apply)
+      + full_name                   = (known after apply)
+      + git_clone_url               = (known after apply)
+      + html_url                    = (known after apply)
+      + http_clone_url              = (known after apply)
+      + id                          = (known after apply)
+      + merge_commit_message        = "PR_TITLE"
+      + merge_commit_title          = "MERGE_MESSAGE"
+      + name                        = "rke-setting"
+      + node_id                     = (known after apply)
+      + primary_language            = (known after apply)
+      + private                     = (known after apply)
+      + repo_id                     = (known after apply)
+      + source_owner                = (known after apply)
+      + source_repo                 = (known after apply)
+      + squash_merge_commit_message = "COMMIT_MESSAGES"
+      + squash_merge_commit_title   = "COMMIT_OR_PR_TITLE"
+      + ssh_clone_url               = (known after apply)
+      + svn_url                     = (known after apply)
+      + topics                      = (known after apply)
+      + visibility                  = "private"
+      + vulnerability_alerts        = true
+      + web_commit_signoff_required = false
+
+      + security_and_analysis (known after apply)
+    }
+
+  # github_repository_file.rke_cluster_yaml will be created
+  + resource "github_repository_file" "rke_cluster_yaml" {
+      + autocreate_branch_source_sha = (known after apply)
+      + branch                       = "main"
+      + commit_message               = (known after apply)
+      + commit_sha                   = (known after apply)
+      + content                      = (sensitive value)
+      + file                         = "cluster.yml"
+      + id                           = (known after apply)
+      + overwrite_on_create          = false
+      + ref                          = (known after apply)
+      + repository                   = "rke-setting"
+      + sha                          = (known after apply)
+    }
+
+  # github_repository_file.rke_kubeconfig will be created
+  + resource "github_repository_file" "rke_kubeconfig" {
+      + autocreate_branch_source_sha = (known after apply)
+      + branch                       = "main"
+      + commit_message               = (known after apply)
+      + commit_sha                   = (known after apply)
+      + content                      = (sensitive value)
+      + file                         = "kube_config_cluster.yml"
+      + id                           = (known after apply)
+      + overwrite_on_create          = false
+      + ref                          = (known after apply)
+      + repository                   = "rke-setting"
+      + sha                          = (known after apply)
+    }
+
+  # github_repository_file.rke_statefile will be created
+  + resource "github_repository_file" "rke_statefile" {
+      + autocreate_branch_source_sha = (known after apply)
+      + branch                       = "main"
+      + commit_message               = (known after apply)
+      + commit_sha                   = (known after apply)
+      + content                      = (sensitive value)
+      + file                         = "cluster.rkestate"
+      + id                           = (known after apply)
+      + overwrite_on_create          = false
+      + ref                          = (known after apply)
+      + repository                   = "rke-setting"
+      + sha                          = (known after apply)
+    }
+
+  # helm_release.cert_manager will be created
+  + resource "helm_release" "cert_manager" {
+      + atomic                     = false
+      + chart                      = "cert-manager"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "cert-manager"
+      + namespace                  = "cert-manager"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://charts.jetstack.io"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + verify                     = false
+      + version                    = "v1.19.2"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "installCRDs"
+          + value = "true"
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # helm_release.rancher will be created
+  + resource "helm_release" "rancher" {
+      + atomic                     = false
+      + chart                      = "rancher"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "rancher"
+      + namespace                  = "cattle-system"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://releases.rancher.com/server-charts/stable"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + verify                     = false
+      + version                    = "2.13.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "bootstrapPassword"
+          + value = "admin"
+            # (1 unchanged attribute hidden)
+        }
+      + set {
+          + name  = "hostname"
+          + value = "rancher-lb"
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # kubernetes_namespace.cattle_system will be created
+  + resource "kubernetes_namespace" "cattle_system" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = {
+              + "created_by" = "Terraform"
+            }
+          + name             = "cattle-system"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.cert_manager will be created
+  + resource "kubernetes_namespace" "cert_manager" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = {
+              + "created_by" = "Terraform"
+            }
+          + name             = "cert-manager"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # rancher2_app_v2.cis_benchmark will be created
+  + resource "rancher2_app_v2" "cis_benchmark" {
+      + annotations                 = (known after apply)
+      + chart_name                  = "rancher-cis-benchmark"
+      + chart_version               = (known after apply)
+      + cleanup_on_fail             = false
+      + cluster_id                  = (known after apply)
+      + cluster_name                = (known after apply)
+      + deployment_values           = (known after apply)
+      + disable_hooks               = false
+      + disable_open_api_validation = false
+      + force_upgrade               = false
+      + id                          = (known after apply)
+      + labels                      = (known after apply)
+      + name                        = "rancher-cis-benchmark"
+      + namespace                   = "cis-operator-system"
+      + repo_name                   = "rancher-charts"
+      + system_default_registry     = (known after apply)
+      + wait                        = true
+    }
+
+  # rancher2_app_v2.monitoring will be created
+  + resource "rancher2_app_v2" "monitoring" {
+      + annotations                 = (known after apply)
+      + chart_name                  = "rancher-monitoring"
+      + chart_version               = (known after apply)
+      + cleanup_on_fail             = false
+      + cluster_id                  = (known after apply)
+      + cluster_name                = (known after apply)
+      + deployment_values           = (known after apply)
+      + disable_hooks               = false
+      + disable_open_api_validation = false
+      + force_upgrade               = false
+      + id                          = (known after apply)
+      + labels                      = (known after apply)
+      + name                        = "rancher-monitoring"
+      + namespace                   = "cattle-monitoring-system"
+      + repo_name                   = "rancher-charts"
+      + system_default_registry     = (known after apply)
+      + wait                        = true
+    }
+
+  # rancher2_bootstrap.bootstrap will be created
+  + resource "rancher2_bootstrap" "bootstrap" {
+      + current_password   = (sensitive value)
+      + id                 = (known after apply)
+      + initial_password   = (sensitive value)
+      + password           = (sensitive value)
+      + telemetry          = false
+      + temp_token         = (sensitive value)
+      + temp_token_id      = (known after apply)
+      + token              = (sensitive value)
+      + token_id           = (known after apply)
+      + token_ttl          = 0
+      + token_update       = false
+      + ui_default_landing = "ember"
+      + url                = (known after apply)
+      + user               = (known after apply)
+    }
+
+  # random_password.password will be created
+  + resource "random_password" "password" {
+      + bcrypt_hash      = (sensitive value)
+      + id               = (known after apply)
+      + length           = 16
+      + lower            = true
+      + min_lower        = 0
+      + min_numeric      = 0
+      + min_special      = 0
+      + min_upper        = 0
+      + number           = true
+      + numeric          = true
+      + override_special = "!@#$%&*-_=+:?"
+      + result           = (sensitive value)
+      + special          = true
+      + upper            = true
+    }
+
+  # rke_cluster.cluster will be created
+  + resource "rke_cluster" "cluster" {
+      + api_server_url            = (known after apply)
+      + ca_crt                    = (sensitive value)
+      + certificates              = (sensitive value)
+      + client_cert               = (sensitive value)
+      + client_key                = (sensitive value)
+      + cluster_cidr              = (known after apply)
+      + cluster_dns_server        = (known after apply)
+      + cluster_domain            = (known after apply)
+      + cluster_name              = "cowboy"
+      + control_plane_hosts       = (known after apply)
+      + custom_certs              = false
+      + dind                      = false
+      + disable_port_check        = false
+      + enable_cri_dockerd        = true
+      + etcd_hosts                = (known after apply)
+      + id                        = (known after apply)
+      + inactive_hosts            = (known after apply)
+      + internal_kube_config_yaml = (sensitive value)
+      + kube_admin_user           = (known after apply)
+      + kube_config_yaml          = (sensitive value)
+      + kubernetes_version        = "v1.24.2-rancher1-1"
+      + rke_cluster_yaml          = (sensitive value)
+      + rke_state                 = (sensitive value)
+      + running_system_images     = (known after apply)
+      + ssh_agent_auth            = false
+      + ssh_key_path              = "~/.ssh/id_rsa"
+      + update_only               = false
+      + worker_hosts              = (known after apply)
+
+      + authentication {
+          + sans     = (known after apply)
+          + strategy = "x509"
+
+          + webhook (known after apply)
+        }
+
+      + authorization {
+          + mode = "rbac"
+        }
+
+      + network {
+          + mtu     = 0
+          + options = (known after apply)
+          + plugin  = "canal"
+        }
+
+      + services {
+          + etcd (known after apply)
+          + kube_api {
+              + always_pull_images         = (known after apply)
+              + extra_args                 = (known after apply)
+              + extra_binds                = (known after apply)
+              + extra_env                  = (known after apply)
+              + image                      = (known after apply)
+              + pod_security_configuration = (known after apply)
+              + pod_security_policy        = (known after apply)
+              + service_cluster_ip_range   = "10.43.0.0/16"
+              + service_node_port_range    = (known after apply)
+
+              + audit_log (known after apply)
+            }
+          + kube_controller {
+              + cluster_cidr             = "10.42.0.0/16"
+              + extra_args               = (known after apply)
+              + extra_binds              = (known after apply)
+              + extra_env                = (known after apply)
+              + image                    = (known after apply)
+              + service_cluster_ip_range = "10.43.0.0/16"
+            }
+          + kubelet {
+              + cluster_dns_server           = "10.43.0.10"
+              + cluster_domain               = "cluster.local"
+              + extra_args                   = (known after apply)
+              + extra_binds                  = [
+                  + "/var/lib/dockershim:/var/lib/dockershim",
+                  + "/var/lib/cri-dockerd:/var/lib/cri-dockerd",
+                ]
+              + extra_env                    = (known after apply)
+              + fail_swap_on                 = (known after apply)
+              + generate_serving_certificate = false
+              + image                        = (known after apply)
+              + infra_container_image        = (known after apply)
+            }
+          + kubeproxy (known after apply)
+          + scheduler (known after apply)
+        }
+
+      + upgrade_strategy {
+          + drain                        = true
+          + max_unavailable_controlplane = (known after apply)
+          + max_unavailable_worker       = "35%"
+
+          + drain_input (known after apply)
+        }
+    }
+
+  # time_sleep.wait_for_cert_manager will be created
+  + resource "time_sleep" "wait_for_cert_manager" {
+      + create_duration = "30s"
+      + id              = (known after apply)
+    }
+
+  # time_sleep.wait_for_rancher will be created
+  + resource "time_sleep" "wait_for_rancher" {
+      + create_duration = "60s"
+      + id              = (known after apply)
+    }
+
+  # time_sleep.wait_for_rke will be created
+  + resource "time_sleep" "wait_for_rke" {
+      + create_duration = "30s"
+      + id              = (known after apply)
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + kubeconfig        = (sensitive value)
+  + rancher_dashboard = "Rancher Dashboard: https://rancher-lb/dashboard"
+  + rancher_password  = (sensitive value)
+  + rancher_username  = (known after apply)
+  + save_kubeconfig   = "terraform output kubeconfig | grep -v EOT > /.kube/cowboy.config && export KUBECONFIG=/.kube/cowboy.config"
+random_password.password: Creating...
+rke_cluster.cluster: Creating...
+github_repository.main: Creating...
+random_password.password: Creation complete after 0s [id=none]

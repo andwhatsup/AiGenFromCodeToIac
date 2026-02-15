@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "FastAPI",
+        "Uvicorn"
+      ],
+      "dependencies": [
+        "fastapi==0.111.0 (requirements.txt)",
+        "uvicorn==0.30.1 (requirements.txt)",
+        "pydantic==2.7.4 (requirements.txt)",
+        "hvac==2.3.0 (HashiCorp Vault client) (requirements.txt)",
+        "python-dotenv==1.0.1 (requirements.txt)",
+        "requests==2.32.3 (requirements.txt)",
+        "PyYAML==6.0.1 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "requirements.txt",
+        "run.py",
+        "src/main.py",
+        "src/vault.py",
+        "setup.sh",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "Web API application (FastAPI)",
+        "HashiCorp Vault (external service; uses VAULT_ADDR/VAULT_TOKEN env vars)",
+        "Vault Transit secrets engine (encryption/decryption)",
+        "Vault Transform secrets engine (format-preserving encoding/decoding for credit card numbers)"
+      ]
+    },
+    {
+      "project_directory": "tf",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "tf/init_validate_stdout.txt",
+        "tf/init_validate_stderr.txt",
+        "tf/validate_stdout.txt",
+        "tf/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Terraform infrastructure expected (README.md references `terraform init/apply` and outputs `vault_addr`), but no *.tf files are present in this repository snapshot, so actual provisioned resources cannot be determined from code."
+      ]
+    }
+  ]
+}

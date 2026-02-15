@@ -1,0 +1,131 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.lambda_log_group will be created
+  + resource "aws_cloudwatch_log_group" "lambda_log_group" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/telegram-bot-java-lambda"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "telegram-bot-java-lambda-exec-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda_exec_policy will be created
+  + resource "aws_iam_role_policy" "lambda_exec_policy" {
+      + id          = (known after apply)
+      + name        = "telegram-bot-java-lambda-exec-policy"
+      + name_prefix = (known after apply)
+      + policy      = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "logs:CreateLogGroup",
+                          + "logs:CreateLogStream",
+                          + "logs:PutLogEvents",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:logs:*:*:*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role        = (known after apply)
+    }
+
+  # aws_lambda_function.telegram_bot will be created
+  + resource "aws_lambda_function" "telegram_bot" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "telegram-bot-java-lambda"
+      + handler                        = "com.example.Handler::handleRequest"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 512
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "java17"
+      + s3_bucket                      = "ai-tf-bucket"
+      + s3_key                         = "ai-tf.txt"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "bot_token"          = (sensitive value)
+              + "chat_id"            = "ai-tf"
+              + "end_month_message"  = "ai-tf"
+              + "half_month_message" = "ai-tf"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_arn   = (known after apply)
+  + lambda_function_name  = "telegram-bot-java-lambda"
+  + lambda_log_group_name = "/aws/lambda/telegram-bot-java-lambda"

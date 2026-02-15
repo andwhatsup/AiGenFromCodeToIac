@@ -1,0 +1,134 @@
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_ecr_lifecycle_policy.agent[0] will be created
+  + resource "aws_ecr_lifecycle_policy" "agent" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep last 10 images"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 10
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "us-east-1"
+      + registry_id = (known after apply)
+      + repository  = "prefect-agent-ecs"
+    }
+
+  # aws_ecr_repository.agent[0] will be created
+  + resource "aws_ecr_repository" "agent" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "prefect-agent-ecs"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-agent-ecs"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_s3_bucket.prefect_artifacts will be created
+  + resource "aws_s3_bucket" "prefect_artifacts" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "prefect-agent-ecs-artifacts-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "prefect-agent-ecs"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.prefect_artifacts will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "prefect_artifacts" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.prefect_artifacts will be created
+  + resource "aws_s3_bucket_versioning" "prefect_artifacts" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aws_account_id                = "000000000000"
+  + aws_region                    = "us-east-1"
+  + ecr_repository_url            = (known after apply)
+  + prefect_artifacts_bucket_name = (known after apply)

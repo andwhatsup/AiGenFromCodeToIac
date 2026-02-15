@@ -1,0 +1,32 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.website_policy" [label="data.aws_iam_policy_document.website_policy"];
+  "aws_acm_certificate.cert" [label="aws_acm_certificate.cert"];
+  "aws_acm_certificate_validation.main" [label="aws_acm_certificate_validation.main"];
+  "aws_cloudfront_distribution.prod_distribution" [label="aws_cloudfront_distribution.prod_distribution"];
+  "aws_cloudfront_origin_access_identity.origin_access_identity" [label="aws_cloudfront_origin_access_identity.origin_access_identity"];
+  "aws_route53_record.cert_validation" [label="aws_route53_record.cert_validation"];
+  "aws_route53_record.main" [label="aws_route53_record.main"];
+  "aws_route53_record.www" [label="aws_route53_record.www"];
+  "aws_route53_zone.primary" [label="aws_route53_zone.primary"];
+  "aws_s3_bucket.website_bucket" [label="aws_s3_bucket.website_bucket"];
+  "aws_s3_bucket_acl.example" [label="aws_s3_bucket_acl.example"];
+  "aws_s3_bucket_ownership_controls.ownership" [label="aws_s3_bucket_ownership_controls.ownership"];
+  "aws_s3_bucket_policy.policy" [label="aws_s3_bucket_policy.policy"];
+  "aws_s3_bucket_website_configuration.website" [label="aws_s3_bucket_website_configuration.website"];
+  "data.aws_iam_policy_document.website_policy" -> "aws_cloudfront_origin_access_identity.origin_access_identity";
+  "aws_acm_certificate_validation.main" -> "aws_route53_record.cert_validation";
+  "aws_cloudfront_distribution.prod_distribution" -> "aws_acm_certificate_validation.main";
+  "aws_cloudfront_distribution.prod_distribution" -> "aws_cloudfront_origin_access_identity.origin_access_identity";
+  "aws_cloudfront_distribution.prod_distribution" -> "aws_s3_bucket.website_bucket";
+  "aws_route53_record.cert_validation" -> "aws_acm_certificate.cert";
+  "aws_route53_record.cert_validation" -> "aws_route53_zone.primary";
+  "aws_route53_record.main" -> "aws_route53_zone.primary";
+  "aws_route53_record.www" -> "aws_cloudfront_distribution.prod_distribution";
+  "aws_s3_bucket_acl.example" -> "aws_s3_bucket_ownership_controls.ownership";
+  "aws_s3_bucket_ownership_controls.ownership" -> "aws_s3_bucket.website_bucket";
+  "aws_s3_bucket_policy.policy" -> "data.aws_iam_policy_document.website_policy";
+  "aws_s3_bucket_policy.policy" -> "aws_s3_bucket.website_bucket";
+  "aws_s3_bucket_website_configuration.website" -> "aws_s3_bucket.website_bucket";
+}

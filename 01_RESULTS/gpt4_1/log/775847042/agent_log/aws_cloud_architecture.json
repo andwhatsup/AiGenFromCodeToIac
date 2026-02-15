@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This architecture is designed to securely and efficiently deploy a Python Flask web application using AWS managed Kubernetes (EKS), with a modern CI/CD pipeline and best practices for scalability, security, and maintainability.\n\n**Key AWS Components and Flow:**\n\n1. **Networking Foundation:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for secure outbound internet access from private subnets.\n\n2. **EKS Cluster:**\n   - AWS EKS (Elastic Kubernetes Service) is provisioned in private subnets for running the Flask application as Docker containers.\n   - EKS worker nodes (EC2 or Fargate) are managed in an Auto Scaling Group for scalability.\n   - EKS pulls Docker images from DockerHub (external registry).\n\n3. **Load Balancing and Ingress:**\n   - AWS Application Load Balancer (ALB) is deployed in public subnets to expose the application to the internet.\n   - ALB is integrated with EKS via Kubernetes ingress controller (e.g., AWS Load Balancer Controller) to route HTTP(S) traffic to the Flask app pods.\n\n4. **IAM and Security:**\n   - IAM roles for EKS cluster, worker nodes, and service accounts for least-privilege access.\n   - Security Groups for ALB and EKS nodes to restrict traffic.\n   - Kubernetes Network Policies for pod-level security.\n\n5. **CI/CD Integration:**\n   - Jenkins (external or self-hosted) orchestrates the pipeline, including code analysis (SonarQube), security scans (Trivy, OWASP, Docker Scout), and Docker image builds.\n   - Jenkins pushes images to DockerHub and triggers deployments to EKS via Kubernetes manifests (deployment.yaml, service.yaml, etc.).\n\n6. **Monitoring and Logging:**\n   - Amazon CloudWatch for EKS cluster and application logs/metrics.\n   - AWS CloudTrail for auditing API activity.\n\n7. **Optional Enhancements:**\n   - AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., DB credentials, API keys).\n   - S3 for storing logs, artifacts, or static assets if needed.\n\n**User Flow:**\n- Users access the Flask web app via the ALB endpoint.\n- ALB routes traffic to EKS, which serves the Flask app containers.\n- CI/CD pipeline ensures secure, automated, and high-quality deployments.\n\nThis architecture is secure, scalable, and follows AWS and Kubernetes best practices, with clear separation of concerns and robust security controls at each layer.",
+  "aws_resources": [
+    "VPC (with public and private subnets, route tables)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "EKS Cluster",
+    "EKS Node Group (EC2 or Fargate)",
+    "IAM Roles (EKS cluster, node group, service accounts)",
+    "Security Groups (for ALB, EKS nodes)",
+    "AWS Application Load Balancer (ALB)",
+    "AWS Load Balancer Controller (Kubernetes add-on)",
+    "CloudWatch Log Group (for EKS and application logs)",
+    "CloudWatch Metrics",
+    "CloudTrail (for auditing)",
+    "S3 Bucket (optional, for logs/artifacts/static assets)",
+    "Secrets Manager or Parameter Store (optional, for secrets)"
+  ]
+}

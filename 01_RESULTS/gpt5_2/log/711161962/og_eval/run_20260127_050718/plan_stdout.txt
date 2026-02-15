@@ -1,0 +1,275 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.assume_lambda_role: Reading...
+data.aws_iam_policy_document.assume_lambda_role: Read complete after 0s [id=2690255455]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.archive_file.function_archive will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "archive_file" "function_archive" {
+      + id                  = (known after apply)
+      + output_base64sha256 = (known after apply)
+      + output_base64sha512 = (known after apply)
+      + output_md5          = (known after apply)
+      + output_path         = "./lambda/build/handler.zip"
+      + output_sha          = (known after apply)
+      + output_sha256       = (known after apply)
+      + output_sha512       = (known after apply)
+      + output_size         = (known after apply)
+      + source_file         = "./lambda/build/bootstrap"
+      + type                = "zip"
+    }
+
+  # data.aws_iam_policy_document.sqs_policy_document will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "sqs_policy_document" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "sqs:SendMessage",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AllowSQSSendMessage"
+
+          + condition {
+              + test     = "ArnEquals"
+              + values   = [
+                  + (known after apply),
+                ]
+              + variable = "aws:SourceArn"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "s3.amazonaws.com",
+                ]
+              + type        = "service"
+            }
+        }
+    }
+
+  # aws_iam_policy.test_policy will be created
+  + resource "aws_iam_policy" "test_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "allow send message by s3 create event"
+      + id               = (known after apply)
+      + name             = "sqs-s3-send-event-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + description           = "Role for lambda to assume lambda"
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "AssumeLambdaRole"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_lambda_event_source_mapping.sqs will be created
+  + resource "aws_lambda_event_source_mapping" "sqs" {
+      + arn                           = (known after apply)
+      + batch_size                    = 1
+      + enabled                       = true
+      + event_source_arn              = (known after apply)
+      + function_arn                  = (known after apply)
+      + function_name                 = (known after apply)
+      + id                            = (known after apply)
+      + last_modified                 = (known after apply)
+      + last_processing_result        = (known after apply)
+      + maximum_record_age_in_seconds = (known after apply)
+      + maximum_retry_attempts        = (known after apply)
+      + parallelization_factor        = (known after apply)
+      + region                        = "ap-northeast-1"
+      + starting_position             = "LATEST"
+      + state                         = (known after apply)
+      + state_transition_reason       = (known after apply)
+      + tags_all                      = (known after apply)
+      + uuid                          = (known after apply)
+
+      + amazon_managed_kafka_event_source_config (known after apply)
+
+      + self_managed_kafka_event_source_config (known after apply)
+    }
+
+  # aws_lambda_function.function will be created
+  + resource "aws_lambda_function" "function" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + description                    = "A sample lambda function triggered by s3 event via sqs"
+      + filename                       = "./lambda/build/handler.zip"
+      + function_name                  = "s3-provoked-sqs-lambda"
+      + handler                        = "handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "ap-northeast-1"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_s3_bucket.test_bucket will be created
+  + resource "aws_s3_bucket" "test_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "ap-northeast-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_notification.bucket_notification will be created
+  + resource "aws_s3_bucket_notification" "bucket_notification" {
+      + bucket      = (known after apply)
+      + eventbridge = false
+      + id          = (known after apply)
+      + region      = "ap-northeast-1"
+
+      + queue {
+          + events        = [
+              + "s3:ObjectCreated:*",
+            ]
+          + filter_suffix = ".csv"
+          + id            = (known after apply)
+          + queue_arn     = (known after apply)
+        }
+    }
+
+  # aws_sqs_queue.test_queue will be created
+  + resource "aws_sqs_queue" "test_queue" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = (known after apply)
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "test-queue"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "ap-northeast-1"
+      + sqs_managed_sse_enabled           = (known after apply)
+      + tags_all                          = (known after apply)
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # null_resource.function_binary will be created
+  + resource "null_resource" "function_binary" {
+      + id = (known after apply)
+    }
+
+  # random_string.bucket_name_suffix will be created
+  + resource "random_string" "bucket_name_suffix" {
+      + id          = (known after apply)
+      + length      = 10
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = false
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.

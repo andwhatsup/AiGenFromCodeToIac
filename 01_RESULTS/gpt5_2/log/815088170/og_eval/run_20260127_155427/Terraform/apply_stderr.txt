@@ -1,0 +1,14 @@
+
+Error: creating ELBv2 application Load Balancer (hello-world-alb): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: e0bab42b-b0be-465f-9936-82cca5db5631, SubnetNotFound: The specified subnet does not exist.
+
+  with aws_alb.hello_world_alb,
+  on main.tf line 77, in resource "aws_alb" "hello_world_alb":
+  77: resource "aws_alb" "hello_world_alb" {
+
+
+Error: creating ELBv2 Target Group (hello-world-tg): operation error Elastic Load Balancing v2: CreateTargetGroup, https response error StatusCode: 400, RequestID: 04a23644-ac86-4be8-97a9-acdf194b7328, api error ValidationError: The VPC ID 'vpc-033725f7f6cd801a7' is not found
+
+  with aws_alb_target_group.hello_world_tg,
+  on main.tf line 86, in resource "aws_alb_target_group" "hello_world_tg":
+  86: resource "aws_alb_target_group" "hello_world_tg" {
+

@@ -1,0 +1,131 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.server_1 will be created
+  + resource "docker_container" "server_1" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = "server-1"
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "server-1"
+      + network_data                                = (known after apply)
+      + publish_all_ports                           = true
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = "sysbox-runc"
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = true
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = true
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + ipv4_address = "172.18.0.2"
+          + name         = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # docker_container.server_2 will be created
+  + resource "docker_container" "server_2" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = (known after apply)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = "server-2"
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "server-2"
+      + network_data                                = (known after apply)
+      + publish_all_ports                           = true
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = "sysbox-runc"
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = true
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = true
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + ipv4_address = "172.18.0.3"
+          + name         = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # docker_image.server will be created
+  + resource "docker_image" "server" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = true
+      + name         = "server:latest"
+      + repo_digest  = (known after apply)
+    }
+
+  # docker_network.devops_net will be created
+  + resource "docker_network" "devops_net" {
+      + driver      = "bridge"
+      + id          = (known after apply)
+      + internal    = (known after apply)
+      + ipam_driver = "default"
+      + name        = "devops-net"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config {
+          + subnet   = "172.18.0.0/16"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+docker_image.server: Creating...
+docker_network.devops_net: Creating...

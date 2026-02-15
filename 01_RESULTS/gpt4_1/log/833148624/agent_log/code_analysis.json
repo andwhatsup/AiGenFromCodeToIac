@@ -1,0 +1,69 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/833148624",
+      "programming_languages": [
+        "Python",
+        "YAML",
+        "Shell",
+        "Ruby (Vagrantfile)"
+      ],
+      "frameworks": [
+        "Ansible",
+        "Docker",
+        "Vagrant",
+        "Nomad"
+      ],
+      "dependencies": [
+        "ansible==10.2.0 (requirements.txt)",
+        "ansible-core==2.17.2 (requirements.txt)",
+        "certifi==2024.7.4 (requirements.txt)",
+        "cffi==1.16.0 (requirements.txt)",
+        "charset-normalizer==3.3.2 (requirements.txt)",
+        "cryptography==43.0.0 (requirements.txt)",
+        "docker==7.1.0 (requirements.txt)",
+        "idna==3.7 (requirements.txt)",
+        "Jinja2==3.1.4 (requirements.txt)",
+        "MarkupSafe==2.1.5 (requirements.txt)",
+        "packaging==24.1 (requirements.txt)",
+        "pycparser==2.22 (requirements.txt)",
+        "PyYAML==6.0.1 (requirements.txt)",
+        "requests==2.32.3 (requirements.txt)",
+        "resolvelib==1.0.1 (requirements.txt)",
+        "urllib3==2.2.2 (requirements.txt)",
+        "Python3, pip, git, unzip, wget, curl (Dockerfile.server)",
+        "Nomad 1.8.2 (Dockerfile.server)",
+        "Consul 1.19.1 (Dockerfile.server)"
+      ],
+      "deployment_relevant_files": [
+        "requirements.txt",
+        "Dockerfile.server",
+        "docker-compose.yml",
+        "Makefile",
+        "Taskfile.yml",
+        "Vagrantfile",
+        "inventory.yml",
+        "playbooks/localhost_controller/vagrant_up.yml",
+        "playbooks/localhost_controller/vagrant_destroy.yml",
+        "playbooks/servers/configure_nomad_clients.yml",
+        "playbooks/servers/configure_nomad_servers.yml",
+        "playbooks/servers/setup_apps_and_services.yml",
+        "nomad-jobs/pytechco-employee.nomad.hcl",
+        "nomad-jobs/pytechco-redis.nomad.hcl",
+        "nomad-jobs/pytechco-setup.nomad.hcl",
+        "nomad-jobs/pytechco-web.nomad.hcl",
+        "vars_files/variables.yml"
+      ],
+      "architectural_resources": [
+        "Ansible automation (for provisioning and orchestration)",
+        "Docker containers (for server infrastructure)",
+        "Nomad cluster (for job scheduling and orchestration)",
+        "Consul (service discovery, as per Dockerfile)",
+        "Redis service (as per nomad-jobs/pytechco-redis.nomad.hcl)",
+        "Web application (as per nomad-jobs/pytechco-web.nomad.hcl)",
+        "Batch jobs (as per nomad-jobs/pytechco-employee.nomad.hcl and pytechco-setup.nomad.hcl)",
+        "Tailscale (VPN, as per setup_apps_and_services.yml)"
+      ]
+    }
+  ]
+}

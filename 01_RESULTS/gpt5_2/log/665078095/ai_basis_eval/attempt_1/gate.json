@@ -1,0 +1,162 @@
+{
+  "roots_scanned": [
+    "."
+  ],
+  "recommended_roots": [
+    "."
+  ],
+  "varfiles_created": {
+    ".": true
+  },
+  "services_report": {
+    ".": {
+      "by_service": {
+        "db": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_db_instance",
+            "aws_db_subnet_group"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_vpc"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        },
+        "subnets": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_subnets"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2"
+        ],
+        "none": [],
+        "unknown": [
+          "db",
+          "security",
+          "subnets"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"atlas-template\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"app\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_username": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"appuser\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_password": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_instance_class": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"db.t3.micro\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_allocated_storage": {
+          "type": "number",
+          "has_default": true,
+          "default": "20",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_engine_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"8.0\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "db_publicly_accessible": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        },
+        "allowed_cidr_blocks": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"0.0.0.0/0\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "db_password"
+      ],
+      "aws_services": [
+        "aws_db_instance",
+        "aws_db_subnet_group",
+        "aws_security_group",
+        "aws_subnets",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_vpc": 1,
+        "aws_subnets": 1,
+        "aws_db_subnet_group": 1,
+        "aws_security_group": 1,
+        "aws_db_instance": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "random": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/665078095/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 3.6"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

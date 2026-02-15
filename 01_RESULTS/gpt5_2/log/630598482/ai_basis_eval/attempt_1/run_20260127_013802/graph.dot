@@ -1,0 +1,24 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.assume_role" [label="data.aws_iam_policy_document.assume_role"];
+  "data.aws_iam_policy_document.cicd" [label="data.aws_iam_policy_document.cicd"];
+  "aws_iam_policy.cicd" [label="aws_iam_policy.cicd"];
+  "aws_iam_role.cicd" [label="aws_iam_role.cicd"];
+  "aws_iam_role_policy_attachment.cicd" [label="aws_iam_role_policy_attachment.cicd"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.cicd" -> "aws_s3_bucket.artifacts";
+  "aws_iam_policy.cicd" -> "data.aws_iam_policy_document.cicd";
+  "aws_iam_role.cicd" -> "data.aws_iam_policy_document.assume_role";
+  "aws_iam_role.cicd" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.cicd" -> "aws_iam_policy.cicd";
+  "aws_iam_role_policy_attachment.cicd" -> "aws_iam_role.cicd";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+}

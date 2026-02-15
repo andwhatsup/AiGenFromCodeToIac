@@ -1,0 +1,105 @@
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_availability_zones.available: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/hello-tomcat-dev]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/hello-tomcat-dev]
+aws_ecr_repository.app[0]: Refreshing state... [id=hello-tomcat-dev]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-46af871d44cf4b1ae]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task: Refreshing state... [id=hello-tomcat-dev-ecs-task]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=hello-tomcat-dev-ecs-task-exec]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.app[0]: Refreshing state... [id=hello-tomcat-dev]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=hello-tomcat-dev-ecs-task-exec-20260116062915220100000001]
+aws_iam_role_policy.ecs_task_execution_extra: Refreshing state... [id=hello-tomcat-dev-ecs-task-exec:hello-tomcat-dev-ecs-task-exec-extra]
+aws_ecs_task_definition.app: Refreshing state... [id=hello-tomcat-dev]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-82ddd774345120077]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-344df11387a934e50]
+aws_security_group.alb: Refreshing state... [id=sg-d8d58b8af8f3c086c]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-a418f7abe259a6f2e]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-1e3d3a23ca1fd8ef6]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-5bf174e2988e6c573]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-d287615e3d0b503ad]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-b69f5c4137d661267]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-d842ebcfd8a214b93]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/hello-tomcat-dev-tg/c88fc8c2127d2d58]
+aws_security_group.vpc_endpoints[0]: Refreshing state... [id=sg-069766b91738431cb]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-9a219769e40f36bf8]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-7422f9f4e160dcfcc]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-f9bafa29d2afaef21]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-d287615e3d0b503ad1080289494]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-5783c8e42690948fd]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-1f6320a4505493113]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-e55b894d51ba36bfc]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/hello-tomcat-dev-alb/b26dba6cad3cf0f6]
+aws_vpc_endpoint.logs[0]: Refreshing state... [id=vpce-a6b246fe6e3997236]
+aws_vpc_endpoint.ecr_dkr[0]: Refreshing state... [id=vpce-2ca94d1328c9e713c]
+aws_vpc_endpoint.ecr_api[0]: Refreshing state... [id=vpce-a82d6cfea8d52c19f]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-7d8277046c503abe6]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-ea8b5803b3980dff0]
+aws_vpc_endpoint.s3[0]: Refreshing state... [id=vpce-599915854571739ca]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-5d36473c0cd2364e5]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-7422f9f4e160dcfcc1080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-tomcat-dev-alb/b26dba6cad3cf0f6/e2bdf13ff948cd35]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/hello-tomcat-dev/hello-tomcat-dev]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/hello-tomcat-dev/hello-tomcat-dev"
+        name                               = "hello-tomcat-dev"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-tomcat-dev:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.app must be replaced
+-/+ resource "aws_ecs_task_definition" "app" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-tomcat-dev:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-tomcat-dev" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                  - mountPoints      = []
+                    name             = "app"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 56136
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (5 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "hello-tomcat-dev" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-tomcat-dev-alb/b26dba6cad3cf0f6/e2bdf13ff948cd35"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.

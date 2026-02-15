@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a cloud-native application originally designed for Kubernetes, integrating Rust and Python workloads that interact with AWS S3. To deploy this on AWS following best practices, the architecture will leverage managed AWS services to maximize scalability, security, and operational simplicity.\n\n**Proposed AWS Architecture:**\n\n1. **Amazon EKS (Elastic Kubernetes Service):**\n   - The Kubernetes Pod (containing both the Rust CLI app and Python script) will be deployed on an EKS cluster. EKS provides a managed Kubernetes control plane, reducing operational overhead.\n   - The EKS cluster will be provisioned within a dedicated VPC for network isolation and security.\n\n2. **Amazon S3:**\n   - An S3 bucket will be created for storage, as required by the Python script using boto3.\n\n3. **IAM (Identity and Access Management):**\n   - An IAM Role for Service Account (IRSA) will be created and associated with the Kubernetes ServiceAccount. This allows the pod to securely access AWS resources (S3) without hardcoding credentials.\n   - IAM policies will be attached to the role, granting least-privilege access to the S3 bucket.\n\n4. **Networking:**\n   - A VPC with public and private subnets will be created for the EKS cluster.\n   - Security Groups will be configured to control network access to the EKS nodes and pods.\n\n5. **ECR (Elastic Container Registry):**\n   - Docker images for the Rust and Python workloads will be built and stored in ECR for deployment to EKS.\n\n6. **CloudWatch:**\n   - CloudWatch will be used for logging and monitoring of the EKS cluster and application workloads.\n\n7. **(Optional) Secrets Manager or Parameter Store:**\n   - For managing any sensitive configuration or secrets (if not using IRSA exclusively).\n\n**Deployment Strategy:**\n- The Rust CLI and Python script are containerized and deployed as a single pod in EKS, using a Kubernetes manifest (pod.yaml).\n- The pod uses a Kubernetes ServiceAccount mapped to an IAM role (via IRSA) for secure AWS access.\n- The Python script accesses S3 using boto3 and the IAM role's permissions.\n- Users interact with the system by executing the Rust CLI app, which can invoke the Python script within the pod.\n\nThis architecture is secure (no static AWS credentials in containers), scalable (leveraging managed Kubernetes and S3), and follows AWS best practices for cloud-native workloads.",
+  "aws_resources": [
+    "VPC (with public and private subnets)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for EKS nodes and pods)",
+    "EKS Cluster",
+    "EKS Node Group (managed or self-managed)",
+    "ECR Repository (for container images)",
+    "IAM Role for Service Account (IRSA)",
+    "IAM Policy (S3 access, attached to IRSA role)",
+    "Kubernetes Namespace (in EKS)",
+    "Kubernetes ServiceAccount (linked to IRSA role)",
+    "S3 Bucket",
+    "CloudWatch Log Group (for EKS and application logs)",
+    "(Optional) AWS Secrets Manager or SSM Parameter Store (for secrets/configuration)"
+  ]
+}

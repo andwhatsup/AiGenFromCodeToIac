@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.bucket_policy" [label="data.aws_iam_policy_document.bucket_policy"];
+  "aws_cloudfront_distribution.cdn" [label="aws_cloudfront_distribution.cdn"];
+  "aws_cloudfront_origin_access_control.oac" [label="aws_cloudfront_origin_access_control.oac"];
+  "aws_s3_bucket.site" [label="aws_s3_bucket.site"];
+  "aws_s3_bucket_ownership_controls.site" [label="aws_s3_bucket_ownership_controls.site"];
+  "aws_s3_bucket_policy.site" [label="aws_s3_bucket_policy.site"];
+  "aws_s3_bucket_public_access_block.site" [label="aws_s3_bucket_public_access_block.site"];
+  "aws_s3_bucket_server_side_encryption_configuration.site" [label="aws_s3_bucket_server_side_encryption_configuration.site"];
+  "aws_s3_bucket_versioning.site" [label="aws_s3_bucket_versioning.site"];
+  "aws_s3_bucket_website_configuration.site" [label="aws_s3_bucket_website_configuration.site"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.bucket_policy" -> "aws_cloudfront_distribution.cdn";
+  "aws_cloudfront_distribution.cdn" -> "aws_cloudfront_origin_access_control.oac";
+  "aws_cloudfront_distribution.cdn" -> "aws_s3_bucket_public_access_block.site";
+  "aws_s3_bucket.site" -> "random_id.suffix";
+  "aws_s3_bucket_ownership_controls.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_policy.site" -> "data.aws_iam_policy_document.bucket_policy";
+  "aws_s3_bucket_public_access_block.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_server_side_encryption_configuration.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_versioning.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_website_configuration.site" -> "aws_s3_bucket.site";
+}

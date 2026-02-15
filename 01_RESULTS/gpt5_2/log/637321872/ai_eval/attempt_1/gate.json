@@ -1,0 +1,208 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ami",
+            "aws_eip",
+            "aws_eip_association",
+            "aws_instance",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "key": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_key_pair"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "internet",
+          "key",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ap-northeast-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "name_prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"squid-proxy\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "public_subnet_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.1.0/24\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "allowed_proxy_cidr": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "allowed_ssh_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3.micro\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "key_pair_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"my-net-keypair\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "public_key_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "associate_eip": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "squid_conf_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../source/config/squid.conf\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "allowed_proxy_cidr"
+      ],
+      "aws_services": [
+        "aws_ami",
+        "aws_availability_zones",
+        "aws_eip",
+        "aws_eip_association",
+        "aws_iam_instance_profile",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_instance",
+        "aws_internet_gateway",
+        "aws_key_pair",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 1,
+        "aws_route_table": 1,
+        "aws_route_table_association": 1,
+        "aws_security_group": 1,
+        "aws_ami": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_iam_instance_profile": 1,
+        "aws_key_pair": 1,
+        "aws_instance": 1,
+        "aws_eip": 1,
+        "aws_eip_association": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/637321872/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 6.27.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

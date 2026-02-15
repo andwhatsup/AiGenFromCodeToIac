@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to deploy a static web application (Loan Calculator) using Kubernetes (EKS) and Nginx for static file serving. The solution is secure, scalable, and follows AWS best practices for containerized workloads.\n\n**Architecture Overview:**\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for outbound internet access from private subnets.\n   - Route tables to manage traffic flow.\n\n2. **EKS Cluster:**\n   - An Amazon EKS cluster deployed in the private subnets, providing a managed Kubernetes control plane.\n   - Worker nodes (EC2 instances or managed node groups) in private subnets to run application pods.\n\n3. **Kubernetes Resources (Deployed via EKS):**\n   - Kubernetes Deployment for the loan-calc application, running Docker containers with Nginx serving static HTML/CSS files.\n   - Kubernetes Service of type LoadBalancer (loan-calc-service) to expose the application to the ALB.\n\n4. **Load Balancing & Ingress:**\n   - An AWS Application Load Balancer (ALB) provisioned via Kubernetes service annotations, providing a secure HTTP/HTTPS entry point for users.\n   - The ALB forwards traffic to the Kubernetes Service, which routes it to the pods.\n\n5. **IAM & Security:**\n   - IAM roles for EKS control plane, worker nodes, and service accounts (for least-privilege access).\n   - Security groups for the ALB, EKS nodes, and control plane, restricting traffic to only necessary ports (e.g., 80/443 for ALB, node-to-node communication, etc.).\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch for logging and monitoring EKS cluster, ALB, and application logs.\n   - AWS CloudTrail for auditing API activity.\n\n7. **CI/CD (Optional):**\n   - Integration with Jenkins (as seen in the codebase) for automated build and deployment pipelines.\n\n**Deployment Flow:**\n- Users access the application via the ALB endpoint.\n- The ALB forwards requests to the Kubernetes Service (LoadBalancer type) in the EKS cluster.\n- The Service routes traffic to pods running Nginx containers, which serve the static web application files.\n\n**Scalability & Security:**\n- The architecture supports auto-scaling of worker nodes and pods.\n- All resources are deployed in a secure, isolated VPC with least-privilege IAM policies and security groups.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group (or self-managed EC2 worker nodes)",
+    "IAM Roles and Policies (for EKS control plane, worker nodes, service accounts)",
+    "Security Groups (for ALB, EKS nodes, control plane)",
+    "AWS Application Load Balancer (ALB)",
+    "CloudWatch Log Groups (for EKS, ALB, application logs)",
+    "CloudTrail (for auditing)",
+    "Kubernetes Deployment (loan-calc)",
+    "Kubernetes Service (loan-calc-service, type LoadBalancer)",
+    "ECR (Elastic Container Registry) repository (optional, if storing custom Docker images)",
+    "Jenkins server (optional, for CI/CD)"
+  ]
+}

@@ -1,0 +1,1248 @@
+data.archive_file.trigger_dag_zip: Reading...
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.trigger_dag_zip: Read complete after 0s [id=0c225d7de8d0dc8914b6ac0479b20f38cc494886]
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.mwaa_assume: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_iam_policy_document.lambda_assume: Reading...
+data.aws_region.current: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_iam_policy_document.mwaa_assume: Read complete after 0s [id=2750727584]
+data.aws_iam_policy_document.lambda_assume: Read complete after 0s [id=2690255455]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.lambda_inline will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "lambda_inline" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "mwaa:CreateCliToken",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "MwaaCreateCliToken"
+        }
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+              + "s3:GetObjectVersion",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "ReadInputBucket"
+        }
+    }
+
+  # data.aws_iam_policy_document.mwaa_inline will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "mwaa_inline" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+              + "s3:GetObjectVersion",
+              + "s3:ListBucket",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "S3ReadMwaaBucket"
+        }
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+              + "s3:GetObjectVersion",
+              + "s3:ListBucket",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "S3ReadInputBucket"
+        }
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:DescribeLogFields",
+              + "logs:DescribeLogGroups",
+              + "logs:DescribeLogStreams",
+              + "logs:DescribeQueries",
+              + "logs:FilterLogEvents",
+              + "logs:GetLogEvents",
+              + "logs:GetLogGroupFields",
+              + "logs:GetLogRecord",
+              + "logs:GetQueryResults",
+              + "logs:PutLogEvents",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "CloudWatchLogs"
+        }
+      + statement {
+          + actions   = [
+              + "cloudwatch:PutMetricData",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "CloudWatchMetrics"
+        }
+      + statement {
+          + actions   = [
+              + "sqs:ChangeMessageVisibility",
+              + "sqs:DeleteMessage",
+              + "sqs:GetQueueAttributes",
+              + "sqs:GetQueueUrl",
+              + "sqs:ReceiveMessage",
+              + "sqs:SendMessage",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "SQSForCelery"
+        }
+      + statement {
+          + actions   = [
+              + "kms:DescribeKey",
+              + "kms:ListAliases",
+              + "kms:ListKeys",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+          + sid       = "KMSList"
+        }
+    }
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/trigger-mwaa-dag-trigger-dag"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+    }
+
+  # aws_eip.nat["0"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags                 = {
+          + "Name" = "trigger-mwaa-dag-nat-eip-0"
+        }
+      + tags_all             = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-nat-eip-0"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+    }
+
+  # aws_eip.nat["1"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags                 = {
+          + "Name" = "trigger-mwaa-dag-nat-eip-1"
+        }
+      + tags_all             = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-nat-eip-1"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "trigger-mwaa-dag-lambda-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.mwaa will be created
+  + resource "aws_iam_role" "mwaa" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = [
+                              + "airflow.amazonaws.com",
+                              + "airflow-env.amazonaws.com",
+                            ]
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "trigger-mwaa-dag-mwaa-exec-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda_inline will be created
+  + resource "aws_iam_role_policy" "lambda_inline" {
+      + id          = (known after apply)
+      + name        = "trigger-mwaa-dag-lambda-inline"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy.mwaa_inline will be created
+  + resource "aws_iam_role_policy" "mwaa_inline" {
+      + id          = (known after apply)
+      + name        = "trigger-mwaa-dag-mwaa-inline"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "trigger-mwaa-dag-lambda-role"
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "trigger-mwaa-dag-igw"
+        }
+      + tags_all = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-igw"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lambda_function.trigger_dag will be created
+  + resource "aws_lambda_function" "trigger_dag" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./builds/trigger-dag.zip"
+      + function_name                  = "trigger-mwaa-dag-trigger-dag"
+      + handler                        = "index.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "python3.12"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "WHOtxajqix/LMJG4ouJtKbXaI8+jvqX1buzh80CsFo8="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "LOG_LEVEL"     = "INFO"
+              + "MWAA_ENV_NAME" = "trigger-mwaa"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_s3 will be created
+  + resource "aws_lambda_permission" "allow_s3" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "trigger-mwaa-dag-trigger-dag"
+      + id                  = (known after apply)
+      + principal           = "s3.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromS3"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_mwaa_environment.this will be created
+  + resource "aws_mwaa_environment" "this" {
+      + airflow_version                  = "2.9.2"
+      + arn                              = (known after apply)
+      + created_at                       = (known after apply)
+      + dag_s3_path                      = "dags"
+      + database_vpc_endpoint_service    = (known after apply)
+      + endpoint_management              = (known after apply)
+      + environment_class                = "mw1.small"
+      + execution_role_arn               = (known after apply)
+      + id                               = (known after apply)
+      + last_updated                     = (known after apply)
+      + max_webservers                   = (known after apply)
+      + max_workers                      = 2
+      + min_webservers                   = (known after apply)
+      + min_workers                      = 1
+      + name                             = "trigger-mwaa"
+      + plugins_s3_object_version        = (known after apply)
+      + region                           = "us-east-1"
+      + requirements_s3_object_version   = (known after apply)
+      + requirements_s3_path             = "requirements/requirements.txt"
+      + schedulers                       = (known after apply)
+      + service_role_arn                 = (known after apply)
+      + source_bucket_arn                = (known after apply)
+      + startup_script_s3_object_version = (known after apply)
+      + status                           = (known after apply)
+      + tags                             = {
+          + "Name" = "trigger-mwaa"
+        }
+      + tags_all                         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + webserver_access_mode            = "PUBLIC_ONLY"
+      + webserver_url                    = (known after apply)
+      + webserver_vpc_endpoint_service   = (known after apply)
+      + weekly_maintenance_window_start  = (known after apply)
+      + worker_replacement_strategy      = (known after apply)
+
+      + logging_configuration {
+          + dag_processing_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + scheduler_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + task_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + webserver_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + worker_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+        }
+
+      + network_configuration {
+          + security_group_ids = (known after apply)
+          + subnet_ids         = (known after apply)
+        }
+    }
+
+  # aws_nat_gateway.this["0"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "trigger-mwaa-dag-nat-0"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-nat-0"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_nat_gateway.this["1"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "trigger-mwaa-dag-nat-1"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-nat-1"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_nat["0"] will be created
+  + resource "aws_route" "private_nat" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.private_nat["1"] will be created
+  + resource "aws_route" "private_nat" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private["0"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "trigger-mwaa-dag-private-rt-0"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-private-rt-0"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private["1"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "trigger-mwaa-dag-private-rt-1"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-private-rt-1"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "trigger-mwaa-dag-public-rt"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-public-rt"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private["0"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private["1"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["0"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["1"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.input will be created
+  + resource "aws_s3_bucket" "input" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "input-us-east-1-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "input-us-east-1-000000000000"
+        }
+      + tags_all                    = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "input-us-east-1-000000000000"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket.mwaa will be created
+  + resource "aws_s3_bucket" "mwaa" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "mwaa-us-east-1-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "mwaa-us-east-1-000000000000"
+        }
+      + tags_all                    = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "mwaa-us-east-1-000000000000"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_notification.input will be created
+  + resource "aws_s3_bucket_notification" "input" {
+      + bucket      = (known after apply)
+      + eventbridge = false
+      + id          = (known after apply)
+      + region      = "us-east-1"
+
+      + lambda_function {
+          + events              = [
+              + "s3:ObjectCreated:*",
+            ]
+          + filter_suffix       = "input.json"
+          + id                  = (known after apply)
+          + lambda_function_arn = (known after apply)
+        }
+    }
+
+  # aws_s3_bucket_policy.input_tls will be created
+  + resource "aws_s3_bucket_policy" "input_tls" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_policy.mwaa_tls will be created
+  + resource "aws_s3_bucket_policy" "mwaa_tls" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_public_access_block.input will be created
+  + resource "aws_s3_bucket_public_access_block" "input" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_public_access_block.mwaa will be created
+  + resource "aws_s3_bucket_public_access_block" "mwaa" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.input will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "input" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.mwaa will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "mwaa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.input will be created
+  + resource "aws_s3_bucket_versioning" "input" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_s3_bucket_versioning.mwaa will be created
+  + resource "aws_s3_bucket_versioning" "mwaa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_s3_object.dag will be created
+  + resource "aws_s3_object" "dag" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = "text/x-python"
+      + etag                   = "6676b0f4d15b5e5d303ec192c4579e67"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "dags/hello-world-dag.py"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + source                 = "./../infra/src/dags/hello-world-dag.py"
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_s3_object.requirements will be created
+  + resource "aws_s3_object" "requirements" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content                = <<-EOT
+            apache-airflow==2.9.3
+            boto3==1.34.2
+        EOT
+      + content_type           = "text/plain"
+      + etag                   = "1de03ffc5d49637df3f822349425259c"
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "requirements/requirements.txt"
+      + kms_key_id             = (known after apply)
+      + region                 = "us-east-1"
+      + server_side_encryption = (known after apply)
+      + storage_class          = (known after apply)
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + version_id             = (known after apply)
+    }
+
+  # aws_security_group.mwaa will be created
+  + resource "aws_security_group" "mwaa" {
+      + arn                    = (known after apply)
+      + description            = "Security group for MWAA environment"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "trigger-mwaa-dag-mwaa-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "trigger-mwaa-dag-mwaa-sg"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-mwaa-sg"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private["0"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "trigger-mwaa-dag-private-0"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-private-0"
+          + "Project"   = "trigger-mwaa-dag"
+          + "Tier"      = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private["1"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.16.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "trigger-mwaa-dag-private-1"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-private-1"
+          + "Project"   = "trigger-mwaa-dag"
+          + "Tier"      = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["0"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.128.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "trigger-mwaa-dag-public-0"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-public-0"
+          + "Project"   = "trigger-mwaa-dag"
+          + "Tier"      = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["1"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.144.0/20"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "trigger-mwaa-dag-public-1"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-public-1"
+          + "Project"   = "trigger-mwaa-dag"
+          + "Tier"      = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "trigger-mwaa-dag-vpc"
+        }
+      + tags_all                             = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-vpc"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+    }
+
+  # aws_vpc_endpoint.s3 will be created
+  + resource "aws_vpc_endpoint" "s3" {
+      + arn                   = (known after apply)
+      + cidr_blocks           = (known after apply)
+      + dns_entry             = (known after apply)
+      + id                    = (known after apply)
+      + ip_address_type       = (known after apply)
+      + network_interface_ids = (known after apply)
+      + owner_id              = (known after apply)
+      + policy                = (known after apply)
+      + prefix_list_id        = (known after apply)
+      + private_dns_enabled   = (known after apply)
+      + region                = "us-east-1"
+      + requester_managed     = (known after apply)
+      + route_table_ids       = (known after apply)
+      + security_group_ids    = (known after apply)
+      + service_name          = "com.amazonaws.us-east-1.s3"
+      + service_region        = (known after apply)
+      + state                 = (known after apply)
+      + subnet_ids            = (known after apply)
+      + tags                  = {
+          + "Name" = "trigger-mwaa-dag-s3-endpoint"
+        }
+      + tags_all              = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "trigger-mwaa-dag-s3-endpoint"
+          + "Project"   = "trigger-mwaa-dag"
+        }
+      + vpc_endpoint_type     = "Gateway"
+      + vpc_id                = (known after apply)
+
+      + dns_options (known after apply)
+
+      + subnet_configuration (known after apply)
+    }
+
+Plan: 44 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + input_bucket_id      = (known after apply)
+  + lambda_function_name = "trigger-mwaa-dag-trigger-dag"
+  + mwaa_environment_arn = (known after apply)
+  + mwaa_source_bucket   = (known after apply)
+  + mwaa_webserver_url   = (known after apply)
+aws_cloudwatch_log_group.lambda: Creating...
+aws_iam_role.lambda: Creating...
+aws_iam_role.mwaa: Creating...
+aws_vpc.this: Creating...
+aws_s3_bucket.input: Creating...
+aws_s3_bucket.mwaa: Creating...
+aws_iam_role.mwaa: Creation complete after 1s [id=trigger-mwaa-dag-mwaa-exec-role]
+aws_iam_role.lambda: Creation complete after 1s [id=trigger-mwaa-dag-lambda-role]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=trigger-mwaa-dag-lambda-role/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_cloudwatch_log_group.lambda: Creation complete after 1s [id=/aws/lambda/trigger-mwaa-dag-trigger-dag]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_s3_bucket.input: Still creating... [00m10s elapsed]
+aws_s3_bucket.mwaa: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-ca65f1bd552deb633]
+aws_internet_gateway.this: Creating...
+aws_subnet.public["1"]: Creating...
+aws_route_table.public: Creating...
+aws_subnet.public["0"]: Creating...
+aws_subnet.private["0"]: Creating...
+aws_subnet.private["1"]: Creating...
+aws_security_group.mwaa: Creating...
+aws_subnet.private["1"]: Creation complete after 0s [id=subnet-509e7453e4c14297a]
+aws_internet_gateway.this: Creation complete after 0s [id=igw-1d2a29a1ac9ffe536]
+aws_subnet.private["0"]: Creation complete after 0s [id=subnet-e9a37dce45a633710]
+aws_route_table.private["0"]: Creating...
+aws_route_table.private["1"]: Creating...
+aws_route_table.public: Creation complete after 1s [id=rtb-db8bff361cacbd8dd]
+aws_route.public_internet: Creating...
+aws_route_table.private["1"]: Creation complete after 1s [id=rtb-e92866415d6c7144d]
+aws_route_table.private["0"]: Creation complete after 1s [id=rtb-373d3eba33ded8e61]
+aws_route_table_association.private["0"]: Creating...
+aws_route_table_association.private["1"]: Creating...
+aws_vpc_endpoint.s3: Creating...
+aws_route_table_association.private["0"]: Creation complete after 0s [id=rtbassoc-5fbae5a5dffb06c85]
+aws_route_table_association.private["1"]: Creation complete after 0s [id=rtbassoc-cf5b8dcdb918285fd]
+aws_security_group.mwaa: Creation complete after 1s [id=sg-ae1e8a309b352d172]
+aws_route.public_internet: Creation complete after 0s [id=r-rtb-db8bff361cacbd8dd1080289494]
+aws_vpc_endpoint.s3: Creation complete after 5s [id=vpce-1ee8fc33f1fc2dcc6]
+aws_s3_bucket.input: Still creating... [00m20s elapsed]
+aws_s3_bucket.mwaa: Still creating... [00m20s elapsed]
+aws_subnet.public["0"]: Still creating... [00m10s elapsed]
+aws_subnet.public["1"]: Still creating... [00m10s elapsed]
+aws_subnet.public["1"]: Creation complete after 10s [id=subnet-d3f10e159503bbf16]
+aws_subnet.public["0"]: Creation complete after 10s [id=subnet-30d2ce1448ac7af2d]
+aws_route_table_association.public["1"]: Creating...
+aws_route_table_association.public["0"]: Creating...
+aws_eip.nat["0"]: Creating...
+aws_eip.nat["1"]: Creating...
+aws_route_table_association.public["1"]: Creation complete after 1s [id=rtbassoc-65f5c32b6db07655c]
+aws_route_table_association.public["0"]: Creation complete after 1s [id=rtbassoc-50e891457ba5504c2]
+aws_eip.nat["0"]: Creation complete after 1s [id=eipalloc-5bacdd0e4e54b1da3]
+aws_eip.nat["1"]: Creation complete after 1s [id=eipalloc-8b4703dbd2939fea5]
+aws_nat_gateway.this["0"]: Creating...
+aws_nat_gateway.this["1"]: Creating...
+aws_nat_gateway.this["0"]: Creation complete after 0s [id=nat-bf72bfd8236f345d7]
+aws_nat_gateway.this["1"]: Creation complete after 0s [id=nat-2a8dce95169ed8986]
+aws_route.private_nat["1"]: Creating...
+aws_route.private_nat["0"]: Creating...
+aws_route.private_nat["0"]: Creation complete after 0s [id=r-rtb-373d3eba33ded8e611080289494]
+aws_route.private_nat["1"]: Creation complete after 0s [id=r-rtb-e92866415d6c7144d1080289494]
+aws_s3_bucket.mwaa: Still creating... [00m30s elapsed]
+aws_s3_bucket.input: Still creating... [00m30s elapsed]
+aws_s3_bucket.mwaa: Still creating... [00m40s elapsed]
+aws_s3_bucket.input: Still creating... [00m40s elapsed]
+aws_s3_bucket.input: Still creating... [00m50s elapsed]
+aws_s3_bucket.mwaa: Still creating... [00m50s elapsed]
+aws_s3_bucket.input: Still creating... [01m00s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m00s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m10s elapsed]
+aws_s3_bucket.input: Still creating... [01m10s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m20s elapsed]
+aws_s3_bucket.input: Still creating... [01m20s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m30s elapsed]
+aws_s3_bucket.input: Still creating... [01m30s elapsed]
+aws_s3_bucket.input: Still creating... [01m40s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m40s elapsed]
+aws_s3_bucket.input: Still creating... [01m50s elapsed]
+aws_s3_bucket.mwaa: Still creating... [01m50s elapsed]
+aws_s3_bucket.input: Still creating... [02m00s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m00s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m10s elapsed]
+aws_s3_bucket.input: Still creating... [02m10s elapsed]
+aws_s3_bucket.input: Still creating... [02m20s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m20s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m30s elapsed]
+aws_s3_bucket.input: Still creating... [02m30s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m40s elapsed]
+aws_s3_bucket.input: Still creating... [02m40s elapsed]
+aws_s3_bucket.mwaa: Still creating... [02m50s elapsed]
+aws_s3_bucket.input: Still creating... [02m50s elapsed]

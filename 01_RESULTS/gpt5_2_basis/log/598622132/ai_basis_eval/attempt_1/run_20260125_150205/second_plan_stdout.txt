@@ -1,0 +1,30 @@
+data.aws_ami.al2023: Reading...
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-5d1ba1ab61e8f5709]
+data.aws_subnets.default: Reading...
+aws_security_group.minecraft: Refreshing state... [id=sg-ad30199fac0970df7]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+data.aws_ami.al2023: Read complete after 3s [id=ami-07c1fa5792ef8fe27]
+aws_instance.minecraft: Refreshing state... [id=i-a8648f2298362af1c]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.minecraft will be updated in-place
+  ~ resource "aws_instance" "minecraft" {
+        id                                   = "i-a8648f2298362af1c"
+        tags                                 = {
+            "Name" = "phantosio-minecraft-host"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-ad30199fac0970df7",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

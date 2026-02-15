@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "### Target AWS architecture (static site: S3 origin + CloudFront CDN) \n\n#### 1) Content build & deployment (GitHub Actions → AWS)\n- **Source** lives in GitHub (HTML/CSS/JS) and is built by GitHub Actions using **Node.js + Parcel + Tailwind/PostCSS**.\n- The workflow authenticates to AWS using **GitHub OIDC** (no long‑lived AWS keys):\n  - Create an **IAM OIDC identity provider** for `token.actions.githubusercontent.com`.\n  - GitHub Actions assumes a dedicated **IAM role** via `AssumeRoleWithWebIdentity`.\n- The deploy job uploads build artifacts (typically `dist/`) to an **S3 bucket** using `aws s3 sync`.\n- After upload, the workflow triggers a **CloudFront invalidation** so edge caches refresh quickly.\n\n#### 2) Static hosting & request path (End user → CloudFront → S3)\n- **CloudFront Distribution** is the public entry point:\n  - Enforces **HTTPS** (redirect HTTP→HTTPS).\n  - Caches static assets at edge locations.\n  - Uses a custom error response (recommended) to support SPA-style routing if needed (e.g., map 403/404 to `/index.html`).\n- **S3 bucket is private** and used only as the CloudFront origin:\n  - Block all public access.\n  - Grant CloudFront access via **Origin Access Control (OAC)** (recommended over legacy OAI).\n  - Enable versioning (recommended) to reduce risk during deployments/rollbacks.\n\n#### 3) DNS & TLS (optional but typical for production)\n- If you have a custom domain:\n  - Use **Route 53** hosted zone + alias record to CloudFront.\n  - Use **ACM certificate in us-east-1** for CloudFront TLS.\n\n#### 4) Security, observability, and operations\n- **Least privilege IAM** for the GitHub deploy role:\n  - Allow only `s3:PutObject`, `s3:DeleteObject`, `s3:ListBucket` on the target bucket/prefix.\n  - Allow only `cloudfront:CreateInvalidation` on the specific distribution.\n- **Logging/monitoring**:\n  - CloudFront access logs to S3 (optional) and/or CloudFront real-time logs (optional).\n  - CloudWatch metrics/alarms for CloudFront (4xx/5xx, total requests, cache hit rate) and S3 (4xx/5xx).\n- **WAF (optional)** in front of CloudFront if you want managed protections (bot control, common exploits) even for static sites.\n\n#### 5) What you *don’t* need for this system\n- No VPC, subnets, EC2, ECS, EKS, or RDS are required because the runtime is purely static content served by CloudFront/S3.\n\n---\n\n### Deployment strategy (lean and safe)\n- **Single S3 bucket** as the origin, with **atomic-ish deploys** by syncing the new build and invalidating CloudFront.\n- If you want safer rollbacks later, you can evolve to:\n  - **Versioned object keys** (content-hashed assets already typical with Parcel) + minimal invalidations.\n  - Or **two buckets / two prefixes** with CloudFront origin path switching (more complex; usually unnecessary for small static sites).\n",
+  "aws_resources": [
+    "IAM OIDC Identity Provider (GitHub Actions: token.actions.githubusercontent.com)",
+    "IAM Role for GitHub Actions deployment (AssumeRoleWithWebIdentity trust policy)",
+    "IAM Policy attached to deploy role (least-privilege S3 sync + CloudFront invalidation)",
+    "Amazon S3 Bucket (private) for static site artifacts (origin)",
+    "S3 Bucket Public Access Block (account/bucket level)",
+    "S3 Bucket Policy allowing CloudFront access via Origin Access Control (OAC)",
+    "S3 Bucket Versioning (recommended)",
+    "Amazon CloudFront Distribution (default behavior, HTTPS redirect, caching)",
+    "CloudFront Origin Access Control (OAC) for S3 origin",
+    "CloudFront Cache Policy (managed or custom)",
+    "CloudFront Response Headers Policy (security headers; optional but recommended)",
+    "AWS Certificate Manager (ACM) certificate in us-east-1 for custom domain (optional)",
+    "Amazon Route 53 Hosted Zone + Alias A/AAAA record to CloudFront (optional)",
+    "Amazon CloudWatch Alarms for CloudFront (4xx/5xx, etc.) (recommended)",
+    "S3 Bucket for CloudFront access logs (optional)",
+    "AWS WAF Web ACL associated with CloudFront (optional)"
+  ]
+}

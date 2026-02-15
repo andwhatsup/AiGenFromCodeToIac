@@ -1,0 +1,617 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # helm_release.grafana will be created
+  + resource "helm_release" "grafana" {
+      + atomic                     = false
+      + chart                      = "grafana"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "grafana"
+      + namespace                  = "monitoring"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://grafana.github.io/helm-charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add grafana https://grafana.github.io/helm-charts
+                # helm repo update
+                # helm show values grafana/grafana --version 7.3.7
+                adminUser: admin
+                adminPassword: devops123
+                
+                grafana.ini:
+                  server:
+                    root_url: http://localhost:30080/grafana # this host can be localhost
+                
+                datasources:
+                  datasources.yaml:
+                    apiVersion: 1
+                
+                    datasources:
+                      - name: victoria-metrics
+                        type: prometheus
+                        access: proxy
+                        orgId: 1
+                        url: http://vm-victoria-metrics-single-victoria-server:8428
+                        basicAuth: false
+                        isDefault: true
+                        version: 1
+                        editable: true
+                        apiVersion: 1
+                        uid: victoria-metrics
+                      - name: Tempo
+                        type: tempo
+                        access: proxy
+                        orgId: 1
+                        url: http://tempo-query-frontend:3100
+                        basicAuth: false
+                        isDefault: false
+                        version: 1
+                        editable: true
+                        apiVersion: 1
+                        uid: tempo
+                        jsonData:
+                          serviceMap:
+                            datasourceUid: victoria-metrics
+                service:
+                  appProtocol: http
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "7.3.7"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # helm_release.grafana-tempo-distributed will be created
+  + resource "helm_release" "grafana-tempo-distributed" {
+      + atomic                     = false
+      + chart                      = "tempo-distributed"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "tempo"
+      + namespace                  = "monitoring"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://grafana.github.io/helm-charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add grafana https://grafana.github.io/helm-charts
+                # helm repo update
+                # helm show values grafana/tempo-distributed --version 1.9.1
+                tempo:
+                  fullname: tempo
+                  memberlist:
+                    appProtocol: tcp
+                traces:
+                  otlp:
+                    grpc:
+                      enabled: false
+                    http:
+                      enabled: true
+                  zipkin:
+                    enabled: true
+                  jaeger:
+                    thriftHttp:
+                      enabled: false
+                  opencensus:
+                    enabled: false
+                metricsGenerator:
+                  appProtocol:
+                    grpc: tcp
+                  enabled: true
+                  config:
+                    storage:
+                      remote_write_flush_deadline: 1m
+                      remote_write:
+                        - url: http://vm-victoria-metrics-single-victoria-server:8428/api/v1/write
+                          send_exemplars: true
+                # distributor:
+                # if you want debug logs for distributor
+                #   config:
+                #     log_received_spans:
+                #       enabled: true
+                #       include_all_attributes: true
+                ingester:
+                  replicas: 1
+                  config:
+                    replication_factor: 1
+                global_overrides:
+                  metrics_generator_processors:
+                    - service-graphs
+                    - span-metrics
+                memberlist:
+                  rejoin_interval: 60s
+                  dead_node_reclaim_time: 60s
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "1.9.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + postrender {
+          + binary_path = "./scripts/tempo-add-app-protocols.py"
+        }
+    }
+
+  # helm_release.istio-base will be created
+  + resource "helm_release" "istio-base" {
+      + atomic                     = false
+      + chart                      = "base"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "istio-base"
+      + namespace                  = "istio-system"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://istio-release.storage.googleapis.com/charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add istio https://istio-release.storage.googleapis.com/charts
+                # helm repo update
+                # helm show values istio/base --version 1.21.1
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "1.21.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # helm_release.istio-ingressgateway will be created
+  + resource "helm_release" "istio-ingressgateway" {
+      + atomic                     = false
+      + chart                      = "gateway"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "istio-ingressgateway"
+      + namespace                  = "istio-ingress"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://istio-release.storage.googleapis.com/charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add istio https://istio-release.storage.googleapis.com/charts
+                # helm repo update
+                # helm show values istio/gateway --version 1.21.1
+                service:
+                  type: NodePort
+                  ports:
+                    - name: status-port
+                      port: 15021
+                      nodePort: 30021
+                      protocol: TCP
+                      targetPort: 15021
+                    - name: http2
+                      port: 80
+                      nodePort: 30080
+                      protocol: TCP
+                      targetPort: 80
+                    - name: https
+                      port: 443
+                      nodePort: 30443
+                      protocol: TCP
+                      targetPort: 443
+                tolerations:
+                  - effect: "NoSchedule"
+                    key: "node-role.kubernetes.io/master"
+                    operator: "Equal"
+                  - effect: "NoSchedule"
+                    key: "node-role.kubernetes.io/control-plane"
+                    operator: "Equal"
+                # nodeSelector:
+                #   ingress-ready: "true"
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "1.21.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+
+      + set {
+          + name  = "controller.publishService.enabled"
+          + value = "true"
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # helm_release.istio-istiod will be created
+  + resource "helm_release" "istio-istiod" {
+      + atomic                     = false
+      + chart                      = "istiod"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "istio-istiod"
+      + namespace                  = "istio-system"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://istio-release.storage.googleapis.com/charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add istio https://istio-release.storage.googleapis.com/charts
+                # helm repo update
+                # helm show values istio/istiod --version 1.21.1
+                defaults:
+                  meshConfig:
+                    extensionProviders:
+                    - name: zipkin
+                      zipkin:
+                        service: tempo-distributor.monitoring.svc.cluster.local
+                        port: 9411
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "1.21.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # helm_release.metrics_server will be created
+  + resource "helm_release" "metrics_server" {
+      + atomic                     = false
+      + chart                      = "metrics-server"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "metrics-server"
+      + namespace                  = "monitoring"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://kubernetes-sigs.github.io/metrics-server/"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+                # helm repo update
+                # helm show values metrics-server/metrics-server --version 3.12.1
+                serviceMonitor:
+                  enabled: true
+                metrics:
+                  enabled: true
+                args:
+                  - --cert-dir=/tmp
+                  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+                  - --kubelet-use-node-status-port
+                  - --metric-resolution=15s
+                  - --kubelet-insecure-tls
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "3.12.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # helm_release.prometheus_operator_crds will be created
+  + resource "helm_release" "prometheus_operator_crds" {
+      + atomic                     = false
+      + chart                      = "prometheus-operator-crds"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "prometheus-operator-crds"
+      + namespace                  = "monitoring"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://prometheus-community.github.io/helm-charts"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + verify                     = false
+      + version                    = "11.0.0"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # helm_release.victoria-metrics-single will be created
+  + resource "helm_release" "victoria-metrics-single" {
+      + atomic                     = false
+      + chart                      = "victoria-metrics-single"
+      + cleanup_on_fail            = false
+      + create_namespace           = true
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + manifest                   = (known after apply)
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "vm"
+      + namespace                  = "monitoring"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "https://victoriametrics.github.io/helm-charts/"
+      + reset_values               = false
+      + reuse_values               = false
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + timeout                    = 300
+      + values                     = [
+          + <<-EOT
+                # to check defaults
+                # helm repo add vm https://victoriametrics.github.io/helm-charts/
+                # helm repo update
+                # helm show values vm/victoria-metrics-single --version 0.9.17
+                server:
+                  name: "victoria-server"
+                  scrape:
+                    enabled: true
+            EOT,
+        ]
+      + verify                     = false
+      + version                    = "0.9.17"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+  # kind_cluster.new will be created
+  + resource "kind_cluster" "new" {
+      + client_certificate     = (known after apply)
+      + client_key             = (known after apply)
+      + cluster_ca_certificate = (known after apply)
+      + completed              = (known after apply)
+      + endpoint               = (known after apply)
+      + id                     = (known after apply)
+      + kubeconfig             = (known after apply)
+      + kubeconfig_path        = "/.kube/config"
+      + name                   = "demo-local"
+      + node_image             = (known after apply)
+      + wait_for_ready         = true
+
+      + kind_config {
+          + api_version = "kind.x-k8s.io/v1alpha4"
+          + kind        = "Cluster"
+
+          + node {
+              + kubeadm_config_patches = [
+                  + <<-EOT
+                        kind: ClusterConfiguration
+                        etcd:
+                          local:
+                            # Run etcd in a tmpfs (in RAM) for performance improvements
+                            dataDir: /tmp/kind-cluster-etcd
+                        apiServer:
+                          extraArgs:
+                            profiling: "true"
+                        # We run single node, drop leader election to reduce overhead
+                        controllerManager:
+                          extraArgs:
+                            leader-elect: "false"
+                        scheduler:
+                          extraArgs:
+                            leader-elect: "false"
+                        ---
+                        kind: InitConfiguration
+                        nodeRegistration:
+                          kubeletExtraArgs:
+                            node-labels: "ingress-ready=true"
+                        patches:
+                          directory: /patches
+                    EOT,
+                ]
+              + role                   = "control-plane"
+
+              + extra_mounts {
+                  + container_path = "/patches"
+                  + host_path      = "./kind-patches"
+                }
+
+              + extra_port_mappings {
+                  + container_port = 80
+                  + host_port      = 80
+                }
+              + extra_port_mappings {
+                  + container_port = 443
+                  + host_port      = 443
+                }
+              + extra_port_mappings {
+                  + container_port = 30443
+                  + host_port      = 30443
+                }
+              + extra_port_mappings {
+                  + container_port = 30080
+                  + host_port      = 30080
+                }
+              + extra_port_mappings {
+                  + container_port = 30021
+                  + host_port      = 30021
+                }
+            }
+          + node {
+              + role = "worker"
+            }
+        }
+    }
+
+  # null_resource.apply_k8s_manifests will be created
+  + resource "null_resource" "apply_k8s_manifests" {
+      + id       = (known after apply)
+      + triggers = {
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+  # null_resource.build_app_image will be created
+  + resource "null_resource" "build_app_image" {
+      + id       = (known after apply)
+      + triggers = {
+          + "file_dockerfile"   = "98fc6e696965f2a23367db6229254a7d89cb2fdc03643de6ea6fbec842546488"
+          + "file_go_mod"       = "6f838243bdee389e078573b8861db37b3b6b3d70af8287ce1e016d0f892c6e26"
+          + "file_go_sum"       = "0b7f87e3af411229f983d1c8595093626d87f54b22736efaaa7a6c30ed63caf5"
+          + "go_files_checksum" = "fee2808a010022010b7233dcdc6fdc3826fe7d1061475d43d2c00b3571726416"
+          + "kind_cluster"      = (known after apply)
+        }
+    }
+
+  # null_resource.deploy_my_go_app will be created
+  + resource "null_resource" "deploy_my_go_app" {
+      + id       = (known after apply)
+      + triggers = {
+          + "deployment"   = "9af449712c3e6d64f759fe844d371202d4fc037c774ec03ad70041a527ca59bb"
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+  # null_resource.namespace_app will be created
+  + resource "null_resource" "namespace_app" {
+      + id       = (known after apply)
+      + triggers = {
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+  # null_resource.namespace_istio-ingress will be created
+  + resource "null_resource" "namespace_istio-ingress" {
+      + id       = (known after apply)
+      + triggers = {
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+  # null_resource.namespace_istio-system will be created
+  + resource "null_resource" "namespace_istio-system" {
+      + id       = (known after apply)
+      + triggers = {
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+  # null_resource.namespace_monitoring will be created
+  + resource "null_resource" "namespace_monitoring" {
+      + id       = (known after apply)
+      + triggers = {
+          + "kind_cluster" = (known after apply)
+        }
+    }
+
+Plan: 16 to add, 0 to change, 0 to destroy.

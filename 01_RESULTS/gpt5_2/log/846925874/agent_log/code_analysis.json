@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/846925874",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Nginx (static web serving via Docker base image)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Docker base image) — Dockerfile"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/846925874/Dockerfile",
+        "/ai-gen-from-code-to-iac/workspace/846925874/deployment.yaml",
+        "/ai-gen-from-code-to-iac/workspace/846925874/service.yaml",
+        "/ai-gen-from-code-to-iac/workspace/846925874/manifests/app-deploy.yaml",
+        "/ai-gen-from-code-to-iac/workspace/846925874/manifests/app-svc.yaml",
+        "/ai-gen-from-code-to-iac/workspace/846925874/Jenkinsfile",
+        "/ai-gen-from-code-to-iac/workspace/846925874/.github/workflows/docker-image.yml",
+        "/ai-gen-from-code-to-iac/workspace/846925874/.github/workflows/docker-publish.yml"
+      ],
+      "architectural_resources": [
+        "Static web application (HTML/CSS/JS) served by Nginx container",
+        "Container image registry (Docker Hub referenced in Jenkinsfile: yash5090/wd-prediction:latest; GHCR referenced in .github/workflows/docker-publish.yml)",
+        "Kubernetes Deployment (replicas=6) — deployment.yaml and manifests/app-deploy.yaml",
+        "Kubernetes Service type LoadBalancer — service.yaml and manifests/app-svc.yaml",
+        "AWS Load Balancer (ALB) implied by Service annotations in service.yaml: service.beta.kubernetes.io/aws-load-balancer-type: \"alb\"",
+        "CI/CD: Jenkins pipeline (build/scan/push/deploy) — Jenkinsfile",
+        "CI/CD: GitHub Actions Docker build/publish — .github/workflows/*.yml"
+      ]
+    }
+  ]
+}

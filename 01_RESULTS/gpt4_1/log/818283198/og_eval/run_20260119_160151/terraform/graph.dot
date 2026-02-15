@@ -1,0 +1,60 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_cloudwatch_event_rule.every_15_minutes" [label="aws_cloudwatch_event_rule.every_15_minutes"];
+  "aws_cloudwatch_event_target.playwright_lambda" [label="aws_cloudwatch_event_target.playwright_lambda"];
+  "aws_ecr_repository.playwright_lambda" [label="aws_ecr_repository.playwright_lambda"];
+  "aws_lambda_permission.eventbridge" [label="aws_lambda_permission.eventbridge"];
+  subgraph "cluster_module.playwright_lambda" {
+    label = "module.playwright_lambda"
+    fontname = "sans-serif"
+    "module.playwright_lambda.data.aws_iam_policy.lambda_insights" [label="data.aws_iam_policy.lambda_insights"];
+    "module.playwright_lambda.data.aws_iam_policy_document.non_vpc_policies" [label="data.aws_iam_policy_document.non_vpc_policies"];
+    "module.playwright_lambda.data.aws_iam_policy_document.service_principal" [label="data.aws_iam_policy_document.service_principal"];
+    "module.playwright_lambda.data.aws_iam_policy_document.vpc_policies" [label="data.aws_iam_policy_document.vpc_policies"];
+    "module.playwright_lambda.aws_cloudwatch_log_group.this" [label="aws_cloudwatch_log_group.this"];
+    "module.playwright_lambda.aws_cloudwatch_query_definition.lambda_statistics" [label="aws_cloudwatch_query_definition.lambda_statistics"];
+    "module.playwright_lambda.aws_iam_policy.non_vpc_policies" [label="aws_iam_policy.non_vpc_policies"];
+    "module.playwright_lambda.aws_iam_policy.policies" [label="aws_iam_policy.policies"];
+    "module.playwright_lambda.aws_iam_policy.vpc_policies" [label="aws_iam_policy.vpc_policies"];
+    "module.playwright_lambda.aws_iam_role.this" [label="aws_iam_role.this"];
+    "module.playwright_lambda.aws_iam_role_policy_attachment.AWSLambdaVPCAccessExecutionRole" [label="aws_iam_role_policy_attachment.AWSLambdaVPCAccessExecutionRole"];
+    "module.playwright_lambda.aws_iam_role_policy_attachment.attachments" [label="aws_iam_role_policy_attachment.attachments"];
+    "module.playwright_lambda.aws_iam_role_policy_attachment.lambda_insights" [label="aws_iam_role_policy_attachment.lambda_insights"];
+    "module.playwright_lambda.aws_iam_role_policy_attachment.non_vpc_policies" [label="aws_iam_role_policy_attachment.non_vpc_policies"];
+    "module.playwright_lambda.aws_iam_role_policy_attachment.vpc_policies" [label="aws_iam_role_policy_attachment.vpc_policies"];
+    "module.playwright_lambda.aws_lambda_alias.this" [label="aws_lambda_alias.this"];
+    "module.playwright_lambda.aws_lambda_function.this" [label="aws_lambda_function.this"];
+    "module.playwright_lambda.aws_lambda_permission.api_gateway" [label="aws_lambda_permission.api_gateway"];
+    "module.playwright_lambda.aws_lambda_permission.s3_execution" [label="aws_lambda_permission.s3_execution"];
+    "module.playwright_lambda.aws_lambda_permission.sns" [label="aws_lambda_permission.sns"];
+    "module.playwright_lambda.aws_s3_bucket_notification.this" [label="aws_s3_bucket_notification.this"];
+  }
+  "aws_cloudwatch_event_target.playwright_lambda" -> "aws_cloudwatch_event_rule.every_15_minutes";
+  "aws_cloudwatch_event_target.playwright_lambda" -> "module.playwright_lambda.aws_lambda_function.this";
+  "aws_lambda_permission.eventbridge" -> "aws_cloudwatch_event_rule.every_15_minutes";
+  "aws_lambda_permission.eventbridge" -> "module.playwright_lambda.aws_lambda_function.this";
+  "module.playwright_lambda.data.aws_iam_policy_document.non_vpc_policies" -> "aws_ecr_repository.playwright_lambda";
+  "module.playwright_lambda.data.aws_iam_policy_document.vpc_policies" -> "aws_ecr_repository.playwright_lambda";
+  "module.playwright_lambda.aws_cloudwatch_query_definition.lambda_statistics" -> "module.playwright_lambda.aws_cloudwatch_log_group.this";
+  "module.playwright_lambda.aws_iam_policy.non_vpc_policies" -> "module.playwright_lambda.data.aws_iam_policy_document.non_vpc_policies";
+  "module.playwright_lambda.aws_iam_policy.vpc_policies" -> "module.playwright_lambda.data.aws_iam_policy_document.vpc_policies";
+  "module.playwright_lambda.aws_iam_role.this" -> "module.playwright_lambda.data.aws_iam_policy_document.service_principal";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.AWSLambdaVPCAccessExecutionRole" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.attachments" -> "module.playwright_lambda.aws_iam_policy.policies";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.attachments" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.lambda_insights" -> "module.playwright_lambda.data.aws_iam_policy.lambda_insights";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.lambda_insights" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.non_vpc_policies" -> "module.playwright_lambda.aws_iam_policy.non_vpc_policies";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.non_vpc_policies" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.vpc_policies" -> "module.playwright_lambda.aws_iam_policy.vpc_policies";
+  "module.playwright_lambda.aws_iam_role_policy_attachment.vpc_policies" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_lambda_alias.this" -> "module.playwright_lambda.aws_lambda_function.this";
+  "module.playwright_lambda.aws_lambda_function.this" -> "aws_ecr_repository.playwright_lambda";
+  "module.playwright_lambda.aws_lambda_function.this" -> "module.playwright_lambda.aws_iam_role.this";
+  "module.playwright_lambda.aws_lambda_permission.api_gateway" -> "module.playwright_lambda.aws_lambda_function.this";
+  "module.playwright_lambda.aws_lambda_permission.s3_execution" -> "module.playwright_lambda.aws_lambda_function.this";
+  "module.playwright_lambda.aws_lambda_permission.sns" -> "module.playwright_lambda.aws_lambda_function.this";
+  "module.playwright_lambda.aws_s3_bucket_notification.this" -> "module.playwright_lambda.aws_lambda_permission.s3_execution";
+}

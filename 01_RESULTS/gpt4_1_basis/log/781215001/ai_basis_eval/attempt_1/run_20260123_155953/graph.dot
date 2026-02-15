@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_security_group.default" [label="data.aws_security_group.default"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_db_instance.postgres" [label="aws_db_instance.postgres"];
+  "aws_db_subnet_group.default" [label="aws_db_subnet_group.default"];
+  "random_password.db" [label="random_password.db"];
+  "data.aws_security_group.default" -> "data.aws_vpc.default";
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_db_instance.postgres" -> "data.aws_security_group.default";
+  "aws_db_instance.postgres" -> "aws_db_subnet_group.default";
+  "aws_db_subnet_group.default" -> "data.aws_subnets.default";
+}

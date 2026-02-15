@@ -1,0 +1,32 @@
+{
+  "aws_architecture_description": "### Target AWS architecture (EKS + ECR + GitHub Actions)\n\n#### 1) Networking foundation\n- Create a dedicated **VPC** spanning **at least 2 Availability Zones** for high availability.\n- Use **public subnets** (one per AZ) for internet-facing load balancers and **private subnets** (one per AZ) for EKS worker nodes and pods.\n- Attach an **Internet Gateway** to the VPC.\n- Add **NAT Gateway(s)** in the public subnets so private-subnet nodes/pods can reach the internet (e.g., to pull images from ECR, reach AWS APIs, and download OS/package updates).\n- Configure **route tables** so:\n  - Public subnets route `0.0.0.0/0` to the Internet Gateway.\n  - Private subnets route `0.0.0.0/0` to the NAT Gateway.\n\n#### 2) Container image build & storage\n- Use **Amazon ECR** as the container registry.\n- GitHub Actions builds the Docker image (`python:3.9-slim` + `serve.py`) and pushes to ECR.\n- Enable **ECR image scanning** and apply a **lifecycle policy** (e.g., keep last N images) to control storage growth.\n\n#### 3) Kubernetes runtime (Amazon EKS)\n- Provision an **Amazon EKS cluster**.\n- Run workloads on **EKS Managed Node Groups** (EC2) in private subnets.\n- Use **IAM Roles for Service Accounts (IRSA)** so Kubernetes service accounts can access AWS APIs securely without node-wide credentials.\n- Deploy the application via **Helm** (as your repo already does):\n  - **Deployment**: N replicas of the Python HTTP server container listening on **port 8080**.\n  - **ConfigMap**: provides `index.html` content (either created by Helm template or applied by `kubectl` in CI).\n  - **Service type LoadBalancer**: provisions an AWS load balancer to expose the service publicly.\n\n#### 4) Ingress / Load balancing\n- Keep the current pattern: **Kubernetes Service (type LoadBalancer)**.\n- Recommended: use the **AWS Load Balancer Controller** so Kubernetes can provision and manage **Application Load Balancers (ALB)** (or NLB where appropriate) with consistent tagging, health checks, and security group management.\n- Terminate TLS at the load balancer using **ACM** certificates (recommended even for a simple static page) and optionally enforce HTTP→HTTPS redirect.\n\n#### 5) DNS\n- Use **Route 53** to map a friendly domain (e.g., `echo.example.com`) to the provisioned load balancer.\n\n#### 6) Security controls\n- Use **security groups** to:\n  - Allow inbound **443 (and optionally 80)** from the internet to the load balancer.\n  - Allow inbound traffic from the load balancer security group to worker nodes/pods on the target port (8080 / target group port).\n- Use **IAM least privilege**:\n  - EKS cluster role, node instance role, and IRSA roles for controllers.\n  - A dedicated IAM role for GitHub Actions to push to ECR and deploy to EKS.\n- Store any sensitive values (if added later) in **AWS Secrets Manager** (even though current app content is static).\n\n#### 7) Observability & operations\n- Send cluster and application logs/metrics to **CloudWatch**:\n  - EKS control plane logging enabled.\n  - Container logs via CloudWatch agent / Fluent Bit (commonly via an EKS add-on).\n- Use **CloudWatch Alarms** for load balancer 5xx, target health, and node group capacity.\n- Use **AWS CloudTrail** for auditing API activity.\n\n#### 8) CI/CD access pattern (GitHub Actions → AWS)\n- Use **GitHub OIDC federation** to assume an AWS IAM role (no long-lived AWS keys in GitHub secrets).\n- The workflow:\n  1) Builds and pushes image to ECR.\n  2) Updates kubeconfig for EKS.\n  3) Runs `helm upgrade --install` to deploy.\n\n#### 9) External third-party dependency\n- The browser calls **ipinfo.io** directly (JSONP). No AWS-side egress is required for that call, but you should:\n  - Ensure your site is served over HTTPS to reduce mixed-content/security issues.\n  - Consider a CSP header later if you want to restrict third-party scripts.\n\n---\n\n### Lean defaults / sizing notes\n- This is a small static server; EKS is already chosen by the repo, so keep it.\n- Start with **2 private subnets + 2 public subnets** across 2 AZs.\n- Start with **1 managed node group** (min 2 nodes for HA) and enable cluster autoscaler later only if needed.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC public subnets (>=2 AZs)",
+    "VPC private subnets (>=2 AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (at least 1; optionally 1 per AZ)",
+    "Elastic IPs for NAT Gateway(s)",
+    "Route tables (public and private) + route associations",
+    "VPC endpoints (recommended): ECR API (com.amazonaws.<region>.ecr.api), ECR DKR (com.amazonaws.<region>.ecr.dkr), S3 Gateway endpoint (for ECR layers), STS endpoint (optional)",
+    "Security Groups (Load Balancer SG, Node Group SG, Controller SGs as needed)",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group(s) (EC2)",
+    "IAM Role for EKS Cluster",
+    "IAM Role for EKS Node Group instances (with required policies)",
+    "IAM OIDC provider for the EKS cluster (for IRSA)",
+    "IAM Roles for Service Accounts (IRSA) for: AWS Load Balancer Controller, logging/metrics agents (if used)",
+    "Amazon ECR Repository",
+    "ECR lifecycle policy",
+    "ECR image scanning configuration (basic/enhanced as chosen)",
+    "AWS Load Balancer Controller (EKS add-on/Helm deployment)",
+    "Elastic Load Balancer provisioned by Kubernetes (typically ALB via controller, or NLB depending on configuration)",
+    "AWS Certificate Manager (ACM) certificate (for HTTPS)",
+    "Amazon Route 53 Hosted Zone (if you manage DNS in Route 53)",
+    "Route 53 DNS record (A/AAAA alias) to the load balancer",
+    "Amazon CloudWatch Log Groups (EKS control plane logs; container logs if configured)",
+    "CloudWatch Alarms (LB 4xx/5xx, target health, node CPU/memory as needed)",
+    "AWS CloudTrail (account-level; ensure enabled)",
+    "IAM Role for GitHub Actions via OIDC (permissions to push to ECR and deploy to EKS)"
+  ]
+}

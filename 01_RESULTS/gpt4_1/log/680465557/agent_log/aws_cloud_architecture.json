@@ -1,0 +1,14 @@
+{
+  "aws_architecture_description": "This system is a serverless Python application deployed as an AWS Lambda function, packaged using Docker for custom dependencies. The Lambda function is the core compute resource and is triggered either on-demand (via direct invocation, scheduled events, or API Gateway, depending on use case). It interacts with AWS S3 for persistent storage (reading/writing data) and communicates with the GitHub API for external operations (such as fetching or updating repository data). IAM roles and policies are used to grant the Lambda function least-privilege access to AWS resources (S3, CloudWatch Logs, etc.). The architecture is designed for scalability, security, and cost-efficiency, following AWS best practices for serverless deployments. All resources are deployed within a secure VPC for network isolation, and monitoring/logging is enabled via CloudWatch. The architecture can be extended to include API Gateway if the Lambda needs to be invoked via HTTP endpoints, or EventBridge if scheduled/triggered by AWS events.",
+  "aws_resources": [
+    "VPC (for network isolation and security)",
+    "Subnets (public/private, as needed for Lambda networking)",
+    "Security Groups (restrict Lambda and S3 access)",
+    "AWS Lambda Function (Python, Docker image)",
+    "IAM Role for Lambda (with policies for S3, CloudWatch Logs, and least-privilege access)",
+    "S3 Bucket (for persistent storage)",
+    "CloudWatch Log Group (for Lambda logging/monitoring)",
+    "(Optional) API Gateway (if Lambda is to be invoked via HTTP)",
+    "(Optional) EventBridge Rule (if Lambda is triggered on a schedule or by AWS events)"
+  ]
+}

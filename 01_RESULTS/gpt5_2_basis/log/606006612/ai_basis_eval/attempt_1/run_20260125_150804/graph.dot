@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_log_group.app" [label="aws_cloudwatch_log_group.app"];
+  "aws_ecs_cluster.this" [label="aws_ecs_cluster.this"];
+  "aws_ecs_service.this" [label="aws_ecs_service.this"];
+  "aws_ecs_task_definition.this" [label="aws_ecs_task_definition.this"];
+  "aws_ecs_service.this" -> "aws_ecs_cluster.this";
+  "aws_ecs_service.this" -> "aws_ecs_task_definition.this";
+  "aws_ecs_task_definition.this" -> "aws_cloudwatch_log_group.app";
+}

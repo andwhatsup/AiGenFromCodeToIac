@@ -1,0 +1,767 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_26",
+                "bc_check_id": "BC_AWS_GENERAL_15",
+                "check_name": "Ensure all data stored in the SNS topic is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/alarm.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/alarm.tf",
+                "repo_file_path": "/alarm.tf",
+                "file_line_range": [
+                    1,
+                    3
+                ],
+                "resource": "aws_sns_topic.lambda_failure_topic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SNSTopicEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-15",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/alarm.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "locals",
+                            "name": "sns_topic_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_297",
+                "bc_check_id": "BC_AWS_GENERAL_212",
+                "check_name": "Ensure EventBridge Scheduler Schedule uses Customer Managed Key (CMK)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/event_bridge_schedules.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/event_bridge_schedules.tf",
+                "repo_file_path": "/event_bridge_schedules.tf",
+                "file_line_range": [
+                    5,
+                    29
+                ],
+                "resource": "aws_scheduler_schedule.venmo_action_schedule",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SchedulerScheduleUsesCMK",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-297",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/event_bridge_schedules.tf",
+                "breadcrumbs": {
+                    "schedule_expression_timezone": [
+                        {
+                            "type": "locals",
+                            "name": "scheduler_time_zone",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "for_each": [
+                        {
+                            "type": "locals",
+                            "name": "venmo_schedules",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_50",
+                "bc_check_id": "BC_AWS_SERVERLESS_4",
+                "check_name": "X-Ray tracing is enabled for Lambda",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_config/[0]/mode"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaXrayEnabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-4",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_117",
+                "bc_check_id": "BC_AWS_GENERAL_65",
+                "check_name": "Ensure that AWS Lambda function is configured inside a VPC",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "vpc_config"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaInVPC",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-inside-a-vpc-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_116",
+                "bc_check_id": "BC_AWS_GENERAL_64",
+                "check_name": "Ensure that AWS Lambda function is configured for a Dead Letter Queue(DLQ)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "dead_letter_config/[0]/target_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaDLQConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-a-dead-letter-queue-dlq",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_173",
+                "bc_check_id": "BC_AWS_SERVERLESS_5",
+                "check_name": "Check encryption settings for Lambda environmental variable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaEnvironmentEncryptionSettings",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-5",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_272",
+                "bc_check_id": "BC_AWS_General_201",
+                "check_name": "Ensure AWS Lambda function is configured to validate code-signing",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "code_signing_config_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaCodeSigningConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-272",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_115",
+                "bc_check_id": "BC_AWS_GENERAL_63",
+                "check_name": "Ensure that AWS Lambda function is configured for function-level concurrent execution limit",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "reserved_concurrent_executions/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    5,
+                    21
+                ],
+                "resource": "aws_lambda_function.venmo_lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaFunctionLevelConcurrentExecutionLimit",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-function-level-concurrent-execution-limit",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "source_code_hash": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_source_hash",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    23,
+                    26
+                ],
+                "resource": "aws_cloudwatch_log_group.venmo_lambda_log_group",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/lambda.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "repo_file_path": "/lambda.tf",
+                "file_line_range": [
+                    23,
+                    26
+                ],
+                "resource": "aws_cloudwatch_log_group.venmo_lambda_log_group",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo_lambda",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/727975812/terraform/lambda.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 38,
+        "failed": 10,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 14,
+        "checkov_version": "3.2.490"
+    }
+}

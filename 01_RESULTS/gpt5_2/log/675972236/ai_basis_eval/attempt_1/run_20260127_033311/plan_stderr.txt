@@ -1,0 +1,11 @@
+
+Error: Error in function call
+
+  on main.tf line 38, in resource "aws_lambda_function" "app":
+  38:   source_code_hash = filebase64sha256(var.lambda_zip_path)
+    ├────────────────
+    │ while calling filebase64sha256(path)
+    │ var.lambda_zip_path is "../build/rigitbot.zip"
+
+Call to function "filebase64sha256" failed: open ../build/rigitbot.zip: no
+such file or directory.

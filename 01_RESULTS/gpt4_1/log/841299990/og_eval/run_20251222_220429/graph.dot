@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_instance.chatapp_server" [label="aws_instance.chatapp_server"];
+  "aws_internet_gateway.igw-chat" [label="aws_internet_gateway.igw-chat"];
+  "aws_key_pair.generated_key_pair" [label="aws_key_pair.generated_key_pair"];
+  "aws_main_route_table_association.mainrt-chatapp" [label="aws_main_route_table_association.mainrt-chatapp"];
+  "aws_route_table.route-chatapp" [label="aws_route_table.route-chatapp"];
+  "aws_security_group.allow_ports" [label="aws_security_group.allow_ports"];
+  "aws_subnet.subnet-chatapp-1" [label="aws_subnet.subnet-chatapp-1"];
+  "aws_vpc.vpc-chat" [label="aws_vpc.vpc-chat"];
+  "local_file.TF_key" [label="local_file.TF_key"];
+  "tls_private_key.example" [label="tls_private_key.example"];
+  "aws_instance.chatapp_server" -> "aws_key_pair.generated_key_pair";
+  "aws_instance.chatapp_server" -> "aws_security_group.allow_ports";
+  "aws_instance.chatapp_server" -> "aws_subnet.subnet-chatapp-1";
+  "aws_instance.chatapp_server" -> "local_file.TF_key";
+  "aws_internet_gateway.igw-chat" -> "aws_vpc.vpc-chat";
+  "aws_key_pair.generated_key_pair" -> "tls_private_key.example";
+  "aws_main_route_table_association.mainrt-chatapp" -> "aws_route_table.route-chatapp";
+  "aws_route_table.route-chatapp" -> "aws_internet_gateway.igw-chat";
+  "aws_security_group.allow_ports" -> "aws_vpc.vpc-chat";
+  "aws_subnet.subnet-chatapp-1" -> "aws_vpc.vpc-chat";
+  "local_file.TF_key" -> "tls_private_key.example";
+}

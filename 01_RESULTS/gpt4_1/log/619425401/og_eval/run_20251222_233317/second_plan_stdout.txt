@@ -1,0 +1,27 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.assume_role: Reading...
+aws_cloudwatch_event_rule.every_hour: Refreshing state... [id=execute-every-hour]
+data.aws_iam_policy_document.assume_role: Read complete after 0s [id=2690255455]
+aws_dynamodb_table.delta-locking-table: Refreshing state... [id=delta_rs_lock_table]
+aws_iam_policy.lambda_permissions: Refreshing state... [id=arn:aws:iam::000000000000:policy/lambda-optimize-permissions]
+aws_iam_role.iam_for_lambda: Refreshing state... [id=iam_for_optimize_lambda]
+aws_lambda_function.optimize_lambda: Refreshing state... [id=delta-optimize]
+aws_lambda_permission.allow_cloudwatch_to_call_function: Refreshing state... [id=AllowExecutionFromCloudWatch]
+aws_cloudwatch_event_target.check_lambda_every_hour: Refreshing state... [id=execute-every-hour-delta-optimize]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
+Warning: Argument is deprecated
+
+  with aws_iam_role.iam_for_lambda,
+  on deployment.tf line 90, in resource "aws_iam_role" "iam_for_lambda":
+  90:   managed_policy_arns = [aws_iam_policy.lambda_permissions.arn]
+
+managed_policy_arns is deprecated. Use the aws_iam_role_policy_attachment
+resource instead. If Terraform should exclusively manage all managed policy
+attachments (the current behavior of this argument), use the
+aws_iam_role_policy_attachments_exclusive resource as well.

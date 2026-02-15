@@ -1,0 +1,30 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.archive_file.lambda_zip" [label="data.archive_file.lambda_zip"];
+  "data.aws_iam_policy_document.lambda_assume" [label="data.aws_iam_policy_document.lambda_assume"];
+  "data.aws_iam_policy_document.lambda_inline" [label="data.aws_iam_policy_document.lambda_inline"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy.lambda_inline" [label="aws_iam_role_policy.lambda_inline"];
+  "aws_lambda_event_source_mapping.sqs" [label="aws_lambda_event_source_mapping.sqs"];
+  "aws_lambda_function.handler" [label="aws_lambda_function.handler"];
+  "aws_s3_bucket.uploads" [label="aws_s3_bucket.uploads"];
+  "aws_s3_bucket_notification.to_sqs" [label="aws_s3_bucket_notification.to_sqs"];
+  "aws_s3_bucket_public_access_block.uploads" [label="aws_s3_bucket_public_access_block.uploads"];
+  "aws_sqs_queue.events" [label="aws_sqs_queue.events"];
+  "aws_sqs_queue_policy.allow_s3" [label="aws_sqs_queue_policy.allow_s3"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.lambda_inline" -> "aws_sqs_queue.events";
+  "aws_iam_role.lambda" -> "data.aws_iam_policy_document.lambda_assume";
+  "aws_iam_role_policy.lambda_inline" -> "data.aws_iam_policy_document.lambda_inline";
+  "aws_iam_role_policy.lambda_inline" -> "aws_iam_role.lambda";
+  "aws_lambda_event_source_mapping.sqs" -> "aws_lambda_function.handler";
+  "aws_lambda_function.handler" -> "data.archive_file.lambda_zip";
+  "aws_lambda_function.handler" -> "aws_iam_role_policy.lambda_inline";
+  "aws_s3_bucket.uploads" -> "random_id.suffix";
+  "aws_s3_bucket_notification.to_sqs" -> "aws_sqs_queue_policy.allow_s3";
+  "aws_s3_bucket_public_access_block.uploads" -> "aws_s3_bucket.uploads";
+  "aws_sqs_queue_policy.allow_s3" -> "aws_s3_bucket.uploads";
+  "aws_sqs_queue_policy.allow_s3" -> "aws_sqs_queue.events";
+}

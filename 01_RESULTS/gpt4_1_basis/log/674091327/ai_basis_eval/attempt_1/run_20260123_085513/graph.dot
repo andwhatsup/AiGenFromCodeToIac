@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.ecs_task_assume_role_policy" [label="data.aws_iam_policy_document.ecs_task_assume_role_policy"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_ecr_repository.app" [label="aws_ecr_repository.app"];
+  "aws_ecs_cluster.main" [label="aws_ecs_cluster.main"];
+  "aws_ecs_service.app" [label="aws_ecs_service.app"];
+  "aws_ecs_task_definition.app" [label="aws_ecs_task_definition.app"];
+  "aws_iam_role.ecs_task_execution" [label="aws_iam_role.ecs_task_execution"];
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" [label="aws_iam_role_policy_attachment.ecs_task_execution_policy"];
+  "aws_security_group.app" [label="aws_security_group.app"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_ecs_service.app" -> "data.aws_subnets.default";
+  "aws_ecs_service.app" -> "aws_ecs_cluster.main";
+  "aws_ecs_service.app" -> "aws_ecs_task_definition.app";
+  "aws_ecs_service.app" -> "aws_iam_role_policy_attachment.ecs_task_execution_policy";
+  "aws_ecs_service.app" -> "aws_security_group.app";
+  "aws_ecs_task_definition.app" -> "aws_ecr_repository.app";
+  "aws_ecs_task_definition.app" -> "aws_iam_role.ecs_task_execution";
+  "aws_iam_role.ecs_task_execution" -> "data.aws_iam_policy_document.ecs_task_assume_role_policy";
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" -> "aws_iam_role.ecs_task_execution";
+  "aws_security_group.app" -> "data.aws_vpc.default";
+}

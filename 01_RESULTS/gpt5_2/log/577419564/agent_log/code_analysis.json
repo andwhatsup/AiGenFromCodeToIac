@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Java",
+        "JSP",
+        "YAML (Ansible)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Java Servlet API",
+        "Apache Tomcat (runtime container)",
+        "Ansible (deployment automation)"
+      ],
+      "dependencies": [
+        "Maven: javax.servlet:javax.servlet-api:3.1.0 (pom.xml)",
+        "Maven plugins: maven-compiler-plugin:3.2 (pom.xml)",
+        "Maven plugins: maven-war-plugin:2.5 (pom.xml)",
+        "Container base images: alpine:3.16 (Dockerfile, deploy/Dockerfile)",
+        "Container base images: tomcat:9.0.0.M10-jre8-alpine (Dockerfile, deploy/Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deploy/Dockerfile",
+        "playbook.yml",
+        "deploy/playbook.yml",
+        "meta.yml",
+        "hello-1.0.war",
+        "pom.xml"
+      ],
+      "architectural_resources": [
+        "Web application packaged as a WAR (pom.xml, hello-1.0.war)",
+        "Servlet-based HTTP endpoint (/hello) deployed on Tomcat (src/main/java/.../HelloServlet.java, Dockerfile)",
+        "Container image build pipeline (multi-stage Docker build using Maven) (Dockerfile, deploy/Dockerfile)",
+        "Ansible-managed hosts/environments: dev01 and stage01 (playbook.yml, deploy/playbook.yml)",
+        "Docker engine on target hosts (installed via Ansible) (playbook.yml, deploy/playbook.yml)",
+        "Running container exposing HTTP port 8080 on the host (playbook.yml, deploy/playbook.yml)",
+        "Cloud-init style VM/user bootstrap (meta.yml)"
+      ]
+    }
+  ]
+}

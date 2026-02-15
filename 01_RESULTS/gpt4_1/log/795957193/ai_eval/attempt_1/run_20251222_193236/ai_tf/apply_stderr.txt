@@ -1,0 +1,14 @@
+
+Error: listing tags for Elastic Beanstalk Application (arn:aws:elasticbeanstalk:us-east-1:000000000000:application/express-app): operation error Elastic Beanstalk: ListTagsForResource, https response error StatusCode: 501, RequestID: 532695d7-08d4-41cc-8830-d10e7a47afa4, api error InternalFailure: The API action 'ListTagsForResource' for service 'elasticbeanstalk' is either not available in your current license plan or has not yet been emulated by LocalStack. Please refer to https://docs.localstack.cloud/references/coverage/coverage_elasticbeanstalk for more information.
+
+  with aws_elastic_beanstalk_application.app,
+  on beanstalk.tf line 1, in resource "aws_elastic_beanstalk_application" "app":
+   1: resource "aws_elastic_beanstalk_application" "app" {
+
+
+Error: creating S3 Bucket (express-app-dev-logs-ae35557b): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://express-app-dev-logs-ae35557b.localhost:4566/": dial tcp: lookup express-app-dev-logs-ae35557b.localhost: no such host
+
+  with aws_s3_bucket.logs,
+  on s3.tf line 1, in resource "aws_s3_bucket" "logs":
+   1: resource "aws_s3_bucket" "logs" {
+

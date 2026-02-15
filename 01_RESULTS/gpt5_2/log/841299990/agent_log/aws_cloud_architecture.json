@@ -1,0 +1,31 @@
+{
+  "aws_architecture_description": "### Target AWS runtime architecture (lean, scalable, WebSocket-friendly)\n\n#### 1) Networking & edge\n- Deploy into a dedicated **VPC** spanning **2 Availability Zones** for high availability.\n- Create **public subnets** (for load balancers / NAT) and **private subnets** (for compute).\n- Put an **internet-facing Application Load Balancer (ALB)** in the public subnets.\n  - ALB terminates TLS (HTTPS/WSS) using **ACM** certificates.\n  - ALB forwards traffic to the container service over HTTP.\n  - Because Socket.IO uses long-lived connections, configure the **ALB idle timeout** appropriately (default is 60s; increase to match your app’s keepalive behavior). ([docs.aws.amazon.com](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/edit-load-balancer-attributes.html?utm_source=openai))\n- (Optional but common) Use **Route 53** for DNS (e.g., `chat.example.com`) pointing to the ALB.\n\n#### 2) Compute (containerized Node.js + Socket.IO)\n- Build and run the app as a container on **Amazon ECS with Fargate** (no EC2 host management).\n- Create an **ECS Cluster** and an **ECS Service** (desired count >= 2 across AZs) running an **ECS Task Definition** that uses your Docker image.\n- Configure the service for:\n  - **Auto Scaling** (scale on CPU/memory and/or ALB request count).\n  - **Health checks** via an HTTP endpoint (recommend adding `/health` in the Express app).\n  - **Sticky sessions** only if your Socket.IO setup requires it; otherwise keep stateless.\n- Security groups:\n  - ALB SG allows inbound 443 (and optionally 80 for redirect).\n  - ECS tasks SG allows inbound only from the ALB SG to the container port (your app currently listens on **12345**; you can keep it internally and map via target group).\n\n#### 3) Container registry & image delivery\n- Use **Amazon ECR** as the container registry.\n- CI pushes versioned images (e.g., git SHA tags) to ECR.\n- ECS service pulls from ECR on deployment.\n\n#### 4) Static assets (/public)\nYou have two viable patterns; pick one:\n- **Simplest (keep as-is):** serve `/public` from the Node container.\n- **More scalable (recommended):** publish `/public` to **S3** and serve via **CloudFront**.\n  - CodeBuild already models “artifacts” from a base directory; in AWS this typically lands in S3. ([docs.aws.amazon.com](https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html?utm_source=openai))\n  - CloudFront reduces load on the WebSocket service and improves latency.\n\n#### 5) CI/CD & IaC alignment with your repo\nYou currently have Jenkins + CodeBuild + GitHub Actions + Terraform Cloud. A clean AWS-aligned approach:\n- **GitHub Actions → Terraform Cloud** continues to provision AWS infrastructure (VPC, ECS, ALB, ECR, S3, etc.).\n- For builds:\n  - Either keep **Jenkins** building and pushing to **ECR** (needs AWS credentials/role),\n  - Or standardize on **AWS CodeBuild** to build Docker images and push to ECR, and also publish `/public` artifacts to S3.\n- For deployments:\n  - Trigger an **ECS service deployment** (update task definition image tag) after image push.\n  - Optionally use **CodePipeline** if you want a fully AWS-native pipeline, but it’s not required given your existing tooling.\n\n#### 6) Observability, security, and ops\n- **CloudWatch Logs** for container logs (ECS task log driver).\n- **CloudWatch Alarms** (CPU/memory, ALB 5XX, target health, latency).\n- **AWS WAF** on the ALB (basic protection for HTTP endpoints; WebSocket upgrade still flows through ALB).\n- **Secrets Manager / SSM Parameter Store** for runtime secrets (if any).\n- **KMS** for encryption at rest (ECR, S3, logs where applicable).\n\n---\n\n### Notes specific to WebSockets / Socket.IO\n- ALB supports WebSocket upgrade over HTTP/HTTPS; the key operational setting is the **idle timeout** (default 60 seconds) which you should increase for long-lived connections. ([docs.aws.amazon.com](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/edit-load-balancer-attributes.html?utm_source=openai))\n- If you ever decide to expose raw TCP (not HTTP/WebSocket), consider **Network Load Balancer**; NLB now supports configurable TCP idle timeout (60–6000s, default 350s). ([aws.amazon.com](https://aws.amazon.com/about-aws/whats-new/2024/09/aws-network-load-balancer-tcp-idle-timeout/?utm_source=openai))\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (2+ AZs): public subnets, private subnets",
+    "Internet Gateway (IGW)",
+    "NAT Gateway(s) (for private subnet egress)",
+    "Route tables + routes (public/private)",
+    "VPC security groups (ALB SG, ECS tasks SG)",
+    "VPC endpoints (recommended): Gateway endpoint for S3; Interface endpoints for ECR (api+dkr), CloudWatch Logs, Secrets Manager/SSM (as needed)",
+    "AWS Certificate Manager (ACM) certificate (for TLS on ALB)",
+    "Elastic Load Balancing v2: Application Load Balancer (internet-facing)",
+    "ALB listeners (HTTPS :443, optional HTTP :80 redirect)",
+    "ALB target group (HTTP target group to ECS tasks)",
+    "Amazon ECS cluster",
+    "Amazon ECS task definition (Fargate)",
+    "Amazon ECS service (desired count >= 2, across AZs)",
+    "ECS Service Auto Scaling (Application Auto Scaling) + scaling policies",
+    "Amazon ECR repository",
+    "IAM roles: ECS task execution role (ECR pull, CloudWatch logs), ECS task role (app permissions)",
+    "CloudWatch Logs log group(s) for ECS tasks",
+    "Amazon CloudWatch alarms + dashboards (ALB + ECS metrics)",
+    "AWS WAFv2 Web ACL + association to ALB (optional but recommended)",
+    "Amazon S3 bucket for build artifacts (/public) (if externalizing static assets)",
+    "Amazon CloudFront distribution (if serving /public from S3)",
+    "S3 bucket for ALB access logs (optional)",
+    "AWS KMS key(s) (for S3/ECR/log encryption as required)",
+    "AWS Secrets Manager or SSM Parameter Store (for runtime configuration/secrets, if any)",
+    "Amazon Route 53 hosted zone + DNS record (ALB alias) (if using custom domain)"
+  ]
+}

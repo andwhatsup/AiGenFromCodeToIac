@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/715504821/tla_example",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "FastAPI",
+        "Starlette (via fastapi)",
+        "Pydantic"
+      ],
+      "dependencies": [
+        "fastapi==0.104.1 (tla_example/requirements.txt)",
+        "starlette==0.27.0 (tla_example/requirements.txt)",
+        "pydantic==2.4.2 (tla_example/requirements.txt)",
+        "httpx==0.25.1 (tla_example/requirements.txt)",
+        "pytest==7.4.3 (tla_example/requirements.txt)",
+        "uvicorn (runtime entrypoint in Dockerfile CMD; not listed in requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/715504821/Dockerfile",
+        "/ai-gen-from-code-to-iac/workspace/715504821/Makefile",
+        "/ai-gen-from-code-to-iac/workspace/715504821/.github/workflows/deployments.yml",
+        "/ai-gen-from-code-to-iac/workspace/715504821/.github/workflows/pr_deployments.yml",
+        "/ai-gen-from-code-to-iac/workspace/715504821/.github/workflows/pr-lint.yml",
+        "/ai-gen-from-code-to-iac/workspace/715504821/tla_example/requirements.txt"
+      ],
+      "architectural_resources": [
+        "Containerized web API service (FastAPI) listening on port 8080 (Dockerfile)",
+        "CI/CD pipeline via GitHub Actions (lint, build-and-push container, terraform deploy) (.github/workflows/*.yml)",
+        "AWS credentials used for deployment (implies AWS target environment) (.github/workflows/deployments.yml, pr_deployments.yml)"
+      ]
+    }
+  ]
+}

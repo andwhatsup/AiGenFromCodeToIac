@@ -1,0 +1,438 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_iam_policy_document.lambda_assume_role: Reading...
+data.aws_iam_policy_document.scheduler_assume_role: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_iam_policy_document.scheduler_assume_role: Read complete after 0s [id=52247394]
+data.aws_iam_policy_document.lambda_assume_role: Read complete after 0s [id=2690255455]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.lambda_secrets will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "lambda_secrets" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "secretsmanager:DescribeSecret",
+              + "secretsmanager:GetSecretValue",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+        }
+    }
+
+  # data.aws_iam_policy_document.scheduler_invoke_lambda will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "scheduler_invoke_lambda" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "lambda:InvokeFunction",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+        }
+    }
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/home-automation"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+    }
+
+  # aws_ecr_lifecycle_policy.home_automation will be created
+  + resource "aws_ecr_lifecycle_policy" "home_automation" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep last 20 images"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 20
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + region      = "us-east-1"
+      + registry_id = (known after apply)
+      + repository  = "home_automation"
+    }
+
+  # aws_ecr_repository.home_automation will be created
+  + resource "aws_ecr_repository" "home_automation" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "home_automation"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_iam_policy.lambda_secrets will be created
+  + resource "aws_iam_policy" "lambda_secrets" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "home-automation-dev-lambda-secrets"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+    }
+
+  # aws_iam_policy.scheduler_invoke_lambda will be created
+  + resource "aws_iam_policy" "scheduler_invoke_lambda" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "home-automation-dev-scheduler-invoke-lambda"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "home-automation-dev-lambda"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.scheduler will be created
+  + resource "aws_iam_role" "scheduler" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "scheduler.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "home-automation-dev-scheduler"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "home-automation-dev-lambda"
+    }
+
+  # aws_iam_role_policy_attachment.lambda_secrets will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_secrets" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "home-automation-dev-lambda"
+    }
+
+  # aws_iam_role_policy_attachment.scheduler_invoke_lambda will be created
+  + resource "aws_iam_role_policy_attachment" "scheduler_invoke_lambda" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "home-automation-dev-scheduler"
+    }
+
+  # aws_lambda_function.home_automation will be created
+  + resource "aws_lambda_function" "home_automation" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "home-automation"
+      + id                             = (known after apply)
+      + image_uri                      = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Image"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = 1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+      + timeout                        = 60
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_scheduler_schedule.home_automation will be created
+  + resource "aws_scheduler_schedule" "home_automation" {
+      + action_after_completion      = (known after apply)
+      + arn                          = (known after apply)
+      + group_name                   = (known after apply)
+      + id                           = (known after apply)
+      + name                         = "home-automation-dev-poll"
+      + name_prefix                  = (known after apply)
+      + region                       = "us-east-1"
+      + schedule_expression          = "rate(5 minutes)"
+      + schedule_expression_timezone = "UTC"
+      + state                        = "ENABLED"
+
+      + flexible_time_window {
+          + mode = "OFF"
+        }
+
+      + target {
+          + arn      = (known after apply)
+          + role_arn = (known after apply)
+
+          + retry_policy {
+              + maximum_event_age_in_seconds = 300
+              + maximum_retry_attempts       = 0
+            }
+        }
+    }
+
+  # aws_secretsmanager_secret.influxdb will be created
+  + resource "aws_secretsmanager_secret" "influxdb" {
+      + arn                            = (known after apply)
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "home-automation-dev/influxdb"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 0
+      + region                         = "us-east-1"
+      + tags_all                       = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+
+      + replica (known after apply)
+    }
+
+  # aws_secretsmanager_secret.tuya will be created
+  + resource "aws_secretsmanager_secret" "tuya" {
+      + arn                            = (known after apply)
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "home-automation-dev/tuya"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 0
+      + region                         = "us-east-1"
+      + tags_all                       = {
+          + "Component"   = "home-automation"
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "home-automation"
+          + "Repository"  = "home-automation"
+        }
+
+      + replica (known after apply)
+    }
+
+  # aws_secretsmanager_secret_version.influxdb will be created
+  + resource "aws_secretsmanager_secret_version" "influxdb" {
+      + arn                  = (known after apply)
+      + has_secret_string_wo = (known after apply)
+      + id                   = (known after apply)
+      + region               = "us-east-1"
+      + secret_id            = (known after apply)
+      + secret_string        = (sensitive value)
+      + secret_string_wo     = (write-only attribute)
+      + version_id           = (known after apply)
+      + version_stages       = (known after apply)
+    }
+
+  # aws_secretsmanager_secret_version.tuya will be created
+  + resource "aws_secretsmanager_secret_version" "tuya" {
+      + arn                  = (known after apply)
+      + has_secret_string_wo = (known after apply)
+      + id                   = (known after apply)
+      + region               = "us-east-1"
+      + secret_id            = (known after apply)
+      + secret_string        = (sensitive value)
+      + secret_string_wo     = (write-only attribute)
+      + version_id           = (known after apply)
+      + version_stages       = (known after apply)
+    }
+
+Plan: 16 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecr_repository_url     = (known after apply)
+  + influxdb_secret_arn    = (known after apply)
+  + lambda_function_arn    = (known after apply)
+  + scheduler_schedule_arn = (known after apply)
+  + tuya_secret_arn        = (known after apply)
+aws_secretsmanager_secret.influxdb: Creating...
+aws_iam_role.scheduler: Creating...
+aws_iam_role.lambda: Creating...
+aws_secretsmanager_secret.tuya: Creating...
+aws_cloudwatch_log_group.lambda: Creating...
+aws_ecr_repository.home_automation: Creating...
+aws_secretsmanager_secret.tuya: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:home-automation-dev/tuya-IoYMYO]
+aws_secretsmanager_secret.influxdb: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:home-automation-dev/influxdb-NnuboE]
+data.aws_iam_policy_document.lambda_secrets: Reading...
+aws_secretsmanager_secret_version.influxdb: Creating...
+aws_secretsmanager_secret_version.tuya: Creating...
+data.aws_iam_policy_document.lambda_secrets: Read complete after 0s [id=2156009533]
+aws_iam_policy.lambda_secrets: Creating...
+aws_secretsmanager_secret_version.tuya: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:home-automation-dev/tuya-IoYMYO|terraform-20260206141919438600000003]
+aws_secretsmanager_secret_version.influxdb: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:home-automation-dev/influxdb-NnuboE|terraform-20260206141919438600000004]
+aws_iam_role.scheduler: Creation complete after 1s [id=home-automation-dev-scheduler]
+aws_iam_role.lambda: Creation complete after 1s [id=home-automation-dev-lambda]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=home-automation-dev-lambda/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_iam_policy.lambda_secrets: Creation complete after 1s [id=arn:aws:iam::000000000000:policy/home-automation-dev-lambda-secrets]
+aws_iam_role_policy_attachment.lambda_secrets: Creating...
+aws_cloudwatch_log_group.lambda: Creation complete after 1s [id=/aws/lambda/home-automation]
+aws_iam_role_policy_attachment.lambda_secrets: Creation complete after 0s [id=home-automation-dev-lambda/arn:aws:iam::000000000000:policy/home-automation-dev-lambda-secrets]
+aws_ecr_repository.home_automation: Creation complete after 2s [id=home_automation]
+aws_ecr_lifecycle_policy.home_automation: Creating...
+aws_lambda_function.home_automation: Creating...
+aws_ecr_lifecycle_policy.home_automation: Creation complete after 0s [id=home_automation]

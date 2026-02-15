@@ -1,0 +1,28 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, production-ready)\n\n### 1) Container build & registry\n- **Source** remains in GitHub.\n- **CI/CD**: GitHub Actions builds the Docker image and pushes it to **Amazon ECR** (instead of Docker Hub) using OIDC-based federation (no long-lived AWS keys in GitHub).\n- Image tags: use immutable tags (e.g., git SHA) plus a moving tag (e.g., `prod`).\n\n### 2) Runtime: Amazon EKS (Kubernetes)\n- Deploy the existing Kubernetes manifests to **Amazon EKS** with minimal changes:\n  - Keep **Deployment** with 3 replicas.\n  - Replace the **Service type NodePort** with **Service type LoadBalancer** (or use an Ingress) so AWS provisions an external load balancer.\n  - Add readiness/liveness probes and resource requests/limits (recommended for stable autoscaling).\n- **Ingress (recommended)**: Use the **AWS Load Balancer Controller** to create an **Application Load Balancer (ALB)** and route HTTP/HTTPS traffic to the Kubernetes Service.\n\n### 3) Networking\n- Create a dedicated **VPC** across **2–3 Availability Zones**.\n- **Public subnets**: only for ALB and NAT Gateways.\n- **Private subnets**: EKS worker nodes (or Fargate) and internal workloads.\n- **VPC endpoints** (recommended) for ECR (api + dkr) and CloudWatch Logs to reduce NAT egress and improve security.\n\n### 4) Security\n- **TLS**: Terminate HTTPS at ALB using **ACM** certificates.\n- **IAM**:\n  - GitHub Actions assumes an AWS role via **OIDC** to push to ECR and (optionally) deploy to EKS.\n  - EKS uses **IRSA** (IAM Roles for Service Accounts) for controllers (e.g., AWS Load Balancer Controller) and any future AWS access.\n- **Secrets**: Store runtime secrets in **AWS Secrets Manager** (or SSM Parameter Store) and mount/inject into pods.\n\n### 5) Observability\n- **CloudWatch Container Insights** for cluster/pod metrics.\n- **CloudWatch Logs** for application logs (via Fluent Bit / CloudWatch agent add-on).\n- **ALB access logs** to S3 (optional but useful).\n\n### 6) Scaling & availability\n- Keep 3 replicas as baseline.\n- Add **Horizontal Pod Autoscaler (HPA)** based on CPU/memory (and later request rate if needed).\n- Use **Cluster Autoscaler** (or Karpenter) to scale node groups.\n\n### 7) Deployment strategy\n- Use GitHub Actions to:\n  1) Build/test\n  2) Push image to ECR\n  3) Deploy to EKS (kubectl/helm)\n- Use rolling updates (Kubernetes default) with health checks.\n\n---\n\n## Notes on mapping from current repo\n- Your current `Service: NodePort` is fine for Minikube/DIY clusters, but on AWS you typically use:\n  - **Ingress + ALB** (recommended), or\n  - `Service type: LoadBalancer` (simpler, but less flexible than Ingress).\n- The repo’s Terraform stage has no `.tf` files; on AWS you’d typically add Terraform to provision: VPC, EKS, ECR, IAM, and supporting add-ons.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC Subnets (Public, Private across 2–3 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "VPC Route Tables",
+    "VPC Security Groups",
+    "VPC Endpoints (Interface): ECR (api), ECR (dkr), CloudWatch Logs (recommended)",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group(s) (or EKS on Fargate profiles)",
+    "EKS Add-ons: CoreDNS, kube-proxy, VPC CNI",
+    "IAM Roles: EKS Cluster Role, Node Instance Role",
+    "IAM OIDC Provider for EKS (IRSA)",
+    "AWS Load Balancer Controller (installed in EKS)",
+    "Kubernetes Ingress resource (ALB-backed) OR Kubernetes Service type LoadBalancer",
+    "Application Load Balancer (provisioned by controller)",
+    "ACM Certificate (for HTTPS on ALB)",
+    "Amazon ECR Repository",
+    "IAM OIDC Provider for GitHub Actions (federation)",
+    "IAM Role for GitHub Actions (assume-role via OIDC)",
+    "AWS Secrets Manager (or SSM Parameter Store)",
+    "Amazon CloudWatch Log Groups (application/cluster logs)",
+    "CloudWatch Container Insights (metrics)",
+    "Amazon S3 Bucket (optional: ALB access logs)"
+  ]
+}

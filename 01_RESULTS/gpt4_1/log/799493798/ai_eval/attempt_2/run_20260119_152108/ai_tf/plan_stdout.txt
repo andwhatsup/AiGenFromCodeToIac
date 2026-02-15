@@ -1,0 +1,175 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.lambda_assume_role_policy: Reading...
+data.aws_iam_policy_document.lambda_assume_role_policy: Read complete after 0s [id=2690255455]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # data.aws_iam_policy_document.lambda_s3_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "lambda_s3_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+              + "s3:ListBucket",
+              + "s3:PutObject",
+            ]
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:PutLogEvents",
+            ]
+          + resources = [
+              + "arn:aws:logs:*:*:*",
+            ]
+        }
+    }
+
+  # aws_api_gateway_method.proxy_method will be created
+  + resource "aws_api_gateway_method" "proxy_method" {
+      + api_key_required = false
+      + authorization    = "NONE"
+      + http_method      = "ANY"
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + resource_id      = (known after apply)
+      + rest_api_id      = (known after apply)
+    }
+
+  # aws_api_gateway_resource.proxy will be created
+  + resource "aws_api_gateway_resource" "proxy" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "{proxy+}"
+      + region      = "us-east-1"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_rest_api.lambda_api will be created
+  + resource "aws_api_gateway_rest_api" "lambda_api" {
+      + api_key_source               = (known after apply)
+      + arn                          = (known after apply)
+      + binary_media_types           = (known after apply)
+      + created_date                 = (known after apply)
+      + description                  = "API Gateway for Lambda integration"
+      + disable_execute_api_endpoint = (known after apply)
+      + execution_arn                = (known after apply)
+      + id                           = (known after apply)
+      + minimum_compression_size     = (known after apply)
+      + name                         = "lambda-api-my_lambda_function"
+      + policy                       = (known after apply)
+      + region                       = "us-east-1"
+      + root_resource_id             = (known after apply)
+      + tags_all                     = (known after apply)
+
+      + endpoint_configuration (known after apply)
+    }
+
+  # aws_iam_role.lambda_exec_role will be created
+  + resource "aws_iam_role" "lambda_exec_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "lambda_exec_role_my_lambda_function"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda_s3_policy will be created
+  + resource "aws_iam_role_policy" "lambda_s3_policy" {
+      + id          = (known after apply)
+      + name        = "lambda_s3_policy_my_lambda_function"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_s3_bucket.lambda_bucket will be created
+  + resource "aws_s3_bucket" "lambda_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-tf"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "ai-tf"
+        }
+      + tags_all                    = {
+          + "ManagedBy" = "Terraform"
+          + "Name"      = "ai-tf"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + api_gateway_invoke_url = (known after apply)
+  + s3_bucket_name         = "ai-tf"

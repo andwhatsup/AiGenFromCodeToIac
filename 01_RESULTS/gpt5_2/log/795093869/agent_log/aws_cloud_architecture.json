@@ -1,0 +1,29 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (S3 → Lambda → MWAA/Airflow)\n\n### 1) Networking & security baseline\n- **VPC across 2 AZs** with **private subnets** for MWAA (and optionally Lambda) and **public subnets** only if you need NAT/egress.\n- **NAT Gateways (1 per AZ)** so MWAA can reach AWS public endpoints (S3, CloudWatch Logs, STS, etc.) without being publicly reachable.\n- **VPC endpoints** to keep traffic private where possible:\n  - **Gateway endpoint:** S3\n  - **Interface endpoints:** CloudWatch Logs, STS, KMS, (optionally) Secrets Manager/SSM\n- **Security groups**:\n  - MWAA security group: restrict inbound to only what MWAA requires; allow egress to AWS endpoints via NAT/VPC endpoints.\n  - (Optional) Lambda-in-VPC security group if you place Lambda in the VPC.\n\n### 2) Storage & event ingestion\n- **S3 “input” bucket** receives uploaded JSON objects (e.g., `input.json`).\n- **S3 Event Notification** triggers the Lambda function on `ObjectCreated` for a specific prefix/suffix (recommended) to avoid accidental triggers.\n- **S3 bucket policy** enforces TLS, blocks public access, and (optionally) restricts writes to approved principals.\n\n### 3) Orchestration trigger (Lambda)\n- **Lambda function `trigger-dag` (Python 3.12)** is invoked by S3 events.\n- Lambda:\n  - Parses the S3 event (bucket/key).\n  - Calls **MWAA `CreateCliToken`** and then performs an HTTPS POST to the MWAA **Airflow CLI endpoint** (`/aws_mwaa/cli`) to trigger a DAG run.\n  - Logs to **CloudWatch Logs**.\n- **IAM execution role for Lambda** (least privilege):\n  - CloudWatch Logs write permissions.\n  - `mwaa:CreateCliToken` (scoped to the MWAA environment ARN).\n  - (If needed) read S3 object metadata/content (not strictly required if only passing bucket/key to Airflow).\n  - (Optional) DynamoDB permissions only if/when you actually use it.\n\n### 4) Workflow runtime (MWAA / Airflow)\n- **MWAA environment (Airflow 2.9.x)** deployed into the VPC private subnets.\n- MWAA uses an **S3 “DAGs bucket”** (MWAA requirement) to load `hello-world-dag.py` and any plugins/requirements.\n- The DAG reads the uploaded object from the **input bucket** using boto3 (`get_object`).\n- **MWAA execution role** (least privilege):\n  - Read access to the input bucket objects (and to the MWAA DAGs bucket as required).\n  - KMS decrypt permissions if buckets/logs are KMS-encrypted.\n\n### 5) Observability & operations\n- **CloudWatch Logs**:\n  - Lambda log group.\n  - MWAA/Airflow logs (scheduler, webserver, task logs) configured to stream to CloudWatch.\n- **CloudWatch Alarms** (lean but useful):\n  - Lambda errors/throttles.\n  - MWAA environment health / scheduler heartbeat (via MWAA metrics) and task failure alarms (if you emit custom metrics).\n- **AWS CloudTrail** enabled for auditability of S3, Lambda, MWAA, IAM actions.\n\n### 6) CI/CD & IaC (Terraform)\n- Keep Terraform as the source of truth for:\n  - S3 buckets + notifications\n  - Lambda packaging/deploy\n  - MWAA environment + IAM roles\n  - Networking (VPC/subnets/endpoints)\n- Recommended deployment flow:\n  - Upload DAGs to MWAA DAGs bucket (versioned) as part of the pipeline.\n  - Deploy Lambda code (zip) and update environment variables (e.g., `MWAA_ENV_NAME`).\n\n### 7) DynamoDB (optional)\n- The Lambda currently instantiates a DynamoDB client but does not use it.\n- Do **not** provision DynamoDB unless you plan to add idempotency/state tracking (e.g., dedupe S3 events, store run IDs, track processing status). If you do, add a small on-demand table keyed by `bucket/key` + `eventTime`.\n\n---\n\n## End-to-end request flow\n1. User uploads `input.json` to the S3 input bucket.\n2. S3 triggers `trigger-dag` Lambda.\n3. Lambda obtains MWAA CLI token and calls MWAA CLI endpoint to trigger the Airflow DAG run.\n4. MWAA executes the DAG; tasks read the S3 object and proceed.\n5. Logs/metrics go to CloudWatch; alarms notify on failures.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC Subnets (Private subnets in 2 AZs for MWAA; Public subnets in 2 AZs for NAT if needed)",
+    "Route Tables (public/private)",
+    "Internet Gateway (for public subnets)",
+    "NAT Gateways (recommended 1 per AZ)",
+    "VPC Endpoints: S3 Gateway Endpoint",
+    "VPC Endpoints: Interface Endpoints (CloudWatch Logs, STS, KMS; optionally Secrets Manager/SSM)",
+    "Security Groups (MWAA; optional Lambda-in-VPC SG)",
+    "AWS Managed Workflows for Apache Airflow (MWAA) Environment",
+    "MWAA Execution IAM Role + IAM Policies",
+    "Amazon S3 Bucket (MWAA DAGs bucket, versioning recommended)",
+    "Amazon S3 Bucket (Input/events bucket)",
+    "S3 Bucket Policies (TLS-only, least-privilege access)",
+    "S3 Block Public Access configuration",
+    "S3 Event Notification (ObjectCreated → Lambda)",
+    "AWS Lambda Function (trigger-dag, Python 3.12)",
+    "Lambda Execution IAM Role + IAM Policies",
+    "Lambda Permission for S3 invocation (AWS::Lambda::Permission)",
+    "Amazon CloudWatch Log Group(s) for Lambda",
+    "CloudWatch Logs configuration for MWAA (Airflow logs)",
+    "Amazon CloudWatch Alarms (Lambda errors/throttles; MWAA health as needed)",
+    "AWS KMS Key(s) (optional but recommended for S3 and log encryption)",
+    "AWS CloudTrail Trail (account-level or scoped)",
+    "Amazon DynamoDB Table (optional; only if you implement idempotency/state tracking)"
+  ]
+}

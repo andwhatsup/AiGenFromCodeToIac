@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 6.27.0\"\n    }\n  }\n  required_version = \">= 1.3.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidrs\" {\n  description = \"List of CIDR blocks for public subnets.\"\n  type        = list(string)\n  default     = [\"10.0.1.0/24\"]\n}\n\nvariable \"private_subnet_cidrs\" {\n  description = \"List of CIDR blocks for private subnets.\"\n  type        = list(string)\n  default     = [\"10.0.2.0/24\"]\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"aws_vpc\" \"main\" {\n  cidr_block           = var.vpc_cidr\n  enable_dns_support   = true\n  enable_dns_hostnames = true\n  tags = {\n    Name = \"main-vpc\"\n  }\n}\n\nresource \"aws_internet_gateway\" \"main\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"main-igw\"\n  }\n}\n\nresource \"aws_subnet\" \"public\" {\n  count                   = length(var.public_subnet_cidrs)\n  vpc_id                  = aws_vpc.main.id\n  cidr_block              = var.public_subnet_cidrs[count.index]\n  map_public_ip_on_launch = true\n  availability_zone       = data.aws_availability_zones.available.names[count.index]\n  tags = {\n    Name = \"public-subnet-${count.index + 1}\"\n  }\n}\n\nresource \"aws_subnet\" \"private\" {\n  count             = length(var.private_subnet_cidrs)\n  vpc_id            = aws_vpc.main.id\n  cidr_block        = var.private_subnet_cidrs[count.index]\n  availability_zone = data.aws_availability_zones.available.names[count.index]\n  tags = {\n    Name = \"private-subnet-${count.index + 1}\"\n  }\n}\n\nresource \"aws_route_table\" \"public\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"public-rt\"\n  }\n}\n\nresource \"aws_route\" \"public_internet_access\" {\n  route_table_id         = aws_route_table.public.id\n  destination_cidr_block = \"0.0.0.0/0\"\n  gateway_id             = aws_internet_gateway.main.id\n}\n\nresource \"aws_route_table_association\" \"public\" {\n  count          = length(var.public_subnet_cidrs)\n  subnet_id      = aws_subnet.public[count.index].id\n  route_table_id = aws_route_table.public.id\n}\n\ndata \"aws_availability_zones\" \"available\" {}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"vpc_id\" {\n  description = \"The ID of the VPC.\"\n  value       = aws_vpc.main.id\n}\n\noutput \"public_subnet_ids\" {\n  description = \"The IDs of the public subnets.\"\n  value       = aws_subnet.public[*].id\n}\n\noutput \"private_subnet_ids\" {\n  description = \"The IDs of the private subnets.\"\n  value       = aws_subnet.private[*].id\n}\n"
+    }
+  ]
+}

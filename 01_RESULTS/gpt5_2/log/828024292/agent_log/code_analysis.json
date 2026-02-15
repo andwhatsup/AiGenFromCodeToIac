@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/828024292",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "AWS SDK for Go v2 (aws-sdk-go-v2)"
+      ],
+      "dependencies": [
+        "Go module: awsS3BucketList (go.mod)",
+        "github.com/aws/aws-sdk-go-v2 v1.30.3 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/config v1.27.26 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/service/s3 v1.58.2 (go.mod)",
+        "Indirect (selected): github.com/aws/smithy-go v1.20.3; github.com/aws/aws-sdk-go-v2/service/sts v1.30.3; github.com/aws/aws-sdk-go-v2/credentials v1.17.26 (go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod",
+        "go.sum",
+        "cmd/awsS3BucketList/main.go",
+        "README.md",
+        ".devcontainer/devcontainer.json",
+        ".devcontainer/Dockerfile",
+        ".devcontainer/scripts/postCreate.sh",
+        ".vscode/settings.json",
+        ".vscode/extensions.json"
+      ],
+      "architectural_resources": [
+        "CLI application/binary that lists AWS S3 buckets (cmd/awsS3BucketList/main.go)",
+        "AWS account access via standard AWS credential/config chain (config.LoadDefaultConfig)",
+        "AWS S3 (ListBuckets API usage implies S3 as a required cloud resource)",
+        "Local/dev tooling resources: Dev Container (Docker) with awscli, aws-vault, terraform installed (.devcontainer/Dockerfile, .devcontainer/devcontainer.json)"
+      ]
+    }
+  ]
+}

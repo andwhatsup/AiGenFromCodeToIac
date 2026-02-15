@@ -1,0 +1,437 @@
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-c1b930f2467ee933f]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.app will be created
+  + resource "aws_db_instance" "app" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = (known after apply)
+      + backup_target                         = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + database_insights_mode                = (known after apply)
+      + db_name                               = (known after apply)
+      + db_subnet_group_name                  = "mehlj-pipeline-db-subnet-group"
+      + dedicated_log_volume                  = false
+      + delete_automated_backups              = true
+      + domain_fqdn                           = (known after apply)
+      + endpoint                              = (known after apply)
+      + engine                                = "postgres"
+      + engine_lifecycle_support              = (known after apply)
+      + engine_version                        = "13.4"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "mehlj-pipeline-db"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = (known after apply)
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = "default.postgres13"
+      + password                              = (sensitive value)
+      + password_wo                           = (write-only attribute)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = true
+      + region                                = "us-east-1"
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = (known after apply)
+      + tags_all                              = (known after apply)
+      + timezone                              = (known after apply)
+      + upgrade_rollout_order                 = (known after apply)
+      + username                              = "postgres"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_subnet_group.app will be created
+  + resource "aws_db_subnet_group" "app" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "mehlj-pipeline-db-subnet-group"
+      + name_prefix             = (known after apply)
+      + region                  = "us-east-1"
+      + subnet_ids              = [
+          + "subnet-0af41f2e4cf2841db",
+          + "subnet-65a6c4631b45ea7ee",
+          + "subnet-732c72e5e2306f240",
+          + "subnet-aa0fa538886ba9d89",
+          + "subnet-c768007adf378cc26",
+          + "subnet-d7afe4a9dcce43a3b",
+        ]
+      + supported_network_types = (known after apply)
+      + tags_all                = (known after apply)
+      + vpc_id                  = (known after apply)
+    }
+
+  # aws_ecs_cluster.app will be created
+  + resource "aws_ecs_cluster" "app" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "mehlj-pipeline-cluster"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.app will be created
+  + resource "aws_ecs_service" "app" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "mehlj-pipeline-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + load_balancer {
+          + container_name   = "mehlj-pipeline"
+          + container_port   = 8080
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-0af41f2e4cf2841db",
+              + "subnet-65a6c4631b45ea7ee",
+              + "subnet-732c72e5e2306f240",
+              + "subnet-aa0fa538886ba9d89",
+              + "subnet-c768007adf378cc26",
+              + "subnet-d7afe4a9dcce43a3b",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "mehlj-pipeline"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "mehlj-pipeline-ecs-task-execution"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution_policy will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "mehlj-pipeline-ecs-task-execution"
+    }
+
+  # aws_lb.app will be created
+  + resource "aws_lb" "app" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "mehlj-pipeline-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "subnet-0af41f2e4cf2841db",
+          + "subnet-65a6c4631b45ea7ee",
+          + "subnet-732c72e5e2306f240",
+          + "subnet-aa0fa538886ba9d89",
+          + "subnet-c768007adf378cc26",
+          + "subnet-d7afe4a9dcce43a3b",
+        ]
+      + tags_all                                                     = (known after apply)
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.app will be created
+  + resource "aws_lb_listener" "app" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app will be created
+  + resource "aws_lb_target_group" "app" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "mehlj-pipeline-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 8080
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags_all                           = (known after apply)
+      + target_type                        = "instance"
+      + vpc_id                             = "vpc-c1b930f2467ee933f"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.app will be created
+  + resource "aws_security_group" "app" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP and DB access"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 5432
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 5432
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 8080
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 8080
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "mehlj-pipeline-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "vpc-c1b930f2467ee933f"
+    }
+
+Plan: 11 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name         = (known after apply)
+  + db_instance_endpoint = (known after apply)
+  + ecs_service_name     = "mehlj-pipeline-service"
+aws_ecs_cluster.app: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_db_subnet_group.app: Creating...
+aws_lb.app: Creating...
+aws_security_group.app: Creating...
+aws_lb_target_group.app: Creating...
+aws_security_group.app: Creation complete after 0s [id=sg-47dc24768ab9dcd10]
+aws_iam_role.ecs_task_execution: Creation complete after 0s [id=mehlj-pipeline-ecs-task-execution]
+aws_iam_role_policy_attachment.ecs_task_execution_policy: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution_policy: Creation complete after 0s [id=mehlj-pipeline-ecs-task-execution/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_lb_target_group.app: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/mehlj-pipeline-tg/58d7f3f6ec91c25c]
+aws_db_subnet_group.app: Creation complete after 1s [id=mehlj-pipeline-db-subnet-group]
+aws_db_instance.app: Creating...
+aws_ecs_cluster.app: Still creating... [00m10s elapsed]
+aws_lb.app: Still creating... [00m10s elapsed]
+aws_ecs_cluster.app: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/mehlj-pipeline-cluster]
+aws_db_instance.app: Still creating... [00m10s elapsed]
+aws_lb.app: Still creating... [00m20s elapsed]
+aws_db_instance.app: Still creating... [00m20s elapsed]
+aws_lb.app: Still creating... [00m30s elapsed]
+aws_db_instance.app: Still creating... [00m30s elapsed]
+aws_db_instance.app: Still creating... [00m40s elapsed]
+aws_db_instance.app: Still creating... [00m50s elapsed]
+aws_db_instance.app: Still creating... [01m00s elapsed]
+aws_db_instance.app: Still creating... [01m10s elapsed]
+aws_db_instance.app: Still creating... [01m20s elapsed]
+aws_db_instance.app: Creation complete after 1m27s [id=db-478EE9CA]
+aws_ecs_task_definition.app: Creating...
+aws_ecs_task_definition.app: Creation complete after 0s [id=mehlj-pipeline]

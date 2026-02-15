@@ -1,0 +1,24 @@
+random_string.suffix: Refreshing state... [id=jw5wihdm]
+data.aws_region.current: Reading...
+aws_iam_user.example: Refreshing state... [id=go-user-jw5wihdm]
+data.aws_region.current: Read complete after 0s [id=ap-southeast-1]
+aws_iam_policy.example: Refreshing state... [id=arn:aws:iam::000000000000:policy/s3-list-jw5wihdm]
+aws_iam_access_key.example: Refreshing state... [id=LKIAQAAAAAAAHOWJ6G6V]
+null_resource.example: Refreshing state... [id=2265233487750170694]
+aws_iam_user_policy_attachment.example: Refreshing state... [id=go-user-jw5wihdm-20260124091419213400000001]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # null_resource.example must be replaced
+-/+ resource "null_resource" "example" {
+      ~ id       = "2265233487750170694" -> (known after apply)
+      ~ triggers = { # forces replacement
+          ~ "always_run" = "2026-01-24T09:14:19Z" -> (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.

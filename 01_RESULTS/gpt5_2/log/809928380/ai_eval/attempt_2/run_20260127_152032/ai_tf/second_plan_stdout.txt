@@ -1,0 +1,49 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+aws_secretsmanager_secret.telegram_bot_token: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:reminder-bot-prod/telegram/bot_token-TCbOvV]
+aws_ssm_parameter.end_month_message: Refreshing state... [id=/reminder-bot-prod/messages/end_month]
+aws_cloudwatch_log_group.lambda: Refreshing state... [id=/aws/lambda/reminder-bot-lambda]
+aws_ssm_parameter.telegram_chat_id: Refreshing state... [id=/reminder-bot-prod/telegram/chat_id]
+aws_ssm_parameter.half_month_message: Refreshing state... [id=/reminder-bot-prod/messages/half_month]
+aws_iam_role.lambda_exec: Refreshing state... [id=reminder-bot-prod-lambda-exec]
+aws_iam_role.scheduler_invoke: Refreshing state... [id=reminder-bot-prod-scheduler-invoke]
+aws_secretsmanager_secret_version.telegram_bot_token: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:reminder-bot-prod/telegram/bot_token-TCbOvV|terraform-20260127142048066600000002]
+aws_iam_role_policy.lambda_exec_inline: Refreshing state... [id=reminder-bot-prod-lambda-exec:reminder-bot-prod-lambda-exec]
+aws_lambda_function.this: Refreshing state... [id=reminder-bot-lambda]
+aws_iam_role_policy.scheduler_invoke: Refreshing state... [id=reminder-bot-prod-scheduler-invoke:reminder-bot-prod-scheduler-invoke]
+aws_cloudwatch_metric_alarm.lambda_errors: Refreshing state... [id=reminder-bot-prod-lambda-errors]
+aws_cloudwatch_metric_alarm.lambda_throttles: Refreshing state... [id=reminder-bot-prod-lambda-throttles]
+aws_scheduler_schedule.half_month: Refreshing state... [id=default/reminder-bot-prod-half-month]
+aws_scheduler_schedule.end_month: Refreshing state... [id=default/reminder-bot-prod-end-month]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_metric_alarm.lambda_errors will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+        id                                    = "reminder-bot-prod-lambda-errors"
+        tags                                  = {}
+      ~ tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "reminder-bot"
+        }
+        # (21 unchanged attributes hidden)
+    }
+
+  # aws_cloudwatch_metric_alarm.lambda_throttles will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "lambda_throttles" {
+        id                                    = "reminder-bot-prod-lambda-throttles"
+        tags                                  = {}
+      ~ tags_all                              = {
+          + "Environment" = "prod"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "reminder-bot"
+        }
+        # (21 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

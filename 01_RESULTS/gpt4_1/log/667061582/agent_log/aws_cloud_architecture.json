@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to support a modern Java web application with a robust CI/CD pipeline, container orchestration, and monitoring. The architecture leverages AWS-managed and self-managed services to ensure scalability, security, and observability:\n\n1. **Networking**: A dedicated VPC with public and private subnets across multiple Availability Zones for high availability. Security groups and NACLs restrict access to only necessary ports and sources.\n\n2. **CI/CD Infrastructure**:\n   - **EC2 Instances**: Separate EC2 instances for Jenkins Master and Jenkins Slave (Agent). These are placed in private subnets for security, with only necessary ports (e.g., SSH, Jenkins UI) exposed via security groups.\n   - **IAM Roles/Policies**: Custom IAM roles for Jenkins instances to allow programmatic access to AWS resources (e.g., ECR, EKS, S3) as needed for build and deployment.\n   - **S3 Buckets**: For storing build artifacts, logs, and Jenkins backups.\n\n3. **Container Orchestration**:\n   - **Amazon EKS (Elastic Kubernetes Service)**: Managed Kubernetes cluster deployed in private subnets. EKS manages the lifecycle of the Kubernetes control plane and worker nodes.\n   - **ECR (Elastic Container Registry)**: Stores Docker images for the Tomcat application and monitoring tools.\n   - **Kubernetes Deployments/Services**: For Tomcat (Java WAR), Prometheus, and Grafana. These are defined in Kubernetes manifests and deployed via Jenkins.\n\n4. **Application Hosting**:\n   - **Tomcat 8.0 (Dockerized)**: Runs the Java web application as a container in EKS.\n   - **Load Balancer**: An AWS Application Load Balancer (ALB) exposes the web application to users, routing HTTP(S) traffic to the Tomcat pods.\n\n5. **Monitoring & Observability**:\n   - **Prometheus**: Deployed in EKS to scrape application metrics.\n   - **Grafana**: Deployed in EKS for dashboard visualization of metrics.\n   - **CloudWatch**: Integrated for centralized logging, metrics, and alerting for EC2, EKS, and application logs.\n\n6. **Security**:\n   - **IAM**: Fine-grained roles for EC2, EKS, and Jenkins.\n   - **Security Groups**: Restrict access to EC2, EKS nodes, and ALB.\n   - **Secrets Management**: AWS Secrets Manager or Kubernetes Secrets for storing sensitive data (e.g., credentials, API keys).\n\n7. **Optional Enhancements**:\n   - **Auto Scaling**: EC2 Auto Scaling Groups for Jenkins agents and EKS node groups for application scalability.\n   - **Backup**: Automated backups for Jenkins and EKS cluster state (e.g., via S3 and AWS Backup).\n\nThis architecture ensures a secure, scalable, and observable environment for continuous delivery and reliable operation of the Java web application on AWS.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for EC2, EKS, ALB)",
+    "EC2 Instances (Jenkins Master, Jenkins Slave/Agent)",
+    "IAM Roles and Policies (for EC2, Jenkins, EKS)",
+    "S3 Buckets (artifacts, logs, backups)",
+    "Amazon EKS Cluster (Kubernetes)",
+    "EKS Node Groups (worker nodes)",
+    "Amazon ECR (Elastic Container Registry)",
+    "Application Load Balancer (ALB)",
+    "CloudWatch (logs, metrics, alarms)",
+    "AWS Secrets Manager (or Kubernetes Secrets)",
+    "Auto Scaling Groups (for EC2 and EKS nodes, optional)"
+  ]
+}

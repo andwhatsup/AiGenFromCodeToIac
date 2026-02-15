@@ -1,0 +1,935 @@
+data.aws_availability_zones.available: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_appautoscaling_policy.cpu will be created
+  + resource "aws_appautoscaling_policy" "cpu" {
+      + alarm_arns         = (known after apply)
+      + arn                = (known after apply)
+      + id                 = (known after apply)
+      + name               = "chat-app-dev-cpu-tt"
+      + policy_type        = "TargetTrackingScaling"
+      + resource_id        = "service/chat-app-dev-cluster/chat-app-dev-svc"
+      + scalable_dimension = "ecs:service:DesiredCount"
+      + service_namespace  = "ecs"
+
+      + target_tracking_scaling_policy_configuration {
+          + disable_scale_in   = false
+          + scale_in_cooldown  = 60
+          + scale_out_cooldown = 60
+          + target_value       = 60
+
+          + predefined_metric_specification {
+              + predefined_metric_type = "ECSServiceAverageCPUUtilization"
+            }
+        }
+    }
+
+  # aws_appautoscaling_target.ecs will be created
+  + resource "aws_appautoscaling_target" "ecs" {
+      + arn                = (known after apply)
+      + id                 = (known after apply)
+      + max_capacity       = 4
+      + min_capacity       = 2
+      + resource_id        = "service/chat-app-dev-cluster/chat-app-dev-svc"
+      + role_arn           = (known after apply)
+      + scalable_dimension = "ecs:service:DesiredCount"
+      + service_namespace  = "ecs"
+      + tags_all           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+
+      + suspended_state (known after apply)
+    }
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/chat-app-dev"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 30
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+    }
+
+  # aws_ecr_lifecycle_policy.app will be created
+  + resource "aws_ecr_lifecycle_policy" "app" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep last 30 images"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 30
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + registry_id = (known after apply)
+      + repository  = "chat-app-dev"
+    }
+
+  # aws_ecr_repository.app will be created
+  + resource "aws_ecr_repository" "app" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "chat-app-dev"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "chat-app-dev-cluster"
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+
+      + setting {
+          + name  = "containerInsights"
+          + value = "enabled"
+        }
+    }
+
+  # aws_ecs_service.app will be created
+  + resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 50
+      + desired_count                      = 2
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = true
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "chat-app-dev-svc"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "app"
+          + container_port   = 12345
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "chat-app-dev"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + task_role_arn            = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "chat-app-dev-nat-eip"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-nat-eip"
+          + "Project"     = "chat-app"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # aws_iam_role.ecs_task will be created
+  + resource "aws_iam_role" "ecs_task" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "chat-app-dev-ecs-task"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "chat-app-dev-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "chat-app-dev-ecs-task-exec"
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "chat-app-dev-igw"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-igw"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 300
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "chat-app-dev-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "chat-app-dev-alb"
+        }
+      + tags_all                                                     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-alb"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http[0] will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order = (known after apply)
+          + type  = "forward"
+
+          + forward {
+              + target_group {
+                  + arn    = (known after apply)
+                  + weight = 1
+                }
+            }
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app will be created
+  + resource "aws_lb_target_group" "app" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "30"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "chat-app-dev-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 12345
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "chat-app"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 3
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_nat_gateway.this will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "chat-app-dev-nat"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-nat"
+          + "Project"     = "chat-app"
+        }
+    }
+
+  # aws_route.private_egress will be created
+  + resource "aws_route" "private_egress" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "chat-app-dev-private-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-private-rt"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "chat-app-dev-public-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-public-rt"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "chat-app-dev-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "chat-app-dev-alb-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-alb-sg"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.ecs_tasks will be created
+  + resource "aws_security_group" "ecs_tasks" {
+      + arn                    = (known after apply)
+      + description            = "ECS tasks security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "App from ALB"
+              + from_port        = 12345
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 12345
+            },
+        ]
+      + name                   = "chat-app-dev-ecs-tasks-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "chat-app-dev-ecs-tasks-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-ecs-tasks-sg"
+          + "Project"     = "chat-app"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.10.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "chat-app-dev-private-us-east-1a"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-private-us-east-1a"
+          + "Project"     = "chat-app"
+          + "Tier"        = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.11.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "chat-app-dev-private-us-east-1b"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-private-us-east-1b"
+          + "Project"     = "chat-app"
+          + "Tier"        = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "chat-app-dev-public-us-east-1a"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-public-us-east-1a"
+          + "Project"     = "chat-app"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "chat-app-dev-public-us-east-1b"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-public-us-east-1b"
+          + "Project"     = "chat-app"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "chat-app-dev-vpc"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "chat-app-dev-vpc"
+          + "Project"     = "chat-app"
+        }
+    }
+
+Plan: 32 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name              = (known after apply)
+  + ecr_repository_url        = (known after apply)
+  + ecs_cluster_name          = "chat-app-dev-cluster"
+  + ecs_service_name          = "chat-app-dev-svc"
+aws_cloudwatch_log_group.app: Creating...
+aws_ecr_repository.app: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_eip.nat: Creating...
+aws_iam_role.ecs_task: Creating...
+aws_ecs_cluster.this: Creating...
+aws_vpc.this: Creating...
+aws_eip.nat: Creation complete after 0s [id=eipalloc-6658f0d6dc5154f67]
+aws_iam_role.ecs_task: Creation complete after 0s [id=chat-app-dev-ecs-task]
+aws_iam_role.ecs_task_execution: Creation complete after 0s [id=chat-app-dev-ecs-task-exec]
+aws_iam_role_policy_attachment.ecs_task_execution: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution: Creation complete after 0s [id=chat-app-dev-ecs-task-exec-20260206134319164700000001]
+aws_cloudwatch_log_group.app: Creation complete after 0s [id=/ecs/chat-app-dev]
+aws_ecr_repository.app: Creation complete after 2s [id=chat-app-dev]
+aws_ecr_lifecycle_policy.app: Creating...
+aws_ecs_task_definition.app: Creating...
+aws_ecr_lifecycle_policy.app: Creation complete after 0s [id=chat-app-dev]
+aws_ecs_task_definition.app: Creation complete after 0s [id=chat-app-dev]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-1850ef5f6ded23711]
+aws_route_table.public: Creating...
+aws_route_table.private: Creating...
+aws_internet_gateway.this: Creating...
+aws_subnet.private[0]: Creating...
+aws_subnet.public[1]: Creating...
+aws_subnet.public[0]: Creating...
+aws_subnet.private[1]: Creating...
+aws_lb_target_group.app: Creating...
+aws_security_group.alb: Creating...
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-c04114b271498cfd2]
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-9e648ea20acdf6f80]
+aws_internet_gateway.this: Creation complete after 0s [id=igw-2e6aef9e922b8c289]
+aws_route_table.private: Creation complete after 0s [id=rtb-93f61bd4ad3742b3b]
+aws_route_table.public: Creation complete after 0s [id=rtb-cfd0ad1e0d47b9031]
+aws_route_table_association.private[1]: Creating...
+aws_route_table_association.private[0]: Creating...
+aws_route.public_internet: Creating...
+aws_lb_target_group.app: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/chat-app-dev-tg/c29a71748cd73627]
+aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-96daf959cd97397b8]
+aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-9421605ce1dd79bff]
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/chat-app-dev-cluster]
+aws_security_group.alb: Creation complete after 0s [id=sg-bc31291a7e9da1399]
+aws_route.public_internet: Creation complete after 0s [id=r-rtb-cfd0ad1e0d47b90311080289494]
+aws_security_group.ecs_tasks: Creating...
+aws_security_group.ecs_tasks: Creation complete after 0s [id=sg-51f4e6d17ed27077e]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 10s [id=subnet-1c6341b7c9512ac57]
+aws_subnet.public[1]: Creation complete after 10s [id=subnet-281854d082b50b1a0]
+aws_route_table_association.public[0]: Creating...
+aws_route_table_association.public[1]: Creating...
+aws_nat_gateway.this: Creating...
+aws_lb.this: Creating...
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-32bd77ac1b919fa75]
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-5c7290a2a464b93d1]
+aws_nat_gateway.this: Creation complete after 0s [id=nat-599b8c6f18b97b62d]
+aws_route.private_egress: Creating...
+aws_route.private_egress: Creation complete after 0s [id=r-rtb-93f61bd4ad3742b3b1080289494]
+aws_lb.this: Still creating... [00m10s elapsed]
+aws_lb.this: Still creating... [00m20s elapsed]
+aws_lb.this: Still creating... [00m30s elapsed]
+aws_lb.this: Still creating... [00m40s elapsed]
+aws_lb.this: Still creating... [00m50s elapsed]
+aws_lb.this: Still creating... [01m00s elapsed]
+aws_lb.this: Creation complete after 1m0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/chat-app-dev-alb/9d5a6b3c60818979]
+aws_lb_listener.http[0]: Creating...
+aws_lb_listener.http[0]: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/chat-app-dev-alb/9d5a6b3c60818979/1287978a2a015475]
+aws_ecs_service.app: Creating...
+aws_ecs_service.app: Still creating... [00m10s elapsed]
+aws_ecs_service.app: Still creating... [00m20s elapsed]
+aws_ecs_service.app: Still creating... [00m30s elapsed]
+aws_ecs_service.app: Still creating... [00m40s elapsed]
+aws_ecs_service.app: Creation complete after 42s [id=arn:aws:ecs:us-east-1:000000000000:service/chat-app-dev-cluster/chat-app-dev-svc]
+aws_appautoscaling_target.ecs: Creating...
+aws_appautoscaling_target.ecs: Creation complete after 0s [id=service/chat-app-dev-cluster/chat-app-dev-svc]
+aws_appautoscaling_policy.cpu: Creating...
+aws_appautoscaling_policy.cpu: Creation complete after 0s [id=chat-app-dev-cpu-tt]
+
+Apply complete! Resources: 32 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+alb_dns_name = "chat-app-dev-alb.elb.localhost.localstack.cloud"
+ecr_repository_url = "000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/chat-app-dev"
+ecs_cluster_name = "chat-app-dev-cluster"
+ecs_service_name = "chat-app-dev-svc"

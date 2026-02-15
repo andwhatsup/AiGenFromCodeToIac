@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This architecture is designed to deploy a Go-based web application using AWS managed container services and infrastructure as code for automation, security, and scalability. The main flow is as follows:\n\n1. **Containerization & Image Management:**\n   - The Go web application is packaged as a Docker image. This image is built locally or in CI/CD and pushed to AWS Elastic Container Registry (ECR), which serves as a secure, scalable container image repository.\n\n2. **Compute & Orchestration:**\n   - The application is deployed as containers. The most AWS-native, scalable, and cost-effective way is to use AWS Elastic Container Service (ECS) with Fargate launch type (serverless containers), or alternatively, ECS on EC2 or AWS Elastic Kubernetes Service (EKS). For this scenario, ECS with Fargate is recommended for simplicity and minimal management overhead.\n\n3. **Networking & Load Balancing:**\n   - An AWS Application Load Balancer (ALB) is provisioned to route HTTP(S) traffic from the internet to the ECS service running the Go containers. The ALB provides SSL termination, health checks, and scalable routing.\n   - The application and ALB are deployed within a Virtual Private Cloud (VPC) with public and private subnets for security and high availability.\n\n4. **Security & IAM:**\n   - AWS IAM roles and policies are created to grant the ECS tasks permission to pull images from ECR and access any other required AWS resources securely.\n   - Security groups are configured to control inbound/outbound traffic to the ALB and ECS tasks.\n\n5. **Infrastructure as Code:**\n   - Terraform is used to provision and manage all AWS resources, ensuring repeatability, version control, and auditability.\n\n6. **Monitoring & Logging:**\n   - AWS CloudWatch is used for logging application output, monitoring metrics, and setting up alarms for operational visibility.\n\nThis architecture is secure (least-privilege IAM, private subnets for compute), scalable (ECS/Fargate, ALB), and follows AWS best practices for containerized web applications.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public subnets (for ALB)",
+    "Private subnets (for ECS tasks)",
+    "Internet Gateway",
+    "NAT Gateway (for ECS tasks to access the internet if needed)",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "AWS ECR (Elastic Container Registry) repository",
+    "AWS ECS Cluster",
+    "ECS Service (Fargate)",
+    "ECS Task Definition (with IAM role for ECR access)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS service)",
+    "IAM Roles and Policies (for ECS task execution, ECR access, and least-privilege app access)",
+    "CloudWatch Log Group (for ECS task/app logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "Terraform state storage (e.g., S3 bucket and DynamoDB table for state locking, if using remote state)"
+  ]
+}

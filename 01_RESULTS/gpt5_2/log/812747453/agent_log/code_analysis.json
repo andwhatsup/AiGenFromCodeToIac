@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)"
+      ],
+      "frameworks": [
+        "Express.js"
+      ],
+      "dependencies": [
+        "express (^4.19.2) — package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows/main.yml",
+        "package.json",
+        "package-lock.json"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP API (Express server listening on PORT/3000) — index.js",
+        "Container image build (Docker) — Dockerfile",
+        "Local container orchestration (Docker Compose) — docker-compose.yml",
+        "CI/CD pipeline (GitHub Actions) — .github/workflows/main.yml",
+        "AWS Elastic Container Registry (ECR) repository (implied by workflow: docker login/push to $ECR_REPOSITORY) — .github/workflows/main.yml",
+        "AWS Elastic Container Service (ECS) cluster/service deployment target (implied: aws ecs update-service --cluster my-ecs-cluster --service my-service) — .github/workflows/main.yml",
+        "AWS credentials/secrets in GitHub Actions (AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY) — .github/workflows/main.yml"
+      ]
+    }
+  ]
+}

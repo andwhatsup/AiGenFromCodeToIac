@@ -1,0 +1,12 @@
+
+Error: Error in function call
+
+  on main.tf line 88, in resource "aws_lambda_function" "this":
+  88:   source_code_hash = filebase64sha256(var.lambda_zip_path)
+    ├────────────────
+    │ while calling filebase64sha256(path)
+    │ var.lambda_zip_path is "../target/lambda/lambda-delta-optimize/bootstrap.zip"
+
+Call to function "filebase64sha256" failed: open
+../target/lambda/lambda-delta-optimize/bootstrap.zip: no such file or
+directory.

@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.3.0\"\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 5.0\"\n    }\n    kubernetes = {\n      source  = \"hashicorp/kubernetes\"\n      version = \">= 2.20.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n\nprovider \"kubernetes\" {\n  host                   = module.eks.cluster_endpoint\n  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)\n  token                  = data.aws_eks_cluster_auth.cluster.token\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidrs\" {\n  description = \"List of public subnet CIDRs.\"\n  type        = list(string)\n  default     = [\"10.0.1.0/24\", \"10.0.2.0/24\"]\n}\n\nvariable \"private_subnet_cidrs\" {\n  description = \"List of private subnet CIDRs.\"\n  type        = list(string)\n  default     = [\"10.0.101.0/24\", \"10.0.102.0/24\"]\n}\n\nvariable \"eks_cluster_name\" {\n  description = \"Name for the EKS cluster.\"\n  type        = string\n  default     = \"flask-activemq-eks\"\n}\n\nvariable \"node_instance_type\" {\n  description = \"EC2 instance type for EKS nodes.\"\n  type        = string\n  default     = \"t3.medium\"\n}\n\nvariable \"desired_capacity\" {\n  description = \"Desired number of worker nodes.\"\n  type        = number\n  default     = 2\n}\n\nvariable \"max_capacity\" {\n  description = \"Maximum number of worker nodes.\"\n  type        = number\n  default     = 3\n}\n\nvariable \"min_capacity\" {\n  description = \"Minimum number of worker nodes.\"\n  type        = number\n  default     = 1\n}\n"
+    },
+    {
+      "name": "vpc.tf",
+      "content": "module \"vpc\" {\n  source  = \"terraform-aws-modules/vpc/aws\"\n  version = \"5.1.0\"\n\n  name = \"flask-activemq-vpc\"\n  cidr = var.vpc_cidr\n\n  azs             = [\"${var.aws_region}a\", \"${var.aws_region}b\"]\n  public_subnets  = var.public_subnet_cidrs\n  private_subnets = var.private_subnet_cidrs\n\n  enable_nat_gateway   = true\n  single_nat_gateway   = true\n  enable_dns_hostnames = true\n  enable_dns_support   = true\n\n  tags = {\n    Name = \"flask-activemq-vpc\"\n  }\n}\n"
+    },
+    {
+      "name": "eks.tf",
+      "content": "module \"eks\" {\n  source          = \"terraform-aws-modules/eks/aws\"\n  version         = \"20.8.4\"\n\n  cluster_name    = var.eks_cluster_name\n  cluster_version = \"1.29\"\n  vpc_id          = module.vpc.vpc_id\n  subnet_ids      = module.vpc.private_subnets\n\n  enable_irsa = true\n\n  eks_managed_node_group_defaults = {\n    ami_type       = \"AL2_x86_64\"\n    instance_type  = var.node_instance_type\n    min_size       = var.min_capacity\n    max_size       = var.max_capacity\n    desired_size   = var.desired_capacity\n  }\n\n  eks_managed_node_groups = {\n    default = {\n      min_size     = var.min_capacity\n      max_size     = var.max_capacity\n      desired_size = var.desired_capacity\n      instance_type = var.node_instance_type\n      name         = \"default\"\n    }\n  }\n\n  tags = {\n    Name = \"flask-activemq-eks\"\n  }\n}\n\ndata \"aws_eks_cluster\" \"cluster\" {\n  name = module.eks.cluster_name\n}\n\ndata \"aws_eks_cluster_auth\" \"cluster\" {\n  name = module.eks.cluster_name\n}\n"
+    },
+    {
+      "name": "ecr.tf",
+      "content": "resource \"aws_ecr_repository\" \"flask_app\" {\n  name = \"flask-app\"\n  image_scanning_configuration {\n    scan_on_push = true\n  }\n  tags = {\n    Name = \"flask-app\"\n  }\n}\n"
+    },
+    {
+      "name": "iam.tf",
+      "content": "module \"eks_irsa\" {\n  source  = \"terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc\"\n  version = \"5.34.0\"\n\n  create_role = true\n  role_name   = \"eks-irsa-role\"\n\n  provider_url = replace(module.eks.cluster_oidc_issuer_url, \"https://\", \"\")\n  oidc_fully_qualified_audiences = [\"sts.amazonaws.com\"]\n\n  role_policy_arns = [\n    \"arn:aws:iam::aws:policy/AmazonEKSClusterPolicy\",\n    \"arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy\",\n    \"arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly\"\n  ]\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"vpc_id\" {\n  value = module.vpc.vpc_id\n}\n\noutput \"eks_cluster_name\" {\n  value = module.eks.cluster_name\n}\n\noutput \"eks_cluster_endpoint\" {\n  value = module.eks.cluster_endpoint\n}\n\noutput \"ecr_repository_url\" {\n  value = aws_ecr_repository.flask_app.repository_url\n}\n"
+    },
+    {
+      "name": "k8s_flask_app.tf",
+      "content": "resource \"kubernetes_deployment\" \"flask_app\" {\n  metadata {\n    name      = \"flask-app\"\n    namespace = \"default\"\n    labels = {\n      app = \"flask-app\"\n    }\n  }\n  spec {\n    replicas = 2\n    selector {\n      match_labels = {\n        app = \"flask-app\"\n      }\n    }\n    template {\n      metadata {\n        labels = {\n          app = \"flask-app\"\n        }\n      }\n      spec {\n        container {\n          name  = \"flask-app\"\n          image = aws_ecr_repository.flask_app.repository_url\n          port {\n            container_port = 5000\n          }\n        }\n      }\n    }\n  }\n}\n\nresource \"kubernetes_service\" \"flask_app_lb\" {\n  metadata {\n    name      = \"flask-app-lb\"\n    namespace = \"default\"\n    labels = {\n      app = \"flask-app\"\n    }\n  }\n  spec {\n    selector = {\n      app = \"flask-app\"\n    }\n    port {\n      port        = 80\n      target_port = 5000\n    }\n    type = \"LoadBalancer\"\n  }\n}\n"
+    },
+    {
+      "name": "k8s_activemq.tf",
+      "content": "resource \"kubernetes_deployment\" \"activemq\" {\n  metadata {\n    name      = \"activemq\"\n    namespace = \"default\"\n    labels = {\n      app = \"activemq\"\n    }\n  }\n  spec {\n    replicas = 1\n    selector {\n      match_labels = {\n        app = \"activemq\"\n      }\n    }\n    template {\n      metadata {\n        labels = {\n          app = \"activemq\"\n        }\n      }\n      spec {\n        container {\n          name  = \"activemq\"\n          image = \"rmohr/activemq:5.16.3\"\n          port {\n            container_port = 61616\n          }\n          port {\n            container_port = 8161\n          }\n        }\n      }\n    }\n  }\n}\n\nresource \"kubernetes_service\" \"activemq\" {\n  metadata {\n    name      = \"activemq\"\n    namespace = \"default\"\n    labels = {\n      app = \"activemq\"\n    }\n  }\n  spec {\n    selector = {\n      app = \"activemq\"\n    }\n    port {\n      port        = 61616\n      target_port = 61616\n    }\n    port {\n      port        = 8161\n      target_port = 8161\n    }\n    type = \"ClusterIP\"\n  }\n}\n"
+    }
+  ]
+}

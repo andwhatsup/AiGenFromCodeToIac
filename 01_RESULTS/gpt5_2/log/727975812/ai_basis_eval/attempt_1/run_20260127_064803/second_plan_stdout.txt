@@ -1,0 +1,30 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_zip: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.archive_file.lambda_zip: Read complete after 0s [id=c87e8cc84e677c80a616b9e8da989e9167e813b9]
+aws_iam_role.scheduler_role: Refreshing state... [id=venmo-action-automation-scheduler-role]
+aws_sns_topic.alarms: Refreshing state... [id=arn:aws:sns:us-east-1:000000000000:venmo-action-automation-alarms]
+aws_iam_role.lambda_role: Refreshing state... [id=venmo-action-automation-lambda-role]
+aws_iam_role_policy_attachment.lambda_basic: Refreshing state... [id=venmo-action-automation-lambda-role-20260127054829008100000001]
+aws_lambda_function.this: Refreshing state... [id=venmo-action-automation-handler]
+aws_iam_role_policy.scheduler_invoke_lambda: Refreshing state... [id=venmo-action-automation-scheduler-role:venmo-action-automation-scheduler-invoke-lambda]
+aws_cloudwatch_metric_alarm.lambda_errors: Refreshing state... [id=venmo-action-automation-lambda-errors]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_metric_alarm.lambda_errors will be updated in-place
+  ~ resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+        id                                    = "venmo-action-automation-lambda-errors"
+        tags                                  = {}
+      ~ tags_all                              = {
+          + "Managed" = "terraform"
+          + "Project" = "venmo-action-automation"
+        }
+        # (21 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

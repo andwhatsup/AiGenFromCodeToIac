@@ -1,0 +1,260 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        },
+        "ssm": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ssm_parameter"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs"
+        ],
+        "partial": [
+          "ecs",
+          "elbv2",
+          "iam",
+          "route53",
+          "secretsmanager",
+          "ssm"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"fastapi-vault\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.0.0/24\", \"10.0.1.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.10.0/24\", \"10.0.11.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "8000",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "task_cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "task_memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "image_uri": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "vault_addr": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "vault_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "acm_certificate_arn": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "domain_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        },
+        "route53_zone_id": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "acm_certificate_arn",
+        "image_uri",
+        "vault_addr",
+        "vault_token"
+      ],
+      "aws_services": [
+        "aws_availability_zones",
+        "aws_cloudwatch_log_group",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_route53_record",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_security_group",
+        "aws_ssm_parameter"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1,
+        "aws_security_group": 2,
+        "aws_cloudwatch_log_group": 1,
+        "aws_ssm_parameter": 1,
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1,
+        "aws_ecs_cluster": 1,
+        "aws_iam_policy_document": 2,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_iam_policy": 1,
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_route53_record": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/819938146/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

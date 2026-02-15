@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is currently designed for local development using Localstack (an AWS emulator), Docker Compose, and Terraform. To deploy this system on real AWS infrastructure, we will map the emulated components to their AWS equivalents and ensure a secure, scalable, and production-ready architecture.\n\n**Proposed AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all resources within a dedicated Virtual Private Cloud (VPC) for isolation and security.\n   - Use public and private subnets across multiple Availability Zones for high availability.\n   - Configure appropriate route tables, NAT Gateway, and Internet Gateway for secure access.\n\n2. **Compute:**\n   - Use Amazon EC2 instances (or AWS Fargate/ECS if containerization is preferred) to run application workloads that were previously run in Docker containers.\n\n3. **Database:**\n   - Replace Localstack's DynamoDB with Amazon DynamoDB (fully managed NoSQL database service).\n\n4. **Management and UI:**\n   - For DynamoDB Admin UI, consider deploying a bastion host or a lightweight EC2 instance with the DynamoDB Admin tool, accessible only via secure channels (e.g., VPN or SSH).\n\n5. **Infrastructure as Code:**\n   - Use Terraform to provision and manage all AWS resources, following best practices for state management (e.g., store Terraform state in S3 with state locking via DynamoDB).\n\n6. **IAM and Security:**\n   - Create IAM roles and policies with least privilege for EC2, DynamoDB, and other services.\n   - Use Security Groups and NACLs to restrict network access.\n\n7. **Monitoring and Logging:**\n   - Enable CloudWatch for monitoring logs and metrics from EC2 and DynamoDB.\n\n8. **Optional:**\n   - Use AWS Systems Manager Session Manager for secure shell access to EC2 instances without opening SSH ports.\n\n**Deployment Strategy:**\n- Use Terraform to define and deploy all AWS resources.\n- Store sensitive variables and secrets in AWS Secrets Manager or SSM Parameter Store.\n- Use S3 for storing application artifacts or backups if needed.\n\nThis architecture provides a secure, scalable, and production-ready AWS environment that closely mirrors the local development setup, enabling seamless transition from local to cloud.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "EC2 Instances (for application workloads and/or DynamoDB Admin UI)",
+    "Amazon DynamoDB Table(s)",
+    "IAM Roles and Policies (for EC2, DynamoDB, Terraform)",
+    "S3 Bucket (for Terraform state and/or application artifacts)",
+    "DynamoDB Table (for Terraform state locking)",
+    "CloudWatch Log Groups and Metrics",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets)",
+    "(Optional) AWS Systems Manager (for Session Manager access)"
+  ]
+}

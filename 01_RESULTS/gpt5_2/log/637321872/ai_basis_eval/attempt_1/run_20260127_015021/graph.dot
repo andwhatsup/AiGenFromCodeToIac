@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.amazon_linux_2" [label="data.aws_ami.amazon_linux_2"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_instance.squid" [label="aws_instance.squid"];
+  "aws_security_group.squid" [label="aws_security_group.squid"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_instance.squid" -> "data.aws_ami.amazon_linux_2";
+  "aws_instance.squid" -> "data.aws_subnets.default";
+  "aws_instance.squid" -> "aws_security_group.squid";
+  "aws_security_group.squid" -> "data.aws_vpc.default";
+}

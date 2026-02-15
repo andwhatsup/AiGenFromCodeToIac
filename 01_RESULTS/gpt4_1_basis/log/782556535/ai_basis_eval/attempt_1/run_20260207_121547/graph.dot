@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.s3_policy" [label="data.aws_iam_policy_document.s3_policy"];
+  "aws_s3_bucket.logs" [label="aws_s3_bucket.logs"];
+  "aws_s3_bucket.this" [label="aws_s3_bucket.this"];
+  "aws_s3_bucket_logging.this" [label="aws_s3_bucket_logging.this"];
+  "aws_s3_bucket_policy.this" [label="aws_s3_bucket_policy.this"];
+  "aws_s3_bucket_versioning.this" [label="aws_s3_bucket_versioning.this"];
+  "data.aws_iam_policy_document.s3_policy" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_logging.this" -> "aws_s3_bucket.logs";
+  "aws_s3_bucket_logging.this" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_policy.this" -> "data.aws_iam_policy_document.s3_policy";
+  "aws_s3_bucket_versioning.this" -> "aws_s3_bucket.this";
+}

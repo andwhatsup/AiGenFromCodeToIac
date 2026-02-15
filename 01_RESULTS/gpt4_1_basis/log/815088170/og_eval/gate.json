@@ -1,0 +1,127 @@
+{
+  "roots_scanned": [
+    "Terraform"
+  ],
+  "recommended_roots": [
+    "Terraform"
+  ],
+  "varfiles_created": {
+    "Terraform": true
+  },
+  "services_report": {
+    "Terraform": {
+      "by_service": {
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_alb",
+            "aws_alb_listener",
+            "aws_alb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ecr",
+          "ecs",
+          "elbv2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": []
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/variables.tf"
+        },
+        "subnet_ids": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/variables.tf"
+        },
+        "security_group_ids": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/variables.tf"
+        },
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/variables.tf"
+        }
+      },
+      "required_missing": [
+        "security_group_ids",
+        "subnet_ids",
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_alb",
+        "aws_alb_listener",
+        "aws_alb_target_group",
+        "aws_ecr_repository",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_role"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_ecs_cluster": 1,
+        "aws_iam_role": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_alb": 1,
+        "aws_alb_target_group": 1,
+        "aws_alb_listener": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/main.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/815088170/Terraform/terraform.tfvars"
+      ]
+    }
+  ]
+}

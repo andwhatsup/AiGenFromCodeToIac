@@ -1,0 +1,68 @@
+data.aws_availability_zones.available: Reading...
+aws_vpc.this: Refreshing state... [id=vpc-9cf62d333e0d11251]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=hello-node-dev-ecs-task-exec]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/my-ecs-cluster]
+aws_ecr_repository.app: Refreshing state... [id=hello-node]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/hello-node-dev]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=hello-node]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=hello-node-dev-ecs-task-exec-20260127145237173100000001]
+aws_ecs_task_definition.app: Refreshing state... [id=my-service]
+aws_internet_gateway.this: Refreshing state... [id=igw-86c4bc6d11f9340c5]
+aws_route_table.public: Refreshing state... [id=rtb-783efe0688af5ab03]
+aws_subnet.public[0]: Refreshing state... [id=subnet-e6193c40f9d938ee9]
+aws_subnet.public[1]: Refreshing state... [id=subnet-133a896c104f39887]
+aws_subnet.private[0]: Refreshing state... [id=subnet-19c374313c5613667]
+aws_security_group.alb: Refreshing state... [id=sg-a1c14d16f26b1c353]
+aws_subnet.private[1]: Refreshing state... [id=subnet-3613673c4110fdd28]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/hello-node-dev-tg/645d1034604094c7]
+aws_eip.nat[0]: Refreshing state... [id=eipalloc-f4ac2122a34d1df64]
+aws_eip.nat[1]: Refreshing state... [id=eipalloc-d19f764b848be32e8]
+aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-9d6024749d75324fb]
+aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-12898d6fe2771505c]
+aws_route.public_internet: Refreshing state... [id=r-rtb-783efe0688af5ab031080289494]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-ef8ffca8144cd81f7]
+aws_lb.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/hello-node-dev/92ca433c58b5366d]
+aws_route_table.private[0]: Refreshing state... [id=rtb-f91c6ef99606b211e]
+aws_route_table.private[1]: Refreshing state... [id=rtb-029b566978f520508]
+aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-18b73796c10976be1]
+aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-257572084591fb7aa]
+aws_nat_gateway.this[1]: Refreshing state... [id=nat-7aaed86ee47ea62fd]
+aws_nat_gateway.this[0]: Refreshing state... [id=nat-b2fe6982d34d1a043]
+aws_route.private_nat[1]: Refreshing state... [id=r-rtb-029b566978f5205081080289494]
+aws_route.private_nat[0]: Refreshing state... [id=r-rtb-f91c6ef99606b211e1080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-node-dev/92ca433c58b5366d/2577e7ab2854c827]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/my-ecs-cluster/my-service]
+aws_appautoscaling_target.ecs: Refreshing state... [id=service/my-ecs-cluster/my-service]
+aws_appautoscaling_policy.cpu: Refreshing state... [id=hello-node-dev-cpu-scaling]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/my-ecs-cluster/my-service"
+        name                               = "my-service"
+        tags                               = {
+            "Name" = "hello-node-dev-service"
+        }
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-node-dev/92ca433c58b5366d/2577e7ab2854c827"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

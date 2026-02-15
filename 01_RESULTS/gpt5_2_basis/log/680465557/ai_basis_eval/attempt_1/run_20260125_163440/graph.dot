@@ -1,0 +1,37 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "aws_cloudtrail.this" [label="aws_cloudtrail.this"];
+  "aws_cloudwatch_event_rule.schedule" [label="aws_cloudwatch_event_rule.schedule"];
+  "aws_cloudwatch_event_target.lambda" [label="aws_cloudwatch_event_target.lambda"];
+  "aws_ecr_repository.lambda" [label="aws_ecr_repository.lambda"];
+  "aws_iam_policy.app" [label="aws_iam_policy.app"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy_attachment.app" [label="aws_iam_role_policy_attachment.app"];
+  "aws_iam_role_policy_attachment.basic" [label="aws_iam_role_policy_attachment.basic"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_lambda_permission.allow_eventbridge" [label="aws_lambda_permission.allow_eventbridge"];
+  "aws_s3_bucket.cloudtrail" [label="aws_s3_bucket.cloudtrail"];
+  "aws_s3_bucket_ownership_controls.cloudtrail" [label="aws_s3_bucket_ownership_controls.cloudtrail"];
+  "aws_s3_bucket_policy.cloudtrail" [label="aws_s3_bucket_policy.cloudtrail"];
+  "aws_s3_bucket_public_access_block.cloudtrail" [label="aws_s3_bucket_public_access_block.cloudtrail"];
+  "aws_cloudtrail.this" -> "aws_s3_bucket_policy.cloudtrail";
+  "aws_cloudwatch_event_target.lambda" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_cloudwatch_event_target.lambda" -> "aws_lambda_function.this";
+  "aws_iam_policy.app" -> "aws_s3_bucket.cloudtrail";
+  "aws_iam_role_policy_attachment.app" -> "aws_iam_policy.app";
+  "aws_iam_role_policy_attachment.app" -> "aws_iam_role.lambda";
+  "aws_iam_role_policy_attachment.basic" -> "aws_iam_role.lambda";
+  "aws_lambda_function.this" -> "aws_ecr_repository.lambda";
+  "aws_lambda_function.this" -> "aws_iam_role_policy_attachment.app";
+  "aws_lambda_function.this" -> "aws_iam_role_policy_attachment.basic";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_lambda_function.this";
+  "aws_s3_bucket.cloudtrail" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket_ownership_controls.cloudtrail" -> "aws_s3_bucket.cloudtrail";
+  "aws_s3_bucket_policy.cloudtrail" -> "aws_s3_bucket_ownership_controls.cloudtrail";
+  "aws_s3_bucket_policy.cloudtrail" -> "aws_s3_bucket_public_access_block.cloudtrail";
+  "aws_s3_bucket_public_access_block.cloudtrail" -> "aws_s3_bucket.cloudtrail";
+}

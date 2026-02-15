@@ -1,0 +1,49 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/755056762",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS SDK via awswrangler (AWS Data Wrangler)"
+      ],
+      "dependencies": [
+        "awswrangler==3.4.2 (requirements.txt)",
+        "isort==5.13.2 (requirements-dev.txt, dev)",
+        "flake8==7.0.0 (requirements-dev.txt, dev)"
+      ],
+      "deployment_relevant_files": [
+        ".github/workflows/ci.yml (GitHub Actions CI: linting with isort/flake8, Python 3.9)",
+        "requirements.txt",
+        "requirements-dev.txt"
+      ],
+      "architectural_resources": [
+        "ETL/ingestion Python application (main.py)",
+        "Amazon S3 bucket (implied by README.md and data_extract_to_s3 import usage)",
+        "AWS account/credentials for S3 access (implied by awswrangler usage)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/755056762/cloud infrastructure",
+      "programming_languages": [
+        "(none detected: no IaC source files found)"
+      ],
+      "frameworks": [
+        "Terraform (implied by init/validate logs)"
+      ],
+      "dependencies": [
+        "hashicorp/aws provider ~> 5.0 (implied by init_validate_stdout.txt showing installation of hashicorp/aws v5.100.0)"
+      ],
+      "deployment_relevant_files": [
+        "cloud infrastructure/init_validate_stdout.txt (terraform init output)",
+        "cloud infrastructure/validate_stdout.txt (terraform validate output)",
+        "cloud infrastructure/init_validate_stderr.txt",
+        "cloud infrastructure/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Intended AWS infrastructure managed by Terraform (exact resources not present in repo; no *.tf files found)"
+      ]
+    }
+  ]
+}

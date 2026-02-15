@@ -1,0 +1,149 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_300",
+                "bc_check_id": "BC_AWS_GENERAL_214",
+                "check_name": "Ensure S3 lifecycle configuration sets period for aborting failed uploads",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "rule"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    6,
+                    17
+                ],
+                "resource": "aws_s3_bucket_lifecycle_configuration.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3AbortIncompleteUploads",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-300",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                "breadcrumbs": {
+                    "rule.expiration.days": [
+                        {
+                            "type": "variable",
+                            "name": "s3_bucket_lifecycle_days",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "rule.expiration": [
+                        {
+                            "type": "variable",
+                            "name": "s3_bucket_lifecycle_days",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "rule.id": [
+                        {
+                            "type": "tfvar",
+                            "name": "suffix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "suffix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_273",
+                "bc_check_id": "BC_AWS_IAM_77",
+                "check_name": "Ensure access is controlled through SSO and not AWS IAM defined users",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    43,
+                    45
+                ],
+                "resource": "aws_iam_user.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMUserNotUsedForAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-273",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "suffix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "suffix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/832779198/terraform/modules/s3-bucket/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 22,
+        "failed": 2,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 9,
+        "checkov_version": "3.2.490"
+    }
+}

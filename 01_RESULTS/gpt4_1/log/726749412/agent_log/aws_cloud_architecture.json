@@ -1,0 +1,27 @@
+{
+  "aws_architecture_description": "This system is a containerized JavaScript (Express) web application with a modern CI/CD pipeline. The AWS architecture will focus on secure, scalable, and automated deployment, leveraging managed AWS services to minimize operational overhead and maximize reliability.\n\n**1. Networking & Security:**\n- Deploy all resources within a dedicated VPC with public and private subnets for security and scalability. Public subnets will host load balancers; private subnets will host compute resources.\n- Use Security Groups and NACLs to tightly control traffic.\n\n**2. Compute & Application Hosting:**\n- Use Amazon ECS (Elastic Container Service) with Fargate launch type to run the Dockerized Express application. This removes the need to manage EC2 instances and allows for easy scaling.\n- ECS Service will pull the application image from DockerHub.\n- An Application Load Balancer (ALB) will distribute incoming HTTP(S) traffic to ECS tasks.\n\n**3. CI/CD Pipeline:**\n- Use AWS CodePipeline to orchestrate the CI/CD process, replacing Jenkins for managed, scalable pipelines.\n- Use AWS CodeBuild for building Docker images, running tests (including Mocha), and integrating with SonarQube and Trivy (these can be run as part of the buildspec or as custom CodeBuild steps).\n- CodeBuild will push built images to Amazon ECR (Elastic Container Registry) instead of DockerHub for better integration and security, but ECS can also pull from DockerHub if required.\n\n**4. Monitoring & Logging:**\n- Use Amazon CloudWatch for application and infrastructure logs, metrics, and alarms.\n- Enable AWS X-Ray for distributed tracing if deeper application insights are needed.\n\n**5. IAM & Security:**\n- Create IAM roles and policies for ECS tasks, CodeBuild, and CodePipeline with least-privilege access.\n- Use AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., API keys, DB credentials).\n\n**6. Optional (if needed):**\n- If persistent storage is required (e.g., for file uploads), use Amazon S3.\n- If a database is needed, use Amazon RDS (managed relational database) or DynamoDB (NoSQL).\n\n**Summary:**\n- The Express app is built and tested in CodeBuild, scanned with SonarQube and Trivy, containerized, and pushed to ECR.\n- CodePipeline automates the build, test, and deploy process.\n- ECS Fargate runs the app, fronted by an ALB, all within a secure VPC.\n- Monitoring, logging, and secrets management are handled by AWS native services.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "Network ACLs",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Service (Fargate)",
+    "ECS Task Definition",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB)",
+    "Elastic Container Registry (ECR) (or DockerHub integration)",
+    "AWS CodePipeline",
+    "AWS CodeBuild",
+    "IAM Roles and Policies (for ECS, CodeBuild, CodePipeline)",
+    "AWS Secrets Manager or Parameter Store",
+    "Amazon CloudWatch (Logs, Metrics, Alarms)",
+    "(Optional) Amazon S3 (for static assets or uploads)",
+    "(Optional) Amazon RDS or DynamoDB (if persistent database is needed)",
+    "AWS X-Ray (optional, for tracing)"
+  ]
+}

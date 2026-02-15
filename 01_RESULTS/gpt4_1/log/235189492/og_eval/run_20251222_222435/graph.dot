@@ -1,0 +1,17 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.sfn_assume_role_policy_document" [label="data.aws_iam_policy_document.sfn_assume_role_policy_document"];
+  "aws_iam_role.hfl-sfn" [label="aws_iam_role.hfl-sfn"];
+  "aws_iam_role.iterator" [label="aws_iam_role.iterator"];
+  "aws_iam_role_policy.hfl" [label="aws_iam_role_policy.hfl"];
+  "aws_iam_role_policy.hfl-lambda-execution" [label="aws_iam_role_policy.hfl-lambda-execution"];
+  "aws_lambda_function.iterator" [label="aws_lambda_function.iterator"];
+  "aws_sfn_state_machine.hfl" [label="aws_sfn_state_machine.hfl"];
+  "aws_iam_role.hfl-sfn" -> "data.aws_iam_policy_document.sfn_assume_role_policy_document";
+  "aws_iam_role_policy.hfl" -> "aws_iam_role.iterator";
+  "aws_iam_role_policy.hfl-lambda-execution" -> "aws_iam_role.hfl-sfn";
+  "aws_lambda_function.iterator" -> "aws_iam_role.iterator";
+  "aws_sfn_state_machine.hfl" -> "aws_iam_role.hfl-sfn";
+  "aws_sfn_state_machine.hfl" -> "aws_lambda_function.iterator";
+}

@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/707877383",
+      "programming_languages": [
+        "JavaScript (Node.js, ES Modules)"
+      ],
+      "frameworks": [
+        "None (script-style Node.js app)"
+      ],
+      "dependencies": [
+        "axios (^1.5.1) — /package.json",
+        "dotenv (^16.3.1) — /package.json",
+        "https-proxy-agent (^7.0.2) — /package.json"
+      ],
+      "deployment_relevant_files": [
+        "package.json — /package.json"
+      ],
+      "architectural_resources": [
+        "Node.js application/script (runs HTTP requests through proxies)",
+        "Outbound HTTP(S) access to third-party websites (e.g., ifconfig.co, whatismyipaddress.com)",
+        "Proxy infrastructure (external HTTP proxies referenced in code; not provisioned in this repo)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/707877383/infrastructure",
+      "programming_languages": [
+        "Terraform (implied by terraform init/validate outputs)"
+      ],
+      "frameworks": [
+        "Terraform providers: hashicorp/aws, digitalocean/digitalocean, hashicorp/null (implied by init output)"
+      ],
+      "dependencies": [
+        "Terraform AWS provider (hashicorp/aws) — inferred from /infrastructure/init_validate_stdout.txt",
+        "Terraform DigitalOcean provider (digitalocean/digitalocean) — inferred from /infrastructure/init_validate_stdout.txt",
+        "Terraform Null provider (hashicorp/null) — inferred from /infrastructure/init_validate_stdout.txt"
+      ],
+      "deployment_relevant_files": [
+        "Terraform init/validate logs (evidence of IaC usage): /infrastructure/init_validate_stdout.txt, /infrastructure/init_validate_stderr.txt, /infrastructure/validate_stdout.txt, /infrastructure/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Infrastructure-as-Code project (Terraform)",
+        "AWS resources (exact services not visible; provider usage indicates AWS is targeted)",
+        "DigitalOcean resources (exact services not visible; provider usage indicates DigitalOcean is targeted)"
+      ]
+    }
+  ]
+}

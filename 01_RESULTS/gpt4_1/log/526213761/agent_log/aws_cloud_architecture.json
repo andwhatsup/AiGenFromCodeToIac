@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a real-time data processing pipeline built around Apache Flink (PyFlink), Kafka, and supporting services. To deploy this architecture on AWS, the following high-level design is proposed:\n\n1. **Networking & Security**:\n   - Deploy all resources within a dedicated VPC with public and private subnets across at least two Availability Zones for high availability.\n   - Use Security Groups and NACLs to restrict access between components and from the internet.\n\n2. **Stream Processing (Flink)**:\n   - Use Amazon EMR (with Flink installed) or Amazon Kinesis Data Analytics for Apache Flink to run the PyFlink jobs. EMR provides more flexibility for custom connectors and Python dependencies.\n\n3. **Message Queue (Kafka)**:\n   - Use Amazon MSK (Managed Streaming for Apache Kafka) for a fully managed Kafka cluster.\n   - MSK will be deployed in private subnets for security.\n\n4. **Kafka Coordination (Zookeeper)**:\n   - Amazon MSK manages Zookeeper internally, so no separate Zookeeper deployment is needed.\n\n5. **Schema Registry**:\n   - Deploy Confluent Schema Registry on EC2 instances in private subnets, or use Confluent Cloud Schema Registry (if using Confluent Cloud for Kafka).\n   - Store configuration and secrets in AWS Secrets Manager or SSM Parameter Store.\n\n6. **Change Data Capture Source (Postgres)**:\n   - Use Amazon RDS for PostgreSQL as the CDC source.\n   - Enable logical replication for CDC.\n\n7. **Object Storage (S3)**:\n   - Use Amazon S3 for storing processed data outputs from Flink.\n   - Configure appropriate S3 bucket policies for access control.\n\n8. **Kafka UI (Kowl)**:\n   - Deploy Kowl as a containerized application on Amazon ECS (Fargate) or as an EC2 instance in a private subnet.\n   - Expose via an Application Load Balancer (ALB) with authentication (e.g., Cognito or IAM) for secure access.\n\n9. **IAM & Monitoring**:\n   - Create IAM roles and policies for each service (EMR, ECS, EC2, Lambda, etc.) with least-privilege access.\n   - Use CloudWatch for logging and monitoring all components.\n   - Enable VPC Flow Logs for network monitoring.\n\n10. **Foundational Resources**:\n   - Use AWS Secrets Manager or SSM Parameter Store for managing sensitive configuration.\n   - Use AWS CloudTrail for auditing API calls.\n\nThis architecture is secure, scalable, and leverages managed AWS services where possible to reduce operational overhead. It supports high availability, secure communication, and best practices for data processing pipelines.",
+  "aws_resources": [
+    "VPC",
+    "Public and Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "Network ACLs",
+    "Amazon EMR Cluster (with Flink) or Kinesis Data Analytics for Apache Flink",
+    "Amazon MSK Cluster (Managed Kafka)",
+    "Amazon RDS for PostgreSQL (with logical replication enabled)",
+    "Amazon S3 Bucket(s)",
+    "EC2 Instance(s) for Schema Registry (or Confluent Cloud Schema Registry)",
+    "ECS Cluster (Fargate) or EC2 Instance for Kowl (Kafka UI)",
+    "Application Load Balancer (for Kowl)",
+    "IAM Roles and Policies (for EMR, ECS, EC2, S3, RDS, etc.)",
+    "AWS Secrets Manager or SSM Parameter Store",
+    "Amazon CloudWatch (logs, metrics, alarms)",
+    "VPC Flow Logs",
+    "AWS CloudTrail"
+  ]
+}

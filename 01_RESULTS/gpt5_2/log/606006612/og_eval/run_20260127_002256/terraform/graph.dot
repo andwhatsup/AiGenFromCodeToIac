@@ -1,0 +1,12 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_cloudwatch_log_group.mongodb_aws_ecs" [label="aws_cloudwatch_log_group.mongodb_aws_ecs"];
+  "aws_ecs_cluster.cluster" [label="aws_ecs_cluster.cluster"];
+  "aws_ecs_cluster_capacity_providers.capacity_provider" [label="aws_ecs_cluster_capacity_providers.capacity_provider"];
+  "aws_ecs_service.mongodb_aws_ecs" [label="aws_ecs_service.mongodb_aws_ecs"];
+  "aws_ecs_task_definition.mongodb_aws_ecs" [label="aws_ecs_task_definition.mongodb_aws_ecs"];
+  "aws_ecs_cluster_capacity_providers.capacity_provider" -> "aws_ecs_cluster.cluster";
+  "aws_ecs_service.mongodb_aws_ecs" -> "aws_ecs_cluster.cluster";
+  "aws_ecs_service.mongodb_aws_ecs" -> "aws_ecs_task_definition.mongodb_aws_ecs";
+}

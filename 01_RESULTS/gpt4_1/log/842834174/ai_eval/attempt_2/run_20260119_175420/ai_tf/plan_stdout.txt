@@ -1,0 +1,771 @@
+data.aws_iam_policy_document.eks_assume_role_policy: Reading...
+data.aws_iam_policy_document.eks_nodes_assume_role_policy: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.eks_assume_role_policy: Read complete after 0s [id=3552664922]
+data.aws_iam_policy_document.eks_nodes_assume_role_policy: Read complete after 0s [id=2851119427]
+data.aws_availability_zones.available: Read complete after 4s [id=us-west-2]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_eks_cluster_auth.eks will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_eks_cluster_auth" "eks" {
+      + id     = (known after apply)
+      + name   = "range-slider-eks"
+      + region = (known after apply)
+      + token  = (sensitive value)
+    }
+
+  # aws_ecr_repository.app will be created
+  + resource "aws_ecr_repository" "app" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "range-slider-app"
+      + region               = "us-west-2"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Name" = "range-slider-app"
+        }
+      + tags_all             = {
+          + "Name" = "range-slider-app"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-west-2"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_eks_cluster.eks will be created
+  + resource "aws_eks_cluster" "eks" {
+      + arn                           = (known after apply)
+      + bootstrap_self_managed_addons = true
+      + certificate_authority         = (known after apply)
+      + cluster_id                    = (known after apply)
+      + created_at                    = (known after apply)
+      + deletion_protection           = (known after apply)
+      + endpoint                      = (known after apply)
+      + id                            = (known after apply)
+      + identity                      = (known after apply)
+      + name                          = "range-slider-eks"
+      + platform_version              = (known after apply)
+      + region                        = "us-west-2"
+      + role_arn                      = (known after apply)
+      + status                        = (known after apply)
+      + tags_all                      = (known after apply)
+      + version                       = "1.29"
+
+      + access_config (known after apply)
+
+      + compute_config (known after apply)
+
+      + control_plane_scaling_config (known after apply)
+
+      + kubernetes_network_config (known after apply)
+
+      + storage_config (known after apply)
+
+      + upgrade_policy (known after apply)
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = true
+          + endpoint_public_access    = true
+          + public_access_cidrs       = (known after apply)
+          + subnet_ids                = (known after apply)
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # aws_eks_node_group.node_group will be created
+  + resource "aws_eks_node_group" "node_group" {
+      + ami_type               = (known after apply)
+      + arn                    = (known after apply)
+      + capacity_type          = (known after apply)
+      + cluster_name           = "range-slider-eks"
+      + disk_size              = 20
+      + id                     = (known after apply)
+      + instance_types         = [
+          + "t3.medium",
+        ]
+      + node_group_name        = "range-slider-node-group"
+      + node_group_name_prefix = (known after apply)
+      + node_role_arn          = (known after apply)
+      + region                 = "us-west-2"
+      + release_version        = (known after apply)
+      + resources              = (known after apply)
+      + status                 = (known after apply)
+      + subnet_ids             = (known after apply)
+      + tags_all               = (known after apply)
+      + version                = (known after apply)
+
+      + node_repair_config (known after apply)
+
+      + scaling_config {
+          + desired_size = 2
+          + max_size     = 3
+          + min_size     = 1
+        }
+
+      + update_config (known after apply)
+    }
+
+  # aws_iam_role.eks_cluster will be created
+  + resource "aws_iam_role" "eks_cluster" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "eksClusterRole"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.eks_nodes will be created
+  + resource "aws_iam_role" "eks_nodes" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "eksNodeGroupRole"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy will be created
+  + resource "aws_iam_role_policy_attachment" "eks_cluster_AmazonEKSClusterPolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = "eksClusterRole"
+    }
+
+  # aws_iam_role_policy_attachment.eks_nodes_AmazonEC2ContainerRegistryReadOnly will be created
+  + resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEC2ContainerRegistryReadOnly" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "eksNodeGroupRole"
+    }
+
+  # aws_iam_role_policy_attachment.eks_nodes_AmazonEKSWorkerNodePolicy will be created
+  + resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEKSWorkerNodePolicy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = "eksNodeGroupRole"
+    }
+
+  # aws_iam_role_policy_attachment.eks_nodes_AmazonEKS_CNI_Policy will be created
+  + resource "aws_iam_role_policy_attachment" "eks_nodes_AmazonEKS_CNI_Policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = "eksNodeGroupRole"
+    }
+
+  # aws_internet_gateway.igw will be created
+  + resource "aws_internet_gateway" "igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-west-2"
+      + tags     = {
+          + "Name" = "range-slider-igw"
+        }
+      + tags_all = {
+          + "Name" = "range-slider-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_nat_gateway.nat will be created
+  + resource "aws_nat_gateway" "nat" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-west-2"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "range-slider-nat"
+        }
+      + tags_all                           = {
+          + "Name" = "range-slider-nat"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_nat_gateway will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-west-2"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet_access will be created
+  + resource "aws_route" "public_internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-west-2"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-west-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "range-slider-private-rt"
+        }
+      + tags_all         = {
+          + "Name" = "range-slider-private-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-west-2"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "range-slider-public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "range-slider-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-west-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-west-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-west-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-west-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "Security group for ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-west-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "alb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "alb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.eks_nodes will be created
+  + resource "aws_security_group" "eks_nodes" {
+      + arn                    = (known after apply)
+      + description            = "Security group for EKS worker nodes"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + description      = "Allow worker Kubelets and pods to receive communication from the cluster control plane"
+              + from_port        = 1025
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 65535
+            },
+          + {
+              + cidr_blocks      = []
+              + description      = "Allow pods to communicate with each other"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = true
+              + to_port          = 65535
+            },
+        ]
+      + name                   = "eks-nodes-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-west-2"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "eks-nodes-sg"
+        }
+      + tags_all               = {
+          + "Name" = "eks-nodes-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-2"
+      + tags                                           = {
+          + "Name" = "range-slider-private-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "range-slider-private-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.102.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-2"
+      + tags                                           = {
+          + "Name" = "range-slider-private-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "range-slider-private-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-2"
+      + tags                                           = {
+          + "Name" = "range-slider-public-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "range-slider-public-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-2"
+      + tags                                           = {
+          + "Name" = "range-slider-public-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "range-slider-public-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-west-2"
+      + tags                                 = {
+          + "Name" = "range-slider-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "range-slider-vpc"
+        }
+    }
+
+  # kubernetes_deployment.nginx will be created
+  + resource "kubernetes_deployment" "nginx" {
+      + id               = (known after apply)
+      + wait_for_rollout = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + labels           = {
+              + "app" = "range-slider"
+            }
+          + name             = "range-slider-deployment"
+          + namespace        = "default"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + min_ready_seconds         = 0
+          + paused                    = false
+          + progress_deadline_seconds = 600
+          + replicas                  = "2"
+          + revision_history_limit    = 10
+
+          + selector {
+              + match_labels = {
+                  + "app" = "range-slider"
+                }
+            }
+
+          + strategy (known after apply)
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + labels           = {
+                      + "app" = "range-slider"
+                    }
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Always"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + image                      = (known after apply)
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "nginx"
+                      + restart_policy             = (known after apply)
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + port {
+                          + container_port = 80
+                          + protocol       = "TCP"
+                        }
+
+                      + resources (known after apply)
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+        }
+    }
+
+  # kubernetes_service.nginx will be created
+  + resource "kubernetes_service" "nginx" {
+      + id                     = (known after apply)
+      + status                 = (known after apply)
+      + wait_for_load_balancer = true
+
+      + metadata {
+          + annotations      = {
+              + "service.beta.kubernetes.io/aws-load-balancer-nlb-target-type" = "ip"
+              + "service.beta.kubernetes.io/aws-load-balancer-scheme"          = "internet-facing"
+              + "service.beta.kubernetes.io/aws-load-balancer-type"            = "alb"
+            }
+          + generation       = (known after apply)
+          + labels           = {
+              + "app" = "range-slider"
+            }
+          + name             = "range-slider-service"
+          + namespace        = "default"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + allocate_load_balancer_node_ports = true
+          + cluster_ip                        = (known after apply)
+          + cluster_ips                       = (known after apply)
+          + external_traffic_policy           = (known after apply)
+          + health_check_node_port            = (known after apply)
+          + internal_traffic_policy           = (known after apply)
+          + ip_families                       = (known after apply)
+          + ip_family_policy                  = (known after apply)
+          + publish_not_ready_addresses       = false
+          + selector                          = {
+              + "app" = "range-slider"
+            }
+          + session_affinity                  = "None"
+          + type                              = "LoadBalancer"
+
+          + port {
+              + node_port   = (known after apply)
+              + port        = 80
+              + protocol    = "TCP"
+              + target_port = "80"
+            }
+
+          + session_affinity_config (known after apply)
+        }
+    }
+
+Plan: 29 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecr_repository_url         = (known after apply)
+  + eks_cluster_ca_certificate = (known after apply)
+  + eks_cluster_endpoint       = (known after apply)
+  + eks_cluster_name           = "range-slider-eks"
+
+Warning: Deprecated Resource
+
+  with kubernetes_deployment.nginx,
+  on k8s_app.tf line 1, in resource "kubernetes_deployment" "nginx":
+   1: resource "kubernetes_deployment" "nginx" {
+
+Deprecated; use kubernetes_deployment_v1.
+
+(and one more similar warning elsewhere)

@@ -1,0 +1,185 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-2]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.archive_file.lambda_zip will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "archive_file" "lambda_zip" {
+      + id                  = (known after apply)
+      + output_base64sha256 = (known after apply)
+      + output_base64sha512 = (known after apply)
+      + output_md5          = (known after apply)
+      + output_path         = "./../target/lambda/rigitbot/bootstrap.zip"
+      + output_sha          = (known after apply)
+      + output_sha256       = (known after apply)
+      + output_sha512       = (known after apply)
+      + output_size         = (known after apply)
+      + source_file         = "./../target/lambda/rigitbot/bootstrap"
+      + type                = "zip"
+    }
+
+  # aws_cloudwatch_log_group.lambda_log_group will be created
+  + resource "aws_cloudwatch_log_group" "lambda_log_group" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/aws/lambda/rigitbot-us-east-2"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 180
+      + skip_destroy      = false
+      + tags_all          = (known after apply)
+    }
+
+  # aws_iam_policy.lambda_execution_role_policy will be created
+  + resource "aws_iam_policy" "lambda_execution_role_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Policy for the execution role for rigitbot-us-east-2"
+      + id               = (known after apply)
+      + name             = "rigitbot-us-east-2-execution-role-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "logs:PutLogEvents",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.lambda_execution_role will be created
+  + resource "aws_iam_role" "lambda_execution_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rigitbot-us-east-2-execution-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_lambda_function.lambda will be created
+  + resource "aws_lambda_function" "lambda" {
+      + architectures                  = [
+          + "arm64",
+        ]
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./../target/lambda/rigitbot/bootstrap.zip"
+      + function_name                  = "rigitbot-us-east-2"
+      + handler                        = "bootstrap"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = true
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_function_url.lambda_url will be created
+  + resource "aws_lambda_function_url" "lambda_url" {
+      + authorization_type = "NONE"
+      + function_arn       = (known after apply)
+      + function_name      = "rigitbot-us-east-2"
+      + function_url       = (known after apply)
+      + id                 = (known after apply)
+      + invoke_mode        = "BUFFERED"
+      + url_id             = (known after apply)
+    }
+
+  # null_resource.build_lambda will be created
+  + resource "null_resource" "build_lambda" {
+      + id       = (known after apply)
+      + triggers = {
+          + "cargo_file"      = "738426d7b4bdee145bdea8cb6f4ee5032d886f8b73092b4c09a6bf86b1da3c5b"
+          + "cargo_lock_file" = "be8713a48ba5515603a26c6db4bfeee4f9b2e5b1d198a26768dbf0ba06636632"
+          + "src_dir"         = "a39104386648365cec9f773f2ffd130b31a72a2d084b0d85022b1d19b906a65a"
+        }
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_url = (known after apply)
+null_resource.build_lambda: Creating...
+null_resource.build_lambda: Provisioning with 'local-exec'...
+null_resource.build_lambda (local-exec): Executing: ["/bin/sh" "-c" "cargo lambda build --release --arm64"]
+aws_iam_policy.lambda_execution_role_policy: Creating...
+aws_cloudwatch_log_group.lambda_log_group: Creating...
+null_resource.build_lambda (local-exec): error: no such command: `lambda`
+
+null_resource.build_lambda (local-exec): help: view all installed commands with `cargo --list`
+null_resource.build_lambda (local-exec): help: find a package to install `lambda` with `cargo search cargo-lambda`
+aws_iam_policy.lambda_execution_role_policy: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/rigitbot-us-east-2-execution-role-policy]
+aws_iam_role.lambda_execution_role: Creating...
+aws_iam_role.lambda_execution_role: Creation complete after 0s [id=rigitbot-us-east-2-execution-role]
+aws_cloudwatch_log_group.lambda_log_group: Creation complete after 0s [id=/aws/lambda/rigitbot-us-east-2]
+
+Warning: Argument is deprecated
+
+  with aws_iam_role.lambda_execution_role,
+  on main.tf line 47, in resource "aws_iam_role" "lambda_execution_role":
+  47:   managed_policy_arns = [aws_iam_policy.lambda_execution_role_policy.arn]
+
+managed_policy_arns is deprecated. Use the aws_iam_role_policy_attachment
+resource instead. If Terraform should exclusively manage all managed policy
+attachments (the current behavior of this argument), use the
+aws_iam_role_policy_attachments_exclusive resource as well.

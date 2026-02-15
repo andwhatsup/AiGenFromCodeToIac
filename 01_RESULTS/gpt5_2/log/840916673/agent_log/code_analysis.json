@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Nginx (static web serving)"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile: ./Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml (Kubernetes Deployment)",
+        "service.yaml (Kubernetes Service/LoadBalancer; AWS ALB annotations)",
+        "manifests/app-deploy.yaml (Kubernetes Deployment)",
+        "manifests/app-svc.yaml (Kubernetes Service/LoadBalancer)",
+        "Jenkinsfile (CI/CD pipeline)",
+        "/.github/workflows/docker-image.yml (GitHub Actions build)",
+        "/.github/workflows/docker-publish.yml (GitHub Actions build/push/sign)"
+      ],
+      "architectural_resources": [
+        "Static web application (served by Nginx container)",
+        "Container image registry (Docker Hub: yash5090/magic-color:latest; GitHub Container Registry via workflow)",
+        "Kubernetes cluster (implied by kubectl apply and manifests)",
+        "Kubernetes Deployment (magic-color-deployment)",
+        "Kubernetes Service type LoadBalancer (magic-color-service)",
+        "AWS Load Balancer (ALB) integration implied by service annotations in service.yaml"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "Terraform (implied)"
+      ],
+      "frameworks": [
+        "Terraform AWS Provider (hashicorp/aws)"
+      ],
+      "dependencies": [
+        "hashicorp/aws provider ~> 5.0 (evidence: EKS-Terraform/init_validate_stdout.txt shows installed v5.100.0)"
+      ],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt (terraform init output)",
+        "EKS-Terraform/validate_stdout.txt (terraform validate output)"
+      ],
+      "architectural_resources": [
+        "AWS infrastructure managed by Terraform (implied by AWS provider usage)",
+        "Likely Amazon EKS cluster (implied by directory name EKS-Terraform, though .tf sources are not present in this repo snapshot)"
+      ]
+    }
+  ]
+}

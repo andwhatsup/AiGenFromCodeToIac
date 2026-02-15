@@ -1,0 +1,14 @@
+
+Error: expected value of instance_configuration.0.cpu to match regular expression "256|512|1024|2048|4096|(0.25|0.5|1|2|4) vCPU", got 1
+
+  with aws_apprunner_service.app,
+  on main.tf line 59, in resource "aws_apprunner_service" "app":
+  59:     cpu    = tostring(var.cpu)
+
+
+Error: expected value of instance_configuration.0.memory to match regular expression "512|1024|2048|3072|4096|6144|8192|10240|12288|(0.5|1|2|3|4|6|8|10|12) GB", got 2
+
+  with aws_apprunner_service.app,
+  on main.tf line 60, in resource "aws_apprunner_service" "app":
+  60:     memory = tostring(var.memory)
+

@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.4.5\"\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 6.27.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidr\" {\n  description = \"CIDR block for the public subnet.\"\n  type        = string\n  default     = \"10.0.1.0/24\"\n}\n\nvariable \"instance_type\" {\n  description = \"EC2 instance type for Squid proxy.\"\n  type        = string\n  default     = \"t3.micro\"\n}\n\nvariable \"key_name\" {\n  description = \"Name of the SSH keypair to use for EC2 access.\"\n  type        = string\n}\n\nvariable \"squid_ami_id\" {\n  description = \"AMI ID for the EC2 instance running Squid.\"\n  type        = string\n  default     = \"ami-0c02fb55956c7d316\" # Amazon Linux 2 in us-east-1\n}\n"
+    },
+    {
+      "name": "vpc.tf",
+      "content": "resource \"aws_vpc\" \"main\" {\n  cidr_block           = var.vpc_cidr\n  enable_dns_support   = true\n  enable_dns_hostnames = true\n  tags = {\n    Name = \"squid-vpc\"\n  }\n}\n\nresource \"aws_internet_gateway\" \"main\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"squid-igw\"\n  }\n}\n\nresource \"aws_subnet\" \"public\" {\n  vpc_id                  = aws_vpc.main.id\n  cidr_block              = var.public_subnet_cidr\n  map_public_ip_on_launch = true\n  tags = {\n    Name = \"squid-public-subnet\"\n  }\n}\n\nresource \"aws_route_table\" \"public\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"squid-public-rt\"\n  }\n}\n\nresource \"aws_route\" \"internet_access\" {\n  route_table_id         = aws_route_table.public.id\n  destination_cidr_block = \"0.0.0.0/0\"\n  gateway_id             = aws_internet_gateway.main.id\n}\n\nresource \"aws_route_table_association\" \"public\" {\n  subnet_id      = aws_subnet.public.id\n  route_table_id = aws_route_table.public.id\n}\n"
+    },
+    {
+      "name": "security.tf",
+      "content": "resource \"aws_security_group\" \"squid\" {\n  name        = \"squid-sg\"\n  description = \"Allow SSH and Squid proxy access\"\n  vpc_id      = aws_vpc.main.id\n\n  ingress {\n    description = \"SSH\"\n    from_port   = 22\n    to_port     = 22\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  ingress {\n    description = \"Squid Proxy\"\n    from_port   = 3128\n    to_port     = 3128\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  egress {\n    from_port   = 0\n    to_port     = 0\n    protocol    = \"-1\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  tags = {\n    Name = \"squid-sg\"\n  }\n}\n"
+    },
+    {
+      "name": "instance.tf",
+      "content": "resource \"aws_instance\" \"squid\" {\n  ami                    = var.squid_ami_id\n  instance_type          = var.instance_type\n  subnet_id              = aws_subnet.public.id\n  vpc_security_group_ids = [aws_security_group.squid.id]\n  key_name               = var.key_name\n  associate_public_ip_address = true\n\n  user_data = <<-EOF\n    #!/bin/bash\n    yum update -y\n    amazon-linux-extras install epel -y\n    yum install squid -y\n    systemctl enable squid\n    systemctl start squid\n    # Allow access from anywhere (for demo, restrict in production)\n    sed -i 's/^http_access deny all/http_access allow all/' /etc/squid/squid.conf\n    systemctl restart squid\n  EOF\n\n  tags = {\n    Name = \"squid-proxy\"\n  }\n}\n\nresource \"aws_eip\" \"squid\" {\n  instance = aws_instance.squid.id\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"squid_proxy_public_ip\" {\n  description = \"Public IP address of the Squid proxy EC2 instance.\"\n  value       = aws_eip.squid.public_ip\n}\n\noutput \"squid_proxy_instance_id\" {\n  description = \"ID of the Squid proxy EC2 instance.\"\n  value       = aws_instance.squid.id\n}\n"
+    },
+    {
+      "name": "iam.tf",
+      "content": "# IAM role for EC2 (optional, not required unless EC2 needs AWS API access)\n# IAM role for Terraform is assumed to be handled by AWS credentials on the workstation\n"
+    },
+    {
+      "name": "ssh_key.tf",
+      "content": "# Reference an existing key pair. To create a new one, use aws_key_pair resource.\n# variable \"key_name\" is used in aws_instance.squid\n"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_ecr_repository.react_jg_app" [label="aws_ecr_repository.react_jg_app"];
+  "aws_ecs_cluster.react_jg_app" [label="aws_ecs_cluster.react_jg_app"];
+  "aws_ecs_service.react_jg_app" [label="aws_ecs_service.react_jg_app"];
+  "aws_ecs_task_definition.react_jg_app" [label="aws_ecs_task_definition.react_jg_app"];
+  "aws_iam_role.ecs_task_execution" [label="aws_iam_role.ecs_task_execution"];
+  "aws_iam_role_policy_attachment.ecs_task_execution" [label="aws_iam_role_policy_attachment.ecs_task_execution"];
+  "aws_lb.react_jg_app" [label="aws_lb.react_jg_app"];
+  "aws_lb_listener.react_jg_app" [label="aws_lb_listener.react_jg_app"];
+  "aws_lb_target_group.react_jg_app" [label="aws_lb_target_group.react_jg_app"];
+  "aws_security_group.react_jg_app" [label="aws_security_group.react_jg_app"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_ecs_service.react_jg_app" -> "aws_ecs_cluster.react_jg_app";
+  "aws_ecs_service.react_jg_app" -> "aws_ecs_task_definition.react_jg_app";
+  "aws_ecs_service.react_jg_app" -> "aws_lb_listener.react_jg_app";
+  "aws_ecs_service.react_jg_app" -> "aws_security_group.react_jg_app";
+  "aws_ecs_task_definition.react_jg_app" -> "aws_ecr_repository.react_jg_app";
+  "aws_ecs_task_definition.react_jg_app" -> "aws_iam_role.ecs_task_execution";
+  "aws_iam_role_policy_attachment.ecs_task_execution" -> "aws_iam_role.ecs_task_execution";
+  "aws_lb.react_jg_app" -> "data.aws_subnets.default";
+  "aws_lb_listener.react_jg_app" -> "aws_lb.react_jg_app";
+  "aws_lb_listener.react_jg_app" -> "aws_lb_target_group.react_jg_app";
+  "aws_lb_target_group.react_jg_app" -> "data.aws_vpc.default";
+  "aws_security_group.react_jg_app" -> "data.aws_vpc.default";
+}

@@ -1,0 +1,76 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_119",
+                "bc_check_id": "BC_AWS_GENERAL_52",
+                "check_name": "Ensure DynamoDB Tables are encrypted using a KMS Customer Managed CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "server_side_encryption/[0]/enabled",
+                        "server_side_encryption/[0]/kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/759426971/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    1,
+                    20
+                ],
+                "resource": "aws_dynamodb_table.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DynamoDBTablesEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-52",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/759426971/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "dynamodb_table_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/759426971/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "dynamodb_table_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/759426971/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_dynamodb_table.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/759426971/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 2,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 1,
+        "checkov_version": "3.2.490"
+    }
+}

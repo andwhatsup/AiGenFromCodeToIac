@@ -1,0 +1,10 @@
+
+Error: Resource precondition failed
+
+  on ecs.tf line 45, in resource "aws_lb_listener" "https":
+  45:       condition     = local.effective_certificate_arn != null
+    ├────────────────
+    │ local.effective_certificate_arn is null
+
+HTTPS listener requires an ACM certificate ARN. Set acm_certificate_arn or
+set domain_name+hosted_zone_id to create one.

@@ -1,0 +1,21 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_group.this" [label="aws_iam_group.this"];
+  "aws_iam_group_policy_attachment.this" [label="aws_iam_group_policy_attachment.this"];
+  "aws_iam_policy.this" [label="aws_iam_policy.this"];
+  "aws_iam_role.this" [label="aws_iam_role.this"];
+  "aws_iam_role_policy.this" [label="aws_iam_role_policy.this"];
+  "aws_iam_user.this" [label="aws_iam_user.this"];
+  "aws_iam_user_group_membership.this" [label="aws_iam_user_group_membership.this"];
+  "aws_s3_bucket.this" [label="aws_s3_bucket.this"];
+  "aws_s3_bucket_lifecycle_configuration.this" [label="aws_s3_bucket_lifecycle_configuration.this"];
+  "aws_iam_group_policy_attachment.this" -> "aws_iam_group.this";
+  "aws_iam_group_policy_attachment.this" -> "aws_iam_policy.this";
+  "aws_iam_policy.this" -> "aws_s3_bucket.this";
+  "aws_iam_role_policy.this" -> "aws_iam_role.this";
+  "aws_iam_role_policy.this" -> "aws_s3_bucket.this";
+  "aws_iam_user_group_membership.this" -> "aws_iam_group.this";
+  "aws_iam_user_group_membership.this" -> "aws_iam_user.this";
+  "aws_s3_bucket_lifecycle_configuration.this" -> "aws_s3_bucket.this";
+}

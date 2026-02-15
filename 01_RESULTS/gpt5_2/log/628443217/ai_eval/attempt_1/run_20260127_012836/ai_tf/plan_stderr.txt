@@ -1,0 +1,11 @@
+
+Error: Error in function call
+
+  on main.tf line 6, in locals:
+   6:   key_name_effective = coalesce(var.key_pair_name, try(aws_key_pair.this[0].key_name, null))
+    ├────────────────
+    │ while calling coalesce(vals...)
+    │ aws_key_pair.this is empty tuple
+    │ var.key_pair_name is null
+
+Call to function "coalesce" failed: no non-null, non-empty-string arguments.

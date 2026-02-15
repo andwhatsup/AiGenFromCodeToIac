@@ -1,0 +1,57 @@
+data.aws_ami.ubuntu: Reading...
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 1s [id=vpc-288a16fb26cc2039f]
+data.aws_subnet.default: Reading...
+data.aws_subnet.default: Read complete after 0s [id=subnet-e89aefa9325862168]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # aws_security_group.squid_proxy will be created
+  + resource "aws_security_group" "squid_proxy" {
+      + arn                    = (known after apply)
+      + description            = "Allow inbound access to Squid proxy"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "10.94.207.188/32",
+                ]
+              + description      = "Allow Squid proxy from allowed IP"
+              + from_port        = 3128
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3128
+            },
+        ]
+      + name                   = "squid-proxy-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "vpc-288a16fb26cc2039f"
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.

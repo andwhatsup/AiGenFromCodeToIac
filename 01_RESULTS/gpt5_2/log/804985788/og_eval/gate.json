@@ -1,0 +1,113 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": false
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_instance",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "kms": {
+          "status": "partial",
+          "resource_types": [
+            "aws_kms_key"
+          ]
+        },
+        "network": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_network_interface_sg_attachment"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_acl"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [
+          "ec2",
+          "ecr",
+          "kms"
+        ],
+        "none": [],
+        "unknown": [
+          "network",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/804985788/terraform",
+      "variables": {},
+      "required_missing": [],
+      "aws_services": [
+        "aws_ecr_repository",
+        "aws_instance",
+        "aws_kms_key",
+        "aws_network_interface_sg_attachment",
+        "aws_s3_bucket",
+        "aws_s3_bucket_acl",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_vpc": 1,
+        "aws_subnet": 1,
+        "aws_instance": 2,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_acl": 1,
+        "aws_ecr_repository": 1,
+        "aws_kms_key": 1,
+        "aws_security_group": 1,
+        "aws_network_interface_sg_attachment": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/804985788/terraform/main.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

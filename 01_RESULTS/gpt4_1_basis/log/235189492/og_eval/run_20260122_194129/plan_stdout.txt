@@ -1,0 +1,199 @@
+data.aws_iam_policy_document.sfn_assume_role_policy_document: Reading...
+data.aws_iam_policy_document.sfn_assume_role_policy_document: Read complete after 0s [id=2467195207]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_role.hfl-sfn will be created
+  + resource "aws_iam_role" "hfl-sfn" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = [
+                              + "states.us-west-2.amazonaws.com",
+                              + "events.amazonaws.com",
+                            ]
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "hfl-sfn"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.iterator will be created
+  + resource "aws_iam_role" "iterator" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "hfl-iterator"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.hfl will be created
+  + resource "aws_iam_role_policy" "hfl" {
+      + id          = (known after apply)
+      + name        = "hfl-iterator"
+      + name_prefix = (known after apply)
+      + policy      = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "logs:CreateLogGroup",
+                          + "logs:CreateLogStream",
+                          + "logs:PutLogEvents",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:logs:*:*:*"
+                    },
+                  + {
+                      + Action   = [
+                          + "lambda:InvokeFunction",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "235189492"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy.hfl-lambda-execution will be created
+  + resource "aws_iam_role_policy" "hfl-lambda-execution" {
+      + id          = (known after apply)
+      + name        = "hfl-lambda-execution"
+      + name_prefix = (known after apply)
+      + policy      = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "lambda:InvokeFunction",
+                          + "states:StartExecution",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role        = (known after apply)
+    }
+
+  # aws_lambda_function.iterator will be created
+  + resource "aws_lambda_function" "iterator" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "hfl-iterator"
+      + handler                        = "bootstrap"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2"
+      + s3_bucket                      = "rockset-public"
+      + s3_key                         = "iterator.zip"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 5
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "LAMBDA" = "235189492"
+              + "REGION" = "us-west-2"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_sfn_state_machine.hfl will be created
+  + resource "aws_sfn_state_machine" "hfl" {
+      + arn                       = (known after apply)
+      + creation_date             = (known after apply)
+      + definition                = (known after apply)
+      + description               = (known after apply)
+      + id                        = (known after apply)
+      + name                      = "hfl-state-machine"
+      + name_prefix               = (known after apply)
+      + publish                   = false
+      + region                    = "us-east-1"
+      + revision_id               = (known after apply)
+      + role_arn                  = (known after apply)
+      + state_machine_version_arn = (known after apply)
+      + status                    = (known after apply)
+      + tags_all                  = (known after apply)
+      + type                      = "STANDARD"
+      + version_description       = (known after apply)
+
+      + encryption_configuration (known after apply)
+
+      + logging_configuration (known after apply)
+
+      + tracing_configuration (known after apply)
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.

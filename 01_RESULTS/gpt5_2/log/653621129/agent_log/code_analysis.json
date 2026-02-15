@@ -1,0 +1,67 @@
+{
+  "projects": [
+    {
+      "project_directory": "hello-world-server",
+      "programming_languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "Actix Web (actix-web)",
+        "actix-files"
+      ],
+      "dependencies": [
+        "actix-web = \"4.3\" (hello-world-server/Cargo.toml)",
+        "actix-files = \"0.6.2\" (hello-world-server/Cargo.toml)",
+        "log = \"0.4.0\" (hello-world-server/Cargo.toml)",
+        "env_logger = \"0.9.0\" (hello-world-server/Cargo.toml)"
+      ],
+      "deployment_relevant_files": [
+        "hello-world-server/Cargo.toml",
+        "hello-world-server/Cargo.lock",
+        "hello-world-server/src/main.rs",
+        "hello-world-server/static/ (static assets served by the binary)"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP server (binds to 0.0.0.0:80; hello-world-server/src/main.rs)",
+        "Static file hosting within the app container/image (serves ./static/root and static/images; hello-world-server/src/main.rs)"
+      ]
+    },
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Dockerfile (container build)",
+        "Rust (build stage)"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "Base image: rust:1.70 (Dockerfile)",
+        "Runtime image: rust:1.70-slim-bookworm (Dockerfile)",
+        "OS package: curl (apt-get install in Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "Container image build pipeline (multi-stage build producing hello-world-server binary; Dockerfile)",
+        "Container runtime exposing HTTP on port 80 with healthcheck (Dockerfile)"
+      ]
+    },
+    {
+      "project_directory": "infrastructure",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "infrastructure/.gitignore",
+        "infrastructure/compute/init_validate_stdout.txt",
+        "infrastructure/compute/init_validate_stderr.txt",
+        "infrastructure/compute/validate_stdout.txt",
+        "infrastructure/compute/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "(Inferred from README.md) AWS deployment intended via Terraform, likely including: VPC/networking, ECS/EC2 compute, ALB, autoscaling. تاہم no Terraform (*.tf) files were present in this repository snapshot, only validation logs under infrastructure/compute."
+      ]
+    }
+  ]
+}

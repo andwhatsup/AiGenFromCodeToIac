@@ -1,0 +1,182 @@
+{
+  "roots_scanned": [
+    ".",
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    ".": false,
+    "terraform": true
+  },
+  "services_report": {
+    ".": {
+      "by_service": {},
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [],
+        "unknown": []
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "terraform": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "cloudfront": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudfront_distribution",
+            "aws_cloudfront_origin_access_identity"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record",
+            "aws_route53_zone"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_acl",
+            "aws_s3_bucket_ownership_controls",
+            "aws_s3_bucket_policy",
+            "aws_s3_bucket_website_configuration"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "cloudfront",
+          "s3"
+        ],
+        "partial": [
+          "iam",
+          "route53"
+        ],
+        "none": [],
+        "unknown": [
+          "acm"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    ".": [
+      "no_resources"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/739739960",
+      "variables": {
+        "domain_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/739739960/terraform.tf"
+        },
+        "bucket_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/739739960/terraform.tf"
+        }
+      },
+      "required_missing": [
+        "bucket_name",
+        "domain_name"
+      ],
+      "aws_services": [],
+      "resource_type_counts": {},
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/739739960/terraform.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": {
+        "type": "s3",
+        "decl_files": [
+          "/ai-gen-from-code-to-iac/workspace/739739960/terraform.tf"
+        ]
+      },
+      "existing_varfiles": [
+        "/ai-gen-from-code-to-iac/workspace/739739960/terraform.tfvars"
+      ]
+    },
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/739739960/terraform",
+      "variables": {
+        "domain_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf"
+        },
+        "bucket_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/739739960/terraform/variables.tf"
+        }
+      },
+      "required_missing": [
+        "bucket_name",
+        "domain_name"
+      ],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_cloudfront_distribution",
+        "aws_cloudfront_origin_access_identity",
+        "aws_iam_policy_document",
+        "aws_route53_record",
+        "aws_route53_zone",
+        "aws_s3_bucket",
+        "aws_s3_bucket_acl",
+        "aws_s3_bucket_ownership_controls",
+        "aws_s3_bucket_policy",
+        "aws_s3_bucket_website_configuration"
+      ],
+      "resource_type_counts": {
+        "aws_cloudfront_origin_access_identity": 1,
+        "aws_cloudfront_distribution": 1,
+        "aws_iam_policy_document": 1,
+        "aws_acm_certificate": 1,
+        "aws_route53_zone": 1,
+        "aws_route53_record": 3,
+        "aws_acm_certificate_validation": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_website_configuration": 1,
+        "aws_s3_bucket_acl": 1,
+        "aws_s3_bucket_policy": 1,
+        "aws_s3_bucket_ownership_controls": 1
+      },
+      "providers": {},
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

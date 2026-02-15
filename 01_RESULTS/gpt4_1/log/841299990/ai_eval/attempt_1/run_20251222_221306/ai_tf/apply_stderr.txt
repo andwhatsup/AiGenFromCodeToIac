@@ -1,0 +1,28 @@
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/chat-server-alb/a60846bb05a46240) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: 1c0d7ea0-a96c-4b5f-b99e-dd5c41ec4acb, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app,
+  on alb.tf line 1, in resource "aws_lb" "app":
+   1: resource "aws_lb" "app" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app,
+  on alb.tf line 1, in resource "aws_lb" "app":
+   1: resource "aws_lb" "app" {
+
+
+Error: attaching IAM Policy (arn:aws:iam::aws:policy/AWSCodePipelineFullAccess) to IAM Role (chat-server-codepipeline-role): operation error IAM: AttachRolePolicy, https response error StatusCode: 404, RequestID: 78a821c7-9b3a-433b-896c-aae88760cae9, NoSuchEntity: Policy arn:aws:iam::aws:policy/AWSCodePipelineFullAccess does not exist or is not attachable.
+
+  with aws_iam_role_policy_attachment.codepipeline_full,
+  on codebuild_codepipeline.tf line 125, in resource "aws_iam_role_policy_attachment" "codepipeline_full":
+ 125: resource "aws_iam_role_policy_attachment" "codepipeline_full" {
+
+
+Error: creating S3 Bucket (chat-server-codepipeline-artifacts-d2fa27bf): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://chat-server-codepipeline-artifacts-d2fa27bf.localhost:4566/": dial tcp: lookup chat-server-codepipeline-artifacts-d2fa27bf.localhost: no such host
+
+  with aws_s3_bucket.codepipeline_artifacts,
+  on codebuild_codepipeline.tf line 130, in resource "aws_s3_bucket" "codepipeline_artifacts":
+ 130: resource "aws_s3_bucket" "codepipeline_artifacts" {
+

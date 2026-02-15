@@ -1,0 +1,206 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_function_url",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "cloudwatch",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rigitbot\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_zip_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../infra/.dummy/lambda.zip\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"bootstrap\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"provided.al2\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_architectures": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"arm64\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "10",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "log_retention_in_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "14",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "function_url_auth_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"AWS_IAM\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "function_url_cors": {
+          "type": "object({",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "reserved_concurrent_executions": {
+          "type": "number",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        },
+        "enable_xray_tracing": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "function_url_cors"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_lambda_function",
+        "aws_lambda_function_url",
+        "aws_lambda_permission",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 1,
+        "aws_lambda_function": 1,
+        "aws_lambda_function_url": 1,
+        "aws_lambda_permission": 1,
+        "aws_cloudwatch_metric_alarm": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/localstack.auto.tfvars.json",
+        "/ai-code-generation-from-code-to-iac/workspace/675972236/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

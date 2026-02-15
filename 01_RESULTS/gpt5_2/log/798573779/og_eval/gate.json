@@ -1,0 +1,253 @@
+{
+  "roots_scanned": [
+    "terraform",
+    "terraform/aws-devops-pipeline-module"
+  ],
+  "recommended_roots": [
+    "terraform/aws-devops-pipeline-module"
+  ],
+  "varfiles_created": {
+    "terraform": false,
+    "terraform/aws-devops-pipeline-module": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {},
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [],
+        "unknown": []
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "terraform/aws-devops-pipeline-module": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "codebuild": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_codebuild_project"
+          ]
+        },
+        "codecommit": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_codecommit_repository"
+          ]
+        },
+        "codepipeline": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_codepipeline"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_public_access_block"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group",
+            "aws_security_group_rule"
+          ]
+        },
+        "subnets": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_subnets"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [
+          "ecr",
+          "ecs",
+          "elbv2",
+          "events",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "codebuild",
+          "codecommit",
+          "codepipeline",
+          "region",
+          "security",
+          "subnets"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "terraform": [
+      "no_resources"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/798573779/terraform",
+      "variables": {},
+      "required_missing": [],
+      "aws_services": [],
+      "resource_type_counts": {},
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/798573779/terraform/providers.tf"
+          ],
+          "versions": [
+            "5.48.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    },
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/798573779/terraform/aws-devops-pipeline-module",
+      "variables": {
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/798573779/terraform/aws-devops-pipeline-module/variables.tf"
+        },
+        "branch_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"master\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/798573779/terraform/aws-devops-pipeline-module/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"devops-cicd-aws\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/798573779/terraform/aws-devops-pipeline-module/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/798573779/terraform/aws-devops-pipeline-module/variables.tf"
+        }
+      },
+      "required_missing": [
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_codebuild_project",
+        "aws_codecommit_repository",
+        "aws_codepipeline",
+        "aws_ecr_repository",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_s3_bucket_public_access_block",
+        "aws_security_group",
+        "aws_security_group_rule",
+        "aws_subnets"
+      ],
+      "resource_type_counts": {
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_codebuild_project": 1,
+        "aws_codecommit_repository": 1,
+        "aws_codepipeline": 1,
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_subnets": 1,
+        "aws_iam_policy_document": 6,
+        "aws_ecr_repository": 1,
+        "aws_ecs_cluster": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_iam_role": 3,
+        "aws_iam_policy": 3,
+        "aws_iam_role_policy_attachment": 3,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_security_group": 2,
+        "aws_security_group_rule": 4
+      },
+      "providers": {},
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

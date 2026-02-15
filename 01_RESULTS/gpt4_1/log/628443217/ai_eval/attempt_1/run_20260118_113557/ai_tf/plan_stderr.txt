@@ -1,0 +1,13 @@
+
+Error: Invalid function argument
+
+  on ec2.tf line 3, in resource "aws_key_pair" "main":
+   3:   public_key = file("../source/.security/my-net-keypair.id_rsa.pub")
+    ├────────────────
+    │ while calling file(path)
+
+Invalid value for "path" parameter: no file exists at
+"../source/.security/my-net-keypair.id_rsa.pub"; this function works only
+with files that are distributed as part of the configuration source code, so
+if this file will be created by a resource in this configuration you must
+instead obtain this result from an attribute of that resource.

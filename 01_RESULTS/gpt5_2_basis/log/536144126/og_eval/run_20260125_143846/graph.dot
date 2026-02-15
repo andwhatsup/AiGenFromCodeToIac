@@ -1,0 +1,57 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aiven_clickhouse.demo-clickhouse" [label="aiven_clickhouse.demo-clickhouse"];
+  "aiven_flink.demo-flink" [label="aiven_flink.demo-flink"];
+  "aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening" [label="aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening"];
+  "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-flattened" [label="aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-flattened"];
+  "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-raw" [label="aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-raw"];
+  "aiven_flink_table.demo-flink-table-digitransit-operators" [label="aiven_flink_table.demo-flink-table-digitransit-operators"];
+  "aiven_grafana.demo-metrics-dashboard" [label="aiven_grafana.demo-metrics-dashboard"];
+  "aiven_kafka.demo-kafka" [label="aiven_kafka.demo-kafka"];
+  "aiven_kafka_connect.demo-kafka-connect" [label="aiven_kafka_connect.demo-kafka-connect"];
+  "aiven_kafka_topic.demo-kafka-topic-digitransit-hfp-bus-positions-flattened" [label="aiven_kafka_topic.demo-kafka-topic-digitransit-hfp-bus-positions-flattened"];
+  "aiven_m3db.demo-metrics" [label="aiven_m3db.demo-metrics"];
+  "aiven_pg.demo-postgres" [label="aiven_pg.demo-postgres"];
+  "aiven_service_integration.demo-dashboard-integration" [label="aiven_service_integration.demo-dashboard-integration"];
+  "aiven_service_integration.demo-flink-kafka-integration" [label="aiven_service_integration.demo-flink-kafka-integration"];
+  "aiven_service_integration.demo-flink-postgres-integration" [label="aiven_service_integration.demo-flink-postgres-integration"];
+  "aiven_service_integration.demo-kafka-connect-source-integration" [label="aiven_service_integration.demo-kafka-connect-source-integration"];
+  "aiven_service_integration.demo-metrics-integration-flink" [label="aiven_service_integration.demo-metrics-integration-flink"];
+  "aiven_service_integration.demo-metrics-integration-kafka" [label="aiven_service_integration.demo-metrics-integration-kafka"];
+  subgraph "cluster_module.digitransit-hfp-bus-positions" {
+    label = "module.digitransit-hfp-bus-positions"
+    fontname = "sans-serif"
+    "module.digitransit-hfp-bus-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector" [label="aiven_kafka_connector.digitransit-hfp-kafka-connector"];
+    "module.digitransit-hfp-bus-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic" [label="aiven_kafka_topic.digitransit-hfp-kafka-topic"];
+  }
+  subgraph "cluster_module.digitransit-hfp-train-positions" {
+    label = "module.digitransit-hfp-train-positions"
+    fontname = "sans-serif"
+    "module.digitransit-hfp-train-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector" [label="aiven_kafka_connector.digitransit-hfp-kafka-connector"];
+    "module.digitransit-hfp-train-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic" [label="aiven_kafka_topic.digitransit-hfp-kafka-topic"];
+  }
+  "aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening" -> "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-flattened";
+  "aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening" -> "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-raw";
+  "aiven_flink_job.demo-flink-job-digitransit-hfp-bus-position-flattening" -> "aiven_flink_table.demo-flink-table-digitransit-operators";
+  "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-flattened" -> "aiven_service_integration.demo-flink-kafka-integration";
+  "aiven_flink_table.demo-flink-table-digitransit-hfp-bus-positions-raw" -> "aiven_service_integration.demo-flink-kafka-integration";
+  "aiven_flink_table.demo-flink-table-digitransit-operators" -> "aiven_service_integration.demo-flink-postgres-integration";
+  "aiven_kafka_topic.demo-kafka-topic-digitransit-hfp-bus-positions-flattened" -> "aiven_kafka.demo-kafka";
+  "aiven_service_integration.demo-dashboard-integration" -> "aiven_grafana.demo-metrics-dashboard";
+  "aiven_service_integration.demo-dashboard-integration" -> "aiven_m3db.demo-metrics";
+  "aiven_service_integration.demo-flink-kafka-integration" -> "aiven_flink.demo-flink";
+  "aiven_service_integration.demo-flink-kafka-integration" -> "aiven_kafka.demo-kafka";
+  "aiven_service_integration.demo-flink-postgres-integration" -> "aiven_flink.demo-flink";
+  "aiven_service_integration.demo-flink-postgres-integration" -> "aiven_pg.demo-postgres";
+  "aiven_service_integration.demo-kafka-connect-source-integration" -> "aiven_kafka.demo-kafka";
+  "aiven_service_integration.demo-kafka-connect-source-integration" -> "aiven_kafka_connect.demo-kafka-connect";
+  "aiven_service_integration.demo-metrics-integration-flink" -> "aiven_flink.demo-flink";
+  "aiven_service_integration.demo-metrics-integration-flink" -> "aiven_m3db.demo-metrics";
+  "aiven_service_integration.demo-metrics-integration-kafka" -> "aiven_kafka.demo-kafka";
+  "aiven_service_integration.demo-metrics-integration-kafka" -> "aiven_m3db.demo-metrics";
+  "module.digitransit-hfp-bus-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector" -> "aiven_service_integration.demo-kafka-connect-source-integration";
+  "module.digitransit-hfp-bus-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic" -> "aiven_kafka.demo-kafka";
+  "module.digitransit-hfp-train-positions.aiven_kafka_connector.digitransit-hfp-kafka-connector" -> "aiven_service_integration.demo-kafka-connect-source-integration";
+  "module.digitransit-hfp-train-positions.aiven_kafka_topic.digitransit-hfp-kafka-topic" -> "aiven_kafka.demo-kafka";
+}

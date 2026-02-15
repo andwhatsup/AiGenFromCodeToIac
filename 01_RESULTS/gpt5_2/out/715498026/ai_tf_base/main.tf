@@ -1,0 +1,210 @@
+locals {
+  name_prefix = var.app_name
+}
+
+# --- Networking (use default VPC for minimal footprint) ---
+
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
+# --- ECR repository to store the Docker image ---
+
+resource "aws_ecr_repository" "app" {
+  name                 = local.name_prefix
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
+
+# --- ECS cluster ---
+
+resource "aws_ecs_cluster" "this" {
+  name = local.name_prefix
+}
+
+# --- IAM roles for ECS task execution and task ---
+
+data "aws_iam_policy_document" "ecs_task_assume" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "task_execution" {
+  name               = "${local.name_prefix}-task-exec"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_assume.json
+}
+
+resource "aws_iam_role_policy_attachment" "task_execution" {
+  role       = aws_iam_role.task_execution.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role" "task" {
+  name               = "${local.name_prefix}-task"
+  assume_role_policy = data.aws_iam_policy_document.ecs_task_assume.json
+}
+
+# --- CloudWatch Logs ---
+
+resource "aws_cloudwatch_log_group" "app" {
+  name              = "/ecs/${local.name_prefix}"
+  retention_in_days = 7
+}
+
+# --- Security groups ---
+
+resource "aws_security_group" "alb" {
+  name        = "${local.name_prefix}-alb-sg"
+  description = "ALB security group"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "task" {
+  name        = "${local.name_prefix}-task-sg"
+  description = "ECS task security group"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress {
+    description     = "From ALB"
+    from_port       = var.container_port
+    to_port         = var.container_port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# --- ALB ---
+
+resource "aws_lb" "this" {
+  name               = substr("${local.name_prefix}-alb", 0, 32)
+  load_balancer_type = "application"
+  internal           = false
+  security_groups    = [aws_security_group.alb.id]
+  subnets            = data.aws_subnets.default.ids
+}
+
+resource "aws_lb_target_group" "app" {
+  name        = substr("${local.name_prefix}-tg", 0, 32)
+  port        = var.container_port
+  protocol    = "HTTP"
+  vpc_id      = data.aws_vpc.default.id
+  target_type = "ip"
+
+  health_check {
+    path                = "/"
+    protocol            = "HTTP"
+    matcher             = "200-499"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
+}
+
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.this.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.app.arn
+  }
+}
+
+# --- ECS task definition & service ---
+
+resource "aws_ecs_task_definition" "app" {
+  family                   = local.name_prefix
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
+  cpu                      = tostring(var.cpu)
+  memory                   = tostring(var.memory)
+  execution_role_arn       = aws_iam_role.task_execution.arn
+  task_role_arn            = aws_iam_role.task.arn
+
+  container_definitions = jsonencode([
+    {
+      name      = "app"
+      image     = "${aws_ecr_repository.app.repository_url}:latest"
+      essential = true
+      portMappings = [
+        {
+          containerPort = var.container_port
+          hostPort      = var.container_port
+          protocol      = "tcp"
+        }
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.app.name
+          awslogs-region        = var.aws_region
+          awslogs-stream-prefix = "ecs"
+        }
+      }
+    }
+  ])
+}
+
+resource "aws_ecs_service" "app" {
+  name            = local.name_prefix
+  cluster         = aws_ecs_cluster.this.id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = var.desired_count
+  launch_type     = "FARGATE"
+
+  network_configuration {
+    subnets          = data.aws_subnets.default.ids
+    security_groups  = [aws_security_group.task.id]
+    assign_public_ip = var.assign_public_ip
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.app.arn
+    container_name   = "app"
+    container_port   = var.container_port
+  }
+
+  depends_on = [aws_lb_listener.http]
+}

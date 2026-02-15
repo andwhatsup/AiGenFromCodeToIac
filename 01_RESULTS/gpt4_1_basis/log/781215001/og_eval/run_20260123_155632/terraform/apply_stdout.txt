@@ -1,0 +1,102 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.infrafy-postgres-db-instance will be created
+  + resource "aws_db_instance" "infrafy-postgres-db-instance" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = true
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = (known after apply)
+      + backup_target                         = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + db_name                               = "terraform"
+      + db_subnet_group_name                  = (known after apply)
+      + delete_automated_backups              = true
+      + domain_fqdn                           = (known after apply)
+      + endpoint                              = (known after apply)
+      + engine                                = "postgres"
+      + engine_version                        = "16.1"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "infrafy-postgres-db-instance"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = false
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password                              = (sensitive value)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = true
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_encrypted                     = false
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = (known after apply)
+      + tags_all                              = (known after apply)
+      + timezone                              = (known after apply)
+      + username                              = "terraform"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_parameter_group.default will be created
+  + resource "aws_db_parameter_group" "default" {
+      + arn         = (known after apply)
+      + description = "Managed by Terraform"
+      + family      = "postgres16"
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = (known after apply)
+      + tags_all    = (known after apply)
+
+      + parameter {
+          + apply_method = "immediate"
+          + name         = "rds.force_ssl"
+          + value        = "0"
+        }
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+aws_db_parameter_group.default: Creating...
+aws_db_parameter_group.default: Creation complete after 0s [id=terraform-20260123145656667200000001]
+aws_db_instance.infrafy-postgres-db-instance: Creating...
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [00m10s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [00m20s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [00m30s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [00m40s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [00m51s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [01m01s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [01m11s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Still creating... [01m21s elapsed]
+aws_db_instance.infrafy-postgres-db-instance: Creation complete after 1m30s [id=db-5D77C3CC]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.

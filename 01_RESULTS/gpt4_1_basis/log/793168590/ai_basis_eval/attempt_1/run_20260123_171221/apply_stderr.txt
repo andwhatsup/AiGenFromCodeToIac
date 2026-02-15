@@ -1,0 +1,21 @@
+
+Error: creating ECS Task Definition (ai-basis-app): operation error ECS: RegisterTaskDefinition, https response error StatusCode: 400, RequestID: 9943b99b-2e5b-4342-ae01-4268366d5166, ClientException: Container.image contains invalid characters.
+
+  with aws_ecs_task_definition.app,
+  on main.tf line 29, in resource "aws_ecs_task_definition" "app":
+  29: resource "aws_ecs_task_definition" "app" {
+
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:eu-west-1:000000000000:loadbalancer/app/ai-basis-app-alb/71f0d88c598a60ad) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: f479f922-c7ce-4d21-aa01-907a44fd60ec, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app,
+  on main.tf line 81, in resource "aws_lb" "app":
+  81: resource "aws_lb" "app" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app,
+  on main.tf line 81, in resource "aws_lb" "app":
+  81: resource "aws_lb" "app" {
+

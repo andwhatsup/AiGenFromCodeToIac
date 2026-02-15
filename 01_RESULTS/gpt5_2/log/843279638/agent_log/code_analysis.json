@@ -1,0 +1,76 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript"
+      ],
+      "frameworks": [
+        "React (Create React App via react-scripts)"
+      ],
+      "dependencies": [
+        "react (^17.0.2) — package.json",
+        "react-dom (^17.0.2) — package.json",
+        "react-scripts (4.0.3) — package.json",
+        "web-vitals (^1.1.2) — package.json",
+        "@testing-library/react (^11.2.7) — package.json",
+        "@testing-library/jest-dom (^5.14.1) — package.json",
+        "@testing-library/user-event (^12.8.3) — package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml (Kubernetes Deployment)",
+        "service.yaml (Kubernetes Service; AWS ALB annotations)",
+        "manifests/app-deploy.yaml (Kubernetes Deployment)",
+        "manifests/app-svc.yaml (Kubernetes Service)",
+        "Jenkinsfile (CI/CD pipeline)",
+        "package.json",
+        "package-lock.json",
+        ".github/workflows/docker-image.yml (GitHub Actions build)",
+        "./.github/workflows/docker-publish.yml (GitHub Actions build+push to GHCR)"
+      ],
+      "architectural_resources": [
+        "Web application (React SPA)",
+        "Container image build/publish (Docker; GHCR via .github/workflows/docker-publish.yml; also DockerHub referenced in Jenkinsfile)",
+        "Kubernetes Deployment (replicas=6) — deployment.yaml / manifests/app-deploy.yaml",
+        "Kubernetes Service type LoadBalancer — service.yaml / manifests/app-svc.yaml",
+        "AWS Load Balancer (ALB) implied by Service annotations in service.yaml: service.beta.kubernetes.io/aws-load-balancer-type: \"alb\" (typically requires AWS Load Balancer Controller/ALB integration)",
+        "CI/CD resources: GitHub Actions workflows; Jenkins pipeline with SonarQube, Trivy, OWASP Dependency-Check, Docker Scout; kubectl-based deploy"
+      ]
+    },
+    {
+      "project_directory": "src",
+      "programming_languages": [
+        "JavaScript"
+      ],
+      "frameworks": [
+        "React"
+      ],
+      "dependencies": [
+        "Same as root package.json (duplicate manifest): react, react-dom, react-scripts, web-vitals, @testing-library/* — src/package.json"
+      ],
+      "deployment_relevant_files": [
+        "src/package.json",
+        "src/package-lock.json"
+      ],
+      "architectural_resources": [
+        "(No separate deployable service detected; appears to be a duplicate/embedded copy of the same React app manifest)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "(No Terraform source found: search for **/*.tf returned no matches; directory contains only validation logs)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking & access\n- **Public entrypoint:** The NestJS API is exposed publicly via **AWS App Runner’s managed HTTPS endpoint** (App Runner terminates TLS and provides a stable service URL).\n- **Private database access:** Place the MySQL database in a **VPC** (private subnets across at least 2 AZs). Configure the App Runner service with a **VPC connector** so the container can reach the database privately.\n- **Security boundaries:**\n  - The database is **not publicly accessible**.\n  - **Security groups** allow inbound MySQL (3306) only from the App Runner VPC connector’s security group.\n\n### 2) Compute / application runtime\n- **AWS App Runner service** runs the Dockerized NestJS application (listening on port **3000**).\n- App Runner pulls the image from **Amazon ECR**.\n- Configure App Runner:\n  - **Auto scaling** based on concurrent requests (App Runner handles this natively).\n  - **Health check** endpoint (e.g., `/health`) and appropriate timeouts.\n  - **Environment variables** for DB host/user/password/dbname, and app config.\n\n### 3) Database\n- Use **Amazon RDS for MySQL** (or **Aurora MySQL-compatible** if you want easier scaling later; keep it lean with standard RDS unless you have a clear need).\n- Enable:\n  - **Multi-AZ** for production availability.\n  - **Automated backups** + retention.\n  - **Encryption at rest** (KMS) and **TLS in transit**.\n- Store DB credentials in **AWS Secrets Manager** and inject into App Runner as runtime environment variables.\n\n### 4) Container registry & CI/CD\n- **Amazon ECR repository** stores the built container images.\n- **GitHub Actions** continues to:\n  1) run tests\n  2) build Docker image\n  3) push to ECR\n  4) update App Runner service\n- Use **OIDC federation from GitHub to AWS IAM** (recommended) so you don’t store long-lived AWS keys in GitHub.\n\n### 5) Observability, security, and operations\n- **CloudWatch Logs**: App Runner streams application logs to CloudWatch.\n- **CloudWatch Alarms**: alert on elevated 5xx, latency, CPU/memory (App Runner metrics), and RDS metrics (CPU, storage, connections).\n- **AWS X-Ray** (optional): distributed tracing if you add the SDK/instrumentation.\n- **AWS WAF** (optional): if the API is internet-facing and you want basic L7 protection; can be placed in front via CloudFront/ALB patterns, but that’s extra—only add if needed.\n\n### 6) Data migrations (TypeORM)\n- Run TypeORM migrations as part of deployment:\n  - simplest: a **one-off GitHub Actions step** that runs migrations against RDS (requires network access; typically via a temporary runner path/VPC access strategy), or\n  - more AWS-native: a **one-off ECS/Fargate task** (or App Runner “job” pattern if you adopt it) executed during deploy.\n\n---\n\n## Request flow summary\n1) Client sends HTTPS request to App Runner service URL.\n2) App Runner routes to the running NestJS container (port 3000).\n3) NestJS uses TypeORM/mysql2 to connect over private networking to RDS MySQL (3306).\n4) Logs/metrics go to CloudWatch; alarms notify via SNS.\n\n---\n\n## Deployment strategy\n- Start with **one App Runner service** (single environment).\n- Add **separate App Runner services** for `staging` and `prod` later, each pointing to its own RDS instance (or separate DB/schema) and secrets.\n- Use **image tags** (e.g., git SHA) and App Runner service updates to roll forward; keep rollback by redeploying a previous tag.\n",
+  "aws_resources": [
+    "Amazon ECR Repository",
+    "AWS App Runner Service",
+    "AWS App Runner VPC Connector",
+    "Amazon VPC",
+    "Public Subnets (2+ AZs)",
+    "Private Subnets (2+ AZs)",
+    "Route Tables (public/private)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (for private subnet egress, if needed)",
+    "Elastic IP (for NAT Gateway)",
+    "Security Group - App Runner VPC connector egress",
+    "Security Group - RDS MySQL inbound from App Runner SG",
+    "Amazon RDS for MySQL DB Instance (or Aurora MySQL-compatible cluster)",
+    "RDS DB Subnet Group",
+    "AWS Secrets Manager Secret (DB credentials)",
+    "AWS KMS Key (for encrypting RDS and Secrets Manager, if using CMK)",
+    "AWS IAM Role - App Runner instance/service role (to read Secrets Manager, pull from ECR if required)",
+    "AWS IAM Role - GitHub Actions (OIDC federated role)",
+    "AWS IAM Policy attachments for GitHub role (ECR push, App Runner update)",
+    "Amazon CloudWatch Log Group(s) (App Runner logs)",
+    "Amazon CloudWatch Alarms (App Runner + RDS metrics)",
+    "Amazon SNS Topic (alarm notifications)",
+    "AWS CloudTrail (account audit logging)",
+    "AWS Config (optional, governance/compliance)"
+  ]
+}

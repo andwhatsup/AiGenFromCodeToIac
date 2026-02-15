@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/840957658",
+      "programming_languages": [
+        "Java",
+        "HTML",
+        "CSS"
+      ],
+      "frameworks": [
+        "Spring Boot 3.0.4 (Spring MVC, embedded servlet container)",
+        "Thymeleaf"
+      ],
+      "dependencies": [
+        "Maven parent: org.springframework.boot:spring-boot-starter-parent:3.0.4 (pom.xml)",
+        "org.springframework.boot:spring-boot-starter-web (pom.xml)",
+        "org.springframework.boot:spring-boot-starter-data-jdbc (pom.xml)",
+        "org.springframework.boot:spring-boot-starter-thymeleaf (pom.xml)",
+        "com.h2database:h2 (runtime) (pom.xml)",
+        "org.postgresql:postgresql:42.2.8 (pom.xml)",
+        "org.yaml:snakeyaml:1.33 (pom.xml)",
+        "org.apache.logging.log4j:log4j-core:2.16.0 (pom.xml)",
+        "org.springframework.boot:spring-boot-starter-test (test) (pom.xml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (multi-stage Maven build -> OpenJDK 17 runtime, exposes 8080)",
+        "Jenkinsfile (CI pipeline: build/test/sonar/docker push/trivy/trigger CD)",
+        "mvnw, mvnw.cmd (Maven wrapper)",
+        "pom.xml (build/deps; mainClass configured)",
+        "target/ (build output; referenced by Dockerfile: target/helloapp-1.0.0.jar)"
+      ],
+      "architectural_resources": [
+        "Web application/API service (Spring Boot) listening on port 8080 (Dockerfile)",
+        "Container image build/publish to Docker registry (Dockerfile, Jenkinsfile)",
+        "CI/CD resources: Jenkins pipeline agent, SonarQube server for code analysis, Trivy container image scanning (Jenkinsfile)",
+        "Relational database: H2 (embedded/in-memory) and PostgreSQL driver included, implying optional external PostgreSQL DB usage (pom.xml)"
+      ]
+    }
+  ]
+}

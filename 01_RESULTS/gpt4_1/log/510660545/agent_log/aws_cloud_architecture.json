@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a DevOps infrastructure-as-code (IaC) toolchain designed for multi-cloud deployments, with a primary focus on AWS. The architecture is centered around a Docker-based DevOps container that orchestrates infrastructure provisioning and management using Terragrunt and Terraform. The system is designed to be secure, scalable, and modular, following AWS best practices for IaC state management and automation.\n\n**Key AWS Architecture Components:**\n\n1. **Networking/Foundation:**\n   - A dedicated VPC with public and private subnets to securely host any future AWS resources provisioned by the IaC modules.\n   - Internet Gateway and NAT Gateway for secure outbound access if needed.\n   - Route tables for proper network segmentation.\n\n2. **State Management:**\n   - **S3 Bucket:** Serves as the remote backend for Terraform state files, ensuring centralized, versioned, and durable state storage.\n   - **DynamoDB Table:** Provides state locking and consistency for Terraform operations, preventing concurrent modifications.\n\n3. **IAM & Security:**\n   - **IAM Roles and Policies:** Fine-grained roles for the DevOps container (or CI/CD runner) to access S3, DynamoDB, and provision other AWS resources as needed.\n   - **IAM User/Group (optional):** For human operators or automation.\n   - **KMS Key (optional):** For encrypting S3 bucket contents and DynamoDB table data at rest.\n   - **S3 Bucket Policy:** Restricts access to the state bucket to only authorized IAM roles/users.\n\n4. **Monitoring & Auditing:**\n   - **CloudTrail:** For auditing API calls and changes to infrastructure.\n   - **CloudWatch:** For logging and monitoring (optional, but recommended for future extensibility).\n\n5. **(Optional) CI/CD Integration:**\n   - If the DevOps container is run in a CI/CD system (e.g., CodeBuild, GitHub Actions), ensure the runner has the necessary IAM permissions.\n\n**Deployment Strategy:**\n- The DevOps container is run locally or in CI/CD, using AWS CLI credentials to interact with AWS.\n- Terragrunt and Terraform use the S3 bucket and DynamoDB table for state management.\n- All AWS resources are provisioned via Terraform modules, with configurations managed per account/environment/region.\n- The architecture is extensible to provision additional AWS resources as needed by the IaC modules (e.g., EC2, RDS, EKS, etc.), but the foundational resources above are always required for secure, reliable IaC operations.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "S3 Bucket (Terraform remote state backend)",
+    "DynamoDB Table (Terraform state locking)",
+    "IAM Roles (for DevOps container/CI/CD)",
+    "IAM Policies (least privilege for S3, DynamoDB, resource provisioning)",
+    "IAM User/Group (optional, for human/automation access)",
+    "KMS Key (optional, for S3/DynamoDB encryption)",
+    "S3 Bucket Policy (restrict access to state bucket)",
+    "CloudTrail (API auditing)",
+    "CloudWatch Logs (optional, for monitoring/logging)"
+  ]
+}

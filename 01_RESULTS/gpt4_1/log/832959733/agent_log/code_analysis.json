@@ -1,0 +1,30 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/832959733",
+      "programming_languages": [
+        "Shell (Dockerfile, bash)"
+      ],
+      "frameworks": [
+        "Docker",
+        "Terraform (via Docker image)"
+      ],
+      "dependencies": [
+        "alpine:latest (Dockerfile)",
+        "wget (Dockerfile)",
+        "unzip (Dockerfile)",
+        "Terraform (Dockerfile, version via ARG)",
+        "tf-migrate (Dockerfile, binary)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows/check-tf-version.yml"
+      ],
+      "architectural_resources": [
+        "Custom Docker image for Terraform and tf-migrate",
+        "GitHub Actions CI/CD workflow (for Docker build and validation)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a Python-based application designed for image analysis using Amazon Rekognition, orchestrated by AWS Step Functions, and deployed on AWS using Terraform as Infrastructure as Code (IaC). The architecture is as follows:\n\n1. **Developer Workstation**: Developers maintain the Python codebase locally and use Terraform to define and deploy AWS infrastructure.\n\n2. **Terraform**: Acts as the IaC tool, provisioning all AWS resources in a repeatable and version-controlled manner.\n\n3. **AWS Account**: The cloud environment where all resources reside.\n\n4. **VPC (Virtual Private Cloud)**: Provides network isolation and security for the application components.\n   - **Subnets**: At least two (public and private) for high availability and security.\n   - **Internet Gateway**: Allows outbound internet access for the EC2 instance if needed.\n   - **NAT Gateway**: Enables private subnet resources to access the internet securely.\n\n5. **EC2 Instance**: Hosts and runs the Python application. The instance is placed in a private subnet for security, with access managed via security groups and IAM roles.\n\n6. **IAM Roles and Policies**: Grant the EC2 instance permissions to interact with S3, Rekognition, and Step Functions. Separate roles for Terraform provisioning and application runtime are recommended.\n\n7. **Amazon Rekognition**: Provides image analysis services, invoked by the application or Step Functions.\n\n8. **AWS Step Functions**: Orchestrates workflows, including triggering Rekognition jobs and managing the flow of image analysis tasks.\n\n9. **S3 Bucket**: Stores the results of Rekognition analyses and any intermediate data required by the workflows.\n\n10. **Security Groups**: Control inbound and outbound traffic to the EC2 instance and other resources.\n\n11. **CloudWatch**: For logging, monitoring, and alerting on application and infrastructure events.\n\nThis architecture is secure (using VPC, IAM, and security groups), scalable (using managed services and decoupled components), and follows AWS best practices for resource provisioning and access control.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnet",
+    "Private Subnet",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for EC2, S3, Step Functions, etc.)",
+    "EC2 Instance (for Python application)",
+    "IAM Role for EC2 (with permissions for S3, Rekognition, Step Functions)",
+    "IAM Role for Terraform (provisioning permissions)",
+    "Amazon Rekognition",
+    "AWS Step Functions State Machine",
+    "S3 Bucket (for Rekognition results and workflow data)",
+    "CloudWatch Log Group (for application and infrastructure logs)",
+    "CloudWatch Alarms (for monitoring critical metrics)"
+  ]
+}

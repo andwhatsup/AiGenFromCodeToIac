@@ -1,0 +1,42 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Nebari plugin system (hookimpl/hookspecs)",
+        "Nebari Terraform stage API (_nebari.stages.base.NebariTerraformStage)"
+      ],
+      "dependencies": [
+        "nebari (pyproject.toml [project].dependencies)",
+        "hatchling (pyproject.toml [build-system].requires)",
+        "coverage[toml]>=6.5 (pyproject.toml [tool.hatch.envs.default].dependencies)",
+        "pytest (pyproject.toml [tool.hatch.envs.default].dependencies)",
+        "kubernetes (pyproject.toml [tool.hatch.envs.default].dependencies)",
+        "black>=23.1.0 (pyproject.toml [tool.hatch.envs.lint].dependencies)",
+        "mypy>=1.0.0 (pyproject.toml [tool.hatch.envs.lint].dependencies)",
+        "ruff>=0.0.243 (pyproject.toml [tool.hatch.envs.lint].dependencies)"
+      ],
+      "deployment_relevant_files": [
+        "pyproject.toml (packaging/build config; entry point definition)",
+        "src/nebari_plugin_metrics_server/plugin.py (defines NebariTerraformStage and input vars for deployment)",
+        "src/nebari_plugin_metrics_server/__init__.py (registers stage via hookimpl)",
+        "src/nebari_plugin_metrics_server/template/init_validate_stdout.txt",
+        "src/nebari_plugin_metrics_server/template/init_validate_stderr.txt",
+        "src/nebari_plugin_metrics_server/template/validate_stdout.txt",
+        "src/nebari_plugin_metrics_server/template/validate_stderr.txt",
+        ".github/workflows/publish.yaml (CI build & publish to PyPI)"
+      ],
+      "architectural_resources": [
+        "Nebari plugin package (Python distribution published to PyPI)",
+        "Nebari Terraform stage: deploys Kubernetes Metrics Server via Terraform/Helm (inferred from README.md and stage name/vars)",
+        "Kubernetes cluster (target platform)",
+        "Helm release (metrics-server)",
+        "Kubernetes namespace (default kube-system or Nebari namespace)",
+        "Kubernetes Metrics Server add-on (enables resource metrics for autoscaling)"
+      ]
+    }
+  ]
+}

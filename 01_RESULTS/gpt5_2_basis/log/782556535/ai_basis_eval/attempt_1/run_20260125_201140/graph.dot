@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.app" [label="aws_s3_bucket.app"];
+  "aws_s3_bucket_server_side_encryption_configuration.app" [label="aws_s3_bucket_server_side_encryption_configuration.app"];
+  "aws_s3_bucket_versioning.app" [label="aws_s3_bucket_versioning.app"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_s3_bucket.app" -> "random_id.suffix";
+  "aws_s3_bucket_server_side_encryption_configuration.app" -> "aws_s3_bucket.app";
+  "aws_s3_bucket_versioning.app" -> "aws_s3_bucket.app";
+}

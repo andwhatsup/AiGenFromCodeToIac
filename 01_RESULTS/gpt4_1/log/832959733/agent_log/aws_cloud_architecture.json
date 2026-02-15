@@ -1,0 +1,18 @@
+{
+  "aws_architecture_description": "This system is a CI/CD pipeline for infrastructure-as-code (IaC) using Docker and Terraform, orchestrated via GitHub Actions, and targeting AWS as the cloud provider. The architecture is designed to enable automated, reproducible provisioning and migration of AWS infrastructure resources using containerized tooling.\n\n**High-Level AWS Architecture:**\n\n1. **Networking Foundation:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability and security.\n   - NAT Gateway and Internet Gateway for controlled internet access.\n\n2. **IAM & Security:**\n   - IAM roles and policies for least-privilege access, including a role for the CI/CD runner (GitHub Actions) to assume for provisioning AWS resources via Terraform.\n   - Security groups to restrict access to only necessary ports and services.\n\n3. **CI/CD Integration:**\n   - The CI/CD pipeline (hosted on GitHub Actions) authenticates to AWS using OIDC (OpenID Connect) for secure, short-lived credentials, or via securely managed AWS access keys.\n   - The pipeline builds a custom Docker image (containing Terraform and tf-migrate) and runs it as part of the workflow.\n\n4. **Artifact Storage:**\n   - An S3 bucket for storing Terraform state files, remote backend configuration, and any pipeline artifacts.\n   - S3 bucket versioning and encryption enabled for state file integrity and security.\n\n5. **Terraform Execution:**\n   - Terraform (within the Docker container) provisions and manages AWS resources as defined in the IaC codebase.\n   - tf-migrate is used for state migrations and advanced state management.\n\n6. **(Optional) Container Registry:**\n   - If the custom Docker image is to be reused or shared, Amazon ECR (Elastic Container Registry) can be used to store and version the Docker image.\n\n7. **Monitoring & Auditing:**\n   - CloudTrail for auditing API calls and changes.\n   - CloudWatch for logging and monitoring pipeline-triggered actions.\n\n**Summary:**\n- The developer pushes code to GitHub, triggering the CI/CD pipeline.\n- The pipeline builds and runs a Docker image with Terraform and tf-migrate, authenticates to AWS, and provisions/migrates infrastructure.\n- All state and artifacts are securely stored in S3, and all actions are monitored and auditable.\n- The architecture is secure, scalable, and follows AWS best practices for IaC automation.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables (public and private)",
+    "Security Groups (for CI/CD runner, if needed, and for any provisioned resources)",
+    "IAM Role for CI/CD (with policies for Terraform actions, S3 access, etc.)",
+    "IAM Policy for least-privilege access to required AWS services",
+    "IAM OIDC Provider (for GitHub Actions integration, if using OIDC)",
+    "S3 Bucket (for Terraform state, with versioning and encryption)",
+    "S3 Bucket Policy (restricting access to CI/CD role)",
+    "Amazon ECR Repository (optional, for storing custom Docker images)",
+    "CloudTrail Trail (for auditing)",
+    "CloudWatch Log Group (for logging pipeline actions and resource changes)"
+  ]
+}

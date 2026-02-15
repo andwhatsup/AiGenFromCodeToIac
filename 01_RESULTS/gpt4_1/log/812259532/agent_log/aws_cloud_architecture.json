@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is a containerized Node.js web server deployed on AWS using a modern CI/CD pipeline. The architecture leverages AWS managed services for scalability, security, and automation. Here’s a high-level overview:\n\n1. **Networking/Foundation**: A dedicated VPC is created with public and private subnets across multiple Availability Zones for high availability. Security groups and IAM roles are defined for least-privilege access.\n\n2. **Containerization & Compute**: The Node.js application is containerized using Docker. Amazon ECS (Elastic Container Service) is used to orchestrate and run the containers, with Fargate as the likely launch type for serverless compute (no EC2 management required). ECS Service ensures the application is always running and can scale as needed.\n\n3. **Image Management**: Amazon ECR (Elastic Container Registry) stores the Docker images built by the CI/CD pipeline. ECS pulls images from ECR for deployment.\n\n4. **CI/CD Pipeline**: GitHub Actions is used for CI/CD. It builds the Docker image, pushes it to ECR, and deploys to ECS. It also runs Terraform scripts to provision and update AWS infrastructure.\n\n5. **Infrastructure as Code**: Terraform manages all AWS resources, ensuring infrastructure is versioned and reproducible.\n\n6. **IAM & Security**: IAM roles and policies are created for ECS tasks, ECR access, and CI/CD automation. Security groups restrict network access to only necessary ports (e.g., HTTP/HTTPS for the web server).\n\n7. **Load Balancing (Optional but recommended)**: An Application Load Balancer (ALB) can be used to route traffic to the ECS service, providing a single entry point, SSL termination, and health checks.\n\n8. **Monitoring & Logging**: CloudWatch is used for ECS service logs, metrics, and alarms to monitor application health and performance.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized web applications with automated deployments.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (for ALB)",
+    "Private Subnets (for ECS tasks)",
+    "Internet Gateway",
+    "NAT Gateway (for ECS tasks to access the internet if needed)",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks)",
+    "IAM Roles and Policies (for ECS tasks, ECR access, CI/CD)",
+    "Amazon ECS Cluster",
+    "ECS Task Definition (with Fargate launch type)",
+    "ECS Service",
+    "Amazon ECR Repository",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ECS service)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (for monitoring)",
+    "Terraform State Storage (e.g., S3 bucket, DynamoDB table for state locking, if using remote state)"
+  ]
+}

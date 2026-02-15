@@ -1,0 +1,115 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_s3_bucket.mlflow_artifact_store[0] will be created
+  + resource "aws_s3_bucket" "mlflow_artifact_store" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "mlflow-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "mlflow-bucket"
+        }
+      + tags_all                    = {
+          + "Name" = "mlflow-bucket"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.bucket_acl[0] will be created
+  + resource "aws_s3_bucket_acl" "bucket_acl" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_intelligent_tiering_configuration.bucket_lifecycle[0] will be created
+  + resource "aws_s3_bucket_intelligent_tiering_configuration" "bucket_lifecycle" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + name   = "mlflow-bucket-lifecycle"
+      + region = "us-east-1"
+      + status = "Enabled"
+
+      + tiering {
+          + access_tier = "ARCHIVE_ACCESS"
+          + days        = 90
+        }
+      + tiering {
+          + access_tier = "DEEP_ARCHIVE_ACCESS"
+          + days        = 180
+        }
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.bucket_encryption[0] will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_encryption" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.versioning[0] will be created
+  + resource "aws_s3_bucket_versioning" "versioning" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + artifact_bucket_arn = [
+      + (known after apply),
+    ]
+  + artifact_bucket_id  = (known after apply)

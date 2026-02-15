@@ -1,0 +1,44 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "github.com/aws/aws-sdk-go-v2 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/config (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/service/s3 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/credentials (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/feature/ec2/imds (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/internal/configsources (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/internal/ini (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/internal/v4a (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/internal/checksum (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/internal/presigned-url (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/internal/s3shared (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/sso (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/ssooidc (go.mod, indirect)",
+        "github.com/aws/aws-sdk-go-v2/service/sts (go.mod, indirect)",
+        "github.com/aws/smithy-go (go.mod, indirect)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod",
+        "go.sum",
+        ".devcontainer/Dockerfile",
+        ".devcontainer/devcontainer.json",
+        ".devcontainer/scripts/postCreate.sh"
+      ],
+      "architectural_resources": [
+        "AWS S3 (via aws-sdk-go-v2, main.go)",
+        "AWS credentials/config (via devcontainer.json and Dockerfile)",
+        "CLI tools: awscli, aws-vault, terraform (Dockerfile)",
+        "Go application (cmd/awsS3BucketList/main.go)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "roots_scanned": [
+    "."
+  ],
+  "recommended_roots": [
+    "."
+  ],
+  "varfiles_created": {
+    ".": true
+  },
+  "services_report": {
+    ".": {
+      "by_service": {
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "scheduler": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_scheduler_schedule"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_subscription"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "sns"
+        ],
+        "partial": [
+          "cloudwatch",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "scheduler"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"venmo-action-automation\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/variables.tf"
+        },
+        "venmo_auth_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/variables.tf"
+        },
+        "alarm_email": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/variables.tf"
+        },
+        "venmo_schedules": {
+          "type": "list(object({",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "venmo_auth_token",
+        "venmo_schedules"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_scheduler_schedule",
+        "aws_sns_topic",
+        "aws_sns_topic_subscription"
+      ],
+      "resource_type_counts": {
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_lambda_function": 1,
+        "aws_iam_role_policy": 1,
+        "aws_scheduler_schedule": 1,
+        "aws_sns_topic": 1,
+        "aws_sns_topic_subscription": 1,
+        "aws_cloudwatch_metric_alarm": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.4"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

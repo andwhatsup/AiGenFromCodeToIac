@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.lambda_policy" [label="data.aws_iam_policy_document.lambda_policy"];
+  "aws_cloudwatch_log_group.lambda" [label="aws_cloudwatch_log_group.lambda"];
+  "aws_cloudwatch_log_group.stepfunctions" [label="aws_cloudwatch_log_group.stepfunctions"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_policy" [label="aws_iam_role_policy.lambda_policy"];
+  "aws_lambda_function.iterator" [label="aws_lambda_function.iterator"];
+  "aws_sfn_state_machine.iterator" [label="aws_sfn_state_machine.iterator"];
+  "aws_iam_role_policy.lambda_policy" -> "data.aws_iam_policy_document.lambda_policy";
+  "aws_iam_role_policy.lambda_policy" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.iterator" -> "aws_iam_role.lambda_exec";
+  "aws_sfn_state_machine.iterator" -> "aws_lambda_function.iterator";
+}

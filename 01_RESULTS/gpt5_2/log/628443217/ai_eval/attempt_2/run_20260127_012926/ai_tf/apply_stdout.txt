@@ -1,0 +1,194 @@
+data.http.myip: Reading...
+data.aws_ami.amazon_linux2: Reading...
+data.http.myip: Read complete after 0s [id=https://checkip.amazonaws.com/]
+data.aws_ami.amazon_linux2: Read complete after 3s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.web will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-04681a1dbd79675a5"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-northeast-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = "subnet-00000000"
+      + tags                                 = {
+          + "Name" = "ec2-test-server"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "ec2-test-server"
+          + "Project" = "ec2_test_server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = "disabled"
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = true
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags_all              = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 10
+          + volume_type           = "gp3"
+        }
+    }
+
+  # aws_security_group.web will be created
+  + resource "aws_security_group" "web" {
+      + arn                    = (known after apply)
+      + description            = "Allow SSH and web access from allowlisted CIDR"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "ec2-test-server-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-northeast-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_vpc_security_group_egress_rule.all will be created
+  + resource "aws_vpc_security_group_egress_rule" "all" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "All outbound"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+    }
+
+  # aws_vpc_security_group_ingress_rule.http will be created
+  + resource "aws_vpc_security_group_ingress_rule" "http" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "193.5.234.233/32"
+      + description            = "HTTP from allowlisted CIDR"
+      + from_port              = 80
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + to_port                = 80
+    }
+
+  # aws_vpc_security_group_ingress_rule.ssh will be created
+  + resource "aws_vpc_security_group_ingress_rule" "ssh" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "193.5.234.233/32"
+      + description            = "SSH from allowlisted CIDR"
+      + from_port              = 22
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + to_port                = 22
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + allowed_cidr   = "193.5.234.233/32"
+  + ami_id         = "ami-04681a1dbd79675a5"
+  + ec2_public_dns = (known after apply)
+  + ec2_public_ip  = (known after apply)
+  + web_url        = (known after apply)
+aws_security_group.web: Creating...
+aws_security_group.web: Creation complete after 0s [id=sg-b9b06fb33a9351363]
+aws_vpc_security_group_ingress_rule.ssh: Creating...
+aws_vpc_security_group_ingress_rule.http: Creating...
+aws_vpc_security_group_egress_rule.all: Creating...
+aws_instance.web: Creating...
+aws_vpc_security_group_ingress_rule.http: Creation complete after 0s [id=sgr-b57df2bab458d4a05]
+aws_vpc_security_group_ingress_rule.ssh: Creation complete after 0s [id=sgr-3a0dcbdd07ddf621b]
+aws_vpc_security_group_egress_rule.all: Creation complete after 0s [id=sgr-c022bf75cc65d657a]

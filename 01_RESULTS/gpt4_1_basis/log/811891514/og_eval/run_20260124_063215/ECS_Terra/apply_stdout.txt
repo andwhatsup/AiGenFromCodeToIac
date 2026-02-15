@@ -1,0 +1,523 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_ecs_task_definition.HelloTD will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_ecs_task_definition" "HelloTD" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = (known after apply)
+      + enable_fault_injection   = (known after apply)
+      + ephemeral_storage        = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = (known after apply)
+      + id                       = (known after apply)
+      + inference_accelerator    = (known after apply)
+      + ipc_mode                 = (known after apply)
+      + memory                   = (known after apply)
+      + network_mode             = (known after apply)
+      + pid_mode                 = (known after apply)
+      + placement_constraints    = (known after apply)
+      + proxy_configuration      = (known after apply)
+      + requires_compatibilities = (known after apply)
+      + revision                 = (known after apply)
+      + runtime_platform         = (known after apply)
+      + status                   = (known after apply)
+      + task_definition          = "nginx"
+      + task_role_arn            = (known after apply)
+      + volume                   = (known after apply)
+    }
+
+  # aws_alb_listener.Listener will be created
+  + resource "aws_alb_listener" "Listener" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 3000
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_ecs_cluster.HelloECS will be created
+  + resource "aws_ecs_cluster" "HelloECS" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "Hello-Node-app"
+      + tags     = {
+          + "name" = "hello-world-node-app"
+        }
+      + tags_all = {
+          + "name" = "hello-world-node-app"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.nodeapp will be created
+  + resource "aws_ecs_service" "nodeapp" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "nodeapp"
+      + platform_version                   = "LATEST"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "main-container"
+          + container_port   = 3000
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.HelloTD will be created
+  + resource "aws_ecs_task_definition" "HelloTD" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + cpu          = 1024
+                  + essential    = true
+                  + image        = "469563970583.dkr.ecr.ap-south-1.amazonaws.com/somesh007"
+                  + memory       = 2048
+                  + name         = "main-container"
+                  + portMappings = [
+                      + {
+                          + containerPort = 3000
+                          + hostPort      = 3000
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "1024"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "nginx"
+      + id                       = (known after apply)
+      + memory                   = "2048"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_iam_role.iam-role will be created
+  + resource "aws_iam_role" "iam-role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2008-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ECS-execution-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.iam-policy will be created
+  + resource "aws_iam_role_policy" "iam-policy" {
+      + id          = (known after apply)
+      + name        = "ECS-execution-role-policy"
+      + name_prefix = (known after apply)
+      + policy      = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ecr:GetAuthorizationToken",
+                          + "ecr:BatchCheckLayerAvailability",
+                          + "ecr:GetDownloadUrlForLayer",
+                          + "ecr:BatchGetImage",
+                          + "logs:CreateLogStream",
+                          + "logs:PutLogEvents",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role        = (known after apply)
+    }
+
+  # aws_internet_gateway.HelloIG will be created
+  + resource "aws_internet_gateway" "HelloIG" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "Internet-Gateway"
+        }
+      + tags_all = {
+          + "Name" = "Internet-Gateway"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lb.HelloLB will be created
+  + resource "aws_lb" "HelloLB" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "HelloLB"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "LB"
+        }
+      + tags_all                                                     = {
+          + "Name" = "LB"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_target_group.HelloTG will be created
+  + resource "aws_lb_target_group" "HelloTG" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "HelloTG"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "TG"
+        }
+      + tags_all                           = {
+          + "Name" = "TG"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check (known after apply)
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_route_table.HelloRT will be created
+  + resource "aws_route_table" "HelloRT" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags_all         = (known after apply)
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.RTA1 will be created
+  + resource "aws_route_table_association" "RTA1" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.RTA2 will be created
+  + resource "aws_route_table_association" "RTA2" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.HelloSG will be created
+  + resource "aws_security_group" "HelloSG" {
+      + arn                    = (known after apply)
+      + description            = "Allow Port 3000"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "HelloSG"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "SG"
+        }
+      + tags_all               = {
+          + "Name" = "SG"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.subnet1 will be created
+  + resource "aws_subnet" "subnet1" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-south-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "Hello-public-Subnet1"
+        }
+      + tags_all                                       = {
+          + "Name" = "Hello-public-Subnet1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.subnet2 will be created
+  + resource "aws_subnet" "subnet2" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-south-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "Hello-public-Subnet2"
+        }
+      + tags_all                                       = {
+          + "Name" = "Hello-public-Subnet2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.hellovpc will be created
+  + resource "aws_vpc" "hellovpc" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "Hello-node-VPC"
+        }
+      + tags_all                             = {
+          + "Name" = "Hello-node-VPC"
+        }
+    }
+
+Plan: 16 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lb_dns_name = (known after apply)
+aws_vpc.hellovpc: Creating...
+aws_iam_role.iam-role: Creating...
+aws_ecs_cluster.HelloECS: Creating...
+aws_iam_role.iam-role: Creation complete after 1s [id=ECS-execution-role]
+aws_iam_role_policy.iam-policy: Creating...
+aws_ecs_task_definition.HelloTD: Creating...
+aws_iam_role_policy.iam-policy: Creation complete after 0s [id=ECS-execution-role:ECS-execution-role-policy]
+aws_ecs_task_definition.HelloTD: Creation complete after 3s [id=nginx]
+data.aws_ecs_task_definition.HelloTD: Reading...
+data.aws_ecs_task_definition.HelloTD: Read complete after 0s [id=arn:aws:ecs:ap-south-1:000000000000:task-definition/nginx:1]
+aws_vpc.hellovpc: Creation complete after 5s [id=vpc-7715d71093b146d82]
+aws_subnet.subnet1: Creating...
+aws_internet_gateway.HelloIG: Creating...
+aws_subnet.subnet2: Creating...
+aws_security_group.HelloSG: Creating...
+aws_lb_target_group.HelloTG: Creating...
+aws_internet_gateway.HelloIG: Creation complete after 0s [id=igw-2c4b9aeec4e7b689c]
+aws_route_table.HelloRT: Creating...
+aws_lb_target_group.HelloTG: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:targetgroup/HelloTG/ea4433a070a11b6f]
+aws_security_group.HelloSG: Creation complete after 0s [id=sg-28134e6d06f4b6afa]
+aws_route_table.HelloRT: Creation complete after 0s [id=rtb-66df37f9858c0ba3c]
+aws_ecs_cluster.HelloECS: Still creating... [00m10s elapsed]
+aws_ecs_cluster.HelloECS: Creation complete after 14s [id=arn:aws:ecs:ap-south-1:000000000000:cluster/Hello-Node-app]
+aws_subnet.subnet1: Still creating... [00m10s elapsed]
+aws_subnet.subnet2: Still creating... [00m10s elapsed]
+aws_subnet.subnet1: Creation complete after 10s [id=subnet-1a85602e863d34597]
+aws_subnet.subnet2: Creation complete after 10s [id=subnet-6fdffbcf5790f2197]
+aws_route_table_association.RTA2: Creating...
+aws_route_table_association.RTA1: Creating...
+aws_lb.HelloLB: Creating...
+aws_route_table_association.RTA2: Creation complete after 0s [id=rtbassoc-cf6d4f9f2be05e9c3]
+aws_route_table_association.RTA1: Creation complete after 0s [id=rtbassoc-4adbbe2c947a41341]
+aws_lb.HelloLB: Still creating... [00m10s elapsed]
+aws_lb.HelloLB: Still creating... [00m20s elapsed]
+aws_lb.HelloLB: Still creating... [00m30s elapsed]
+aws_lb.HelloLB: Still creating... [00m40s elapsed]
+aws_lb.HelloLB: Still creating... [00m50s elapsed]
+aws_lb.HelloLB: Still creating... [01m00s elapsed]
+aws_lb.HelloLB: Creation complete after 1m0s [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:loadbalancer/app/HelloLB/8d2a7dad823a76b3]
+aws_alb_listener.Listener: Creating...
+aws_alb_listener.Listener: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/HelloLB/8d2a7dad823a76b3/fd49c12f4a3c4978]
+aws_ecs_service.nodeapp: Creating...
+aws_ecs_service.nodeapp: Still creating... [00m10s elapsed]
+aws_ecs_service.nodeapp: Still creating... [00m20s elapsed]
+aws_ecs_service.nodeapp: Creation complete after 21s [id=arn:aws:ecs:ap-south-1:000000000000:service/Hello-Node-app/nodeapp]
+
+Apply complete! Resources: 16 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+lb_dns_name = "HelloLB.elb.localhost.localstack.cloud"

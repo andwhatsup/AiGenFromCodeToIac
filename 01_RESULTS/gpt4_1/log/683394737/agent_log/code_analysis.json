@@ -1,0 +1,113 @@
+{
+  "projects": [
+    {
+      "project_directory": "Frontend",
+      "programming_languages": [
+        "HTML",
+        "Apache config"
+      ],
+      "frameworks": [
+        "Apache HTTP Server"
+      ],
+      "dependencies": [
+        "index.apache-debian.html (custom HTML)",
+        "000-default.conf (Apache config)"
+      ],
+      "deployment_relevant_files": [
+        "Frontend/index.apache-debian.html",
+        "Frontend/000-default.conf"
+      ],
+      "architectural_resources": [
+        "Web server (Apache HTTPD)"
+      ]
+    },
+    {
+      "project_directory": "Infrastructure/conf_mgmt_ansible",
+      "programming_languages": [
+        "YAML",
+        "Shell"
+      ],
+      "frameworks": [
+        "Ansible"
+      ],
+      "dependencies": [
+        "Ansible (playbooks: 01-image-build-and-push.yml, 02-image-pull-and-deploy.yml)",
+        "System packages: git, openjdk-17-jdk-headless, dotnet-sdk-7.0, aspnetcore-runtime-7.0, dotnet-runtime-7.0, lynx, code (VSCode), docker, AWS CLI"
+      ],
+      "deployment_relevant_files": [
+        "Infrastructure/conf_mgmt_ansible/playbooks/01-image-build-and-push.yml",
+        "Infrastructure/conf_mgmt_ansible/playbooks/02-image-pull-and-deploy.yml"
+      ],
+      "architectural_resources": [
+        "Automation/orchestration (Ansible)",
+        "Java runtime",
+        ".NET Core runtime",
+        "Docker",
+        "AWS CLI (cloud interaction)"
+      ]
+    },
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Dockerfile (Docker)"
+      ],
+      "frameworks": [
+        "Docker",
+        "Apache HTTP Server"
+      ],
+      "dependencies": [
+        "httpd:latest (Docker base image)",
+        "git (system package)",
+        "ansible (system package)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Docker)",
+        "Apache HTTPD",
+        "Ansible"
+      ]
+    },
+    {
+      "project_directory": "Infrastructure/conf_terraform",
+      "programming_languages": [],
+      "frameworks": [
+        "Terraform (implied by workflow)"
+      ],
+      "dependencies": [
+        "Terraform (implied by workflow)"
+      ],
+      "deployment_relevant_files": [
+        "Infrastructure/conf_terraform/init_validate_stderr.txt",
+        "Infrastructure/conf_terraform/init_validate_stdout.txt",
+        "Infrastructure/conf_terraform/validate_stderr.txt",
+        "Infrastructure/conf_terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "Infrastructure as Code (Terraform, implied)"
+      ]
+    },
+    {
+      "project_directory": ".github/workflows",
+      "programming_languages": [
+        "YAML"
+      ],
+      "frameworks": [
+        "GitHub Actions"
+      ],
+      "dependencies": [
+        "vitr/actions-build-and-upload-to-ecs@master (GitHub Action)",
+        "hashicorp/setup-terraform@v2 (GitHub Action)"
+      ],
+      "deployment_relevant_files": [
+        ".github/workflows/cicd.yml",
+        ".github/workflows/terraform-destroy.yml"
+      ],
+      "architectural_resources": [
+        "CI/CD pipeline (GitHub Actions)",
+        "AWS ECS (implied by action)"
+      ]
+    }
+  ]
+}

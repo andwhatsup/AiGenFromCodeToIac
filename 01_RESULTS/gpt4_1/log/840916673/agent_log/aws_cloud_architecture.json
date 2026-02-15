@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This system is a static web application (HTML/CSS/JS) served by Nginx in a Docker container, deployed on AWS using Kubernetes (EKS) and exposed via an AWS Application Load Balancer (ALB). CI/CD is managed by GitHub Actions and Jenkins, which build and deploy the Docker image to the Kubernetes cluster. The architecture is designed for scalability, security, and automation, following AWS best practices.\n\n**Architecture Overview:**\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access.\n   - NAT Gateway for outbound internet access from private subnets (for EKS nodes).\n2. **Kubernetes Cluster (EKS):**\n   - Amazon EKS manages the Kubernetes control plane.\n   - Worker nodes (EC2 or Fargate) run in private subnets.\n   - EKS node group(s) for running the Nginx-based web app.\n3. **Load Balancing & Ingress:**\n   - AWS ALB (provisioned by the Kubernetes Service of type LoadBalancer) exposes the app to the internet and routes HTTP(S) traffic to the Nginx pods.\n   - Security groups restrict access to only necessary ports (e.g., 80/443 for ALB, 30000+ for node ports if needed).\n4. **IAM & Security:**\n   - IAM roles for EKS control plane, worker nodes, and CI/CD pipelines (for deployment permissions).\n   - Kubernetes RBAC for pod/service access control.\n5. **CI/CD Integration:**\n   - GitHub Actions and Jenkins pipelines build Docker images and push to a container registry (Amazon ECR).\n   - Pipelines deploy new images to EKS using kubectl or Helm.\n6. **Container Registry:**\n   - Amazon ECR stores Docker images for the web app.\n7. **Monitoring & Logging:**\n   - Amazon CloudWatch for EKS cluster, ALB, and application logs/metrics.\n   - AWS CloudTrail for auditing API calls.\n8. **Foundational Resources:**\n   - Route 53 (optional) for DNS management.\n   - S3 (optional) for storing logs or artifacts.\n\nThis architecture is secure (private subnets for nodes, least-privilege IAM), scalable (multi-AZ, ALB, EKS), and automated (CI/CD pipelines). It is lean, using only the necessary AWS resources for a modern, containerized static web app deployment.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, multi-AZ)",
+    "Private Subnets (at least 2, multi-AZ)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables and Associations",
+    "Security Groups (for ALB, EKS nodes)",
+    "Amazon EKS Cluster",
+    "EKS Node Group(s) (EC2 or Fargate)",
+    "IAM Roles and Policies (EKS control plane, nodes, CI/CD)",
+    "Amazon Elastic Container Registry (ECR)",
+    "AWS Application Load Balancer (ALB)",
+    "CloudWatch (logs, metrics, alarms)",
+    "CloudTrail (audit logs)",
+    "Route 53 (optional, for DNS)",
+    "S3 Bucket (optional, for logs/artifacts)"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Groovy (Jenkins Pipeline DSL)",
+        "YAML (Kubernetes manifests, Ansible playbook)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Flask",
+        "pytest"
+      ],
+      "dependencies": [
+        "flask (installed in Dockerfile: ./Dockerfile)",
+        "pytest (installed in Dockerfile: ./Dockerfile)",
+        "flake8 (installed in Dockerfile: ./Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "Jenkinsfile",
+        "deployment.yaml",
+        "service.yaml",
+        "kube_from_ansible.yaml"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Flask)",
+        "Docker image repository (Docker Hub) implied by Jenkinsfile env DOCKER_HUB_REPO and docker push",
+        "CI/CD pipeline (Jenkins) building/testing/pushing image and deploying",
+        "Kubernetes cluster (Minikube implied in Jenkinsfile; generic K8s in manifests)",
+        "Kubernetes Deployment (replicas=3) for the app (deployment.yaml)",
+        "Kubernetes Service of type NodePort exposing port 5000 (service.yaml)"
+      ]
+    }
+  ]
+}

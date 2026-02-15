@@ -1,0 +1,42 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell",
+        "SQL",
+        "Jupyter Notebook"
+      ],
+      "frameworks": [
+        "Aiven CLI (infrastructure/service management)",
+        "ClickHouse (analytics DB)",
+        "Apache Kafka (streaming)",
+        "PostgreSQL (relational DB)"
+      ],
+      "dependencies": [
+        "Python: aiven-client (requirements.txt)",
+        "Python: clickhouse_driver (requirements.txt)",
+        "Python: folium (requirements.txt)",
+        "Python: python-dotenv (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "requirements.txt",
+        "README.md",
+        "scripts/create_clickhouse_kafka_integration.sh (uses `avn service integration-create` / `integration-update` to configure ClickHouse-Kafka integration)",
+        "scripts/aiven-clickhouse-client.sh (runs clickhouse/clickhouse-client via Docker)",
+        "scripts/create_clickhouse_view.sql (creates ClickHouse materialized view from Kafka integration table)",
+        "scripts/create_postgres_schema.sql (creates and seeds PostgreSQL table)"
+      ],
+      "architectural_resources": [
+        "Notebook-based analytics application (Jupyter)",
+        "Aiven for ClickHouse service (managed ClickHouse database)",
+        "Aiven for Kafka service (managed Kafka cluster/topics)",
+        "Aiven for PostgreSQL service (managed PostgreSQL database)",
+        "ClickHouse-Kafka service integration (ClickHouse reads from Kafka topics)",
+        "Container image usage: clickhouse/clickhouse-client (Docker run in scripts/aiven-clickhouse-client.sh)",
+        "External realtime data source: Digitransit realtime API (per README)"
+      ]
+    }
+  ]
+}

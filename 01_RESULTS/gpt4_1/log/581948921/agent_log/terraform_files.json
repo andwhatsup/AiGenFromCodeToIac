@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.3.0\"\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 4.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"site_bucket_name\" {\n  description = \"Name for the S3 bucket to host the MkDocs site.\"\n  type        = string\n}\n\nvariable \"state_bucket_name\" {\n  description = \"Name for the S3 bucket to store Terraform state.\"\n  type        = string\n}\n\nvariable \"dynamodb_table_name\" {\n  description = \"Name for the DynamoDB table for Terraform state locking.\"\n  type        = string\n  default     = \"tf-state-lock\"\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"aws_s3_bucket\" \"site\" {\n  bucket = var.site_bucket_name\n\n  tags = {\n    Name = \"mkdocs-site-bucket\"\n  }\n}\n\nresource \"aws_s3_bucket_website_configuration\" \"site\" {\n  bucket = aws_s3_bucket.site.id\n\n  index_document {\n    suffix = \"index.html\"\n  }\n  error_document {\n    key = \"404.html\"\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"site\" {\n  bucket = aws_s3_bucket.site.id\n\n  block_public_acls   = false\n  block_public_policy = false\n  ignore_public_acls  = false\n  restrict_public_buckets = false\n}\n\nresource \"aws_s3_bucket_policy\" \"site\" {\n  bucket = aws_s3_bucket.site.id\n  policy = data.aws_iam_policy_document.site.json\n}\n\ndata \"aws_iam_policy_document\" \"site\" {\n  statement {\n    actions   = [\"s3:GetObject\"]\n    resources = [\"${aws_s3_bucket.site.arn}/*\"]\n    principals {\n      type        = \"*\"\n      identifiers = [\"*\"]\n    }\n    effect = \"Allow\"\n  }\n}\n\nresource \"aws_s3_bucket\" \"state\" {\n  bucket = var.state_bucket_name\n  force_destroy = true\n  tags = {\n    Name = \"terraform-state-bucket\"\n  }\n}\n\nresource \"aws_dynamodb_table\" \"tf_lock\" {\n  name         = var.dynamodb_table_name\n  billing_mode = \"PAY_PER_REQUEST\"\n  hash_key     = \"LockID\"\n\n  attribute {\n    name = \"LockID\"\n    type = \"S\"\n  }\n  tags = {\n    Name = \"terraform-state-lock\"\n  }\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"site_bucket_name\" {\n  description = \"Name of the S3 bucket hosting the MkDocs site.\"\n  value       = aws_s3_bucket.site.bucket\n}\n\noutput \"site_bucket_website_endpoint\" {\n  description = \"Website endpoint for the MkDocs site.\"\n  value       = aws_s3_bucket_website_configuration.site.website_endpoint\n}\n\noutput \"state_bucket_name\" {\n  description = \"Name of the S3 bucket for Terraform state.\"\n  value       = aws_s3_bucket.state.bucket\n}\n\noutput \"dynamodb_table_name\" {\n  description = \"Name of the DynamoDB table for state locking.\"\n  value       = aws_dynamodb_table.tf_lock.name\n}\n"
+    },
+    {
+      "name": "terraform.tfvars",
+      "content": "aws_region = \"us-east-1\"\nsite_bucket_name = \"mkdocs-site-example-581948921\"\nstate_bucket_name = \"mkdocs-tfstate-581948921\"\ndynamodb_table_name = \"mkdocs-tfstate-lock-581948921\"\n"
+    }
+  ]
+}

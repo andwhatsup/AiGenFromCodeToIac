@@ -1,0 +1,47 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS"
+      ],
+      "frameworks": [
+        "Nginx (for static file serving)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        "Jenkinsfile"
+      ],
+      "architectural_resources": [
+        "Kubernetes Deployment (loan-calc)",
+        "Kubernetes Service (loan-calc-service, LoadBalancer)",
+        "AWS Application Load Balancer (via service annotation)",
+        "Docker container (nginx serving static site)",
+        "Web application (Loan Calculator)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "Terraform logs/outputs (potentially related to EKS infrastructure)"
+      ]
+    }
+  ]
+}

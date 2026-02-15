@@ -1,0 +1,75 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Dockerfile",
+        "YAML (Kubernetes manifests)",
+        "Groovy (Jenkins Pipeline)"
+      ],
+      "frameworks": [
+        "Nginx (static web serving)",
+        "Kubernetes"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile: ./Dockerfile)",
+        "Prebuilt container image yash5090/dinosaur:latest referenced by Kubernetes manifests (./deployment.yaml, ./service.yaml, ./manifests/app-deploy.yaml, ./manifests/app-svc.yaml)",
+        "CI tooling referenced in Jenkins pipeline: sonar-scanner/SonarQube, OWASP Dependency-Check, Trivy, Docker Scout, kubectl, terraform, awscli (./Jenkinsfile)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile",
+        "./deployment.yaml",
+        "./service.yaml",
+        "./manifests/app-deploy.yaml",
+        "./manifests/app-svc.yaml",
+        "./Jenkinsfile",
+        "./.github/workflows/node.js.yml"
+      ],
+      "architectural_resources": [
+        "Static web application served by Nginx container",
+        "Container image registry (Docker Hub) for pushing/pulling images (Jenkinsfile references yash5090/*)",
+        "Kubernetes cluster (applies deployment.yaml/service.yaml via kubectl in Jenkinsfile)",
+        "Kubernetes Deployment (replicas=2) running container image yash5090/dinosaur:latest (deployment.yaml, manifests/app-deploy.yaml)",
+        "Kubernetes Service type LoadBalancer exposing port 5000 (service.yaml, manifests/app-svc.yaml)",
+        "AWS Load Balancer integration implied by Service annotations (service.yaml: service.beta.kubernetes.io/aws-load-balancer-*)",
+        "CI/CD resources: Jenkins, SonarQube, vulnerability scanning (Trivy/Dependency-Check/Docker Scout)"
+      ]
+    },
+    {
+      "project_directory": "./Jump Game",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [],
+      "architectural_resources": [
+        "Static web application (client-side only)"
+      ]
+    },
+    {
+      "project_directory": "./EKS-Terraform",
+      "programming_languages": [
+        "Text (Terraform logs)"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "hashicorp/aws provider v5.100.0 implied by terraform init output (EKS-Terraform/init_validate_stdout.txt)"
+      ],
+      "deployment_relevant_files": [
+        "./EKS-Terraform/init_validate_stdout.txt",
+        "./EKS-Terraform/init_validate_stderr.txt",
+        "./EKS-Terraform/validate_stdout.txt",
+        "./EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "AWS infrastructure implied (Terraform AWS provider), but no .tf configuration files are present in the repository to determine specific resources"
+      ]
+    }
+  ]
+}

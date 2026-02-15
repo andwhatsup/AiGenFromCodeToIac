@@ -1,0 +1,38 @@
+data.aws_availability_zones.available: Reading...
+data.aws_ami.al2: Reading...
+aws_iam_role.ec2: Refreshing state... [id=squid-proxy-ec2-20260127005516698000000001]
+aws_vpc.this: Refreshing state... [id=vpc-a49974e22576b5af2]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-northeast-1]
+aws_iam_role_policy_attachment.ssm: Refreshing state... [id=squid-proxy-ec2-20260127005516698000000001/arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore]
+aws_iam_instance_profile.ec2: Refreshing state... [id=squid-proxy-ip-20260127005516808900000002]
+aws_internet_gateway.this: Refreshing state... [id=igw-a3da995cdc1eef331]
+aws_subnet.public: Refreshing state... [id=subnet-df08ea56a731746a7]
+aws_security_group.squid: Refreshing state... [id=sg-19a90b69ab45607d8]
+aws_route_table.public: Refreshing state... [id=rtb-677692779cbce3f22]
+aws_route_table_association.public: Refreshing state... [id=rtbassoc-8da975bc1415b0625]
+data.aws_ami.al2: Read complete after 4s [id=ami-04681a1dbd79675a5]
+aws_instance.squid: Refreshing state... [id=i-5e8234ee20abf46bc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.squid will be updated in-place
+  ~ resource "aws_instance" "squid" {
+        id                                   = "i-5e8234ee20abf46bc"
+        tags                                 = {
+            "Managed" = "terraform"
+            "Name"    = "squid-proxy-ec2"
+            "Project" = "squid-proxy"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-19a90b69ab45607d8",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

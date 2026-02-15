@@ -1,0 +1,1141 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    14
+                ],
+                "resource": "aws_ecr_repository.etl",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_51",
+                "bc_check_id": "BC_AWS_GENERAL_24",
+                "check_name": "Ensure ECR Image Tags are immutable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "image_tag_mutability"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    14
+                ],
+                "resource": "aws_ecr_repository.etl",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRImmutableTags",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/logs.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/logs.tf",
+                "repo_file_path": "/logs.tf",
+                "file_line_range": [
+                    1,
+                    6
+                ],
+                "resource": "aws_cloudwatch_log_group.etl",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/logs.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/logs.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/logs.tf",
+                "repo_file_path": "/logs.tf",
+                "file_line_range": [
+                    1,
+                    6
+                ],
+                "resource": "aws_cloudwatch_log_group.etl",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/logs.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_26",
+                "bc_check_id": "BC_AWS_GENERAL_15",
+                "check_name": "Ensure all data stored in the SNS topic is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/monitoring.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/monitoring.tf",
+                "repo_file_path": "/monitoring.tf",
+                "file_line_range": [
+                    1,
+                    4
+                ],
+                "resource": "aws_sns_topic.alerts",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SNSTopicEncryption",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-15",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/monitoring.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    25,
+                    44
+                ],
+                "resource": "aws_security_group.batch[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    25,
+                    44
+                ],
+                "resource": "aws_security_group.batch[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "vpc",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "create_vpc": [
+                        {
+                            "type": "variable",
+                            "name": "create_vpc",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "cidr": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "private_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "public_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "enable_nat_gateway": [
+                        {
+                            "type": "variable",
+                            "name": "enable_nat_gateway",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "single_nat_gateway": [
+                        {
+                            "type": "variable",
+                            "name": "single_nat_gateway",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "azs": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ecs_task_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.job",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/eventbridge.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.etl",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/ecr.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_batch_job_queue.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/batch.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_300",
+                "bc_check_id": "BC_AWS_GENERAL_214",
+                "check_name": "Ensure S3 lifecycle configuration sets period for aborting failed uploads",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "rule"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/s3.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf",
+                "repo_file_path": "/s3.tf",
+                "file_line_range": [
+                    75,
+                    102
+                ],
+                "resource": "aws_s3_bucket_lifecycle_configuration.landing[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3AbortIncompleteUploads",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-300",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf",
+                "breadcrumbs": {
+                    "rule.filter.prefix": [
+                        {
+                            "type": "variable",
+                            "name": "s3_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "rule.filter": [
+                        {
+                            "type": "variable",
+                            "name": "s3_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_111",
+                "bc_check_id": "BC_AWS_IAM_57",
+                "check_name": "Ensure IAM policies does not allow write access without constraints",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "statement/[0]/actions"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/s3.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf",
+                "repo_file_path": "/s3.tf",
+                "file_line_range": [
+                    16,
+                    28
+                ],
+                "resource": "aws_iam_policy_document.kms_key",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.data.aws.IAMWriteAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-write-access-without-constraint",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf"
+            },
+            {
+                "check_id": "CKV_AWS_356",
+                "bc_check_id": "BC_AWS_IAM_89",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "statement/[0]/actions"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/s3.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf",
+                "repo_file_path": "/s3.tf",
+                "file_line_range": [
+                    16,
+                    28
+                ],
+                "resource": "aws_iam_policy_document.kms_key",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.data.aws.ResourcePolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf"
+            },
+            {
+                "check_id": "CKV_AWS_109",
+                "bc_check_id": "BC_AWS_IAM_56",
+                "check_name": "Ensure IAM policies does not allow permissions management / resource exposure without constraints",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "statement/[0]/actions"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/s3.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf",
+                "repo_file_path": "/s3.tf",
+                "file_line_range": [
+                    16,
+                    28
+                ],
+                "resource": "aws_iam_policy_document.kms_key",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.data.aws.IAMPermissionsManagement",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-iam-policies-do-not-allow-permissions-management-resource-exposure-without-constraint",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/755056762/ai_tf/s3.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 90,
+        "failed": 12,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 30,
+        "checkov_version": "3.2.490"
+    }
+}

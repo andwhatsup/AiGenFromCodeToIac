@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a simple Rust web server (using actix-web and actix-files) packaged as a Docker container. The application serves both dynamic API requests and static files. The recommended AWS architecture for deploying this system is as follows:\n\n1. **Networking**: Deploy the application in a secure, isolated environment using a Virtual Private Cloud (VPC) with public and private subnets. The web server will be placed in a public subnet to allow internet access.\n\n2. **Compute**: Use AWS Elastic Container Service (ECS) with Fargate launch type to run the Dockerized Rust application. Fargate provides serverless container hosting, removing the need to manage EC2 instances.\n\n3. **Load Balancing**: Place an Application Load Balancer (ALB) in front of the ECS service to distribute incoming HTTP requests and provide a single entry point. The ALB will route traffic to the ECS tasks running the Rust web server.\n\n4. **Storage (Optional)**: If static files are large or need to be managed separately, consider using S3 for static file storage and configure the application to serve files from S3. For now, static files are served from within the container.\n\n5. **IAM**: Create IAM roles and policies for ECS tasks and services, granting only the necessary permissions (e.g., pulling images from ECR, logging to CloudWatch).\n\n6. **Container Registry**: Use Amazon Elastic Container Registry (ECR) to store and manage Docker images for the Rust application.\n\n7. **Monitoring & Logging**: Enable AWS CloudWatch for logging application output and monitoring ECS service health and metrics.\n\n8. **Security**: Use Security Groups to restrict inbound traffic to HTTP/HTTPS ports and limit access to only necessary resources. Use IAM roles with least privilege.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized web applications.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s) (optional, for future expansion)",
+    "Internet Gateway",
+    "Route Table(s)",
+    "Security Group(s) for ALB and ECS tasks",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Service (Fargate)",
+    "ECS Task Definition (with Docker image)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS tasks)",
+    "Elastic Container Registry (ECR) Repository",
+    "IAM Role for ECS Task Execution",
+    "IAM Role for ECS Service",
+    "CloudWatch Log Group (for ECS task logs)"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a containerized React web application (built with Node.js 16-slim) deployed on a Kubernetes cluster in AWS, fronted by an AWS Application Load Balancer (ALB). The architecture is designed for scalability, high availability, and secure, efficient traffic management. Here’s the high-level AWS architecture:\n\n1. **Networking Layer**:\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway attached to the VPC for public internet access.\n   - NAT Gateway(s) in public subnets to allow outbound internet access from private subnets (for cluster nodes, if needed).\n\n2. **Kubernetes Layer**:\n   - An Amazon EKS (Elastic Kubernetes Service) cluster deployed in the private subnets for managed Kubernetes orchestration.\n   - EKS worker nodes (EC2 instances or managed node groups) running in private subnets.\n   - Security groups to control traffic to/from the EKS nodes and ALB.\n\n3. **Application Layer**:\n   - The React application is containerized and deployed as a Kubernetes Deployment (counter-a-deployment) in the EKS cluster.\n   - Kubernetes Service of type LoadBalancer (with AWS ALB annotations) exposes the application to the ALB.\n\n4. **Load Balancing & Ingress**:\n   - AWS Application Load Balancer (ALB) provisioned by the Kubernetes Service, handling HTTP/HTTPS traffic from users and forwarding it to the application pods.\n   - ALB security group allowing inbound HTTP/HTTPS from the internet and forwarding to the EKS nodes.\n\n5. **IAM & Security**:\n   - IAM roles for EKS cluster, worker nodes, and ALB integration.\n   - Kubernetes RBAC for pod/service access control.\n\n6. **Monitoring & Logging**:\n   - Amazon CloudWatch for monitoring EKS, ALB, and application logs/metrics.\n   - AWS CloudTrail for auditing API calls.\n\n7. **Container Registry**:\n   - Amazon ECR (Elastic Container Registry) for storing Docker images of the React application.\n\nThis architecture follows AWS best practices for security, scalability, and operational excellence, and is lean, only including resources necessary for a stateless web frontend application.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables (for public and private subnets)",
+    "Security Groups (for ALB, EKS nodes)",
+    "Amazon EKS Cluster",
+    "EKS Node Group(s) (EC2 instances or managed nodes)",
+    "IAM Roles (for EKS cluster, nodes, ALB integration)",
+    "Amazon ECR Repository (for Docker images)",
+    "AWS Application Load Balancer (ALB)",
+    "CloudWatch Log Group (for EKS and ALB logs)",
+    "CloudWatch Metrics",
+    "CloudTrail (for auditing)"
+  ]
+}

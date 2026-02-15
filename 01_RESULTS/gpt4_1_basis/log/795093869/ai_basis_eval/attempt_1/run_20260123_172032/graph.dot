@@ -1,0 +1,27 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_iam_policy_document.lambda_assume_role" [label="data.aws_iam_policy_document.lambda_assume_role"];
+  "data.aws_security_group.default" [label="data.aws_security_group.default"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.trigger_dag" [label="aws_lambda_function.trigger_dag"];
+  "aws_lambda_permission.allow_s3" [label="aws_lambda_permission.allow_s3"];
+  "aws_mwaa_environment.mwaa" [label="aws_mwaa_environment.mwaa"];
+  "aws_s3_bucket.input_bucket" [label="aws_s3_bucket.input_bucket"];
+  "aws_s3_bucket_notification.input_bucket_notification" [label="aws_s3_bucket_notification.input_bucket_notification"];
+  "data.aws_security_group.default" -> "data.aws_vpc.default";
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_iam_role.lambda_exec" -> "data.aws_iam_policy_document.lambda_assume_role";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.trigger_dag" -> "aws_mwaa_environment.mwaa";
+  "aws_lambda_permission.allow_s3" -> "aws_lambda_function.trigger_dag";
+  "aws_mwaa_environment.mwaa" -> "data.aws_security_group.default";
+  "aws_mwaa_environment.mwaa" -> "data.aws_subnets.default";
+  "aws_mwaa_environment.mwaa" -> "aws_iam_role_policy_attachment.lambda_basic";
+  "aws_mwaa_environment.mwaa" -> "aws_s3_bucket.input_bucket";
+  "aws_s3_bucket_notification.input_bucket_notification" -> "aws_lambda_permission.allow_s3";
+}

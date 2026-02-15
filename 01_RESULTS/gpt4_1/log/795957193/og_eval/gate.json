@@ -1,0 +1,87 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_instance"
+          ]
+        },
+        "key": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_key_pair"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2"
+        ],
+        "none": [],
+        "unknown": [
+          "key",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/795957193/terraform",
+      "variables": {
+        "key_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/795957193/terraform/variable.tf"
+        }
+      },
+      "required_missing": [
+        "key_name"
+      ],
+      "aws_services": [
+        "aws_instance",
+        "aws_key_pair",
+        "aws_security_group"
+      ],
+      "resource_type_counts": {
+        "aws_key_pair": 1,
+        "aws_security_group": 1,
+        "aws_instance": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/795957193/terraform/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

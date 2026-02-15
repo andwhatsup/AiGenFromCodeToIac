@@ -1,0 +1,41 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "YAML (CI/CD config)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Express",
+        "Socket.IO"
+      ],
+      "dependencies": [
+        "express (^4.18.2) — package.json",
+        "socket.io (^4.7.2) — package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yaml",
+        "Jenkinsfile",
+        "buildspec.yml",
+        ".github/workflows/terraform-plan.yml",
+        ".github/workflows/terraform-apply.yml",
+        "package.json",
+        "package-lock.json",
+        "server.js"
+      ],
+      "architectural_resources": [
+        "Node.js web application / real-time chat server (Express + Socket.IO)",
+        "Container image build (Docker)",
+        "Container runtime/orchestration via docker-compose (single service)",
+        "CI/CD: Jenkins pipeline (build, OWASP dependency check, Docker build/tag/push, trigger CD job)",
+        "CI/CD: AWS CodeBuild buildspec (implies CodeBuild project)",
+        "CI/CD: GitHub Actions workflows integrating with HCP Terraform/Terraform Cloud (organization/workspace, plan/apply runs)",
+        "Network: inbound TCP port 12345 exposed (Dockerfile EXPOSE 12345; docker-compose port mapping 12345:12345)",
+        "Artifact storage for built assets (CodeBuild artifacts base-directory 'public' in buildspec.yml)"
+      ]
+    }
+  ]
+}

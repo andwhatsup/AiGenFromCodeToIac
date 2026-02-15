@@ -1,0 +1,28 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Node.js (native http module)"
+      ],
+      "dependencies": [
+        "node (Dockerfile: FROM node:18-alpine)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "package.json",
+        ".github/workflows/deploy.yml"
+      ],
+      "architectural_resources": [
+        "Web server (Node.js HTTP server)",
+        "Amazon ECS (from deploy.yml)",
+        "Amazon ECR (from deploy.yml)",
+        "AWS IAM (from deploy.yml: credentials)",
+        "Terraform (from deploy.yml: setup and apply)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_cloudwatch_log_group.lambda_log_group" [label="aws_cloudwatch_log_group.lambda_log_group"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_exec_policy" [label="aws_iam_role_policy.lambda_exec_policy"];
+  "aws_lambda_function.telegram_bot" [label="aws_lambda_function.telegram_bot"];
+  "aws_cloudwatch_log_group.lambda_log_group" -> "aws_lambda_function.telegram_bot";
+  "aws_iam_role_policy.lambda_exec_policy" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.telegram_bot" -> "aws_iam_role_policy.lambda_exec_policy";
+}

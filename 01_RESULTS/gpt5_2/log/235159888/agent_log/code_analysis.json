@@ -1,0 +1,67 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Terraform (inferred from documentation)",
+        "Python (tooling/scripts)",
+        "Shell (bash)",
+        "YAML (CI/config)"
+      ],
+      "frameworks": [
+        "Terraform module (AWS provider)"
+      ],
+      "dependencies": [
+        "Python: setuptools, wheel (requirements.txt)",
+        "Python (dev): pre-commit (requirements-test.txt), ipython (requirements-dev.txt)",
+        "GitHub Actions (CI): hashicorp/setup-terraform@v3, actions/setup-python@v5, actions/setup-go@v5, step-security/harden-runner@v2, cisagov/setup-env-github-action@develop (from .github/workflows/build.yml)"
+      ],
+      "deployment_relevant_files": [
+        "README.md (Terraform module docs; references backend.tf, remote_states.tf)",
+        "security_groups/README.md (submodule docs)",
+        "security_groups/.terraform-docs.yml",
+        "/.terraform-docs.yml",
+        "/.github/workflows/build.yml",
+        "setup-env (dev environment bootstrap script)",
+        "requirements.txt",
+        "requirements-test.txt",
+        "requirements-dev.txt",
+        "/.pre-commit-config.yaml (present; not inspected)"
+      ],
+      "architectural_resources": [
+        "Terraform module: FreeIPA server cluster (3x EC2 instances) (from README.md TF docs: modules ipa0/ipa1/ipa2)",
+        "AWS IAM: policy and role policy attachment for provisioning FreeIPA (aws_iam_policy, aws_iam_role_policy_attachment) (from README.md TF docs)",
+        "AWS Route53: health checks and DNS records (A, PTR, SRV, TXT) (from README.md TF docs)",
+        "AWS Security Groups: server and client security groups + rules (from security_groups/README.md TF docs)",
+        "AWS S3 bucket for Terraform state (referenced in README.md; backend.tf mentioned but file not present in this workspace snapshot)",
+        "AWS DynamoDB table for Terraform state locking (referenced in README.md; backend.tf mentioned but file not present in this workspace snapshot)",
+        "Terraform remote state dependencies (referenced in README.md; remote_states.tf mentioned but file not present in this workspace snapshot)",
+        "AWS SSM Parameter Store parameters for CrowdStrike/Nessus configuration values (inputs in README.md TF docs)"
+      ]
+    },
+    {
+      "project_directory": "security_groups",
+      "programming_languages": [
+        "Terraform (inferred from documentation)"
+      ],
+      "frameworks": [
+        "Terraform module (AWS provider)"
+      ],
+      "dependencies": [
+        "Terraform: aws provider ~> 4.9 (from security_groups/README.md TF docs)"
+      ],
+      "deployment_relevant_files": [
+        "security_groups/README.md",
+        "security_groups/.terraform-docs.yml",
+        "security_groups/init_validate_stdout.txt",
+        "security_groups/init_validate_stderr.txt",
+        "security_groups/validate_stdout.txt",
+        "security_groups/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "AWS Security Groups: client and server security groups (aws_security_group.*)",
+        "AWS Security Group Rules: ingress/egress rules for server/client (aws_security_group_rule.*)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) DNS + TLS (public entrypoint)\n- Use **Amazon Route 53** to host the public zone (e.g., `slvr.io`) and create records for:\n  - `s.slvr.io` → CloudFront distribution (static UI + optional redirect path)\n  - (optional) `api.s.slvr.io` → API Gateway custom domain\n- Use **AWS Certificate Manager (ACM)** to issue TLS certificates:\n  - **us-east-1** certificate for **CloudFront** (required region for CloudFront)\n  - Regional certificate in the API’s region for **API Gateway custom domain** (if used)\n\n### 2) Static frontend hosting (HTML/JS)\n- Store `./static/index.html` (and any other static assets) in a private **Amazon S3 bucket**.\n- Put **Amazon CloudFront** in front of S3 for:\n  - HTTPS termination\n  - CDN caching\n  - Optional SPA-friendly routing (custom error response mapping 403/404 → `/index.html` if needed)\n- Lock down S3 so it is **not publicly accessible**; allow reads only from CloudFront using **Origin Access Control (OAC)**.\n\n### 3) Backend API (create/resolve)\n- Expose HTTPS endpoints using **Amazon API Gateway (REST API)**.\n- Integrate API Gateway with a **single AWS Lambda (Python)** function running `lambda.py` using **aws-lambda-powertools APIGatewayRestResolver**.\n- Configure:\n  - **Lambda proxy integration** (typical for powertools resolver)\n  - **CORS** on API Gateway to allow the CloudFront-hosted UI to call the API\n  - **Access logging** and **execution logging** (with appropriate retention)\n\n### 4) Data layer (URL mappings)\n- Create **Amazon DynamoDB table `URLDB`**.\n- Enable **TTL** on attribute `ttl` so expired links are removed automatically.\n- Use **on-demand capacity** (PAY_PER_REQUEST) for simplicity unless you have predictable traffic.\n\n### 5) Security and least privilege\n- **IAM execution role for Lambda** with least-privilege permissions:\n  - `dynamodb:GetItem/PutItem/UpdateItem/DeleteItem/Query` as required on `URLDB`\n  - CloudWatch Logs permissions for writing logs\n- API protection options (choose based on requirements):\n  - If the service is public, keep it open but add **API Gateway throttling/usage plans** to reduce abuse.\n  - Optionally add **AWS WAF** in front of CloudFront (and/or API Gateway) for basic bot/rate protections.\n\n### 6) Observability\n- **CloudWatch Logs** for Lambda and API Gateway access logs.\n- **CloudWatch Metrics/Alarms** for:\n  - Lambda errors/throttles/duration\n  - API Gateway 4XX/5XX and latency\n  - DynamoDB throttles (should be rare with on-demand, but still monitor)\n- (Optional) **AWS X-Ray** tracing for end-to-end request visibility.\n\n### 7) Deployment approach (recommended)\n- Use **AWS SAM** or **AWS CDK** to define and deploy:\n  - Lambda + IAM role\n  - API Gateway + stages\n  - DynamoDB table + TTL\n  - S3 + CloudFront + OAC\n  - Route 53 + ACM + custom domains\n- Use separate environments (dev/stage/prod) via separate stacks and distinct domains or subdomains.\n\n---\n\n## Main request flows\n1) **Load UI**: Browser → Route53 (`s.slvr.io`) → CloudFront → S3 (private origin via OAC) → `index.html`\n2) **Create/resolve**: Browser UI → API Gateway (custom domain or execute-api) → Lambda → DynamoDB (`URLDB`) → response/redirect\n",
+  "aws_resources": [
+    "Amazon Route 53 Hosted Zone (public DNS)",
+    "Route 53 Record Sets (A/AAAA alias for CloudFront; optional api subdomain)",
+    "AWS Certificate Manager (ACM) Certificate in us-east-1 (for CloudFront)",
+    "AWS Certificate Manager (ACM) Certificate in API region (for API Gateway custom domain, optional)",
+    "Amazon CloudFront Distribution",
+    "CloudFront Origin Access Control (OAC)",
+    "CloudFront Cache Policy / Origin Request Policy (as needed)",
+    "Amazon S3 Bucket (static site content, private)",
+    "S3 Bucket Policy (allow CloudFront OAC; block public access)",
+    "S3 Block Public Access configuration",
+    "Amazon API Gateway REST API",
+    "API Gateway Resources/Methods (create/resolve endpoints)",
+    "API Gateway Stage (e.g., prod)",
+    "API Gateway Access Logging configuration (CloudWatch Logs)",
+    "API Gateway Custom Domain Name (optional)",
+    "API Gateway Base Path Mapping (optional)",
+    "AWS Lambda Function (Python runtime; lambda.py)",
+    "Lambda Function URL (not needed; omit)",
+    "Lambda IAM Execution Role",
+    "IAM Policy for DynamoDB access (least privilege)",
+    "IAM Policy for CloudWatch Logs access",
+    "Amazon DynamoDB Table (URLDB)",
+    "DynamoDB TTL configuration (attribute: ttl)",
+    "Amazon CloudWatch Log Groups (Lambda + API Gateway access logs)",
+    "Amazon CloudWatch Alarms (Lambda/API/DynamoDB key metrics)",
+    "AWS WAF Web ACL (optional; attach to CloudFront and/or API Gateway)",
+    "AWS X-Ray (optional; tracing for Lambda/API Gateway)"
+  ]
+}

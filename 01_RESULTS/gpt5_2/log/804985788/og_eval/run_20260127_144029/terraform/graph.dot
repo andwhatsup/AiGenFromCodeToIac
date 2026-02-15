@@ -1,0 +1,24 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_ecr_repository.my_repository" [label="aws_ecr_repository.my_repository"];
+  "aws_instance.app_server" [label="aws_instance.app_server"];
+  "aws_instance.openvpn_server" [label="aws_instance.openvpn_server"];
+  "aws_kms_key.my_key" [label="aws_kms_key.my_key"];
+  "aws_network_interface_sg_attachment.app_sg_attachment" [label="aws_network_interface_sg_attachment.app_sg_attachment"];
+  "aws_network_interface_sg_attachment.sg_attachment" [label="aws_network_interface_sg_attachment.sg_attachment"];
+  "aws_s3_bucket.nfs_bucket" [label="aws_s3_bucket.nfs_bucket"];
+  "aws_s3_bucket_acl.nfs_bucket_acl" [label="aws_s3_bucket_acl.nfs_bucket_acl"];
+  "aws_security_group.app_sg" [label="aws_security_group.app_sg"];
+  "aws_subnet.main" [label="aws_subnet.main"];
+  "aws_vpc.main" [label="aws_vpc.main"];
+  "aws_instance.app_server" -> "aws_subnet.main";
+  "aws_instance.openvpn_server" -> "aws_subnet.main";
+  "aws_network_interface_sg_attachment.app_sg_attachment" -> "aws_instance.app_server";
+  "aws_network_interface_sg_attachment.app_sg_attachment" -> "aws_security_group.app_sg";
+  "aws_network_interface_sg_attachment.sg_attachment" -> "aws_instance.openvpn_server";
+  "aws_network_interface_sg_attachment.sg_attachment" -> "aws_security_group.app_sg";
+  "aws_s3_bucket_acl.nfs_bucket_acl" -> "aws_s3_bucket.nfs_bucket";
+  "aws_security_group.app_sg" -> "aws_vpc.main";
+  "aws_subnet.main" -> "aws_vpc.main";
+}

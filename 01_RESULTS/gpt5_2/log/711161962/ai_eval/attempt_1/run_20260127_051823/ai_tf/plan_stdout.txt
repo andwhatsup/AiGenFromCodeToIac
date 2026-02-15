@@ -1,0 +1,501 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_iam_policy_document.lambda_assume_role: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_region.current: Read complete after 0s [id=ap-southeast-1]
+data.aws_iam_policy_document.lambda_assume_role: Read complete after 0s [id=2690255455]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.lambda_inline will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "lambda_inline" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:PutLogEvents",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:logs:ap-southeast-1:000000000000:log-group:/aws/lambda/localstack-s3-sqs-lambda:*",
+            ]
+          + sid       = "CloudWatchLogs"
+        }
+      + statement {
+          + actions   = [
+              + "sqs:ChangeMessageVisibility",
+              + "sqs:DeleteMessage",
+              + "sqs:GetQueueAttributes",
+              + "sqs:ReceiveMessage",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "ConsumeFromSQS"
+        }
+    }
+
+  # data.aws_iam_policy_document.s3_bucket_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "s3_bucket_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:*",
+            ]
+          + effect    = "Deny"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "DenyInsecureTransport"
+
+          + condition {
+              + test     = "Bool"
+              + values   = [
+                  + "false",
+                ]
+              + variable = "aws:SecureTransport"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "*"
+            }
+        }
+    }
+
+  # data.aws_iam_policy_document.sqs_allow_s3 will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "sqs_allow_s3" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "sqs:SendMessage",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AllowS3SendMessage"
+
+          + condition {
+              + test     = "ArnEquals"
+              + values   = [
+                  + (known after apply),
+                ]
+              + variable = "aws:SourceArn"
+            }
+          + condition {
+              + test     = "StringEquals"
+              + values   = [
+                  + "000000000000",
+                ]
+              + variable = "aws:SourceAccount"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "s3.amazonaws.com",
+                ]
+              + type        = "Service"
+            }
+        }
+    }
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/aws/lambda/localstack-s3-sqs-lambda"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 14
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+    }
+
+  # aws_cloudwatch_metric_alarm.dlq_depth will be created
+  + resource "aws_cloudwatch_metric_alarm" "dlq_depth" {
+      + actions_enabled                       = true
+      + alarm_description                     = "Messages are landing in the DLQ."
+      + alarm_name                            = "localstack-s3-sqs-lambda-dlq-depth"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "localstack-s3-sqs-lambda-dlq"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 60
+      + statistic                             = "Sum"
+      + tags_all                              = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + threshold                             = 1
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_cloudwatch_metric_alarm.lambda_errors will be created
+  + resource "aws_cloudwatch_metric_alarm" "lambda_errors" {
+      + actions_enabled                       = true
+      + alarm_description                     = "Lambda is erroring."
+      + alarm_name                            = "localstack-s3-sqs-lambda-lambda-errors"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "FunctionName" = "localstack-s3-sqs-lambda"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "Errors"
+      + namespace                             = "AWS/Lambda"
+      + period                                = 60
+      + statistic                             = "Sum"
+      + tags_all                              = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + threshold                             = 1
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_cloudwatch_metric_alarm.sqs_backlog will be created
+  + resource "aws_cloudwatch_metric_alarm" "sqs_backlog" {
+      + actions_enabled                       = true
+      + alarm_description                     = "SQS backlog is growing."
+      + alarm_name                            = "localstack-s3-sqs-lambda-sqs-backlog"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + dimensions                            = {
+          + "QueueName" = "localstack-s3-sqs-lambda-queue"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "ApproximateNumberOfMessagesVisible"
+      + namespace                             = "AWS/SQS"
+      + period                                = 60
+      + statistic                             = "Sum"
+      + tags_all                              = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + threshold                             = 100
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "localstack-s3-sqs-lambda-lambda-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda_inline will be created
+  + resource "aws_iam_role_policy" "lambda_inline" {
+      + id          = (known after apply)
+      + name        = "localstack-s3-sqs-lambda-lambda-inline"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_lambda_event_source_mapping.sqs will be created
+  + resource "aws_lambda_event_source_mapping" "sqs" {
+      + arn                                = (known after apply)
+      + batch_size                         = 10
+      + enabled                            = true
+      + event_source_arn                   = (known after apply)
+      + function_arn                       = (known after apply)
+      + function_name                      = (known after apply)
+      + function_response_types            = [
+          + "ReportBatchItemFailures",
+        ]
+      + id                                 = (known after apply)
+      + last_modified                      = (known after apply)
+      + last_processing_result             = (known after apply)
+      + maximum_batching_window_in_seconds = 0
+      + maximum_record_age_in_seconds      = (known after apply)
+      + maximum_retry_attempts             = (known after apply)
+      + parallelization_factor             = (known after apply)
+      + state                              = (known after apply)
+      + state_transition_reason            = (known after apply)
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + uuid                               = (known after apply)
+
+      + amazon_managed_kafka_event_source_config (known after apply)
+
+      + self_managed_kafka_event_source_config (known after apply)
+    }
+
+  # aws_lambda_function.this will be created
+  + resource "aws_lambda_function" "this" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "../lambda/build/handler.zip"
+      + function_name                  = "localstack-s3-sqs-lambda"
+      + handler                        = "bootstrap"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2023"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "HEJQz1lGRgkBh0ymrCTS2Ii4oN9b2VSPnSKiVuVAjkw="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_s3_bucket.bucket will be created
+  + resource "aws_s3_bucket" "bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "localstack-s3-sqs-lambda-000000000000-ap-southeast-1"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_notification.bucket will be created
+  + resource "aws_s3_bucket_notification" "bucket" {
+      + bucket      = (known after apply)
+      + eventbridge = false
+      + id          = (known after apply)
+
+      + queue {
+          + events        = [
+              + "s3:ObjectCreated:*",
+            ]
+          + filter_suffix = ".csv"
+          + id            = (known after apply)
+          + queue_arn     = (known after apply)
+        }
+    }
+
+  # aws_s3_bucket_ownership_controls.bucket will be created
+  + resource "aws_s3_bucket_ownership_controls" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_policy.bucket will be created
+  + resource "aws_s3_bucket_policy" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.bucket will be created
+  + resource "aws_s3_bucket_public_access_block" "bucket" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.bucket will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_sqs_queue.dlq will be created
+  + resource "aws_sqs_queue" "dlq" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "localstack-s3-sqs-lambda-dlq"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + sqs_managed_sse_enabled           = true
+      + tags_all                          = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+  # aws_sqs_queue.main will be created
+  + resource "aws_sqs_queue" "main" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = 0
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "localstack-s3-sqs-lambda-queue"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + sqs_managed_sse_enabled           = true
+      + tags_all                          = {
+          + "Managed" = "terraform"
+          + "Project" = "localstack-s3-sqs-lambda"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 60
+    }
+
+  # aws_sqs_queue_policy.main will be created
+  + resource "aws_sqs_queue_policy" "main" {
+      + id        = (known after apply)
+      + policy    = (known after apply)
+      + queue_url = (known after apply)
+    }
+
+Plan: 17 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_name = "localstack-s3-sqs-lambda"
+  + s3_bucket_name       = "localstack-s3-sqs-lambda-000000000000-ap-southeast-1"
+  + sqs_dlq_url          = (known after apply)
+  + sqs_queue_arn        = (known after apply)
+  + sqs_queue_url        = (known after apply)

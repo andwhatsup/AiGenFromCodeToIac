@@ -1,0 +1,63 @@
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:cluster/hello-world-nodejs-dev-cluster]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/hello-world-nodejs-dev]
+aws_eip.nat: Refreshing state... [id=eipalloc-abcb75a10cf31b5e6]
+aws_ecr_repository.app: Refreshing state... [id=hello-world-nodejs]
+aws_vpc.this: Refreshing state... [id=vpc-ff40b1b3b02be93ba]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=hello-world-nodejs-dev-ecs-task-exec]
+aws_iam_role.ecs_task: Refreshing state... [id=hello-world-nodejs-dev-ecs-task]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=hello-world-nodejs]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=hello-world-nodejs-dev-ecs-task-exec-20260127144159523500000001]
+aws_ecs_task_definition.app: Refreshing state... [id=hello-world-nodejs-dev-task]
+aws_internet_gateway.this: Refreshing state... [id=igw-83d68f4ae16a0958f]
+aws_subnet.public["ap-south-1b"]: Refreshing state... [id=subnet-a9027b7c0c317ea63]
+aws_subnet.public["ap-south-1a"]: Refreshing state... [id=subnet-f8a71e645b3e830f0]
+aws_security_group.alb: Refreshing state... [id=sg-e746c0a30535f3017]
+aws_subnet.private["ap-south-1a"]: Refreshing state... [id=subnet-b94ea68a36c17106a]
+aws_subnet.private["ap-south-1b"]: Refreshing state... [id=subnet-a087aa1b08515d9ca]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:targetgroup/hello-world-nodejs-dev-tg/109c87769a6b5db3]
+aws_route_table.public: Refreshing state... [id=rtb-5240aa634026a2957]
+aws_nat_gateway.this: Refreshing state... [id=nat-9e6a51361355eaa59]
+aws_route_table_association.public["ap-south-1b"]: Refreshing state... [id=rtbassoc-cbd8497f553fe8021]
+aws_route_table_association.public["ap-south-1a"]: Refreshing state... [id=rtbassoc-a223eb81f343f8249]
+aws_security_group.ecs: Refreshing state... [id=sg-ad86d5807620eb068]
+aws_lb.app: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:loadbalancer/app/hello-world-nodejs-dev-alb/77f2b8c72b193452]
+aws_route_table.private: Refreshing state... [id=rtb-6a5967b1bafdc6e23]
+aws_route_table_association.private["ap-south-1a"]: Refreshing state... [id=rtbassoc-7427f0090feaa13f8]
+aws_route_table_association.private["ap-south-1b"]: Refreshing state... [id=rtbassoc-2ae018d73d0f784cd]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/hello-world-nodejs-dev-alb/77f2b8c72b193452/bcb0208e1d6e2e3b]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:service/hello-world-nodejs-dev-cluster/hello-world-nodejs-dev-svc]
+aws_appautoscaling_target.ecs: Refreshing state... [id=service/hello-world-nodejs-dev-cluster/hello-world-nodejs-dev-svc]
+aws_appautoscaling_policy.cpu: Refreshing state... [id=hello-world-nodejs-dev-cpu-scaling]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:ap-south-1:000000000000:service/hello-world-nodejs-dev-cluster/hello-world-nodejs-dev-svc"
+        name                               = "hello-world-nodejs-dev-svc"
+        tags                               = {}
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/hello-world-nodejs-dev-alb/77f2b8c72b193452/bcb0208e1d6e2e3b"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

@@ -1,0 +1,198 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # kubernetes_cron_job_v1.nextcloud-backup will be created
+  + resource "kubernetes_cron_job_v1" "nextcloud-backup" {
+      + id = (known after apply)
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "nextcloud-backup"
+          + namespace        = "default"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + concurrency_policy            = "Replace"
+          + failed_jobs_history_limit     = 5
+          + schedule                      = "5 3 * * *"
+          + starting_deadline_seconds     = 10
+          + successful_jobs_history_limit = 10
+          + suspend                       = false
+          + timezone                      = "Etc/UTC"
+
+          + job_template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + backoff_limit              = 2
+                  + completion_mode            = (known after apply)
+                  + completions                = 1
+                  + parallelism                = 1
+                  + ttl_seconds_after_finished = "10"
+
+                  + selector (known after apply)
+
+                  + template {
+                      + metadata {
+                          + generation       = (known after apply)
+                          + name             = (known after apply)
+                          + resource_version = (known after apply)
+                          + uid              = (known after apply)
+                        }
+                      + spec {
+                          + automount_service_account_token  = true
+                          + dns_policy                       = "ClusterFirst"
+                          + enable_service_links             = true
+                          + host_ipc                         = false
+                          + host_network                     = false
+                          + host_pid                         = false
+                          + hostname                         = (known after apply)
+                          + node_name                        = (known after apply)
+                          + restart_policy                   = "Never"
+                          + scheduler_name                   = (known after apply)
+                          + service_account_name             = (known after apply)
+                          + share_process_namespace          = false
+                          + termination_grace_period_seconds = 30
+
+                          + container {
+                              + image                      = "ghcr.io/tonlie/k8s-cron-nc-backup:main"
+                              + image_pull_policy          = "Always"
+                              + name                       = "nextcloud-backup-cron"
+                              + stdin                      = false
+                              + stdin_once                 = false
+                              + termination_message_path   = "/dev/termination-log"
+                              + termination_message_policy = (known after apply)
+                              + tty                        = false
+
+                              + env {
+                                  + name = "DB_USER"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "username"
+                                          + name = "nc-mariadb-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "DB_PASS"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "password"
+                                          + name = "nc-mariadb-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "DB_NAME"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "database"
+                                          + name = "nc-mariadb-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "DB_HOST"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "dbhost"
+                                          + name = "nc-mariadb-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "FTP_USER"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "username"
+                                          + name = "fritz-ftp-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "FTP_PASS"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "password"
+                                          + name = "fritz-ftp-secret"
+                                        }
+                                    }
+                                }
+                              + env {
+                                  + name = "FTP_HOST"
+
+                                  + value_from {
+                                      + secret_key_ref {
+                                          + key  = "host"
+                                          + name = "fritz-ftp-secret"
+                                        }
+                                    }
+                                }
+
+                              + resources (known after apply)
+
+                              + volume_mount {
+                                  + mount_path        = "/home/nextcloud"
+                                  + mount_propagation = "None"
+                                  + name              = "nextcloud-pvc"
+                                  + read_only         = false
+                                }
+                            }
+
+                          + image_pull_secrets {
+                              + name = "container-reg"
+                            }
+
+                          + readiness_gate (known after apply)
+
+                          + volume {
+                              + name = "nextcloud-pvc"
+
+                              + persistent_volume_claim {
+                                  + claim_name = "nextcloud-pvc"
+                                  + read_only  = false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+kubernetes_cron_job_v1.nextcloud-backup: Creating...
+
+Invalid attribute in provider configuration
+
+  with provider["registry.terraform.io/hashicorp/kubernetes"],
+  on providers.tf line 1, in provider "kubernetes":
+   1: provider "kubernetes" {
+
+'config_path' refers to an invalid path: "terraform.txt": stat terraform.txt:
+no such file or directory
+
+Invalid attribute in provider configuration
+
+  with provider["registry.terraform.io/hashicorp/kubernetes"],
+  on providers.tf line 1, in provider "kubernetes":
+   1: provider "kubernetes" {
+
+'config_path' refers to an invalid path: "terraform.txt": stat terraform.txt:
+no such file or directory

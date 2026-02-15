@@ -1,0 +1,79 @@
+{
+  "projects": [
+    {
+      "project_directory": "app",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Flask (app/main.py)",
+        "Waitress WSGI server (app/main.py)"
+      ],
+      "dependencies": [
+        "Flask==3.0.2 (app/requirements.txt)",
+        "waitress==3.0.0 (app/requirements.txt)",
+        "requests==2.31.0 (app/requirements.txt)",
+        "Jinja2==3.1.3 (app/requirements.txt)",
+        "Werkzeug==3.0.1 (app/requirements.txt)",
+        "click==8.1.7 (app/requirements.txt)",
+        "itsdangerous==2.1.2 (app/requirements.txt)",
+        "blinker==1.7.0 (app/requirements.txt)",
+        "certifi==2024.2.2 (app/requirements.txt)",
+        "charset-normalizer==3.3.2 (app/requirements.txt)",
+        "idna==3.6 (app/requirements.txt)",
+        "urllib3==2.2.1 (app/requirements.txt)",
+        "importlib_metadata==7.0.2 (app/requirements.txt)",
+        "zipp==3.17.0 (app/requirements.txt)",
+        "MarkupSafe==2.1.5 (app/requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (repo root)",
+        "app/requirements.txt",
+        "kubernetes/k8s-infrastructure.yaml (deploys this app image)",
+        "startup.sh (EKS/Helm/kubectl bootstrap for deployment)"
+      ],
+      "architectural_resources": [
+        "Web application/API (Flask app serving HTML)",
+        "External third-party API: OpenWeatherMap (app/weather.py calls https://api.openweathermap.org)",
+        "Container image built and run via Docker (Dockerfile)",
+        "Kubernetes Deployment/Service/Ingress for the app (kubernetes/k8s-infrastructure.yaml)",
+        "Secret injection via Kubernetes Secrets Store CSI Driver + AWS provider (kubernetes/k8s-infrastructure.yaml, startup.sh)",
+        "AWS Secrets Manager secret: /python-weather-app/api-key (kubernetes/k8s-infrastructure.yaml, README.md)",
+        "AWS EKS cluster (README.md, startup.sh uses aws eks update-kubeconfig)",
+        "AWS ECR repository for image hosting (kubernetes/k8s-infrastructure.yaml image reference; README.md push steps)",
+        "AWS Application Load Balancer via AWS Load Balancer Controller + Ingress class alb (startup.sh installs controller; kubernetes/k8s-infrastructure.yaml Ingress annotations)",
+        "AWS IAM roles for service accounts (IRSA) for secrets access and ALB controller (kubernetes/k8s-infrastructure.yaml annotations)"
+      ]
+    },
+    {
+      "project_directory": "kubernetes",
+      "programming_languages": [
+        "YAML (Kubernetes manifests)"
+      ],
+      "frameworks": [
+        "Kubernetes (manifests)",
+        "Secrets Store CSI Driver (secrets-store.csi.x-k8s.io)",
+        "AWS Load Balancer Controller (Ingress class alb)"
+      ],
+      "dependencies": [
+        "secrets-store-csi-driver Helm chart (installed in startup.sh)",
+        "aws-secrets-store-csi-driver-provider (installed via kubectl apply in startup.sh)",
+        "aws-load-balancer-controller Helm chart (installed in startup.sh)"
+      ],
+      "deployment_relevant_files": [
+        "kubernetes/k8s-infrastructure.yaml",
+        "kubernetes/secretproviderclasses-role.yaml",
+        "startup.sh (repo root)"
+      ],
+      "architectural_resources": [
+        "Kubernetes Namespace prod (kubernetes/k8s-infrastructure.yaml)",
+        "Kubernetes ServiceAccount(s) with IRSA annotations (kubernetes/k8s-infrastructure.yaml)",
+        "Kubernetes Deployment (replicas=2) for python app (kubernetes/k8s-infrastructure.yaml)",
+        "Kubernetes Service (NodePort) (kubernetes/k8s-infrastructure.yaml)",
+        "Kubernetes Ingress configured for AWS ALB (kubernetes/k8s-infrastructure.yaml)",
+        "AWS Secrets Manager integration via SecretProviderClass (kubernetes/k8s-infrastructure.yaml)",
+        "ClusterRole for SecretProviderClass/Secrets permissions (kubernetes/secretproviderclasses-role.yaml)"
+      ]
+    }
+  ]
+}

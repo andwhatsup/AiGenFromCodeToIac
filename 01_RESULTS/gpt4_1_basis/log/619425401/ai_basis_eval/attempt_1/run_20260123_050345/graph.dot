@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_dynamodb_table.lock_table" [label="aws_dynamodb_table.lock_table"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_policy" [label="aws_iam_role_policy.lambda_policy"];
+  "aws_lambda_function.delta_optimize_lambda" [label="aws_lambda_function.delta_optimize_lambda"];
+  "aws_iam_role_policy.lambda_policy" -> "aws_dynamodb_table.lock_table";
+  "aws_iam_role_policy.lambda_policy" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.delta_optimize_lambda" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.delta_optimize_lambda" -> "aws_dynamodb_table.lock_table";
+  "aws_lambda_function.delta_optimize_lambda" -> "aws_iam_role.lambda_exec";
+}

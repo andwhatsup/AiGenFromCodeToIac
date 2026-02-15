@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_ecs_cluster.helloWorld" [label="aws_ecs_cluster.helloWorld"];
+  "aws_ecs_service.helloWorld" [label="aws_ecs_service.helloWorld"];
+  "aws_ecs_task_definition.helloWorld" [label="aws_ecs_task_definition.helloWorld"];
+  "aws_iam_role.ecs_task_execution_role" [label="aws_iam_role.ecs_task_execution_role"];
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" [label="aws_iam_role_policy_attachment.ecs_task_execution_policy"];
+  "aws_ecs_service.helloWorld" -> "aws_ecs_cluster.helloWorld";
+  "aws_ecs_service.helloWorld" -> "aws_ecs_task_definition.helloWorld";
+  "aws_ecs_task_definition.helloWorld" -> "aws_iam_role.ecs_task_execution_role";
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" -> "aws_iam_role.ecs_task_execution_role";
+}

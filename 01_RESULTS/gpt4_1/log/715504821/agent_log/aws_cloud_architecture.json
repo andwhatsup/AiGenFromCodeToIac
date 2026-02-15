@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a containerized FastAPI web application written in Python, designed to serve HTTP/REST API requests. The application is packaged in a Docker container, making it suitable for deployment on AWS container services. The architecture will focus on scalability, security, and operational best practices, while remaining lean and cost-effective for a simple API service.\n\n**Proposed AWS Architecture:**\n\n1. **Networking:**\n   - Deploy the application within a dedicated Virtual Private Cloud (VPC) for network isolation and security.\n   - Use public and private subnets across at least two Availability Zones for high availability.\n   - An Internet Gateway will allow public access to the API endpoints.\n\n2. **Compute:**\n   - Use AWS Elastic Container Service (ECS) with Fargate launch type to run the Dockerized FastAPI application. Fargate provides serverless container hosting, removing the need to manage EC2 instances.\n   - ECS Service will manage the desired number of running containers and handle scaling.\n\n3. **Load Balancing:**\n   - An Application Load Balancer (ALB) will distribute incoming HTTP/REST requests from clients to the ECS tasks running the FastAPI containers. The ALB will be internet-facing and provide SSL termination if HTTPS is required.\n\n4. **Security:**\n   - Security Groups will restrict inbound and outbound traffic to only necessary ports (e.g., 80/443 for HTTP/HTTPS).\n   - IAM Roles and Policies will be created for ECS tasks to allow access to AWS resources if needed (e.g., logging to CloudWatch).\n\n5. **Container Registry:**\n   - Amazon Elastic Container Registry (ECR) will store the Docker images for the FastAPI application.\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch will collect logs and metrics from ECS tasks and the ALB for monitoring and troubleshooting.\n\n7. **(Optional) DNS:**\n   - Amazon Route 53 can be used to provide a custom domain name for the API endpoint.\n\nThis architecture is secure, scalable, and follows AWS best practices for deploying containerized web APIs. It can be easily extended with additional AWS services (e.g., RDS, ElastiCache) if the application requirements grow.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "Route Tables and Routes",
+    "Security Groups (for ALB and ECS tasks)",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Service (Fargate)",
+    "ECS Task Definition (with FastAPI Docker image)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS tasks)",
+    "Elastic Container Registry (ECR)",
+    "IAM Roles and Policies (for ECS tasks and service)",
+    "CloudWatch Log Groups and Metrics",
+    "(Optional) Route 53 Hosted Zone and DNS Record"
+  ]
+}

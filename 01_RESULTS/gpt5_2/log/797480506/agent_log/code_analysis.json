@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python (tooling)",
+        "JSON (AWS Step Functions state machine definitions)",
+        "YAML (tooling/config)",
+        "Makefile"
+      ],
+      "frameworks": [
+        "AWS Step Functions (Amazon States Language)"
+      ],
+      "dependencies": [
+        "Python dev tooling (from ./requirements.txt): pre-commit==3.8.0, PyYAML==6.0.2, virtualenv==20.26.3, cfgv==3.4.0, distlib==0.3.8, filelock==3.15.4, identify==2.6.0, nodeenv==1.9.1, platformdirs==4.2.2"
+      ],
+      "deployment_relevant_files": [
+        "./state_machine/Rekognition.json (Step Functions state machine; orchestrates multiple Rekognition sub-state-machines and writes results to S3)",
+        "./state_machine/RekognitionDetectLabels.json (Step Functions state machine; calls aws-sdk:rekognition:detectLabels and S3 head/getObjectAttributes)",
+        "./state_machine/RekognitionDetectFaces.json (Step Functions state machine definition)",
+        "./state_machine/RekognitionDetectModerationLabels.json (Step Functions state machine definition)",
+        "./state_machine/RekognitionDetectProtectiveEquipment.json (Step Functions state machine definition)",
+        "./state_machine/RekognitionDetectText.json (Step Functions state machine definition)",
+        "./Makefile (terraform fmt target; python venv helpers)",
+        "./.devcontainer/devcontainer.json (devcontainer with aws-cli + terraform features)",
+        "./.pre-commit-config.yaml (pre-commit hooks incl. terraform fmt)",
+        "./.github/workflows/pull_request.yml (CI workflow)",
+        "./.github/dependabot.yml (dependency update config)"
+      ],
+      "architectural_resources": [
+        "AWS Step Functions state machines (orchestration; parent Rekognition.json plus multiple child state machines referenced via ${rekognition_detect_*})",
+        "Amazon Rekognition (DetectLabels/DetectFaces/DetectText/DetectModerationLabels/DetectProtectiveEquipment via Step Functions aws-sdk integrations)",
+        "Amazon S3 bucket(s) (input images; output JSON written via s3:putObject; also uses s3:headBucket, s3:headObject, s3:getObjectAttributes)",
+        "Amazon SQS queue (implied by Rekognition.json expecting events with eventSource == aws:sqs and body containing S3 event records)",
+        "IAM roles/policies for Step Functions to call Rekognition, S3, and start nested Step Functions executions (implied by service integrations)"
+      ]
+    }
+  ]
+}

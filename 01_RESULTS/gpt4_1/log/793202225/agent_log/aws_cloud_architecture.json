@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture is designed to securely and efficiently deploy a Rust-based Axum web application as a containerized service. The application will run on AWS ECS (Elastic Container Service) using Fargate for serverless container management, which eliminates the need to manage EC2 instances. The ECS service will be deployed within a dedicated VPC for network isolation and security. Public and private subnets will be used to separate internet-facing and internal resources. An Application Load Balancer (ALB) will route incoming HTTP(S) traffic to the ECS service, enabling scalable and highly available access to the web application. Security Groups will restrict network access to only necessary ports. IAM roles and policies will be provisioned to grant the ECS task permissions to write logs to AWS CloudWatch Logs, which will be used for centralized logging and monitoring. The architecture is designed for scalability, security, and observability, following AWS best practices for containerized workloads. No persistent storage or database resources are required based on the current codebase analysis.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (for ALB)",
+    "Private Subnets (for ECS tasks)",
+    "Internet Gateway",
+    "NAT Gateway (for ECS tasks to access the internet if needed)",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "ECS Cluster",
+    "ECS Task Definition (with container definition for Axum app)",
+    "ECS Service (Fargate launch type)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to route traffic to ECS tasks)",
+    "IAM Role for ECS Task Execution (with permissions for CloudWatch Logs)",
+    "IAM Policy for CloudWatch Logs access",
+    "CloudWatch Log Group (for application logs)"
+  ]
+}

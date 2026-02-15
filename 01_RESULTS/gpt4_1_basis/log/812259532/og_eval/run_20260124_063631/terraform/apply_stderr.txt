@@ -1,0 +1,16 @@
+
+Error: creating ECS Service (helloWorld-service): operation error ECS: CreateService, https response error StatusCode: 400, RequestID: fc12b53d-362f-409d-8616-234efb7b466a, ServerException: An error occurred (InternalError) when calling the RunTask operation (reached max retries: 4): exception while calling ecs.RunTask: 400 Bad Request: <?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Errors>
+    <Error>
+      <Code>InvalidSubnetID.NotFound</Code>
+      <Message>The subnet ID 'subnet-005fc6c4dc01a48d3' does not exist</Message>
+    </Error>
+  </Errors>
+  <RequestID>7a62c49f-347e-4fc4-9331-6e8eEXAMPLE</RequestID>
+</Response>
+
+  with aws_ecs_service.helloWorld,
+  on main.tf line 58, in resource "aws_ecs_service" "helloWorld":
+  58: resource "aws_ecs_service" "helloWorld" {
+

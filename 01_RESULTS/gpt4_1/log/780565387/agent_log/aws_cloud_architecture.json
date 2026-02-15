@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is a containerized Go web application (http-echo) deployed using a modern CI/CD pipeline. The architecture leverages AWS ECS (Elastic Container Service) for running the application, with DockerHub as the external container registry and GitHub Actions for CI/CD automation. The deployment is designed for scalability, security, and operational best practices.\n\n**High-Level AWS Architecture:**\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for secure outbound internet access from private subnets.\n\n2. **Compute:**\n   - AWS ECS (Fargate launch type recommended for serverless container management) to run the Go web application as a service.\n   - ECS Service and Task Definitions configured to pull the Docker image from DockerHub.\n\n3. **Load Balancing & Access:**\n   - Application Load Balancer (ALB) to distribute incoming HTTP(S) traffic to ECS tasks, providing scalability and health checks.\n   - Security Groups to restrict access to only necessary ports (e.g., 80/443 for ALB, 8080 or app port for ECS tasks).\n\n4. **IAM & Security:**\n   - IAM roles and policies for ECS tasks to allow pulling images from DockerHub and logging to CloudWatch.\n   - IAM roles for CI/CD (if using AWS credentials for ECS deployment from GitHub Actions).\n\n5. **Monitoring & Logging:**\n   - Amazon CloudWatch for ECS service and application logs, metrics, and alarms.\n\n6. **CI/CD Integration:**\n   - GitHub Actions pipeline automates build, push to DockerHub, and deployment to ECS using AWS credentials (with least privilege IAM user or role).\n\n**Optional Enhancements:**\n- AWS Certificate Manager (ACM) for SSL/TLS certificates if HTTPS is required.\n- AWS Secrets Manager or SSM Parameter Store for managing sensitive configuration (if needed in the future).\n\nThis architecture is lean, secure, and follows AWS best practices for containerized web applications with external CI/CD and registry integration.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables (public and private)",
+    "Security Groups (for ALB and ECS tasks)",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Task Definition (configured for DockerHub image)",
+    "ECS Service (Fargate or EC2 launch type)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS tasks)",
+    "IAM Role for ECS Task Execution",
+    "IAM Role/Policy for CI/CD (GitHub Actions) to deploy to ECS",
+    "CloudWatch Log Group (for ECS task/application logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "(Optional) AWS Certificate Manager (ACM) for SSL/TLS certificates"
+  ]
+}

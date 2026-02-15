@@ -1,0 +1,75 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go",
+        "Shell",
+        "Makefile"
+      ],
+      "frameworks": [
+        "AWS Lambda (github.com/aws/aws-lambda-go)",
+        "AWS SDK for Go v2"
+      ],
+      "dependencies": [
+        "Go module: gitlab.com/Madh93/cann (go.mod)",
+        "github.com/aws/aws-lambda-go v1.34.1 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2 v1.17.2 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/config v1.17.1 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/service/dynamodb v1.16.0 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/service/sns v1.17.13 (go.mod)",
+        "github.com/aws/aws-sdk-go-v2/service/ssm v1.27.9 (go.mod)",
+        "github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1 (go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod",
+        "go.sum",
+        "Makefile",
+        "scripts/package.sh (referenced by Makefile target package)",
+        "lambda/check_announcement/main.go",
+        "lambda/send_notification/main.go",
+        "lambda/send_telegram_notification/main.go",
+        ".gitlab-ci.yml"
+      ],
+      "architectural_resources": [
+        "AWS Lambda functions: check_announcement, send_notification, send_telegram_notification (lambda/*/main.go; README.md)",
+        "Amazon DynamoDB table for announcement state (lambda/check_announcement/main.go; README.md)",
+        "DynamoDB Streams trigger to Lambda (README.md)",
+        "Amazon SNS topic for fan-out notifications (lambda/send_notification/main.go; README.md)",
+        "AWS Systems Manager Parameter Store (SSM) for Telegram auth token and per-announcement channel config (internal/utils/ssm_parameter_store.go; lambda/send_telegram_notification/main.go; README.md)",
+        "Amazon EventBridge/CloudWatch Events scheduled rule to trigger check_announcement (README.md)",
+        "CloudWatch Logs log groups for Lambdas (implied by deploy/modules/lambda/README.md)",
+        "External integration: Telegram Bot API + Telegram channels (go.mod; lambda/send_telegram_notification/main.go; README.md)"
+      ]
+    },
+    {
+      "project_directory": "deploy",
+      "programming_languages": [
+        "Terraform (implied by deploy/README.md)"
+      ],
+      "frameworks": [
+        "Terraform AWS Provider (hashicorp/aws)"
+      ],
+      "dependencies": [
+        "Terraform ~> 1.3 (deploy/README.md)",
+        "AWS provider 4.50.0 (deploy/README.md)",
+        "Local Terraform module ./modules/lambda (deploy/README.md)"
+      ],
+      "deployment_relevant_files": [
+        "deploy/README.md",
+        "deploy/terraform.tfvars.example",
+        "deploy/modules/lambda/README.md",
+        ".gitlab-ci.yml (Terraform init/validate/plan/apply stages reference deploy as TF_ROOT)"
+      ],
+      "architectural_resources": [
+        "Terraform-managed AWS infrastructure (deploy/README.md):",
+        "- EventBridge/CloudWatch Event Rule + Target (aws_cloudwatch_event_rule, aws_cloudwatch_event_target)",
+        "- DynamoDB table (aws_dynamodb_table)",
+        "- Lambda event source mapping from DynamoDB Streams (aws_lambda_event_source_mapping)",
+        "- SNS topic + subscription (aws_sns_topic, aws_sns_topic_subscription)",
+        "- SSM Parameters for Telegram auth token, chat id, channel name (aws_ssm_parameter.*)",
+        "- IAM roles/policies and CloudWatch Log Groups for Lambdas (deploy/modules/lambda/README.md)"
+      ]
+    }
+  ]
+}

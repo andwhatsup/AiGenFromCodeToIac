@@ -1,0 +1,415 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.archive_file.lambda_zip will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "archive_file" "lambda_zip" {
+      + id                  = (known after apply)
+      + output_base64sha256 = (known after apply)
+      + output_base64sha512 = (known after apply)
+      + output_md5          = (known after apply)
+      + output_path         = "./build/ssm_backup.zip"
+      + output_sha          = (known after apply)
+      + output_sha256       = (known after apply)
+      + output_sha512       = (known after apply)
+      + output_size         = (known after apply)
+      + source_file         = "./build/ssm_backup.py"
+      + type                = "zip"
+    }
+
+  # aws_cloudwatch_event_rule.schedule will be created
+  + resource "aws_cloudwatch_event_rule" "schedule" {
+      + arn                 = (known after apply)
+      + event_bus_name      = "default"
+      + force_destroy       = false
+      + id                  = (known after apply)
+      + name                = (known after apply)
+      + name_prefix         = "ssm-parameter-backup-dev-schedule-"
+      + region              = "us-east-1"
+      + schedule_expression = "rate(1 day)"
+      + tags_all            = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+    }
+
+  # aws_cloudwatch_event_target.lambda will be created
+  + resource "aws_cloudwatch_event_target" "lambda" {
+      + arn            = (known after apply)
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + rule           = (known after apply)
+      + target_id      = "ssm-backup"
+    }
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/ssm-parameter-backup-dev-ssm-backup"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "ssm-parameter-backup-dev-lambda-"
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda will be created
+  + resource "aws_iam_role_policy" "lambda" {
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "ssm-parameter-backup-dev-lambda-policy-"
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_kms_alias.backup will be created
+  + resource "aws_kms_alias" "backup" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/ssm-parameter-backup-dev-ssm-backup"
+      + name_prefix    = (known after apply)
+      + region         = "us-east-1"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # aws_kms_key.backup will be created
+  + resource "aws_kms_key" "backup" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 7
+      + description                        = "KMS key for encrypting SSM Parameter Store backups in S3"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = (known after apply)
+      + region                             = "us-east-1"
+      + rotation_period_in_days            = (known after apply)
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+    }
+
+  # aws_lambda_function.backup will be created
+  + resource "aws_lambda_function" "backup" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./build/ssm_backup.zip"
+      + function_name                  = "ssm-parameter-backup-dev-ssm-backup"
+      + handler                        = "ssm_backup.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "python3.11"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+      + timeout                        = 300
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_events will be created
+  + resource "aws_lambda_permission" "allow_events" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "ssm-parameter-backup-dev-ssm-backup"
+      + id                  = (known after apply)
+      + principal           = "events.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromEventBridge"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.backup will be created
+  + resource "aws_s3_bucket" "backup" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "ssm-parameter-backup-dev-backups-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ssm-parameter-backup"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.backup will be created
+  + resource "aws_s3_bucket_public_access_block" "backup" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.backup will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.backup will be created
+  + resource "aws_s3_bucket_versioning" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # local_file.lambda_source will be created
+  + resource "local_file" "lambda_source" {
+      + content              = <<-EOT
+            from io import StringIO
+            import boto3
+            import time
+            import os
+            import json
+            import math
+            import traceback
+            from botocore.exceptions import ClientError
+            
+            def get_parameters_from_ssm(ssm_client, params_names, x, tries=1):
+                try:
+                    return ssm_client.get_parameters(Names=params_names[((x-1)*10):(x*10)], WithDecryption=True)
+                except ClientError as exception_obj:
+                    if exception_obj.response['Error']['Code'] == 'ThrottlingException':
+                        if tries <= 3:
+                            print("Throttling Exception Occured.")
+                            print("Retrying.....")
+                            print("Attempt No.: " + str(tries))
+                            time.sleep(3)
+                            return get_parameters_from_ssm(ssm_client, params_names, x, tries + 1)
+                        else:
+                            print("Attempted 3 Times But No Success.")
+                            print("Raising Exception.....")
+                            raise
+                    else:
+                        raise
+            
+            def ssm_backup():
+                # fetch environment variables
+                s3_bucket = os.getenv('S3_BUCKET')
+                kms_key_arn = os.getenv('KMS_KEY_ARN')
+                time_string = time.strftime("%Y-%m-%d-%H-%M")
+            
+                # create param variables
+                params = []
+                params_names = []
+                params_values = {}
+                str_params = ''
+            
+                # create S3 and SSM clients
+                s3_client = boto3.client('s3')
+                ssm_client = boto3.client('ssm')
+            
+                # describe parameters (without values)
+                ssm_paginator = ssm_client.get_paginator('describe_parameters')
+            
+                # create page iterator
+                page_iterator = ssm_paginator.paginate()
+            
+                # get param names
+                for page in page_iterator:
+                    for item in page['Parameters']:
+                        params.append(item)
+                        params_names.append(item['Name'])
+            
+                # get param values
+                params_names_loop = math.ceil(len(params_names) / 10) + 1
+            
+                for x in range(1, params_names_loop):
+                    response = get_parameters_from_ssm(ssm_client, params_names, x, 1)
+            
+                    for item in response['Parameters']:
+                        params_values[item['Name']] = item['Value']
+            
+                # add values to parameters list
+                for param in params:
+                    param['Value'] = params_values[param['Name']]
+                    str_params += json.dumps(param, default=str) + ",\n"
+            
+                # fix json string
+                str_params = "[\n" + str_params + "]"
+                str_params = str_params.replace(",\n]", "\n]")
+            
+                # write to s3 bucket
+                fake_handle = StringIO(str_params)
+                s3_client.put_object(Bucket=s3_bucket, Key="backups/parameters-" + time_string + ".json", Body=fake_handle.read(), ServerSideEncryption='aws:kms', SSEKMSKeyId=kms_key_arn)
+            
+                print("Successfully taken the backup of all the parameters residing on AWS SSM Parameter Store.")
+            
+            def lambda_handler(event, context):
+                try:
+                    ssm_backup()
+            
+                    # return success
+                    return "Lambda function executed successfully."
+                except Exception as e:
+                    # return exception
+                    tb = traceback.format_exc()
+                    print(tb)
+                    return tb
+            
+            # locally test the code
+            if __name__ == "__main__":
+                event = []
+                context = []
+                print(lambda_handler(event, context))
+        EOT
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = "./build/ssm_backup.py"
+      + id                   = (known after apply)
+    }
+
+Plan: 14 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + backup_bucket_name    = (known after apply)
+  + eventbridge_rule_name = (known after apply)
+  + kms_key_arn           = (known after apply)
+  + lambda_function_name  = "ssm-parameter-backup-dev-ssm-backup"

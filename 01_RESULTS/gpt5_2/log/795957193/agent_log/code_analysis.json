@@ -1,0 +1,27 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)"
+      ],
+      "frameworks": [
+        "Express.js"
+      ],
+      "dependencies": [
+        "express@^4.19.2 (from package.json)"
+      ],
+      "deployment_relevant_files": [
+        "package.json (npm scripts: start -> node server.js)",
+        "package-lock.json (dependency lockfile)",
+        "README.md (Terraform/AWS deployment instructions; expects app reachable on :3000)"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP API (Express server listening on port 3000; server.js)",
+        "AWS account/credentials required (README.md environment variables)",
+        "Terraform-managed AWS infrastructure (implied by README.md: terraform init/plan/apply)",
+        "Compute instance to host the app (implied EC2 instance + PEM key name in README.md)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/833276706",
+      "programming_languages": [
+        "HCL (Terraform)",
+        "YAML (GitHub Actions)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Terraform (HashiCorp)",
+        "GitHub Actions"
+      ],
+      "dependencies": [
+        "Terraform CLI v1.7.4 (Dockerfile: ENV TERRAFORM_VERSION=1.7.4; installs terraform binary)",
+        "AWS CLI v2 (Dockerfile: downloads and installs awscliv2.zip)",
+        "hashicorp/setup-terraform@v2 (/.github/workflows/deploy.yml)",
+        "actions/checkout@v2 (/.github/workflows/deploy.yml)"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile",
+        "/.github/workflows/deploy.yml",
+        "/infra/config/vars.env",
+        "/infra/init_validate_stdout.txt",
+        "/infra/init_validate_stderr.txt",
+        "/infra/validate_stdout.txt",
+        "/infra/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "CI/CD pipeline (GitHub Actions) that runs terraform init/validate/plan and then terraform destroy (note: workflow step labeled 'Terraform Apply' actually runs destroy)",
+        "Infrastructure-as-Code project intended to provision cloud resources via Terraform (./infra), but no *.tf files were found in the repository snapshot",
+        "AWS account credentials/secrets used by pipeline (AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY in workflow env)",
+        "Containerized tooling image for infra operations (Dockerfile installs Terraform + AWS CLI)",
+        "ECS task definition-like JSON template (infra/config/vars.env contains containerDefinitions/family fields), implying AWS ECS/Fargate usage and container image deployment (e.g., nginx:latest referenced)"
+      ]
+    }
+  ]
+}

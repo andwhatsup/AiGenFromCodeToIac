@@ -1,0 +1,47 @@
+aws_ecs_cluster.HelloECS: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:cluster/Hello-Node-app]
+aws_iam_role.iam-role: Refreshing state... [id=ECS-execution-role]
+aws_vpc.hellovpc: Refreshing state... [id=vpc-90fa5c00dd7f12237]
+aws_iam_role_policy.iam-policy: Refreshing state... [id=ECS-execution-role:ECS-execution-role-policy]
+aws_ecs_task_definition.HelloTD: Refreshing state... [id=nginx]
+data.aws_ecs_task_definition.HelloTD: Reading...
+data.aws_ecs_task_definition.HelloTD: Read complete after 0s [id=arn:aws:ecs:ap-south-1:000000000000:task-definition/nginx:1]
+aws_internet_gateway.HelloIG: Refreshing state... [id=igw-bd897a05308d5315a]
+aws_subnet.subnet1: Refreshing state... [id=subnet-3e8ed38969ba8a633]
+aws_subnet.subnet2: Refreshing state... [id=subnet-1ee5db93306e03f96]
+aws_security_group.HelloSG: Refreshing state... [id=sg-42b09ba0314e979c7]
+aws_lb_target_group.HelloTG: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:targetgroup/HelloTG/d9e702c42b89677c]
+aws_route_table.HelloRT: Refreshing state... [id=rtb-eaf4b71b242123f3d]
+aws_route_table_association.RTA1: Refreshing state... [id=rtbassoc-2a0e78e32a738cd7a]
+aws_route_table_association.RTA2: Refreshing state... [id=rtbassoc-44bb4b7f96068a897]
+aws_lb.HelloLB: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:loadbalancer/app/HelloLB/53ce37b4daa3cb1d]
+aws_alb_listener.Listener: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/HelloLB/53ce37b4daa3cb1d/cf5e54540468d349]
+aws_ecs_service.nodeapp: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:service/Hello-Node-app/nodeapp]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_alb_listener.Listener will be updated in-place
+  ~ resource "aws_alb_listener" "Listener" {
+        id                                                                  = "arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/HelloLB/53ce37b4daa3cb1d/cf5e54540468d349"
+      ~ port                                                                = 4566 -> 3000
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_ecs_service.nodeapp will be updated in-place
+  ~ resource "aws_ecs_service" "nodeapp" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:ap-south-1:000000000000:service/Hello-Node-app/nodeapp"
+        name                               = "nodeapp"
+        tags                               = {}
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

@@ -1,0 +1,51 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell"
+      ],
+      "frameworks": [
+        "Ansible"
+      ],
+      "dependencies": [
+        "ansible (pyproject.toml, poetry.lock)",
+        "ansible-core (poetry.lock)",
+        "cryptography (poetry.lock)",
+        "importlib-resources (poetry.lock)",
+        "jinja2 (poetry.lock)",
+        "markupsafe (poetry.lock)",
+        "packaging (poetry.lock)",
+        "pycparser (poetry.lock)",
+        "pyparsing (poetry.lock)",
+        "pyyaml (poetry.lock)",
+        "resolvelib (poetry.lock)",
+        "avnes.crictl (ansible/requirements.yaml)",
+        "avnes.flux (ansible/requirements.yaml)",
+        "avnes.helm (ansible/requirements.yaml)",
+        "avnes.k9s (ansible/requirements.yaml)",
+        "avnes.kubectl (ansible/requirements.yaml)",
+        "avnes.kubectx (ansible/requirements.yaml)",
+        "avnes.rke (ansible/requirements.yaml)"
+      ],
+      "deployment_relevant_files": [
+        "pyproject.toml",
+        "poetry.lock",
+        "ansible/requirements.yaml",
+        "ansible/install_cli_tools.yaml",
+        "ansible/inventory/hosts.yaml",
+        "bin/01_install_cli_tools.sh",
+        "bin/02_create_cluster.sh",
+        ".github/workflows/tfsec.yaml"
+      ],
+      "architectural_resources": [
+        "Kubernetes cluster (via Rancher/RKE)",
+        "CLI tools: crictl, flux, helm, k9s, kubectl, kubectx (installed via Ansible roles)",
+        "Local/remote Ansible execution",
+        "Terraform (referenced in bin/02_create_cluster.sh, expects a terraform directory)",
+        "GitHub Actions (for tfsec security scanning)"
+      ]
+    }
+  ]
+}

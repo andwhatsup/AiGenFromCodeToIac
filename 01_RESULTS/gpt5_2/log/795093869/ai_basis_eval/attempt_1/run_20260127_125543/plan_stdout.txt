@@ -1,0 +1,230 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_zip: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.archive_file.lambda_zip: Read complete after 0s [id=eac853346d6ada376c6430a8d01e63f5fa1273e6]
+data.aws_partition.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "trigger-mwaa-dag-lambda-"
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "trigger-mwaa-dag"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.lambda_s3_read will be created
+  + resource "aws_iam_role_policy" "lambda_s3_read" {
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "trigger-mwaa-dag-lambda-s3-"
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = (known after apply)
+    }
+
+  # aws_lambda_function.trigger will be created
+  + resource "aws_lambda_function" "trigger" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./build/trigger-dag.zip"
+      + function_name                  = "trigger-mwaa-dag-trigger"
+      + handler                        = "index.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "python3.11"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "eQqG5XgOb20LTbtstZv55ozLXc4eFstUALg6FF6JfgY="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Managed" = "terraform"
+          + "Project" = "trigger-mwaa-dag"
+        }
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "LOG_LEVEL"     = "INFO"
+              + "MWAA_ENV_NAME" = "placeholder"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_s3 will be created
+  + resource "aws_lambda_permission" "allow_s3" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "trigger-mwaa-dag-trigger"
+      + id                  = (known after apply)
+      + principal           = "s3.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromS3"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.input will be created
+  + resource "aws_s3_bucket" "input" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "trigger-mwaa-dag-input-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "trigger-mwaa-dag"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_notification.input will be created
+  + resource "aws_s3_bucket_notification" "input" {
+      + bucket      = (known after apply)
+      + eventbridge = false
+      + id          = (known after apply)
+      + region      = "us-east-1"
+
+      + lambda_function {
+          + events              = [
+              + "s3:ObjectCreated:*",
+            ]
+          + filter_suffix       = "input.json"
+          + id                  = (known after apply)
+          + lambda_function_arn = (known after apply)
+        }
+    }
+
+  # aws_s3_bucket_ownership_controls.input will be created
+  + resource "aws_s3_bucket_ownership_controls" "input" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + object_ownership = "BucketOwnerPreferred"
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.input will be created
+  + resource "aws_s3_bucket_public_access_block" "input" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.input will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "input" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aws_region           = "us-east-1"
+  + input_bucket_id      = (known after apply)
+  + lambda_function_name = "trigger-mwaa-dag-trigger"

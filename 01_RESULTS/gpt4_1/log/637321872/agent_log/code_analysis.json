@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HCL (Terraform)",
+        "Shell"
+      ],
+      "frameworks": [
+        "Terraform",
+        "Docker"
+      ],
+      "dependencies": [
+        "hashicorp/terraform:1.4.5 (docker-compose.yml)",
+        "Terraform providers: hashicorp/aws (~> 6.27.0), hashicorp/null, hashicorp/local, hashicorp/http, hashicorp/archive, hashicorp/tls (validate_stdout.txt)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "source/install.sh",
+        "source/config/squid.conf",
+        "source/.security/my-net-keypair.id_rsa"
+      ],
+      "architectural_resources": [
+        "AWS EC2 (for Squid proxy)",
+        "AWS VPC (implied by README and Terraform usage)",
+        "IAM (for AWS_PROFILE and credentials)",
+        "Docker container (for Terraform execution)",
+        "SSH keypair (for EC2 access)"
+      ]
+    }
+  ]
+}

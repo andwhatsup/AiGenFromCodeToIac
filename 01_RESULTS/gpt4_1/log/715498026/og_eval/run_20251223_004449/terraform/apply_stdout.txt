@@ -1,0 +1,777 @@
+data.aws_availability_zones.available: Reading...
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_sns_topic.this will be read during apply
+  # (depends on a resource or a module with changes pending)
+ <= data "aws_sns_topic" "this" {
+      + arn    = (known after apply)
+      + id     = (known after apply)
+      + name   = "GoWebAppSNS"
+      + region = (known after apply)
+      + tags   = (known after apply)
+    }
+
+  # aws_alb.main will be created
+  + resource "aws_alb" "main" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = (known after apply)
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "pwdevops-go-webapp"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags_all                                                     = (known after apply)
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_alb_listener.front_end will be created
+  + resource "aws_alb_listener" "front_end" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 8080
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_alb_target_group.app will be created
+  + resource "aws_alb_target_group" "app" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "pwdevops-go-webapp"
+      + name_prefix                        = (known after apply)
+      + port                               = 8080
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags_all                           = (known after apply)
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check (known after apply)
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_cloudwatch_log_group.dsop-lgrp will be created
+  + resource "aws_cloudwatch_log_group" "dsop-lgrp" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "chessz-go-webapp-log"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 0
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_cloudwatch_log_metric_filter.http_500_filter will be created
+  + resource "aws_cloudwatch_log_metric_filter" "http_500_filter" {
+      + apply_on_transformed_logs = (known after apply)
+      + id                        = (known after apply)
+      + log_group_name            = "chessz-go-webapp-log"
+      + name                      = "http_500_filter"
+      + pattern                   = "[timestamp, errorCode, message]"
+      + region                    = "us-east-1"
+
+      + metric_transformation {
+          + name      = "Http500Errors"
+          + namespace = "CustomMetrics"
+          + unit      = "None"
+          + value     = "1"
+        }
+    }
+
+  # aws_cloudwatch_metric_alarm.http_500_alarm will be created
+  + resource "aws_cloudwatch_metric_alarm" "http_500_alarm" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "HTTP 500 Errors Alarm"
+      + alarm_name                            = "Http500ErrorsAlarm"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanOrEqualToThreshold"
+      + dimensions                            = {
+          + "LogGroupName" = "chessz-go-webapp-log"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 1
+      + id                                    = (known after apply)
+      + metric_name                           = "Http500Errors"
+      + namespace                             = "CustomMetrics"
+      + period                                = 60
+      + region                                = "us-east-1"
+      + statistic                             = "SampleCount"
+      + tags_all                              = (known after apply)
+      + threshold                             = 1
+      + treat_missing_data                    = "missing"
+    }
+
+  # aws_ecr_repository.pw_ecr_dsop_webapp will be created
+  + resource "aws_ecr_repository" "pw_ecr_dsop_webapp" {
+      + arn                  = (known after apply)
+      + force_delete         = true
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "pw_ecr_dsop_webapp"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = (known after apply)
+    }
+
+  # aws_ecs_cluster.main will be created
+  + resource "aws_ecs_cluster" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "pwdsop-ecs-cluster"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.main will be created
+  + resource "aws_ecs_service" "main" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 2
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "pwdevops-ecs-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + load_balancer {
+          + container_name   = "app"
+          + container_port   = 8080
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "app"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.gw[0] will be created
+  + resource "aws_eip" "gw" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_eip.gw[1] will be created
+  + resource "aws_eip" "gw" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = (known after apply)
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_iam_role.ecs_execution_role will be created
+  + resource "aws_iam_role" "ecs_execution_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ecs_execution_role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs-task-execution-role-policy-attachment will be created
+  + resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attachment" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "ecs_execution_role"
+    }
+
+  # aws_internet_gateway.gw will be created
+  + resource "aws_internet_gateway" "gw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_nat_gateway.gw[0] will be created
+  + resource "aws_nat_gateway" "gw" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags_all                           = (known after apply)
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_nat_gateway.gw[1] will be created
+  + resource "aws_nat_gateway" "gw" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags_all                           = (known after apply)
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.internet_access will be created
+  + resource "aws_route" "internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private[0] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags_all         = (known after apply)
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private[1] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags_all         = (known after apply)
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.ecs_tasks will be created
+  + resource "aws_security_group" "ecs_tasks" {
+      + arn                    = (known after apply)
+      + description            = "allow inbound access from the ALB only"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + from_port        = 8080
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 8080
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "pwdevops-ecs-tasks"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.lb will be created
+  + resource "aws_security_group" "lb" {
+      + arn                    = (known after apply)
+      + description            = "controls access to the ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 8080
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 8080
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "pwdevops-ecs-alb"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_sns_topic.dsop_sns will be created
+  + resource "aws_sns_topic" "dsop_sns" {
+      + arn                         = (known after apply)
+      + beginning_archive_time      = (known after apply)
+      + content_based_deduplication = false
+      + fifo_throughput_scope       = (known after apply)
+      + fifo_topic                  = false
+      + id                          = (known after apply)
+      + name                        = "GoWebAppSNS"
+      + name_prefix                 = (known after apply)
+      + owner                       = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + signature_version           = (known after apply)
+      + tags_all                    = (known after apply)
+      + tracing_config              = (known after apply)
+    }
+
+  # aws_sns_topic_subscription.email_subscription will be created
+  + resource "aws_sns_topic_subscription" "email_subscription" {
+      + arn                             = (known after apply)
+      + confirmation_timeout_in_minutes = 1
+      + confirmation_was_authenticated  = (known after apply)
+      + endpoint                        = "mzul@pm.me"
+      + endpoint_auto_confirms          = false
+      + filter_policy_scope             = (known after apply)
+      + id                              = (known after apply)
+      + owner_id                        = (known after apply)
+      + pending_confirmation            = (known after apply)
+      + protocol                        = "email"
+      + raw_message_delivery            = false
+      + region                          = "us-east-1"
+      + topic_arn                       = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "172.17.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags_all                                       = (known after apply)
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "172.17.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags_all                                       = (known after apply)
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "172.17.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags_all                                       = (known after apply)
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "172.17.3.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags_all                                       = (known after apply)
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "172.17.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags_all                             = (known after apply)
+    }
+
+Plan: 31 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_hostname       = (known after apply)
+  + ecr_repository_uri = (known after apply)
+  + sns_topic_arn      = (known after apply)
+aws_ecs_cluster.main: Creating...
+aws_ecr_repository.pw_ecr_dsop_webapp: Creating...
+aws_cloudwatch_log_group.dsop-lgrp: Creating...
+aws_vpc.main: Creating...
+aws_iam_role.ecs_execution_role: Creating...
+aws_sns_topic.dsop_sns: Creating...
+aws_vpc.main: Creation complete after 0s [id=vpc-9497c13524d6870de]
+aws_internet_gateway.gw: Creating...
+aws_subnet.private[1]: Creating...
+aws_subnet.public[1]: Creating...
+aws_security_group.lb: Creating...
+aws_alb_target_group.app: Creating...
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-60b38474de966f73a]
+aws_subnet.private[0]: Creating...
+aws_internet_gateway.gw: Creation complete after 0s [id=igw-fc85e72312a449afe]
+aws_subnet.public[0]: Creating...
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-dfdf187e49cb5baf0]
+aws_route.internet_access: Creating...
+aws_route.internet_access: Creation complete after 0s [id=r-rtb-fa4758577bf8550141080289494]
+aws_eip.gw[0]: Creating...
+aws_eip.gw[0]: Creation complete after 0s [id=eipalloc-e179e88959ffde65b]
+aws_eip.gw[1]: Creating...
+aws_security_group.lb: Creation complete after 0s [id=sg-c167bba0eb29dd818]
+aws_security_group.ecs_tasks: Creating...
+aws_eip.gw[1]: Creation complete after 1s [id=eipalloc-ac45b07c2195453c9]
+aws_security_group.ecs_tasks: Creation complete after 1s [id=sg-5fb8b3750467ef564]
+aws_iam_role.ecs_execution_role: Creation complete after 1s [id=ecs_execution_role]
+aws_iam_role_policy_attachment.ecs-task-execution-role-policy-attachment: Creating...
+aws_iam_role_policy_attachment.ecs-task-execution-role-policy-attachment: Creation complete after 0s [id=ecs_execution_role/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_alb_target_group.app: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/pwdevops-go-webapp/5c26b73091a9fb62]
+aws_sns_topic.dsop_sns: Creation complete after 1s [id=arn:aws:sns:us-east-1:000000000000:GoWebAppSNS]
+data.aws_sns_topic.this: Reading...
+aws_sns_topic_subscription.email_subscription: Creating...
+aws_cloudwatch_log_group.dsop-lgrp: Creation complete after 1s [id=chessz-go-webapp-log]
+data.aws_sns_topic.this: Read complete after 0s [id=arn:aws:sns:us-east-1:000000000000:GoWebAppSNS]
+aws_sns_topic_subscription.email_subscription: Creation complete after 0s [id=arn:aws:sns:us-east-1:000000000000:GoWebAppSNS:8c70f166-b4af-40ce-89ad-9cb9fa0c6953]
+aws_cloudwatch_log_metric_filter.http_500_filter: Creating...
+aws_cloudwatch_metric_alarm.http_500_alarm: Creating...
+aws_cloudwatch_log_metric_filter.http_500_filter: Creation complete after 0s [id=http_500_filter]
+aws_cloudwatch_metric_alarm.http_500_alarm: Creation complete after 1s [id=Http500ErrorsAlarm]
+aws_ecr_repository.pw_ecr_dsop_webapp: Creation complete after 4s [id=pw_ecr_dsop_webapp]
+aws_ecs_task_definition.app: Creating...
+aws_ecs_task_definition.app: Creation complete after 0s [id=app]
+aws_ecs_cluster.main: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Creation complete after 10s [id=subnet-863653007638311ce]
+aws_subnet.public[0]: Creation complete after 10s [id=subnet-f67ba74b82fa213c3]
+aws_nat_gateway.gw[1]: Creating...
+aws_nat_gateway.gw[0]: Creating...
+aws_alb.main: Creating...
+aws_nat_gateway.gw[1]: Creation complete after 0s [id=nat-f3e42a0585ea1818e]
+aws_nat_gateway.gw[0]: Creation complete after 0s [id=nat-b17612c0c4e91ca7e]
+aws_route_table.private[0]: Creating...
+aws_route_table.private[1]: Creating...
+aws_route_table.private[0]: Creation complete after 0s [id=rtb-e4bd7557f197f00d6]
+aws_route_table.private[1]: Creation complete after 0s [id=rtb-65ad1eed87a13711a]
+aws_route_table_association.private[1]: Creating...
+aws_route_table_association.private[0]: Creating...
+aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-a407fa48c28b05f8d]
+aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-b138a3537dbf2b16a]
+aws_ecs_cluster.main: Creation complete after 11s [id=arn:aws:ecs:us-east-1:000000000000:cluster/pwdsop-ecs-cluster]
+aws_alb.main: Still creating... [00m10s elapsed]
+aws_alb.main: Still creating... [00m20s elapsed]
+aws_alb.main: Still creating... [00m30s elapsed]

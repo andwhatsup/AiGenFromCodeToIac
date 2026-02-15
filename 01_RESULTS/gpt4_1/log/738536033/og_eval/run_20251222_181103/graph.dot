@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_elastic_beanstalk_application.dash_app" [label="aws_elastic_beanstalk_application.dash_app"];
+  "aws_elastic_beanstalk_environment.dash_app_env" [label="aws_elastic_beanstalk_environment.dash_app_env"];
+  "aws_iam_instance_profile.instance_profile" [label="aws_iam_instance_profile.instance_profile"];
+  "aws_iam_role.role" [label="aws_iam_role.role"];
+  "aws_elastic_beanstalk_environment.dash_app_env" -> "aws_elastic_beanstalk_application.dash_app";
+  "aws_elastic_beanstalk_environment.dash_app_env" -> "aws_iam_instance_profile.instance_profile";
+  "aws_iam_instance_profile.instance_profile" -> "aws_iam_role.role";
+}

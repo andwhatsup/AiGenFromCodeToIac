@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "YAML (CI/CD + Kubernetes manifests)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "React 18",
+        "Create React App (react-scripts)",
+        "Kubernetes (Deployment/Service manifests)",
+        "GitHub Actions (CI/CD)"
+      ],
+      "dependencies": [
+        "react@^18.2.0 (package.json)",
+        "react-dom@^18.2.0 (package.json)",
+        "react-scripts@5.0.1 (package.json)",
+        "web-vitals@^2.1.4 (package.json)",
+        "@testing-library/react@^13.4.0 (package.json)",
+        "@testing-library/jest-dom@^5.17.0 (package.json)",
+        "@testing-library/user-event@^13.5.0 (package.json)",
+        "sonarsource/sonarqube-scan-action@master (/.github/workflows/sonar.yml)",
+        "act10ns/slack@v1 (/.github/workflows/deploy.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment-service.yml (Kubernetes Deployment + Service type LoadBalancer)",
+        "package.json (build/start scripts)",
+        "package-lock.json",
+        "/.github/workflows/sonar.yml (SonarQube scan)",
+        "/.github/workflows/build.yml (docker build/tag/push + test run)",
+        "/.github/workflows/trivy.yml (Trivy image scan)",
+        "/.github/workflows/deploy.yml (kubectl apply to EKS + Slack notify)",
+        "sonar-project.properties"
+      ],
+      "architectural_resources": [
+        "Web application (React SPA)",
+        "Container image built with Docker and pushed to Docker Hub (implied by workflows: /.github/workflows/build.yml)",
+        "Kubernetes workload: Deployment (apps/v1) running the React container (deployment-service.yml)",
+        "Kubernetes Service of type LoadBalancer exposing the app publicly (deployment-service.yml)",
+        "Amazon EKS cluster target for deployment (implied by aws eks update-kubeconfig in /.github/workflows/deploy.yml)",
+        "Self-hosted GitHub Actions runner (implied by runs-on: self-hosted in workflows)",
+        "SonarQube server for code analysis (implied by SonarQube scan action + SONAR_HOST_URL/SONAR_TOKEN secrets)",
+        "Slack webhook integration for CI/CD notifications (/.github/workflows/deploy.yml)",
+        "Container vulnerability scanning with Trivy (/.github/workflows/trivy.yml)"
+      ]
+    }
+  ]
+}

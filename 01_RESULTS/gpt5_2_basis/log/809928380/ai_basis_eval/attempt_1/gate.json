@@ -1,0 +1,185 @@
+{
+  "roots_scanned": [
+    "."
+  ],
+  "recommended_roots": [
+    "."
+  ],
+  "varfiles_created": {
+    ".": true
+  },
+  "services_report": {
+    ".": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda"
+        ],
+        "partial": [
+          "events",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"eu-central-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"reminder-bot\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"reminder-bot-lambda\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"handler.Handler::handleRequest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"java21\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "bot_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "chat_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "half_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "end_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        },
+        "lambda_jar_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../target/reminder-bot.jar\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "bot_token",
+        "chat_id",
+        "end_month_message",
+        "half_month_message"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_lambda_function": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_lambda_permission": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

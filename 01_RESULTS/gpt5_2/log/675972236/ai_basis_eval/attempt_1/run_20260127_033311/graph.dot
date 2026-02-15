@@ -1,0 +1,18 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.app" [label="aws_lambda_function.app"];
+  "aws_lambda_function_url.app" [label="aws_lambda_function_url.app"];
+  "aws_lambda_permission.function_url_public" [label="aws_lambda_permission.function_url_public"];
+  "aws_iam_role_policy_attachment.lambda_basic" -> "data.aws_partition.current";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.app" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function_url.app" -> "aws_lambda_function.app";
+  "aws_lambda_permission.function_url_public" -> "aws_lambda_function.app";
+}

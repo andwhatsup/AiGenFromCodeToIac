@@ -1,0 +1,180 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.main_bucket_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "main_bucket_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetBucketLocation",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AllowGetBucketLocation"
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "AWS"
+            }
+        }
+    }
+
+  # aws_s3_bucket.logs will be created
+  + resource "aws_s3_bucket" "logs" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-basis-tf-logs"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "ai-basis-tf-bucket"
+          + "Name"        = "ai-basis-tf-logs"
+        }
+      + tags_all                    = {
+          + "Environment" = "ai-basis-tf-bucket"
+          + "Managed"     = "terraform"
+          + "Name"        = "ai-basis-tf-logs"
+          + "Project"     = "terratest-localstack"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket.main will be created
+  + resource "aws_s3_bucket" "main" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-basis-tf"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "ai-basis-tf-bucket"
+          + "Name"        = "ai-basis-tf"
+        }
+      + tags_all                    = {
+          + "Environment" = "ai-basis-tf-bucket"
+          + "Managed"     = "terraform"
+          + "Name"        = "ai-basis-tf"
+          + "Project"     = "terratest-localstack"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_logging.main will be created
+  + resource "aws_s3_bucket_logging" "main" {
+      + bucket        = (known after apply)
+      + id            = (known after apply)
+      + target_bucket = (known after apply)
+      + target_prefix = "TFStateLogs/"
+    }
+
+  # aws_s3_bucket_policy.main[0] will be created
+  + resource "aws_s3_bucket_policy" "main" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_s3_bucket_versioning.main will be created
+  + resource "aws_s3_bucket_versioning" "main" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + bucket_id      = (known after apply)
+  + logs_bucket_id = (known after apply)
+aws_s3_bucket.logs: Creating...
+aws_s3_bucket.main: Creating...
+aws_s3_bucket.logs: Creation complete after 0s [id=ai-basis-tf-logs]
+aws_s3_bucket.main: Creation complete after 0s [id=ai-basis-tf]
+data.aws_iam_policy_document.main_bucket_policy: Reading...
+aws_s3_bucket_logging.main: Creating...
+aws_s3_bucket_versioning.main: Creating...
+data.aws_iam_policy_document.main_bucket_policy: Read complete after 0s [id=4283735096]
+aws_s3_bucket_logging.main: Creation complete after 0s [id=ai-basis-tf]
+aws_s3_bucket_policy.main[0]: Creating...
+aws_s3_bucket_policy.main[0]: Creation complete after 0s [id=ai-basis-tf]
+aws_s3_bucket_versioning.main: Creation complete after 2s [id=ai-basis-tf]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bucket_id = "ai-basis-tf"
+logs_bucket_id = "ai-basis-tf-logs"

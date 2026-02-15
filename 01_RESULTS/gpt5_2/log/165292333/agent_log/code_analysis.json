@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "HTML",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "AWS Lambda (Python runtime)",
+        "aws-lambda-powertools (APIGatewayRestResolver)"
+      ],
+      "dependencies": [
+        "boto3 (imported in ./lambda.py)",
+        "aws-lambda-powertools (imported in ./lambda.py: aws_lambda_powertools.event_handler, aws_lambda_powertools.utilities.typing)",
+        "Bootstrap 5 (CDN in ./static/index.html)",
+        "Font Awesome (CDN in ./static/index.html)"
+      ],
+      "deployment_relevant_files": [
+        "./lambda.py (Lambda handler code)",
+        "./static/index.html (static frontend)",
+        "./README.md"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (API handler; ./lambda.py)",
+        "Amazon API Gateway REST API (implied by APIGatewayRestResolver usage in ./lambda.py)",
+        "Amazon DynamoDB table named \"URLDB\" (explicit in ./lambda.py)",
+        "DynamoDB TTL attribute (\"ttl\" field set in ./lambda.py)",
+        "Static website hosting for ./static/index.html (e.g., S3 + CloudFront or similar)",
+        "Public DNS/HTTPS endpoint for the shortener (hardcoded example https://s.slvr.io in ./static/index.html)"
+      ]
+    }
+  ]
+}

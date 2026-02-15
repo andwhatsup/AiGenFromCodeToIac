@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 6.28.0\"\n    }\n  }\n  required_version = \">= 1.3.0\"\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidrs\" {\n  description = \"List of public subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.1.0/24\"]\n}\n\nvariable \"private_subnet_cidrs\" {\n  description = \"List of private subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.2.0/24\"]\n}\n\nvariable \"dynamodb_table_name\" {\n  description = \"Name of the DynamoDB table.\"\n  type        = string\n  default     = \"app-table\"\n}\n\nvariable \"ecs_desired_count\" {\n  description = \"Number of ECS tasks to run.\"\n  type        = number\n  default     = 1\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"vpc_id\" {\n  description = \"The ID of the VPC.\"\n  value       = aws_vpc.main.id\n}\n\noutput \"public_subnet_ids\" {\n  description = \"The IDs of the public subnets.\"\n  value       = aws_subnet.public[*].id\n}\n\noutput \"private_subnet_ids\" {\n  description = \"The IDs of the private subnets.\"\n  value       = aws_subnet.private[*].id\n}\n\noutput \"dynamodb_table_name\" {\n  description = \"The name of the DynamoDB table.\"\n  value       = aws_dynamodb_table.app.name\n}\n\noutput \"ecs_service_url\" {\n  description = \"The DNS name of the ALB for the ECS service.\"\n  value       = aws_lb.alb.dns_name\n}\n"
+    },
+    {
+      "name": "vpc.tf",
+      "content": "resource \"aws_vpc\" \"main\" {\n  cidr_block           = var.vpc_cidr\n  enable_dns_support   = true\n  enable_dns_hostnames = true\n  tags = {\n    Name = \"main-vpc\"\n  }\n}\n\nresource \"aws_internet_gateway\" \"igw\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"main-igw\"\n  }\n}\n\nresource \"aws_subnet\" \"public\" {\n  count                   = length(var.public_subnet_cidrs)\n  vpc_id                  = aws_vpc.main.id\n  cidr_block              = var.public_subnet_cidrs[count.index]\n  map_public_ip_on_launch = true\n  availability_zone       = data.aws_availability_zones.available.names[count.index]\n  tags = {\n    Name = \"public-subnet-${count.index + 1}\"\n  }\n}\n\nresource \"aws_subnet\" \"private\" {\n  count             = length(var.private_subnet_cidrs)\n  vpc_id            = aws_vpc.main.id\n  cidr_block        = var.private_subnet_cidrs[count.index]\n  availability_zone = data.aws_availability_zones.available.names[count.index]\n  tags = {\n    Name = \"private-subnet-${count.index + 1}\"\n  }\n}\n\nresource \"aws_route_table\" \"public\" {\n  vpc_id = aws_vpc.main.id\n  tags = {\n    Name = \"public-rt\"\n  }\n}\n\nresource \"aws_route\" \"public_internet_access\" {\n  route_table_id         = aws_route_table.public.id\n  destination_cidr_block = \"0.0.0.0/0\"\n  gateway_id             = aws_internet_gateway.igw.id\n}\n\nresource \"aws_route_table_association\" \"public\" {\n  count          = length(var.public_subnet_cidrs)\n  subnet_id      = aws_subnet.public[count.index].id\n  route_table_id = aws_route_table.public.id\n}\n\ndata \"aws_availability_zones\" \"available\" {}\n"
+    },
+    {
+      "name": "security.tf",
+      "content": "resource \"aws_security_group\" \"alb\" {\n  name        = \"alb-sg\"\n  description = \"Allow HTTP/HTTPS inbound traffic to ALB\"\n  vpc_id      = aws_vpc.main.id\n\n  ingress {\n    from_port   = 80\n    to_port     = 80\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  ingress {\n    from_port   = 443\n    to_port     = 443\n    protocol    = \"tcp\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  egress {\n    from_port   = 0\n    to_port     = 0\n    protocol    = \"-1\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  tags = {\n    Name = \"alb-sg\"\n  }\n}\n\nresource \"aws_security_group\" \"ecs\" {\n  name        = \"ecs-sg\"\n  description = \"Allow ECS tasks to communicate\"\n  vpc_id      = aws_vpc.main.id\n\n  ingress {\n    from_port       = 0\n    to_port         = 65535\n    protocol        = \"tcp\"\n    security_groups = [aws_security_group.alb.id]\n  }\n\n  egress {\n    from_port   = 0\n    to_port     = 0\n    protocol    = \"-1\"\n    cidr_blocks = [\"0.0.0.0/0\"]\n  }\n\n  tags = {\n    Name = \"ecs-sg\"\n  }\n}\n"
+    },
+    {
+      "name": "dynamodb.tf",
+      "content": "resource \"aws_dynamodb_table\" \"app\" {\n  name           = var.dynamodb_table_name\n  billing_mode   = \"PAY_PER_REQUEST\"\n  hash_key       = \"id\"\n\n  attribute {\n    name = \"id\"\n    type = \"S\"\n  }\n\n  tags = {\n    Name = var.dynamodb_table_name\n  }\n}\n"
+    },
+    {
+      "name": "ecs.tf",
+      "content": "resource \"aws_ecs_cluster\" \"main\" {\n  name = \"main-ecs-cluster\"\n}\n\nresource \"aws_ecs_task_definition\" \"dynamodb_admin\" {\n  family                   = \"dynamodb-admin\"\n  network_mode             = \"awsvpc\"\n  requires_compatibilities = [\"FARGATE\"]\n  cpu                      = \"256\"\n  memory                   = \"512\"\n  execution_role_arn       = aws_iam_role.ecs_task_execution.arn\n  task_role_arn            = aws_iam_role.ecs_task_execution.arn\n\n  container_definitions = jsonencode([\n    {\n      name      = \"dynamodb-admin\"\n      image     = \"aaronshaf/dynamodb-admin:latest\"\n      portMappings = [\n        {\n          containerPort = 8001\n          hostPort      = 8001\n        }\n      ]\n      environment = [\n        {\n          name  = \"DYNAMO_ENDPOINT\"\n          value = aws_dynamodb_table.app.id\n        }\n      ]\n    }\n  ])\n}\n\nresource \"aws_ecs_service\" \"dynamodb_admin\" {\n  name            = \"dynamodb-admin-service\"\n  cluster         = aws_ecs_cluster.main.id\n  task_definition = aws_ecs_task_definition.dynamodb_admin.arn\n  desired_count   = var.ecs_desired_count\n  launch_type     = \"FARGATE\"\n\n  network_configuration {\n    subnets          = aws_subnet.public[*].id\n    security_groups  = [aws_security_group.ecs.id]\n    assign_public_ip = true\n  }\n\n  load_balancer {\n    target_group_arn = aws_lb_target_group.dynamodb_admin.arn\n    container_name   = \"dynamodb-admin\"\n    container_port   = 8001\n  }\n  depends_on = [aws_lb_listener.http]\n}\n"
+    },
+    {
+      "name": "alb.tf",
+      "content": "resource \"aws_lb\" \"alb\" {\n  name               = \"ecs-alb\"\n  internal           = false\n  load_balancer_type = \"application\"\n  security_groups    = [aws_security_group.alb.id]\n  subnets            = aws_subnet.public[*].id\n  tags = {\n    Name = \"ecs-alb\"\n  }\n}\n\nresource \"aws_lb_target_group\" \"dynamodb_admin\" {\n  name     = \"dynamodb-admin-tg\"\n  port     = 8001\n  protocol = \"HTTP\"\n  vpc_id   = aws_vpc.main.id\n  target_type = \"ip\"\n  health_check {\n    path                = \"/\"\n    protocol            = \"HTTP\"\n    matcher             = \"200-399\"\n    interval            = 30\n    timeout             = 5\n    healthy_threshold   = 2\n    unhealthy_threshold = 2\n  }\n  tags = {\n    Name = \"dynamodb-admin-tg\"\n  }\n}\n\nresource \"aws_lb_listener\" \"http\" {\n  load_balancer_arn = aws_lb.alb.arn\n  port              = 80\n  protocol          = \"HTTP\"\n  default_action {\n    type             = \"forward\"\n    target_group_arn = aws_lb_target_group.dynamodb_admin.arn\n  }\n}\n"
+    },
+    {
+      "name": "iam.tf",
+      "content": "resource \"aws_iam_role\" \"ecs_task_execution\" {\n  name = \"ecsTaskExecutionRole\"\n  assume_role_policy = jsonencode({\n    Version = \"2012-10-17\"\n    Statement = [{\n      Action = \"sts:AssumeRole\"\n      Effect = \"Allow\"\n      Principal = {\n        Service = \"ecs-tasks.amazonaws.com\"\n      }\n    }]\n  })\n}\n\nresource \"aws_iam_role_policy_attachment\" \"ecs_task_execution_policy\" {\n  role       = aws_iam_role.ecs_task_execution.name\n  policy_arn = \"arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy\"\n}\n\nresource \"aws_iam_role_policy_attachment\" \"dynamodb_access\" {\n  role       = aws_iam_role.ecs_task_execution.name\n  policy_arn = \"arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess\"\n}\n"
+    },
+    {
+      "name": "cloudwatch.tf",
+      "content": "resource \"aws_cloudwatch_log_group\" \"ecs\" {\n  name              = \"/ecs/dynamodb-admin\"\n  retention_in_days = 7\n  tags = {\n    Name = \"ecs-dynamodb-admin\"\n  }\n}\n"
+    }
+  ]
+}

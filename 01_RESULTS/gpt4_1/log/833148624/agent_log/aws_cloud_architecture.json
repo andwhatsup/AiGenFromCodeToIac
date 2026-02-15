@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is best mapped to AWS using a combination of managed services and EC2-based orchestration to preserve the original architecture's flexibility and automation. The architecture will leverage AWS-native networking, security, and managed services where possible, while still supporting the use of Nomad, Consul, and Ansible for orchestration and service discovery.\n\n**Proposed AWS Architecture:**\n\n1. **Networking & Security:**\n   - Deploy all resources within a dedicated VPC with public and private subnets across at least two Availability Zones for high availability.\n   - Use Security Groups and NACLs to tightly control access between components.\n   - Use AWS Secrets Manager or SSM Parameter Store for sensitive configuration.\n\n2. **Ansible Controller:**\n   - Deploy an EC2 instance (or use AWS Systems Manager for agentless automation) as the Ansible Controller. This instance will have access to the private subnets and IAM permissions to manage AWS resources.\n\n3. **Nomad & Consul Cluster:**\n   - Deploy a cluster of EC2 instances (using Auto Scaling Groups for Nomad servers and clients) in private subnets. These will run Nomad and Consul via Docker, as per the original architecture.\n   - Use EC2 Launch Templates or AWS ECS (with EC2 launch type) if you want to further automate container orchestration, but to stay close to the original, EC2 is preferred.\n\n4. **Docker Hosts:**\n   - The Nomad/Consul EC2 instances will also serve as Docker hosts, running the required containers for the web app, Redis, and batch jobs.\n\n5. **Redis Service:**\n   - For simplicity and reliability, use Amazon ElastiCache for Redis (managed Redis) instead of self-hosting, unless you require custom Redis configuration. If self-hosting is required, run Redis as a Nomad job on the EC2 cluster.\n\n6. **Web Application & Batch Jobs:**\n   - Deploy as Docker containers scheduled by Nomad on the EC2 cluster. Alternatively, consider AWS ECS or EKS for future migration.\n\n7. **Service Discovery:**\n   - Use Consul running on the EC2 cluster for service discovery, as in the original design.\n\n8. **VPN Connectivity:**\n   - Use AWS Client VPN or integrate Tailscale on the EC2 instances for secure access. Tailscale can be installed as a sidecar or agent on relevant EC2s.\n\n9. **IAM & Access Control:**\n   - Use IAM roles for EC2 instances to grant least-privilege access to AWS APIs and resources.\n\n10. **Monitoring & Logging:**\n    - Use Amazon CloudWatch for EC2, VPC, and application logs/metrics. Enable VPC Flow Logs and CloudTrail for auditing.\n\n11. **Storage & Artifacts:**\n    - Use S3 for storing Ansible playbooks, Docker images (via ECR), and other artifacts.\n\n**Deployment Strategy:**\n- Use Ansible playbooks to provision and configure EC2 instances, install Docker, Nomad, Consul, and deploy application containers.\n- Use CloudFormation or Terraform for foundational AWS resource provisioning (VPC, subnets, security groups, etc.).\n- Use Auto Scaling Groups for Nomad servers/clients for resilience.\n\nThis architecture is secure, scalable, and closely mirrors the original system's intent, while leveraging AWS managed services for reliability and operational efficiency.",
+  "aws_resources": [
+    "VPC (with at least 2 public and 2 private subnets across multiple AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for Ansible Controller, Nomad/Consul cluster, Redis, VPN, etc.)",
+    "Network ACLs",
+    "EC2 Instances (for Ansible Controller, Nomad servers, Nomad clients, Docker hosts)",
+    "Auto Scaling Groups (for Nomad servers and clients)",
+    "Elastic IPs (if needed for public endpoints)",
+    "IAM Roles and Instance Profiles (for EC2, Ansible, Nomad, etc.)",
+    "Amazon S3 (for playbooks, artifacts, backups)",
+    "Amazon ECR (for Docker image storage)",
+    "Amazon ElastiCache for Redis (or EC2-based Redis if self-hosted)",
+    "AWS Client VPN Endpoint (or EC2-based Tailscale VPN)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets/config)",
+    "Amazon CloudWatch (logs, metrics, alarms)",
+    "AWS CloudTrail (audit logging)",
+    "VPC Flow Logs",
+    "(Optional) AWS Systems Manager (for agentless automation and patching)"
+  ]
+}

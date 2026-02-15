@@ -1,0 +1,112 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_elastic_beanstalk_application.dash_app will be created
+  + resource "aws_elastic_beanstalk_application" "dash_app" {
+      + arn         = (known after apply)
+      + description = "Simple Dash Plotly app"
+      + id          = (known after apply)
+      + name        = "dash-app"
+      + region      = "eu-west-2"
+      + tags_all    = (known after apply)
+    }
+
+  # aws_elastic_beanstalk_environment.dash_app_env will be created
+  + resource "aws_elastic_beanstalk_environment" "dash_app_env" {
+      + all_settings           = (known after apply)
+      + application            = "dash-app"
+      + arn                    = (known after apply)
+      + autoscaling_groups     = (known after apply)
+      + cname                  = (known after apply)
+      + cname_prefix           = (known after apply)
+      + endpoint_url           = (known after apply)
+      + id                     = (known after apply)
+      + instances              = (known after apply)
+      + launch_configurations  = (known after apply)
+      + load_balancers         = (known after apply)
+      + name                   = "dash-app-env"
+      + platform_arn           = (known after apply)
+      + queues                 = (known after apply)
+      + region                 = "eu-west-2"
+      + solution_stack_name    = "64bit Amazon Linux 2023 v4.0.7 running Python 3.11"
+      + tags_all               = (known after apply)
+      + tier                   = "WebServer"
+      + triggers               = (known after apply)
+      + version_label          = (known after apply)
+      + wait_for_ready_timeout = "20m"
+
+      + setting {
+          + name      = "IamInstanceProfile"
+          + namespace = "aws:autoscaling:launchconfiguration"
+          + value     = "dash-instance-profile"
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "MaxSize"
+          + namespace = "aws:autoscaling:asg"
+          + value     = "3"
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "MinSize"
+          + namespace = "aws:autoscaling:asg"
+          + value     = "1"
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_iam_instance_profile.instance_profile will be created
+  + resource "aws_iam_instance_profile" "instance_profile" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "dash-instance-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "dash-eb-role"
+      + tags_all    = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_role.role will be created
+  + resource "aws_iam_role" "role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "dash-eb-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+aws_elastic_beanstalk_application.dash_app: Creating...
+aws_iam_role.role: Creating...
+aws_iam_role.role: Creation complete after 0s [id=dash-eb-role]
+aws_iam_instance_profile.instance_profile: Creating...
+aws_iam_instance_profile.instance_profile: Creation complete after 5s [id=dash-instance-profile]

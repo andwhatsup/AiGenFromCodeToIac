@@ -1,0 +1,14 @@
+
+Error: Your query returned no results. Please change your search criteria and try again.
+
+  with data.aws_ami.ubuntu_2204,
+  on data.tf line 19, in data "aws_ami" "ubuntu_2204":
+  19: data "aws_ami" "ubuntu_2204" {
+
+
+Error: reading SSM Parameter (/aws/service/eks/optimized-ami/1.28/amazon-linux-2023/x86_64/standard/recommended/release_version): couldn't find resource
+
+  with module.eks.module.eks_managed_node_group["default"].data.aws_ssm_parameter.ami[0],
+  on /ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/.terraform/modules/eks/modules/eks-managed-node-group/main.tf line 429, in data "aws_ssm_parameter" "ami":
+ 429: data "aws_ssm_parameter" "ami" {
+

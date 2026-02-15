@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Dockerfile",
+        "Shell"
+      ],
+      "frameworks": [
+        "SonarQube (Docker image: sonarqube:10.4.1-community)"
+      ],
+      "dependencies": [
+        "sonarqube:10.4.1-community (from ./Dockerfile)",
+        "keytool / Java cacerts manipulation (from ./filesystem/mnt/install-overlay.sh)",
+        "GitHub Action studio-telephus/actions/ssh-terraform@main (from ./.github/workflows/ssh-terraform.yml)",
+        "Git submodule filesystem-shared-ca-certificates (from ./.gitmodules)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile",
+        "./.github/workflows/ssh-terraform.yml",
+        "./filesystem/mnt/install-overlay.sh",
+        "./examples/sonar.properties",
+        "./.gitmodules"
+      ],
+      "architectural_resources": [
+        "Containerized SonarQube web application (port 9000)",
+        "(Likely) external database for SonarQube (PostgreSQL suggested by README and sonar.properties comments)",
+        "TLS/CA certificate distribution (custom CA certs imported into JVM truststore)",
+        "CI/CD pipeline using GitHub Actions deploying via SSH and running Terraform remotely",
+        "Terraform state backend on S3-compatible object storage (MinIO) (from workflow BackendConfig)",
+        "Remote build/deploy host accessed over SSH (from workflow secrets)"
+      ]
+    }
+  ]
+}

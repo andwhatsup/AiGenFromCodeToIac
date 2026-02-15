@@ -1,0 +1,26 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking foundation\n- Create a dedicated **VPC** spanning **2 Availability Zones** for basic resiliency.\n- Use **public subnets** (one per AZ) for the web-facing compute.\n- Attach an **Internet Gateway (IGW)** and configure **public route tables** so the web tier can receive Internet traffic and pull container images.\n\n### 2) Compute / runtime (Nginx container on EC2)\n- Run the Nginx-based static site as a **Docker container on an EC2 instance** (as your current GitLab SSH deploy model expects).\n- Use an **EC2 Launch Template** (even if you start with a single instance) to standardize configuration (AMI, instance type, security groups, user data).\n- Store the instance’s configuration in **user data** (install Docker, configure logging, optionally configure a systemd unit to keep the container running).\n\n**Optional but recommended for availability:**\n- Put the instance(s) in an **Auto Scaling Group (ASG)** with desired capacity 1 (or 2 for HA) so the instance can be replaced automatically if it fails.\n\n### 3) Ingress (HTTP/HTTPS)\n- Recommended: place an **Application Load Balancer (ALB)** in front of the instance(s):\n  - Terminates **TLS (443)** using **ACM** certificates.\n  - Forwards traffic to the EC2 target group on **HTTP (80)**.\n  - Enables easy scaling later (add instances without changing DNS).\n- Use **Route 53** to point your domain to the ALB.\n\nIf you want to stay ultra-minimal, you can skip the ALB and expose the EC2 public IP directly, but you’ll lose managed TLS termination, health checks, and easy scaling.\n\n### 4) Container image source\n- You can keep using **GitLab Container Registry** as-is.\n- The EC2 instance needs outbound Internet access to `docker pull` from GitLab.\n\n(Alternative future improvement: mirror/push to **Amazon ECR** and use IAM-based auth instead of registry credentials, but not required for your current setup.)\n\n### 5) CI/CD deployment path (GitLab → AWS)\n- Keep the current **GitLab CI deploy via SSH** model:\n  - GitLab CI uses `SSH_PRIVATE_KEY` to connect to the EC2 instance.\n  - On the instance, the deploy script pulls the new image and restarts the container.\n\n**Security hardening for SSH:**\n- Restrict inbound **22/tcp** to a very small allowlist (your GitLab runner egress IPs if static, or your admin VPN/bastion).\n- Prefer **AWS Systems Manager (SSM)** for admin access (no inbound SSH needed). You can still keep GitLab SSH deploy initially, but SSM is a strong next step.\n\n### 6) Security, observability, and ops\n- **Security Groups**:\n  - ALB SG: allow 80/443 from the Internet.\n  - EC2 SG: allow 80 from ALB SG; allow 22 only from allowlisted sources (or none if using SSM).\n- **IAM role for EC2**:\n  - Minimum permissions for SSM + CloudWatch logs/metrics.\n- **CloudWatch**:\n  - Instance metrics/alarms (CPU, status checks).\n  - Optional: ship Nginx/container logs to CloudWatch Logs.\n- **AWS Certificate Manager (ACM)** for HTTPS certificates (if using ALB).\n\n---\n\n## Deployment strategy summary\n- **Day 1 (minimal):** VPC + public subnet(s) + EC2 + SGs + Elastic IP (optional) + GitLab SSH deploy.\n- **Recommended baseline:** add ALB + ACM + Route 53 + ASG (desired=1) + CloudWatch alarms.\n- **Next hardening step:** replace inbound SSH with **SSM Session Manager** and/or use a **bastion**.\n",
+  "aws_resources": [
+    "Amazon VPC (1)",
+    "VPC Subnets: Public Subnet in AZ-a (1), Public Subnet in AZ-b (1)",
+    "Internet Gateway (1)",
+    "Route Tables (public) + Routes to IGW",
+    "Security Groups: ALB Security Group (1), EC2 Security Group (1)",
+    "Network ACLs (use default or custom as needed)",
+    "EC2 Instance (Linux) with Docker Engine (1)",
+    "EC2 Key Pair (if keeping SSH)",
+    "Elastic IP (optional, if not using ALB and you want a stable IP)",
+    "EC2 Launch Template (1)",
+    "Auto Scaling Group (optional but recommended; desired capacity 1+)",
+    "Application Load Balancer (recommended)",
+    "ALB Target Group + Health Check configuration",
+    "ALB Listener: HTTP 80 (optional redirect) and HTTPS 443",
+    "AWS Certificate Manager (ACM) Certificate (for HTTPS on ALB)",
+    "Amazon Route 53 Hosted Zone + DNS Record (A/AAAA alias to ALB) (if using a custom domain)",
+    "IAM Role for EC2 + Instance Profile (SSM + CloudWatch permissions)",
+    "AWS Systems Manager (SSM) enablement (Session Manager) (recommended)",
+    "Amazon CloudWatch Log Group(s) (optional for Nginx/container logs)",
+    "Amazon CloudWatch Alarms (EC2 status check, CPU, etc.)",
+    "AWS CloudTrail (account-level auditing; recommended baseline)"
+  ]
+}

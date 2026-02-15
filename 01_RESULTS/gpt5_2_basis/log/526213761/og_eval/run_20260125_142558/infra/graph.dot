@@ -1,0 +1,19 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "helm_release.cert-manager" [label="helm_release.cert-manager"];
+  "helm_release.flink-operator" [label="helm_release.flink-operator"];
+  "helm_release.ingress_nginx" [label="helm_release.ingress_nginx"];
+  "kind_cluster.k8s" [label="kind_cluster.k8s"];
+  "null_resource.wait_for_ingress_nginx" [label="null_resource.wait_for_ingress_nginx"];
+  subgraph "cluster_module.deploy" {
+    label = "module.deploy"
+    fontname = "sans-serif"
+    "module.deploy.kafka-connect_connector.fleet_mgmt_sensors" [label="kafka-connect_connector.fleet_mgmt_sensors"];
+    "module.deploy.kafka-connect_connector.orders" [label="kafka-connect_connector.orders"];
+  }
+  "helm_release.cert-manager" -> "kind_cluster.k8s";
+  "helm_release.flink-operator" -> "helm_release.cert-manager";
+  "helm_release.ingress_nginx" -> "kind_cluster.k8s";
+  "null_resource.wait_for_ingress_nginx" -> "helm_release.ingress_nginx";
+}

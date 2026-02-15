@@ -1,0 +1,20 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.sfn_assume" [label="data.aws_iam_policy_document.sfn_assume"];
+  "data.aws_iam_policy_document.sfn_policy" [label="data.aws_iam_policy_document.sfn_policy"];
+  "aws_iam_role.sfn" [label="aws_iam_role.sfn"];
+  "aws_iam_role_policy.sfn_inline" [label="aws_iam_role_policy.sfn_inline"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_sfn_state_machine.rekognition" [label="aws_sfn_state_machine.rekognition"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.sfn_policy" -> "aws_s3_bucket.artifacts";
+  "aws_iam_role.sfn" -> "data.aws_iam_policy_document.sfn_assume";
+  "aws_iam_role.sfn" -> "random_id.suffix";
+  "aws_iam_role_policy.sfn_inline" -> "data.aws_iam_policy_document.sfn_policy";
+  "aws_iam_role_policy.sfn_inline" -> "aws_iam_role.sfn";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_sfn_state_machine.rekognition" -> "aws_iam_role.sfn";
+}

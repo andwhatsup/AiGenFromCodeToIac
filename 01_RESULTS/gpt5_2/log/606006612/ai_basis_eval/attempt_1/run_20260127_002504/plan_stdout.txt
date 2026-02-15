@@ -1,0 +1,159 @@
+data.aws_vpc.default: Reading...
+data.aws_region.current: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+data.aws_vpc.default: Read complete after 1s [id=vpc-57b112c5b17f5b3d7]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/mongodb-aws-ecs"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 7
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Application" = "mongodb-aws-ecs"
+          + "ManagedBy"   = "terraform"
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "mongodb-aws-ecs"
+      + region   = "us-east-1"
+      + tags_all = {
+          + "Application" = "mongodb-aws-ecs"
+          + "ManagedBy"   = "terraform"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "mongodb-aws-ecs"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Application" = "mongodb-aws-ecs"
+          + "ManagedBy"   = "terraform"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = true
+          + subnets          = [
+              + "subnet-02784452a7f0ab58b",
+              + "subnet-11f490d2f5944f81d",
+              + "subnet-1a76f6a9b87c6bc4e",
+              + "subnet-62b1d0d8d506bcdff",
+              + "subnet-e2c01c024f10845ec",
+              + "subnet-e6373612056a3ef20",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (sensitive value)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "mongodb-aws-ecs"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Application" = "mongodb-aws-ecs"
+          + "ManagedBy"   = "terraform"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.task_execution[0] will be created
+  + resource "aws_iam_role" "task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "mongodb-aws-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Application" = "mongodb-aws-ecs"
+          + "ManagedBy"   = "terraform"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.task_execution[0] will be created
+  + resource "aws_iam_role_policy_attachment" "task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "mongodb-aws-ecs-task-exec"
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + cloudwatch_log_group_name = "/ecs/mongodb-aws-ecs"
+  + default_vpc_id            = "vpc-57b112c5b17f5b3d7"
+  + ecs_cluster_name          = "mongodb-aws-ecs"
+  + ecs_service_name          = "mongodb-aws-ecs"

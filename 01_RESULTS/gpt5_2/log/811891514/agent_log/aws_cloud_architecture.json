@@ -1,0 +1,31 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (Node.js container on ECS Fargate)\n\n### 1) Networking & edge\n- **VPC across 2 Availability Zones** for high availability.\n- **Public subnets (2 AZs)** host an internet-facing **Application Load Balancer (ALB)**.\n- **Private subnets (2 AZs)** host the **ECS Fargate tasks** (no public IPs).\n- **NAT Gateways (one per AZ)** allow private tasks to reach AWS public endpoints (e.g., ECR image pulls, CloudWatch Logs) without being publicly reachable.\n- **VPC endpoints** (recommended) reduce NAT usage and improve security:\n  - **ECR (api + dkr)**, **S3 (gateway endpoint)** (ECR image layers are stored in S3), and **CloudWatch Logs**.\n\n### 2) Compute (runtime)\n- **Amazon ECS Cluster (Fargate)** runs an **ECS Service** with desired count >= 2 (one task per AZ).\n- **Task Definition** runs the single container built from your Dockerfile:\n  - Container port **3000**.\n  - Health check endpoint (recommend adding a simple `/health` route in `helloworld.js` and configuring ALB health checks to it).\n  - CloudWatch Logs log driver configured to a dedicated log group.\n- **ALB Target Group** forwards HTTP/HTTPS traffic to the ECS service on port 3000.\n- **Auto Scaling**:\n  - ECS Service Auto Scaling based on CPU/Memory (and optionally ALB request count).\n\n### 3) Container registry\n- **Amazon ECR repository** stores the application image.\n- **ECR lifecycle policy** to expire old images and control storage costs.\n\n### 4) IAM & security\n- **ECS Task Execution Role** (most important for this app) used by the ECS agent to:\n  - Pull images from ECR\n  - Write logs to CloudWatch Logs\n  (Your existing `ECS_Terra/iam-role.json` + `iam-policy.json` aligns with this; ensure it’s attached as the *execution role* in the task definition.)\n- **Task Role** (optional, least-privilege) only if the application itself needs AWS API access (currently it doesn’t).\n- **Security groups**:\n  - ALB SG: allow inbound 80/443 from the internet; outbound to ECS tasks.\n  - ECS Tasks SG: allow inbound **only** from ALB SG on port 3000; outbound to required endpoints.\n- **TLS**: terminate HTTPS at the ALB using **ACM** certificate.\n- **Secrets**: if you later add config/secrets, store in **SSM Parameter Store** or **Secrets Manager** and grant read to the task role.\n\n### 5) Observability\n- **CloudWatch Logs** log group for container logs.\n- **CloudWatch metrics/alarms** for:\n  - ALB 5XX, target health\n  - ECS service CPU/memory, running task count\n- (Optional) **AWS X-Ray** if you add tracing.\n\n### 6) CI/CD (GitHub Actions to AWS)\n- Keep the current GitHub Actions flow (build → push to ECR → update ECS service).\n- Recommended hardening: replace long-lived AWS keys in GitHub secrets with **GitHub OIDC → IAM Role** (assume-role with web identity) for short-lived credentials.\n\n---\n\n## Deployment relationships / traffic flow\n1. Developer pushes to GitHub.\n2. GitHub Actions builds Docker image and pushes to ECR.\n3. GitHub Actions registers a new ECS task definition revision and updates the ECS service.\n4. ECS service launches/rolls tasks in private subnets; tasks pull image from ECR and stream logs to CloudWatch Logs.\n5. Internet users hit ALB (HTTPS). ALB forwards to ECS tasks on port 3000.\n\n---\n\n## Lean defaults (sane starting point)\n- 2 AZs, 2 tasks, ALB + HTTPS, private tasks, autoscaling on CPU.\n- No database, no cache, no S3 app storage (not indicated by the codebase).",
+  "aws_resources": [
+    "Amazon VPC",
+    "Public Subnets (2)",
+    "Private Subnets (2)",
+    "Internet Gateway (IGW)",
+    "NAT Gateways (2, one per AZ)",
+    "Route Tables (public/private) + routes",
+    "VPC Security Groups (ALB SG, ECS Tasks SG)",
+    "VPC Endpoints: ECR (api), ECR (dkr), CloudWatch Logs (interface endpoints)",
+    "VPC Endpoint: S3 (gateway endpoint)",
+    "Elastic Load Balancing: Application Load Balancer (internet-facing)",
+    "ALB Listener (HTTP 80)",
+    "ALB Listener (HTTPS 443)",
+    "AWS Certificate Manager (ACM) certificate (for HTTPS)",
+    "ALB Target Group (IP target type for Fargate)",
+    "Amazon ECS Cluster (Fargate)",
+    "Amazon ECS Service (Fargate)",
+    "Amazon ECS Task Definition",
+    "ECS Service Auto Scaling (Application Auto Scaling)",
+    "Amazon ECR Repository",
+    "ECR Lifecycle Policy",
+    "Amazon CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (ALB target health/5XX, ECS CPU/memory, running tasks)",
+    "IAM Role: ECS Task Execution Role (ecs-tasks.amazonaws.com trust)",
+    "IAM Policy attachments for ECR pull + CloudWatch Logs write (least privilege)",
+    "IAM Role for GitHub Actions deployment (recommended via GitHub OIDC) OR IAM User access keys (current approach)",
+    "IAM Policy for GitHub Actions role/user (ECR push, ECS update, task definition register, iam:PassRole for execution role)"
+  ]
+}

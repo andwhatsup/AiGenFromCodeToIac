@@ -1,0 +1,185 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "api": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_api_gateway_api_key",
+            "aws_api_gateway_deployment",
+            "aws_api_gateway_integration",
+            "aws_api_gateway_method",
+            "aws_api_gateway_method_settings",
+            "aws_api_gateway_resource",
+            "aws_api_gateway_rest_api",
+            "aws_api_gateway_stage",
+            "aws_api_gateway_usage_plan",
+            "aws_api_gateway_usage_plan_key"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "api"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"product-api\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "stage_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_artifact_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../.dummy/lambda.zip\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"product-lambda\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"java17\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"example.Handler::handleRequest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "10",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        },
+        "enable_api_key": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_api_gateway_api_key",
+        "aws_api_gateway_deployment",
+        "aws_api_gateway_integration",
+        "aws_api_gateway_method",
+        "aws_api_gateway_method_settings",
+        "aws_api_gateway_resource",
+        "aws_api_gateway_rest_api",
+        "aws_api_gateway_stage",
+        "aws_api_gateway_usage_plan",
+        "aws_api_gateway_usage_plan_key",
+        "aws_cloudwatch_log_group",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_lambda_permission"
+      ],
+      "resource_type_counts": {
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_cloudwatch_log_group": 2,
+        "aws_lambda_function": 1,
+        "aws_api_gateway_rest_api": 1,
+        "aws_api_gateway_resource": 1,
+        "aws_api_gateway_method": 1,
+        "aws_api_gateway_integration": 1,
+        "aws_lambda_permission": 1,
+        "aws_api_gateway_deployment": 1,
+        "aws_api_gateway_stage": 1,
+        "aws_api_gateway_method_settings": 1,
+        "aws_api_gateway_api_key": 1,
+        "aws_api_gateway_usage_plan": 1,
+        "aws_api_gateway_usage_plan_key": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/791446924/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

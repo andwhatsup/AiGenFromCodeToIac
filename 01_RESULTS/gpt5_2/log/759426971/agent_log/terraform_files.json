@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "name": "versions.tf",
+      "content": "terraform {\n  required_version = \">= 1.5.0\"\n\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 5.0\"\n    }\n  }\n}\n"
+    },
+    {
+      "name": "provider.tf",
+      "content": "provider \"aws\" {\n  region                      = var.aws_region\n  access_key                  = var.aws_access_key_id\n  secret_key                  = var.aws_secret_access_key\n  skip_credentials_validation = true\n  skip_metadata_api_check     = true\n  skip_requesting_account_id  = true\n\n  # LocalStack endpoints\n  endpoints {\n    dynamodb = var.localstack_endpoint\n    iam      = var.localstack_endpoint\n    sts      = var.localstack_endpoint\n  }\n\n  default_tags {\n    tags = var.tags\n  }\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region (LocalStack uses this for request signing/partitioning).\"\n  type        = string\n  default     = \"eu-central-1\"\n}\n\nvariable \"localstack_endpoint\" {\n  description = \"LocalStack edge endpoint (e.g., http://localhost:4566).\"\n  type        = string\n  default     = \"http://localhost:4566\"\n}\n\nvariable \"aws_access_key_id\" {\n  description = \"Dummy access key for LocalStack.\"\n  type        = string\n  default     = \"devopshobbies\"\n}\n\nvariable \"aws_secret_access_key\" {\n  description = \"Dummy secret key for LocalStack.\"\n  type        = string\n  default     = \"devopshobbies\"\n  sensitive   = true\n}\n\nvariable \"dynamodb_table_name\" {\n  description = \"Name of the DynamoDB table to create in LocalStack.\"\n  type        = string\n  default     = \"example-table\"\n}\n\nvariable \"tags\" {\n  description = \"Default tags applied to resources.\"\n  type        = map(string)\n  default = {\n    Project = \"localstack\"\n    Managed = \"terraform\"\n  }\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"aws_dynamodb_table\" \"this\" {\n  name         = var.dynamodb_table_name\n  billing_mode = \"PAY_PER_REQUEST\"\n  hash_key     = \"pk\"\n  range_key    = \"sk\"\n\n  attribute {\n    name = \"pk\"\n    type = \"S\"\n  }\n\n  attribute {\n    name = \"sk\"\n    type = \"S\"\n  }\n\n  point_in_time_recovery {\n    enabled = true\n  }\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"dynamodb_table_name\" {\n  value       = aws_dynamodb_table.this.name\n  description = \"Created DynamoDB table name.\"\n}\n\noutput \"localstack_endpoint\" {\n  value       = var.localstack_endpoint\n  description = \"LocalStack edge endpoint used by the provider.\"\n}\n"
+    },
+    {
+      "name": "terraform.tfvars",
+      "content": "aws_region              = \"eu-central-1\"\nlocalstack_endpoint      = \"http://localhost:4566\"\naws_access_key_id        = \"devopshobbies\"\naws_secret_access_key    = \"devopshobbies\"\ndynamodb_table_name      = \"example-table\"\n\ntags = {\n  Project = \"localstack\"\n  Managed = \"terraform\"\n}\n"
+    }
+  ]
+}

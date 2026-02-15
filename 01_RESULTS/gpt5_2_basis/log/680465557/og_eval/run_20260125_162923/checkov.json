@@ -1,0 +1,827 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_355",
+                "bc_check_id": "BC_AWS_IAM_88",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[1]/Action"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    129,
+                    162
+                ],
+                "resource": "aws_iam_policy.lambda_policy",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMStarResourcePolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-355",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "policy": [
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "POLICY_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "POLICY_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "policy_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_50",
+                "bc_check_id": "BC_AWS_SERVERLESS_4",
+                "check_name": "X-Ray tracing is enabled for Lambda",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_config/[0]/mode"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    169,
+                    176
+                ],
+                "resource": "aws_lambda_function.lambda_function",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaXrayEnabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-4",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "image_uri": [
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_tag",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_TIMEOUT",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_timeout",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_117",
+                "bc_check_id": "BC_AWS_GENERAL_65",
+                "check_name": "Ensure that AWS Lambda function is configured inside a VPC",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "vpc_config"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    169,
+                    176
+                ],
+                "resource": "aws_lambda_function.lambda_function",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaInVPC",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-inside-a-vpc-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "image_uri": [
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_tag",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_TIMEOUT",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_timeout",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_116",
+                "bc_check_id": "BC_AWS_GENERAL_64",
+                "check_name": "Ensure that AWS Lambda function is configured for a Dead Letter Queue(DLQ)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "dead_letter_config/[0]/target_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    169,
+                    176
+                ],
+                "resource": "aws_lambda_function.lambda_function",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaDLQConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-a-dead-letter-queue-dlq",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "image_uri": [
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_tag",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_TIMEOUT",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_timeout",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_272",
+                "bc_check_id": "BC_AWS_General_201",
+                "check_name": "Ensure AWS Lambda function is configured to validate code-signing",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "code_signing_config_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    169,
+                    176
+                ],
+                "resource": "aws_lambda_function.lambda_function",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaCodeSigningConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-272",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "image_uri": [
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_tag",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_TIMEOUT",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_timeout",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_115",
+                "bc_check_id": "BC_AWS_GENERAL_63",
+                "check_name": "Ensure that AWS Lambda function is configured for function-level concurrent execution limit",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "reserved_concurrent_executions/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    169,
+                    176
+                ],
+                "resource": "aws_lambda_function.lambda_function",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaFunctionLevelConcurrentExecutionLimit",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-function-level-concurrent-execution-limit",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "image_uri": [
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_tag",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_TIMEOUT",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_timeout",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    179,
+                    182
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda_log_group",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    179,
+                    182
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda_log_group",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "LAMBDA_FUNCTION_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "lambda_function_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.lambda_function",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_252",
+                "bc_check_id": "BC_AWS_GENERAL_175",
+                "check_name": "Ensure CloudTrail defines an SNS Topic",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "sns_topic_name"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    219,
+                    226
+                ],
+                "resource": "aws_cloudtrail.cloudtrail",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudtrailDefinesSNSTopic",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-cloudtrail-defines-an-sns-topic",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "CLOUDTRAIL_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "CLOUDTRAIL_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "cloudtrail_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "s3_bucket_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "S3_BUCKET_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "S3_BUCKET_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "s3_bucket_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.cloudtrail_bucket",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_35",
+                "bc_check_id": "BC_AWS_LOGGING_7",
+                "check_name": "Ensure CloudTrail logs are encrypted at rest using KMS CMKs",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    219,
+                    226
+                ],
+                "resource": "aws_cloudtrail.cloudtrail",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudtrailEncryptionWithCMK",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-7",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "CLOUDTRAIL_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "CLOUDTRAIL_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "cloudtrail_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "s3_bucket_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "S3_BUCKET_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "S3_BUCKET_NAME",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "s3_bucket_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.cloudtrail_bucket",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/680465557/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 22,
+        "failed": 10,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 11,
+        "checkov_version": "3.2.490"
+    }
+}

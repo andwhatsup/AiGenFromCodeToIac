@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This solution is a serverless, event-driven NLP pipeline built on AWS, leveraging managed services for scalability, reliability, and minimal operational overhead. The core logic is implemented in Python and orchestrated using AWS Step Functions. The architecture is as follows:\n\n1. **Data Ingestion & Storage:**\n   - Input data is uploaded to an S3 bucket. S3 serves as the primary storage for both input and output data.\n\n2. **Event-Driven Processing:**\n   - S3 events (such as new object creation) trigger AWS EventBridge rules, which in turn initiate the processing pipeline.\n   - EventBridge can also be used to trigger the pipeline from other sources or schedule periodic jobs.\n\n3. **Workflow Orchestration:**\n   - AWS Step Functions orchestrate the sequence of processing steps, including message queuing, NLP analysis, and ETL operations.\n\n4. **Message Queue:**\n   - AWS SQS is used to decouple processing steps, buffer tasks, and enable scalable, asynchronous processing.\n\n5. **NLP Processing:**\n   - AWS Comprehend is invoked (via Step Functions or Lambda) to perform NLP tasks such as entity recognition or sentiment analysis.\n\n6. **ETL/Data Lake:**\n   - AWS Glue is used for data transformation, ETL, and maintaining a data lake of processed results.\n\n7. **Serverless Compute:**\n   - AWS Lambda functions (not explicitly mentioned but implied for serverless execution) are used to glue together the workflow, process SQS messages, invoke Comprehend, and interact with Glue.\n\n8. **Security & Networking:**\n   - All resources are deployed within a dedicated VPC with public/private subnets as needed.\n   - Security groups and IAM roles/policies are configured for least-privilege access.\n\n9. **Monitoring & Logging:**\n   - AWS CloudWatch is used for logging, metrics, and alarms across all components.\n\nThis architecture is modular, scalable, and cost-effective, leveraging AWS best practices for serverless and event-driven workloads.",
+  "aws_resources": [
+    "VPC (with public and private subnets)",
+    "Internet Gateway",
+    "NAT Gateway (if private subnets require outbound internet access)",
+    "Route Tables",
+    "Security Groups (for Lambda, Step Functions, etc.)",
+    "IAM Roles and Policies (for Lambda, Step Functions, S3, SQS, Glue, Comprehend, EventBridge)",
+    "S3 Bucket (for input/output data)",
+    "SQS Queue (for message-based task management)",
+    "Step Functions State Machine (for workflow orchestration)",
+    "EventBridge Bus and Rules (for event routing and triggers)",
+    "AWS Glue Data Catalog and Jobs (for ETL/data lake)",
+    "AWS Comprehend (managed NLP service)",
+    "Lambda Functions (for serverless execution, SQS processing, invoking Comprehend, Glue integration, etc.)",
+    "CloudWatch Log Groups and Alarms (for monitoring and logging)"
+  ]
+}

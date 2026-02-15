@@ -1,0 +1,571 @@
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.eb_instance_assume_role: Reading...
+data.aws_iam_policy_document.eb_instance_assume_role: Read complete after 0s [id=2851119427]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.eb will be created
+  + resource "aws_cloudwatch_log_group" "eb" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/elasticbeanstalk/flask-api"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags                        = {
+          + "Name" = "flask-api-cw"
+        }
+      + tags_all                    = {
+          + "Name" = "flask-api-cw"
+        }
+    }
+
+  # aws_elastic_beanstalk_application.app will be created
+  + resource "aws_elastic_beanstalk_application" "app" {
+      + arn         = (known after apply)
+      + description = "Elastic Beanstalk Application for Flask API"
+      + id          = (known after apply)
+      + name        = "flask-api"
+      + region      = "us-east-1"
+      + tags_all    = (known after apply)
+    }
+
+  # aws_elastic_beanstalk_environment.env will be created
+  + resource "aws_elastic_beanstalk_environment" "env" {
+      + all_settings           = (known after apply)
+      + application            = "flask-api"
+      + arn                    = (known after apply)
+      + autoscaling_groups     = (known after apply)
+      + cname                  = (known after apply)
+      + cname_prefix           = (known after apply)
+      + endpoint_url           = (known after apply)
+      + id                     = (known after apply)
+      + instances              = (known after apply)
+      + launch_configurations  = (known after apply)
+      + load_balancers         = (known after apply)
+      + name                   = "flask-api-env"
+      + platform_arn           = (known after apply)
+      + queues                 = (known after apply)
+      + region                 = "us-east-1"
+      + solution_stack_name    = "64bit Amazon Linux 2 v3.5.7 running Python 3.8"
+      + tags                   = {
+          + "Name" = "flask-api-env"
+        }
+      + tags_all               = {
+          + "Name" = "flask-api-env"
+        }
+      + tier                   = "WebServer"
+      + triggers               = (known after apply)
+      + version_label          = (known after apply)
+      + wait_for_ready_timeout = "20m"
+
+      + setting {
+          + name      = "ELBSubnets"
+          + namespace = "aws:ec2:vpc"
+          + value     = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "IamInstanceProfile"
+          + namespace = "aws:autoscaling:launchconfiguration"
+          + value     = "flask-api-eb-instance-profile"
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "LoadBalancerType"
+          + namespace = "aws:elasticbeanstalk:environment"
+          + value     = "application"
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "PORT"
+          + namespace = "aws:elasticbeanstalk:application:environment"
+          + value     = "5000"
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "SecurityGroups"
+          + namespace = "aws:ec2:vpc"
+          + value     = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "SecurityGroups"
+          + namespace = "aws:elbv2:loadbalancer"
+          + value     = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "Subnets"
+          + namespace = "aws:ec2:vpc"
+          + value     = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+      + setting {
+          + name      = "VPCId"
+          + namespace = "aws:ec2:vpc"
+          + value     = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_iam_instance_profile.eb_instance will be created
+  + resource "aws_iam_instance_profile" "eb_instance" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "flask-api-eb-instance-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "flask-api-eb-instance-role"
+      + tags_all    = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_role.eb_instance will be created
+  + resource "aws_iam_role" "eb_instance" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "flask-api-eb-instance-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.eb_instance will be created
+  + resource "aws_iam_role_policy_attachment" "eb_instance" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+      + role       = "flask-api-eb-instance-role"
+    }
+
+  # aws_internet_gateway.main will be created
+  + resource "aws_internet_gateway" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "flask-api-igw"
+        }
+      + tags_all = {
+          + "Name" = "flask-api-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_route.public_internet_access will be created
+  + resource "aws_route" "public_internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "flask-api-public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "flask-api-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.static will be created
+  + resource "aws_s3_bucket" "static" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "flask-api-static"
+        }
+      + tags_all                    = {
+          + "Name" = "flask-api-static"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP/HTTPS inbound traffic to ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "flask-api-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "flask-api-alb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "flask-api-alb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.eb will be created
+  + resource "aws_security_group" "eb" {
+      + arn                    = (known after apply)
+      + description            = "Allow traffic from ALB to Elastic Beanstalk EC2"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + from_port        = 5000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 5000
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "flask-api-eb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "flask-api-eb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "flask-api-eb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "flask-api-private-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "flask-api-private-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.102.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "flask-api-private-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "flask-api-private-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "flask-api-public-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "flask-api-public-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "flask-api-public-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "flask-api-public-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "flask-api-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "flask-api-vpc"
+        }
+    }
+
+  # random_id.suffix will be created
+  + resource "random_id" "suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 20 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + beanstalk_environment_url = (known after apply)
+  + s3_bucket_name            = (known after apply)
+random_id.suffix: Creating...
+random_id.suffix: Creation complete after 0s [id=x0Ytjw]
+aws_cloudwatch_log_group.eb: Creating...
+aws_elastic_beanstalk_application.app: Creating...
+aws_iam_role.eb_instance: Creating...
+aws_vpc.main: Creating...
+aws_s3_bucket.static: Creating...
+aws_iam_role.eb_instance: Creation complete after 0s [id=flask-api-eb-instance-role]
+aws_iam_role_policy_attachment.eb_instance: Creating...
+aws_iam_instance_profile.eb_instance: Creating...
+aws_iam_role_policy_attachment.eb_instance: Creation complete after 0s [id=flask-api-eb-instance-role/arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier]
+aws_cloudwatch_log_group.eb: Creation complete after 0s [id=/aws/elasticbeanstalk/flask-api]
+aws_iam_instance_profile.eb_instance: Creation complete after 6s [id=flask-api-eb-instance-profile]
+aws_vpc.main: Still creating... [00m10s elapsed]
+aws_vpc.main: Creation complete after 10s [id=vpc-04a4bccc3664ae0be]
+aws_internet_gateway.main: Creating...
+aws_subnet.public[1]: Creating...
+aws_route_table.public: Creating...
+aws_subnet.public[0]: Creating...
+aws_subnet.private[0]: Creating...
+aws_subnet.private[1]: Creating...
+aws_security_group.alb: Creating...
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-4f68d6230283cc1d3]
+aws_internet_gateway.main: Creation complete after 0s [id=igw-01986aed6b30a25a1]
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-2546639078cfd21ec]
+aws_route_table.public: Creation complete after 0s [id=rtb-9c8d9abf894c3a092]
+aws_route.public_internet_access: Creating...
+aws_security_group.alb: Creation complete after 0s [id=sg-5f376914bde92c946]
+aws_security_group.eb: Creating...
+aws_route.public_internet_access: Creation complete after 0s [id=r-rtb-9c8d9abf894c3a0921080289494]
+aws_security_group.eb: Creation complete after 0s [id=sg-7f1b881d957d8970b]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 10s [id=subnet-199a6b8d4952e9a54]
+aws_subnet.public[1]: Creation complete after 10s [id=subnet-82e30764b604592fd]
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creating...
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-d5c26520a975b7c28]
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-3da1a01fd01fcc19f]

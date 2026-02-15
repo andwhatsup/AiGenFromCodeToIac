@@ -1,0 +1,278 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ebs": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_ebs_volume"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ami",
+            "aws_eip",
+            "aws_eip_association",
+            "aws_instance",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_volume_attachment",
+            "aws_vpc"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_lifecycle_configuration",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [
+          "ec2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "ebs",
+          "internet",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"phantosio-minecraft\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.20.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.20.0.0/24\", \"10.20.1.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3a.medium\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "ssh_key_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "admin_cidr_allowlist": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "enable_ssh": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "minecraft_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "25565",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "rcon_web_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "4326",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "data_volume_size_gb": {
+          "type": "number",
+          "has_default": true,
+          "default": "50",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "backup_bucket_force_destroy": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "minecraft_motd": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"Vanilla Minecraft, Chill Vibes Only\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "minecraft_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"1.19.2\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "minecraft_memory": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"2G\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "rcon_password": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "rcon_web_username": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"admin\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        },
+        "rcon_web_password": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "rcon_password",
+        "rcon_web_password"
+      ],
+      "aws_services": [
+        "aws_ami",
+        "aws_availability_zones",
+        "aws_ebs_volume",
+        "aws_eip",
+        "aws_eip_association",
+        "aws_iam_instance_profile",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_instance",
+        "aws_internet_gateway",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_s3_bucket",
+        "aws_s3_bucket_lifecycle_configuration",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_volume_attachment",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_ami": 1,
+        "aws_eip": 1,
+        "aws_instance": 1,
+        "aws_eip_association": 1,
+        "aws_ebs_volume": 1,
+        "aws_volume_attachment": 1,
+        "aws_iam_policy_document": 2,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 3,
+        "aws_iam_policy": 1,
+        "aws_iam_instance_profile": 1,
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 1,
+        "aws_route_table": 1,
+        "aws_route": 1,
+        "aws_route_table_association": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_s3_bucket_lifecycle_configuration": 1,
+        "aws_security_group": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/598622132/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

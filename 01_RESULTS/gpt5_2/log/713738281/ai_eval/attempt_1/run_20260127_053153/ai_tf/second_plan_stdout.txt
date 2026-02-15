@@ -1,0 +1,68 @@
+data.aws_caller_identity.current: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_availability_zones.available: Reading...
+aws_cloudwatch_log_group.ecs: Refreshing state... [id=/ecs/nodeapp-dev]
+aws_ecr_repository.nodeapp: Refreshing state... [id=nodeapp]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:cluster/nodeapp-dev]
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-89f2a0421c81e71b1]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=nodeapp-dev-ecs-exec]
+aws_iam_role.ecs_task: Refreshing state... [id=nodeapp-dev-ecs-task]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-south-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+aws_ecr_lifecycle_policy.nodeapp: Refreshing state... [id=nodeapp]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=nodeapp-dev-ecs-exec-20260127043219581700000001]
+aws_ecs_task_definition.this: Refreshing state... [id=nodeapp-dev]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-33c78c504a85532a4]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-ff9329fa1e4329faa]
+aws_security_group.alb: Refreshing state... [id=sg-fc43627e6df497c08]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:targetgroup/nodeapp-dev-tg/7afc2dba8d403282]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-ec4697c62cf0a4b75]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-7364a9437e574082b]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-01aefe4c4d8a73071]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-bd73b3e845e7e038d]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-215892e717239b17c]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-769fbf1e1dd8fbb64]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-07ec6015eb57942dc]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-b1790f62e810c2e50]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-554e60aa736d202cf]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-bd73b3e845e7e038d1080289494]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-2413533cd034ab6bf]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-49281ecac996450f8]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-34762601e94e653e8]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-d903c492cfce4ac2a]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-cd39ab068d2f5c90e]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:loadbalancer/app/nodeapp-dev/0b8901842d523f1e]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-71db4e84e282abd8d]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-215892e717239b17c1080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/nodeapp-dev/0b8901842d523f1e/bbf118fb2da86cf4]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:ap-south-1:000000000000:service/nodeapp-dev/nodeapp-dev]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:ap-south-1:000000000000:service/nodeapp-dev/nodeapp-dev"
+        name                               = "nodeapp-dev"
+        tags                               = {}
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:ap-south-1:000000000000:listener/app/nodeapp-dev/0b8901842d523f1e/bbf118fb2da86cf4"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

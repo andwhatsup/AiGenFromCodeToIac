@@ -1,0 +1,32 @@
+{
+  "aws_architecture_description": "### Target deployment: Containerized Express app on Amazon ECS (Fargate) behind an ALB\n\n#### 1) Networking / entry\n- Create a dedicated **VPC** spanning **2 Availability Zones** for high availability.\n- Use **public subnets** for the internet-facing load balancer and **private subnets** for the ECS tasks.\n- Add **Internet Gateway** for public subnets and **NAT Gateways** (one per AZ, or one to start) so private ECS tasks can reach **ECR** and other AWS APIs without being publicly reachable.\n\n#### 2) Compute: ECS on Fargate\n- Run the Node.js/Express container (listening on **port 3000**) as an **ECS Service** using **Fargate** (leaner ops than EC2).\n- Configure the ECS Service with:\n  - **Desired count** (e.g., 2 tasks across AZs)\n  - **Service autoscaling** based on CPU/Memory (and optionally ALB request count)\n  - **Rolling deployments** (minimum healthy percent / maximum percent)\n- Use an **ECS Task Definition** that:\n  - Pulls the image from **ECR**\n  - Maps container port **3000**\n  - Uses **awslogs** log driver to write to **CloudWatch Logs** log group **`/ecs/hello-world`**\n  - Uses a dedicated **task execution role** (ECR pull + CloudWatch logs) and a separate **task role** (app permissions; likely minimal/none for this hello-world)\n\n#### 3) Load balancing / routing\n- Place an **Application Load Balancer (ALB)** in public subnets.\n- Configure an **ALB Target Group** (IP target type for Fargate) that forwards to ECS tasks on port **3000**.\n- Configure an **ALB Listener**:\n  - HTTP :80 to start (optionally redirect to HTTPS)\n  - HTTPS :443 with an **ACM certificate** if you have a domain\n\n#### 4) Container registry\n- Use **Amazon ECR** as the container image registry.\n- Enable **image scanning** and a **lifecycle policy** to expire old tags.\n\n#### 5) Observability\n- **CloudWatch Logs**: keep `/ecs/hello-world` (as implied by docker-compose).\n- **CloudWatch metrics/alarms** for:\n  - ALB 5XX / target response time\n  - ECS service CPU/Memory\n- Optionally enable **AWS X-Ray** later (not required for this minimal app).\n\n#### 6) CI/CD and IaC (GitHub Actions + Terraform)\n- GitHub Actions builds and pushes the Docker image to **ECR**.\n- Terraform (not currently in repo) should provision the AWS infrastructure and update the ECS service to the new image tag.\n- For secure AWS access from GitHub Actions, prefer **OIDC federation** (GitHub OIDC provider + IAM role) instead of long-lived AWS keys.\n\n#### 7) Security posture (baseline)\n- ECS tasks run in **private subnets** with **no public IPs**.\n- Security groups:\n  - ALB SG allows inbound 80/443 from the internet; outbound to ECS tasks.\n  - ECS task SG allows inbound **only from ALB SG** on port 3000; outbound to NAT.\n- Use **Secrets Manager / SSM Parameter Store** for any future secrets (none indicated in this codebase).\n\n---\n\n### Notes / assumptions\n- The repo indicates Node 14 in the Dockerfile. Node 14 is end-of-life; for production, update the container base image to a supported Node LTS (e.g., 18/20) before deploying broadly.\n- No database, cache, or persistent storage is implied by the current codebase; the architecture stays minimal.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (2+ public, 2+ private across AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway(s)",
+    "Route tables (public and private) + routes",
+    "Security Groups (ALB SG, ECS Task SG)",
+    "AWS Cloud Map / Service Discovery (optional; usually not needed with ALB)",
+    "Amazon ECS Cluster",
+    "Amazon ECS Service (Fargate)",
+    "Amazon ECS Task Definition",
+    "AWS Fargate capacity (no separate resource, but part of ECS service config)",
+    "IAM Role: ECS Task Execution Role",
+    "IAM Role: ECS Task Role (application role; minimal permissions)",
+    "IAM policies/attachments for ECR pull + CloudWatch Logs",
+    "Application Load Balancer (ALB)",
+    "ALB Target Group (IP target type)",
+    "ALB Listener(s) (HTTP :80, optional HTTPS :443)",
+    "AWS Certificate Manager (ACM) certificate (optional, if using HTTPS/custom domain)",
+    "Amazon ECR Repository",
+    "ECR lifecycle policy",
+    "ECR image scanning configuration",
+    "Amazon CloudWatch Logs Log Group: /ecs/hello-world",
+    "CloudWatch Log Streams (created automatically by tasks)",
+    "CloudWatch Alarms (ECS CPU/Memory, ALB 5XX/latency)",
+    "AWS IAM OIDC Provider for GitHub Actions (recommended)",
+    "IAM Role for GitHub Actions (assume-role via OIDC)",
+    "AWS Systems Manager Parameter Store or Secrets Manager (optional; for future config/secrets)"
+  ]
+}

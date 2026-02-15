@@ -1,0 +1,22 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy.lambda" [label="aws_iam_role_policy.lambda"];
+  "aws_lambda_function.mover" [label="aws_lambda_function.mover"];
+  "aws_lambda_permission.allow_s3" [label="aws_lambda_permission.allow_s3"];
+  "aws_s3_bucket.app" [label="aws_s3_bucket.app"];
+  "aws_s3_bucket_notification.app" [label="aws_s3_bucket_notification.app"];
+  "aws_s3_bucket_public_access_block.app" [label="aws_s3_bucket_public_access_block.app"];
+  "aws_s3_bucket_versioning.app" [label="aws_s3_bucket_versioning.app"];
+  "aws_iam_role_policy.lambda" -> "aws_iam_role.lambda";
+  "aws_iam_role_policy.lambda" -> "aws_s3_bucket.app";
+  "aws_lambda_function.mover" -> "aws_iam_role.lambda";
+  "aws_lambda_function.mover" -> "aws_s3_bucket.app";
+  "aws_lambda_permission.allow_s3" -> "aws_lambda_function.mover";
+  "aws_s3_bucket_notification.app" -> "aws_lambda_permission.allow_s3";
+  "aws_s3_bucket_public_access_block.app" -> "aws_s3_bucket.app";
+  "aws_s3_bucket_versioning.app" -> "aws_s3_bucket.app";
+}

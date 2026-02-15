@@ -1,0 +1,394 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "db": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_db_instance",
+            "aws_db_subnet_group"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc",
+            "aws_vpc_endpoint"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "kms": {
+          "status": "partial",
+          "resource_types": [
+            "aws_kms_alias",
+            "aws_kms_key"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs",
+          "s3"
+        ],
+        "partial": [
+          "ec2",
+          "ecs",
+          "elbv2",
+          "iam",
+          "kms",
+          "route53",
+          "secretsmanager"
+        ],
+        "none": [],
+        "unknown": [
+          "acm",
+          "availability",
+          "db",
+          "internet",
+          "nat",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "az_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "enable_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "single_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "domain_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "hosted_zone_id": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "container_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"nginx:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "80",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "task_cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "task_memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_engine": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"postgres\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_engine_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"16.3\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_instance_class": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"db.t4g.micro\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_allocated_storage": {
+          "type": "number",
+          "has_default": true,
+          "default": "20",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"app\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_username": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"appuser\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_backup_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "7",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "db_multi_az": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        },
+        "enable_vpc_endpoints": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "project_name"
+      ],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_availability_zones",
+        "aws_cloudwatch_log_group",
+        "aws_db_instance",
+        "aws_db_subnet_group",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_eip",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_kms_alias",
+        "aws_kms_key",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_nat_gateway",
+        "aws_route53_record",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_s3_bucket",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc",
+        "aws_vpc_endpoint"
+      ],
+      "resource_type_counts": {
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 2,
+        "aws_acm_certificate": 1,
+        "aws_route53_record": 2,
+        "aws_acm_certificate_validation": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_ecs_cluster": 1,
+        "aws_iam_policy_document": 2,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_iam_role_policy": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_kms_key": 1,
+        "aws_kms_alias": 1,
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 3,
+        "aws_route_table": 3,
+        "aws_route_table_association": 3,
+        "aws_eip": 1,
+        "aws_nat_gateway": 1,
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1,
+        "aws_db_subnet_group": 1,
+        "aws_db_instance": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_security_group": 4,
+        "aws_vpc_endpoint": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "random": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 3.6"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

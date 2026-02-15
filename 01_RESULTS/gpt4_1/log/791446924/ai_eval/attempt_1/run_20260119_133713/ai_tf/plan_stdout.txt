@@ -1,0 +1,532 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_availability_zones.available: Reading...
+data.aws_availability_zones.available: Read complete after 2s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_api_gateway_deployment.main will be created
+  + resource "aws_api_gateway_deployment" "main" {
+      + created_date = (known after apply)
+      + id           = (known after apply)
+      + region       = "us-east-1"
+      + rest_api_id  = (known after apply)
+    }
+
+  # aws_api_gateway_integration.java will be created
+  + resource "aws_api_gateway_integration" "java" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + http_method             = "POST"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + region                  = "us-east-1"
+      + resource_id             = (known after apply)
+      + response_transfer_mode  = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_integration.node will be created
+  + resource "aws_api_gateway_integration" "node" {
+      + cache_namespace         = (known after apply)
+      + connection_type         = "INTERNET"
+      + http_method             = "GET"
+      + id                      = (known after apply)
+      + integration_http_method = "POST"
+      + passthrough_behavior    = (known after apply)
+      + region                  = "us-east-1"
+      + resource_id             = (known after apply)
+      + response_transfer_mode  = (known after apply)
+      + rest_api_id             = (known after apply)
+      + timeout_milliseconds    = 29000
+      + type                    = "AWS_PROXY"
+      + uri                     = (known after apply)
+    }
+
+  # aws_api_gateway_method.java_post will be created
+  + resource "aws_api_gateway_method" "java_post" {
+      + api_key_required = false
+      + authorization    = "NONE"
+      + http_method      = "POST"
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + resource_id      = (known after apply)
+      + rest_api_id      = (known after apply)
+    }
+
+  # aws_api_gateway_method.node_post will be created
+  + resource "aws_api_gateway_method" "node_post" {
+      + api_key_required = false
+      + authorization    = "NONE"
+      + http_method      = "GET"
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + resource_id      = (known after apply)
+      + rest_api_id      = (known after apply)
+    }
+
+  # aws_api_gateway_resource.lambda will be created
+  + resource "aws_api_gateway_resource" "lambda" {
+      + id          = (known after apply)
+      + parent_id   = (known after apply)
+      + path        = (known after apply)
+      + path_part   = "lambda"
+      + region      = "us-east-1"
+      + rest_api_id = (known after apply)
+    }
+
+  # aws_api_gateway_rest_api.main will be created
+  + resource "aws_api_gateway_rest_api" "main" {
+      + api_key_source               = (known after apply)
+      + arn                          = (known after apply)
+      + binary_media_types           = (known after apply)
+      + created_date                 = (known after apply)
+      + description                  = "API Gateway for Lambda integration"
+      + disable_execute_api_endpoint = (known after apply)
+      + execution_arn                = (known after apply)
+      + id                           = (known after apply)
+      + minimum_compression_size     = (known after apply)
+      + name                         = "main-api"
+      + policy                       = (known after apply)
+      + region                       = "us-east-1"
+      + root_resource_id             = (known after apply)
+      + tags_all                     = (known after apply)
+
+      + endpoint_configuration (known after apply)
+    }
+
+  # aws_api_gateway_stage.prod will be created
+  + resource "aws_api_gateway_stage" "prod" {
+      + arn           = (known after apply)
+      + deployment_id = (known after apply)
+      + execution_arn = (known after apply)
+      + id            = (known after apply)
+      + invoke_url    = (known after apply)
+      + region        = "us-east-1"
+      + rest_api_id   = (known after apply)
+      + stage_name    = "prod"
+      + tags_all      = (known after apply)
+      + web_acl_arn   = (known after apply)
+    }
+
+  # aws_iam_policy_attachment.lambda_logs will be created
+  + resource "aws_iam_policy_attachment" "lambda_logs" {
+      + id         = (known after apply)
+      + name       = "lambda-logs-attach"
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + roles      = [
+          + "lambda-exec-role",
+        ]
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "lambda-exec-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_internet_gateway.gw will be created
+  + resource "aws_internet_gateway" "gw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "main-igw"
+        }
+      + tags_all = {
+          + "Name" = "main-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lambda_function.java will be created
+  + resource "aws_lambda_function" "java" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "java-lambda"
+      + handler                        = "com.example.Handler::handleRequest"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 512
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "java11"
+      + s3_bucket                      = "ai-tf-bucket"
+      + s3_key                         = "ai-tf.txt"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags                           = {
+          + "Name" = "java-lambda"
+        }
+      + tags_all                       = {
+          + "Name" = "java-lambda"
+        }
+      + timeout                        = 10
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "STAGE" = "prod"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+
+      + vpc_config {
+          + ipv6_allowed_for_dual_stack = false
+          + security_group_ids          = (known after apply)
+          + subnet_ids                  = (known after apply)
+          + vpc_id                      = (known after apply)
+        }
+    }
+
+  # aws_lambda_function.node will be created
+  + resource "aws_lambda_function" "node" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "nodejs-lambda"
+      + handler                        = "index.handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 512
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "nodejs16.x"
+      + s3_bucket                      = "ai-tf-bucket"
+      + s3_key                         = "ai-tf.txt"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags                           = {
+          + "Name" = "nodejs-lambda"
+        }
+      + tags_all                       = {
+          + "Name" = "nodejs-lambda"
+        }
+      + timeout                        = 10
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "STAGE" = "prod"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+
+      + vpc_config {
+          + ipv6_allowed_for_dual_stack = false
+          + security_group_ids          = (known after apply)
+          + subnet_ids                  = (known after apply)
+          + vpc_id                      = (known after apply)
+        }
+    }
+
+  # aws_lambda_permission.apigw_java will be created
+  + resource "aws_lambda_permission" "apigw_java" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "java-lambda"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowAPIGatewayInvokeJava"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_lambda_permission.apigw_node will be created
+  + resource "aws_lambda_permission" "apigw_node" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "nodejs-lambda"
+      + id                  = (known after apply)
+      + principal           = "apigateway.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowAPIGatewayInvokeNode"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.public will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.lambda_artifacts will be created
+  + resource "aws_s3_bucket" "lambda_artifacts" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-tf-bucket"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "lambda-artifacts"
+        }
+      + tags_all                    = {
+          + "Name" = "lambda-artifacts"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.lambda_artifacts_acl will be created
+  + resource "aws_s3_bucket_acl" "lambda_artifacts_acl" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_security_group.lambda_sg will be created
+  + resource "aws_security_group" "lambda_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow Lambda outbound access"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "lambda-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "lambda-sg"
+        }
+      + tags_all               = {
+          + "Name" = "lambda-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "private-subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "private-subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "public-subnet"
+        }
+      + tags_all                                       = {
+          + "Name" = "public-subnet"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "main-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "main-vpc"
+        }
+    }
+
+Plan: 23 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + api_gateway_url           = (known after apply)
+  + lambda_artifacts_bucket   = "ai-tf-bucket"
+  + lambda_java_function_name = "java-lambda"
+  + lambda_node_function_name = "nodejs-lambda"

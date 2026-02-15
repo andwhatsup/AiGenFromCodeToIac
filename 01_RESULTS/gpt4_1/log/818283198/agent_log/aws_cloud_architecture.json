@@ -1,0 +1,14 @@
+{
+  "aws_architecture_description": "This system is designed to enable serverless, scalable execution of Playwright-based JavaScript scripts using AWS Lambda and Docker. The architecture leverages containerization for consistent runtime environments and Amazon ECR for secure image storage. Here’s a high-level overview of the AWS architecture:\n\n1. **Developer Workstation**: Developers write and test Playwright scripts locally. The application and its dependencies are defined in `package.json` and containerized using a `Dockerfile` and `Makefile`.\n\n2. **Docker Image Build & Push**: The Docker image, containing Node.js, Playwright, and all required dependencies, is built locally and pushed to Amazon Elastic Container Registry (ECR).\n\n3. **Amazon ECR (Elastic Container Registry)**: ECR securely stores the Docker image, making it available for AWS Lambda to pull during execution.\n\n4. **AWS Lambda (Container Image Support)**: Lambda is configured to use the Docker image from ECR. When invoked, Lambda pulls the image and runs the Playwright scripts in a serverless, scalable manner.\n\n5. **Networking & Security**: The Lambda function is deployed within a VPC for enhanced security and can be assigned to private subnets if needed. Security groups and IAM roles are configured to allow Lambda to pull images from ECR and access other AWS resources as required.\n\n6. **IAM Roles & Policies**: IAM roles grant Lambda the necessary permissions to pull images from ECR and perform any other required AWS operations.\n\n7. **(Optional) API Gateway**: If you want to trigger Lambda executions via HTTP requests, an API Gateway can be set up to provide a RESTful endpoint.\n\n8. **(Optional) CloudWatch**: For monitoring and logging Lambda executions, AWS CloudWatch is used to collect logs and metrics.\n\nThis architecture is secure, scalable, and follows AWS best practices for serverless containerized workloads.",
+  "aws_resources": [
+    "Amazon ECR Repository (for Docker image storage)",
+    "AWS Lambda Function (with container image support)",
+    "VPC (Virtual Private Cloud)",
+    "Subnets (at least two, for high availability)",
+    "Security Group(s) (for Lambda networking)",
+    "IAM Role for Lambda (with permissions to pull from ECR and write to CloudWatch Logs)",
+    "IAM Policy for ECR access",
+    "CloudWatch Log Group (for Lambda logs)",
+    "(Optional) API Gateway (if HTTP triggering is required)"
+  ]
+}

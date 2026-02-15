@@ -1,0 +1,122 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # docker_container.sonarqube will be created
+  + resource "docker_container" "sonarqube" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + entrypoint                                  = (known after apply)
+      + env                                         = [
+          + "RANDOM_STRING=acb53b5e-6a57-4e81-a983-2cde076ce6d4",
+          + "SONAR_WEB_CONTEXT=/sonarqube",
+        ]
+      + exit_code                                   = (known after apply)
+      + hostname                                    = "container-adm-sonarqube"
+      + id                                          = (known after apply)
+      + image                                       = (known after apply)
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + must_run                                    = true
+      + name                                        = "container-adm-sonarqube"
+      + network_data                                = (known after apply)
+      + network_mode                                = "bridge"
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "unless-stopped"
+      + rm                                          = false
+      + runtime                                     = (known after apply)
+      + security_opts                               = (known after apply)
+      + shm_size                                    = 1024
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + labels (known after apply)
+
+      + networks_advanced {
+          + aliases      = []
+          + ipv4_address = "10.10.0.125"
+          + name         = "adm-docker"
+            # (1 unchanged attribute hidden)
+        }
+
+      + volumes {
+          + container_path = "/opt/sonarqube/data"
+          + volume_name    = "volume-adm-sonarqube-data"
+            # (2 unchanged attributes hidden)
+        }
+      + volumes {
+          + container_path = "/opt/sonarqube/extensions"
+          + volume_name    = "volume-adm-sonarqube-extensions"
+            # (2 unchanged attributes hidden)
+        }
+      + volumes {
+          + container_path = "/opt/sonarqube/logs"
+          + volume_name    = "volume-adm-sonarqube-logs"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_image.sonarqube will be created
+  + resource "docker_image" "sonarqube" {
+      + id           = (known after apply)
+      + image_id     = (known after apply)
+      + keep_locally = false
+      + name         = "tel-adm-sonarqube"
+      + repo_digest  = (known after apply)
+      + triggers     = {
+          + "dir_sha1" = "8711c07338681518e4a26c2e3cdfa49e74e1d489"
+        }
+
+      + build {
+          + cache_from     = []
+          + context        = "."
+          + dockerfile     = "Dockerfile"
+          + extra_hosts    = []
+          + remove         = true
+          + security_opt   = []
+          + tag            = []
+            # (13 unchanged attributes hidden)
+        }
+    }
+
+  # docker_volume.sonarqube_data will be created
+  + resource "docker_volume" "sonarqube_data" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "volume-adm-sonarqube-data"
+    }
+
+  # docker_volume.sonarqube_extensions will be created
+  + resource "docker_volume" "sonarqube_extensions" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "volume-adm-sonarqube-extensions"
+    }
+
+  # docker_volume.sonarqube_logs will be created
+  + resource "docker_volume" "sonarqube_logs" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "volume-adm-sonarqube-logs"
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.

@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/648880895",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS SDK for Python (boto3/botocore)"
+      ],
+      "dependencies": [
+        "boto==2.49.0 (requirements.txt)",
+        "boto3==1.26.146 (requirements.txt)",
+        "botocore==1.29.146 (requirements.txt)",
+        "jmespath==1.0.1 (requirements.txt)",
+        "python-dateutil==2.8.2 (requirements.txt)",
+        "s3transfer==0.6.1 (requirements.txt)",
+        "six==1.16.0 (requirements.txt)",
+        "urllib3==1.26.16 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "requirements.txt",
+        "README.md (contains IAM and S3 bucket policy examples; AWS CLI setup instructions)"
+      ],
+      "architectural_resources": [
+        "Python scripts / CLI-style utilities (not a long-running service)",
+        "AWS IAM user/credentials usage via local AWS profile (configuration.py uses boto3.Session(profile_name='user1001'))",
+        "Amazon S3 bucket (hardcoded examples: s3-bucket-workshop-1001-pyday) with objects/prefixes like imagenes/",
+        "Amazon EC2 (ec2lists.py calls describe_regions/describe_availability_zones and lists running instances)",
+        "Local filesystem assets used for upload/download (images/ and images/downloaded/)"
+      ]
+    }
+  ]
+}

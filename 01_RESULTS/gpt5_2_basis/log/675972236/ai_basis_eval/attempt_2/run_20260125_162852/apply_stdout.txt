@@ -1,0 +1,150 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rigitbot-lambda-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "rigitbot"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "rigitbot-lambda-exec"
+    }
+
+  # aws_lambda_function.app will be created
+  + resource "aws_lambda_function" "app" {
+      + architectures                  = [
+          + "x86_64",
+        ]
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./.dummy/lambda.zip"
+      + function_name                  = "rigitbot"
+      + handler                        = "bootstrap"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "wmbalFzzY/wG3ivChKElOZB3+B4gptmQyIat05p+fU4="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "rigitbot"
+        }
+      + timeout                        = 10
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "RUST_LOG" = "info"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_function_url.app will be created
+  + resource "aws_lambda_function_url" "app" {
+      + authorization_type = "NONE"
+      + function_arn       = (known after apply)
+      + function_name      = "rigitbot"
+      + function_url       = (known after apply)
+      + id                 = (known after apply)
+      + invoke_mode        = "BUFFERED"
+      + url_id             = (known after apply)
+    }
+
+  # aws_lambda_permission.allow_function_url will be created
+  + resource "aws_lambda_permission" "allow_function_url" {
+      + action                 = "lambda:InvokeFunctionUrl"
+      + function_name          = "rigitbot"
+      + function_url_auth_type = "NONE"
+      + id                     = (known after apply)
+      + principal              = "*"
+      + statement_id           = "AllowFunctionUrlInvoke"
+      + statement_id_prefix    = (known after apply)
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aws_account_id       = "000000000000"
+  + aws_region           = "us-east-1"
+  + lambda_function_arn  = (known after apply)
+  + lambda_function_name = "rigitbot"
+  + lambda_function_url  = (known after apply)
+aws_iam_role.lambda_exec: Creating...
+aws_iam_role.lambda_exec: Creation complete after 0s [id=rigitbot-lambda-exec]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=rigitbot-lambda-exec-20260125152908999400000001]
+aws_lambda_function.app: Creating...
+aws_lambda_function.app: Creation complete after 6s [id=rigitbot]
+aws_lambda_permission.allow_function_url: Creating...
+aws_lambda_function_url.app: Creating...
+aws_lambda_permission.allow_function_url: Creation complete after 0s [id=AllowFunctionUrlInvoke]
+aws_lambda_function_url.app: Creation complete after 0s [id=rigitbot]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+aws_account_id = "000000000000"
+aws_region = "us-east-1"
+lambda_function_arn = "arn:aws:lambda:us-east-1:000000000000:function:rigitbot"
+lambda_function_name = "rigitbot"
+lambda_function_url = "http://78fq9qowci0f5ns8rfadq0d3eqhodxoi.lambda-url.us-east-1.localhost.localstack.cloud:4566/"

@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is a modern, containerized Node.js application deployed using a CI/CD pipeline and AWS managed services. The architecture is designed for automation, scalability, and security, following AWS best practices:\n\n1. **Source Code & CI/CD**: The Node.js application source code is managed in a repository. Buildkite is used as the CI/CD orchestrator, automating build, test, and deployment workflows.\n\n2. **Containerization & Image Management**: The application is packaged into a Docker container. The Docker image is built in the CI pipeline and pushed to Amazon Elastic Container Registry (ECR), providing a secure, scalable image repository.\n\n3. **Infrastructure as Code**: Terraform scripts, triggered by Buildkite, provision and manage AWS resources, ensuring repeatable and auditable infrastructure changes.\n\n4. **Application Deployment**: The Docker image is deployed to a compute environment. While the codebase does not specify the compute target, the most common and scalable AWS options for containerized Node.js apps are:\n   - **Amazon ECS (Fargate)**: For serverless, managed container orchestration.\n   - **Amazon ECS (EC2 launch type)**: For more control over the underlying EC2 instances.\n   - **Amazon EKS**: If Kubernetes is required (not indicated here).\n   - **AWS Lambda (with container support)**: For event-driven, serverless workloads (if suitable for the app).\n   For this architecture, Amazon ECS with Fargate is recommended for simplicity and scalability.\n\n5. **Networking & Security**: The application runs inside a secure Virtual Private Cloud (VPC) with public and private subnets. Security groups and IAM roles are used to control access. ECS tasks are placed in private subnets, with a public-facing Application Load Balancer (ALB) if external access is needed.\n\n6. **Storage**: An Amazon S3 bucket is provisioned for storing build artifacts, logs, or static assets as referenced in the pipeline.\n\n7. **Monitoring & Logging**: AWS CloudWatch is used for logging, metrics, and alerting. ECS, ALB, and S3 are integrated with CloudWatch for observability.\n\n8. **IAM & Permissions**: IAM roles and policies are created for ECS tasks, CI/CD pipeline, and Terraform to ensure least-privilege access to AWS resources.\n\nThis architecture is secure, scalable, and fully automated, leveraging AWS managed services and best practices for containerized application deployment.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (at least 2 AZs for high availability)",
+    "Internet Gateway (for public subnet access)",
+    "NAT Gateway (for private subnet outbound access)",
+    "Route Tables (for subnet routing)",
+    "Security Groups (for ECS tasks, ALB, and CI/CD access)",
+    "Amazon ECS Cluster (with Fargate launch type)",
+    "ECS Task Definition (for the Node.js Docker container)",
+    "ECS Service (to manage running tasks)",
+    "Application Load Balancer (ALB) (if public access is required)",
+    "Target Group (for ALB to ECS service routing)",
+    "Amazon ECR Repository (for Docker images)",
+    "Amazon S3 Bucket (for artifacts, logs, or static assets)",
+    "IAM Roles and Policies (for ECS tasks, CI/CD, Terraform, and ECR access)",
+    "CloudWatch Log Groups (for ECS, ALB, and application logs)",
+    "CloudWatch Alarms (for monitoring and alerting)",
+    "VPC Endpoints (optional, for private S3/ECR access)"
+  ]
+}

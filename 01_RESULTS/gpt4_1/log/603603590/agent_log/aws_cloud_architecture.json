@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This system is a containerized Kafka stack with a web UI and reverse proxy, originally orchestrated via Docker Compose. To deploy this on AWS in a secure, scalable, and managed way, the following architecture is proposed:\n\n1. **Networking**: Deploy all resources within a dedicated VPC with public and private subnets across at least two Availability Zones for high availability. Use appropriate security groups and NACLs to restrict access.\n\n2. **Container Orchestration**: Use Amazon ECS (Elastic Container Service) with Fargate launch type for serverless container management. Each service (Nginx Proxy Manager, Kafka UI, Kafka Broker, Zookeeper) runs in its own ECS service/task definition. ECS Service Discovery can be used for internal communication between containers.\n\n3. **Load Balancing & Ingress**: Deploy an Application Load Balancer (ALB) in front of the Nginx Proxy Manager to provide secure, scalable HTTP(S) access. The ALB routes external traffic to the Nginx Proxy Manager ECS service.\n\n4. **Service Networking**: Place Kafka Broker and Zookeeper in private subnets, accessible only by other ECS services (Kafka UI, Nginx Proxy Manager) as needed. Kafka UI and Nginx Proxy Manager can be in public or private subnets depending on access requirements.\n\n5. **Secrets & Configuration**: Use AWS Secrets Manager or SSM Parameter Store for managing sensitive configuration (e.g., Kafka credentials, UI admin passwords).\n\n6. **IAM & Security**: Define IAM roles for ECS tasks with least-privilege permissions. Use security groups to restrict access between services and from the internet.\n\n7. **Monitoring & Logging**: Enable Amazon CloudWatch for container logs, metrics, and alarms. Use AWS X-Ray for tracing if needed.\n\n8. **Storage (Optional)**: If persistent storage is needed for Kafka or Zookeeper, use Amazon EFS (Elastic File System) or EBS volumes attached to ECS tasks.\n\nThis architecture leverages managed AWS services for scalability, security, and operational efficiency, while closely mirroring the original Docker Compose setup.",
+  "aws_resources": [
+    "VPC (with at least 2 public and 2 private subnets across 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway (for private subnet outbound access)",
+    "Route Tables (public and private)",
+    "Security Groups (for ALB, ECS services, Kafka, Zookeeper)",
+    "ECS Cluster (Fargate)",
+    "ECS Task Definitions (one each for Nginx Proxy Manager, Kafka UI, Kafka Broker, Zookeeper)",
+    "ECS Services (one for each component)",
+    "Application Load Balancer (ALB)",
+    "Target Groups (for ALB to ECS services)",
+    "IAM Roles and Policies (for ECS tasks and services)",
+    "AWS Secrets Manager or SSM Parameter Store (for sensitive config)",
+    "CloudWatch Log Groups (for ECS task logs)",
+    "CloudWatch Alarms (for monitoring)",
+    "EFS or EBS Volumes (if persistent storage for Kafka/Zookeeper is required)",
+    "ECS Service Discovery (optional, for internal DNS resolution)"
+  ]
+}

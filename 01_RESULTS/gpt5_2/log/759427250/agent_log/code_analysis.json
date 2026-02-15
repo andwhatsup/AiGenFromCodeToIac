@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/759427250",
+      "programming_languages": [
+        "YAML (Docker Compose)",
+        "Shell (Bash)"
+      ],
+      "frameworks": [
+        "LocalStack (AWS cloud emulator)",
+        "dynamodb-admin (web UI for DynamoDB)"
+      ],
+      "dependencies": [
+        "localstack/localstack:latest (Docker image) — from docker-compose.yml",
+        "aaronshaf/dynamodb-admin (Docker image) — from docker-compose.yml",
+        "terraform (installed via apt) — from install.sh",
+        "docker, docker-compose, awscli (installed via apt) — from install.sh"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "install.sh",
+        "README.md",
+        "volume/cache/* (LocalStack persisted state; not source code)"
+      ],
+      "architectural_resources": [
+        "LocalStack container (local AWS emulator)",
+        "DynamoDB (emulated via LocalStack; implied by dynamodb-admin and DYNAMO_ENDPOINT)",
+        "DynamoDB Admin web application (container)",
+        "Docker network 'local' (bridge)",
+        "Local persistent volume mounted at ./volume -> /var/lib/localstack"
+      ]
+    }
+  ]
+}

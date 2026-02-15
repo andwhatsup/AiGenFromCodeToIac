@@ -1,0 +1,11 @@
+
+Error: Error in function call
+
+  on main.tf line 33, in resource "aws_lambda_function" "reminder_bot":
+  33:   source_code_hash = filebase64sha256("build/${var.function_name}.jar")
+    ├────────────────
+    │ while calling filebase64sha256(path)
+    │ var.function_name is "reminder-bot"
+
+Call to function "filebase64sha256" failed: open build/reminder-bot.jar: no
+such file or directory.

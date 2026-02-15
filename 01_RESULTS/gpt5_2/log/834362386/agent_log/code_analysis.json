@@ -1,0 +1,60 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "None (vanilla static site)",
+        "Nginx (container web server)"
+      ],
+      "dependencies": [
+        "No application dependency manifests found (no package.json/requirements.txt/etc.)",
+        "Runtime base image: nginx:alpine (Dockerfile at ./Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile",
+        "./Jenkinsfile",
+        "./.github/workflows/docker-image.yml",
+        "./deployment.yaml",
+        "./service.yaml",
+        "./manifests/app-deploy.yaml",
+        "./manifests/app-svc.yaml"
+      ],
+      "architectural_resources": [
+        "Static web application (VAT calculator)",
+        "Container image build/push (DockerHub referenced in Jenkinsfile: yash5090/vat-calc:latest)",
+        "Kubernetes Deployment (replicas=6)",
+        "Kubernetes Service type LoadBalancer (external exposure)",
+        "AWS Load Balancer integration implied by Service annotations (service.beta.kubernetes.io/aws-load-balancer-type: \"alb\")",
+        "CI/CD pipeline resources: Jenkins, GitHub Actions",
+        "Security scanning tools referenced in pipeline: SonarQube, OWASP Dependency-Check, Trivy, Docker Scout"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "Terraform (implied by terraform init/validate logs)"
+      ],
+      "frameworks": [
+        "Terraform"
+      ],
+      "dependencies": [
+        "Terraform AWS provider (hashicorp/aws ~> 5.0; installed v5.100.0) evidenced in EKS-Terraform/init_validate_stdout.txt"
+      ],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "AWS infrastructure implied (AWS provider)",
+        "Likely EKS-related infrastructure (directory name suggests EKS), but no .tf source files present in repository to confirm specific resources"
+      ]
+    }
+  ]
+}

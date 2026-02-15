@@ -1,0 +1,33 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/803384466",
+      "programming_languages": [
+        "Python",
+        "HTML"
+      ],
+      "frameworks": [
+        "Python stdlib http.server (SimpleHTTPRequestHandler)"
+      ],
+      "dependencies": [
+        "python:3.9-slim base image (Dockerfile: /Dockerfile)",
+        "Python standard library only: http.server, socketserver, os (serve.py: /serve.py)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (/Dockerfile)",
+        "GitHub Actions workflow (/ .github/workflows/ci-cd.yml)",
+        "Helm chart (/echo-server/Chart.yaml, /echo-server/values.yaml, /echo-server/templates/deployment.yaml, /echo-server/templates/service.yaml, /echo-server/templates/_configmap.yaml)",
+        "Static site entrypoint (/index.html)"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Python HTTP server) exposed on port 8080",
+        "Container registry: AWS ECR (referenced in README.md, values.yaml, and .github/workflows/ci-cd.yml)",
+        "Kubernetes cluster: AWS EKS (aws eks update-kubeconfig in .github/workflows/ci-cd.yml)",
+        "Kubernetes Deployment (Helm template: echo-server/templates/deployment.yaml)",
+        "Kubernetes Service of type LoadBalancer (Helm template: echo-server/templates/service.yaml) implying a cloud load balancer",
+        "Kubernetes ConfigMap for index.html content (Helm template: echo-server/templates/_configmap.yaml; also created via kubectl in CI)",
+        "External third-party API call from browser: ipinfo.io JSONP (embedded in Helm values indexHtmlContent: echo-server/values.yaml)"
+      ]
+    }
+  ]
+}

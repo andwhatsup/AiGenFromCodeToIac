@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Node.js built-in http server (no web framework)"
+      ],
+      "dependencies": [
+        "node@^16.0.0 (declared in ./package.json; note: this is unusual since Node is typically an engine, not an npm dependency)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile (container build/run; exposes 3000)",
+        "./.dockerignore (docker build context exclusions)",
+        "./.github/workflows/workflow.yml (GitHub Actions CI/CD to AWS ECR/ECS)",
+        "./package.json (start script: node helloworld.js)"
+      ],
+      "architectural_resources": [
+        "Containerized web application listening on port 3000 (./helloworld.js, ./Dockerfile)",
+        "CI/CD pipeline (GitHub Actions) building/pushing Docker image and deploying to ECS (./.github/workflows/workflow.yml)",
+        "Amazon ECR (image registry implied by workflow.yml and README)",
+        "Amazon ECS (Fargate) service/cluster (implied by workflow.yml and README)",
+        "IAM credentials/secrets for deployment (workflow uses AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY/AWS_REGION secrets)"
+      ]
+    },
+    {
+      "project_directory": "ECS_Terra",
+      "programming_languages": [
+        "JSON"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "ECS_Terra/iam-role.json (ECS task assume-role trust policy)",
+        "ECS_Terra/iam-policy.json (permissions for ECR pull + CloudWatch Logs)"
+      ],
+      "architectural_resources": [
+        "AWS IAM Role for ECS tasks (trusts ecs-tasks.amazonaws.com)",
+        "AWS IAM Policy allowing ECR image pulls and CloudWatch Logs writes (actions in iam-policy.json)"
+      ]
+    }
+  ]
+}

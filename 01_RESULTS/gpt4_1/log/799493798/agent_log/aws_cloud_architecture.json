@@ -1,0 +1,12 @@
+{
+  "aws_architecture_description": "This system is a serverless web application built on AWS, designed for scalability, security, and ease of management. The architecture consists of three primary AWS managed services:\n\n1. **API Gateway (REST API):** Acts as the public HTTP endpoint, exposing RESTful APIs to clients. It securely receives and routes incoming HTTP requests to the backend Lambda function. API Gateway provides features such as request validation, throttling, and authorization (e.g., via IAM or API keys).\n\n2. **AWS Lambda (Python, boto3):** Implements the core application logic in Python. The Lambda function is triggered by API Gateway events. It uses the boto3 library to interact with other AWS services, specifically S3. The Lambda function is configured with the necessary IAM role to allow access to S3 and is provided with the S3 bucket name via environment variables.\n\n3. **Amazon S3 Bucket:** Serves as the storage layer for the application, used for storing and retrieving files as required by the Lambda function. S3 provides high durability, scalability, and security for object storage.\n\n**Security and Best Practices:**\n- The Lambda function is assigned a least-privilege IAM role, granting only the permissions required to access the S3 bucket.\n- API Gateway can be configured with throttling and authorization mechanisms to protect against abuse.\n- S3 bucket policies can be set to restrict access to only the Lambda function.\n- All resources are deployed within a secure AWS environment, with monitoring and logging enabled for observability (e.g., CloudWatch Logs for Lambda and API Gateway).\n\n**Foundational Resources:**\n- While the core architecture is serverless and does not require a VPC by default, a VPC can be added if the Lambda function needs to access private resources or for additional security controls.\n- IAM roles and policies are required for secure access management.\n- CloudWatch is used for logging and monitoring Lambda and API Gateway activity.\n\nThis architecture is highly scalable, cost-effective, and follows AWS best practices for serverless deployments.",
+  "aws_resources": [
+    "API Gateway (REST API)",
+    "AWS Lambda Function (Python, boto3)",
+    "Amazon S3 Bucket",
+    "IAM Role for Lambda (with S3 access policy)",
+    "CloudWatch Log Group (for Lambda and API Gateway)",
+    "(Optional) VPC and Subnets (if Lambda needs VPC access)",
+    "(Optional) API Gateway Usage Plan and API Key (for rate limiting and access control)"
+  ]
+}

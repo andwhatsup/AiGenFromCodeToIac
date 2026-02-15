@@ -1,0 +1,169 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_28",
+                "bc_check_id": "BC_AWS_GENERAL_6",
+                "check_name": "Ensure DynamoDB point in time recovery (backup) is enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "point_in_time_recovery/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    52
+                ],
+                "resource": "aws_dynamodb_table.devopshobbies-dev-devops-consumer-events",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DynamodbRecovery",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-6",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_119",
+                "bc_check_id": "BC_AWS_GENERAL_52",
+                "check_name": "Ensure DynamoDB Tables are encrypted using a KMS Customer Managed CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "server_side_encryption/[0]/enabled",
+                        "server_side_encryption/[0]/kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    52
+                ],
+                "resource": "aws_dynamodb_table.devopshobbies-dev-devops-consumer-events",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DynamoDBTablesEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-52",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_26",
+                "bc_check_id": "BC_AWS_GENERAL_15",
+                "check_name": "Ensure all data stored in the SNS topic is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    56,
+                    58
+                ],
+                "resource": "aws_sns_topic.sns_topic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SNSTopicEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-15",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_27",
+                "bc_check_id": "BC_AWS_GENERAL_16",
+                "check_name": "Ensure all data stored in the SQS queue is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "sqs_managed_sse_enabled",
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    62,
+                    64
+                ],
+                "resource": "aws_sqs_queue.queue",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SQSQueueEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-16-encrypt-sqs-queue",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/759427250/main.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 2,
+        "failed": 4,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 4,
+        "checkov_version": "3.2.490"
+    }
+}

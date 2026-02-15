@@ -1,0 +1,268 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "kms": {
+          "status": "partial",
+          "resource_types": [
+            "aws_kms_alias",
+            "aws_kms_key"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_lifecycle_configuration",
+            "aws_s3_bucket_ownership_controls",
+            "aws_s3_bucket_policy",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs",
+          "s3"
+        ],
+        "partial": [
+          "events",
+          "iam",
+          "kms"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "partition",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "namespace": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ssm_backup\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"python3.11\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ssm_backup.lambda_handler\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "300",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_log_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "lambda_zip_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"../ssm_backup.zip\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "schedule_expression": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rate(1 day)\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "s3_backup_prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"backups/\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "s3_force_destroy": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "s3_lifecycle_expiration_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "365",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "kms_deletion_window_in_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "aws_region",
+        "environment",
+        "namespace"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_cloudwatch_log_group",
+        "aws_iam_policy",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_kms_alias",
+        "aws_kms_key",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_partition",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_s3_bucket_lifecycle_configuration",
+        "aws_s3_bucket_ownership_controls",
+        "aws_s3_bucket_policy",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_partition": 1,
+        "aws_region": 1,
+        "aws_kms_key": 1,
+        "aws_kms_alias": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_public_access_block": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_s3_bucket_ownership_controls": 1,
+        "aws_s3_bucket_lifecycle_configuration": 1,
+        "aws_s3_bucket_policy": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_iam_policy": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_function": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_lambda_permission": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/607872658/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

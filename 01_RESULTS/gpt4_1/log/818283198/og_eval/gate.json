@@ -1,0 +1,96 @@
+{
+  "roots_scanned": [
+    "terraform"
+  ],
+  "recommended_roots": [
+    "terraform"
+  ],
+  "varfiles_created": {
+    "terraform": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_permission"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda"
+        ],
+        "partial": [
+          "ecr",
+          "events"
+        ],
+        "none": [],
+        "unknown": []
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/818283198/terraform",
+      "variables": {
+        "region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ca-central-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/terraform/inputs.tf"
+        },
+        "form_url": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/terraform/inputs.tf"
+        }
+      },
+      "required_missing": [
+        "form_url"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_ecr_repository",
+        "aws_lambda_permission"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_lambda_permission": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818283198/terraform/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

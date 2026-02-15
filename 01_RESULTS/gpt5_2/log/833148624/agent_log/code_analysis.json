@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/833148624",
+      "programming_languages": [
+        "YAML (Ansible playbooks/config)",
+        "HCL (Nomad jobspecs)",
+        "Dockerfile",
+        "Makefile",
+        "Ruby (Vagrantfile)"
+      ],
+      "frameworks": [
+        "Ansible (automation/provisioning)",
+        "Docker Compose (local multi-container lab)",
+        "Vagrant (Docker provider)",
+        "HashiCorp Nomad (orchestration)",
+        "HashiCorp Consul (installed into base image)"
+      ],
+      "dependencies": [
+        "Python/Ansible tooling (requirements.txt): ansible==10.2.0, ansible-core==2.17.2, docker==7.1.0, Jinja2==3.1.4, PyYAML==6.0.1, requests==2.32.3, cryptography==43.0.0, etc. (file: requirements.txt)",
+        "Docker images referenced: nestybox/ubuntu-jammy-systemd-docker (Dockerfile.server), redis:7.0.7-alpine (nomad-jobs/pytechco-redis.nomad.hcl), ghcr.io/hashicorp-education/learn-nomad-getting-started/*:1.0 (nomad-jobs/pytechco-web.nomad.hcl, pytechco-employee.nomad.hcl, pytechco-setup.nomad.hcl), tailscale/tailscale (playbooks/servers/setup_apps_and_services.yml)",
+        "HashiCorp binaries installed into base image: nomad 1.8.2 and consul 1.19.1 (Dockerfile.server)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml (defines 2 sysbox-based Ubuntu system containers on a custom bridge network with static IPs)",
+        "Dockerfile.server (builds the system container image; installs python3/pip, git, unzip, wget/curl; downloads nomad+consul; configures SSH authorized_keys)",
+        "Vagrantfile (Docker provider; builds Dockerfile.server; creates multiple server containers with static IPs)",
+        "inventory.yml (Ansible inventory for localhost + server_1/server_2 over SSH)",
+        "playbooks/localhost_controller/vagrant_up.yml, playbooks/localhost_controller/vagrant_destroy.yml (referenced by Makefile; orchestration entrypoints)",
+        "playbooks/servers/setup_apps_and_services.yml (runs tailscale container on servers)",
+        "playbooks/servers/configure_nomad_servers.yml, playbooks/servers/configure_nomad_clients.yml (writes /server.hcl and /client.hcl)",
+        "nomad-jobs/pytechco-redis.nomad.hcl, pytechco-web.nomad.hcl, pytechco-setup.nomad.hcl, pytechco-employee.nomad.hcl (Nomad jobspecs)",
+        "Makefile (deploy/destroy/test wrapper around docker network + ansible-playbook)",
+        "Taskfile.yml (task runner commands for build/deploy/nomad job run)",
+        "vars_files/variables.yml (example vars)"
+      ],
+      "architectural_resources": [
+        "Local infrastructure lab environment (Docker + Sysbox) providing 2 “server” nodes (docker-compose.yml)",
+        "Custom Docker bridge network with static addressing (docker-compose.yml, Makefile)",
+        "Configuration management/provisioning via Ansible (requirements.txt, playbooks/*, inventory.yml)",
+        "Nomad cluster: 1 server (server_1) and 1 client (server_2) configured via Ansible (playbooks/servers/configure_nomad_servers.yml, configure_nomad_clients.yml)",
+        "Service discovery integration implied by Nomad service stanzas and template lookups (nomadService \"redis-svc\") (nomad-jobs/pytechco-*.nomad.hcl)",
+        "Redis service (nomad-jobs/pytechco-redis.nomad.hcl)",
+        "Web service (Flask-based container image) exposed on port 5000 (nomad-jobs/pytechco-web.nomad.hcl)",
+        "Batch/periodic worker job (employee) (nomad-jobs/pytechco-employee.nomad.hcl)",
+        "Parameterized batch job (setup) (nomad-jobs/pytechco-setup.nomad.hcl)",
+        "Overlay networking/VPN via Tailscale (playbooks/servers/setup_apps_and_services.yml)",
+        "Consul binary installed in base image (Dockerfile.server) suggesting optional service discovery/mesh usage"
+      ]
+    }
+  ]
+}

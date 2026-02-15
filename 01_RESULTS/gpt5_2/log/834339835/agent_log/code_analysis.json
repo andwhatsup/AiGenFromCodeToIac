@@ -1,0 +1,56 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript (inline in HTML)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Nginx (container image)",
+        "Kubernetes (manifests)",
+        "Jenkins Pipeline (CI/CD)"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile)",
+        "yash5090/loan-calc:latest container image referenced by Kubernetes manifests (deployment.yaml, manifests/app-deploy.yaml)",
+        "Jenkins tooling dependencies implied by pipeline: awscli, kubectl, terraform, trivy, sonar-scanner, OWASP Dependency-Check, docker-scout (Jenkinsfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "Jenkinsfile",
+        "deployment.yaml (Kubernetes Deployment)",
+        "service.yaml (Kubernetes Service type LoadBalancer w/ AWS ALB annotations)",
+        "manifests/app-deploy.yaml (Kubernetes Deployment)",
+        "manifests/app-svc.yaml (Kubernetes Service)"
+      ],
+      "architectural_resources": [
+        "Static web application (loan calculator) served via Nginx",
+        "Container image build/push to Docker Hub (Jenkinsfile: docker tag/push yash5090/loan-calc:latest)",
+        "Kubernetes Deployment (6 replicas) running the app (deployment.yaml, manifests/app-deploy.yaml)",
+        "Kubernetes Service type LoadBalancer exposing port 5000 (service.yaml, manifests/app-svc.yaml)",
+        "AWS Load Balancer / ALB integration inferred from Service annotations (service.yaml: service.beta.kubernetes.io/aws-load-balancer-type: \"alb\")",
+        "CI/CD pipeline resources: SonarQube server, Jira (jiraSendBuildInfo/jiraSendDeploymentInfo), email notifications (emailext), security scanners (Trivy, OWASP Dependency-Check), Docker Scout"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "(No Terraform source found; only logs)"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "(Intended) Terraform-managed infrastructure for EKS is implied by directory name and Jenkinsfile calling terraform, but no .tf files are present in this repository snapshot"
+      ]
+    }
+  ]
+}

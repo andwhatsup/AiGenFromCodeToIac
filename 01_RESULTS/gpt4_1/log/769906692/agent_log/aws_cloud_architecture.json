@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a containerized Node.js web application designed to run on Kubernetes. To deploy this on AWS following best practices, the architecture will leverage Amazon Elastic Kubernetes Service (EKS) for managed Kubernetes, with supporting AWS resources for networking, security, and scalability.\n\n**Proposed AWS Architecture:**\n\n1. **Amazon EKS Cluster**: The core of the deployment, providing a managed Kubernetes control plane. The Node.js application will be deployed as a Kubernetes Deployment with 3 replicas, within a dedicated namespace.\n\n2. **VPC (Virtual Private Cloud)**: A dedicated VPC will be created to isolate the Kubernetes cluster and its resources. The VPC will have both public and private subnets across multiple Availability Zones for high availability.\n\n3. **Subnets**: At least two public subnets (for load balancer endpoints) and two private subnets (for EKS worker nodes) across different AZs.\n\n4. **Internet Gateway & NAT Gateway**: The Internet Gateway allows public access to the load balancer, while the NAT Gateway enables private nodes to access the internet for updates without exposing them directly.\n\n5. **EKS Node Group (EC2 Worker Nodes)**: A managed node group (EC2 instances) that runs the application pods. The node group will be deployed in private subnets for security.\n\n6. **IAM Roles and Policies**: IAM roles for the EKS control plane, node group, and service accounts, granting least-privilege access to AWS resources.\n\n7. **Elastic Load Balancer (ELB/ALB)**: An Application Load Balancer (ALB) will be provisioned to expose the Node.js service to the internet, replacing the Kubernetes NodePort for production-grade ingress. The ALB will route HTTP(S) traffic to the Kubernetes service.\n\n8. **Security Groups**: Security groups will control inbound and outbound traffic to the EKS nodes and the ALB, allowing only necessary ports (e.g., 80/443 for ALB, 3000 for internal pod communication).\n\n9. **ECR (Elastic Container Registry)**: If you wish to manage your own Docker images, ECR can be used to store and version the Node.js application image.\n\n10. **CloudWatch**: For logging and monitoring of the EKS cluster, application logs, and infrastructure metrics.\n\n11. **(Optional) S3**: For storing application assets, logs, or backups if needed.\n\n**Deployment Strategy:**\n- Deploy the EKS cluster and supporting networking resources using Terraform or AWS CloudFormation.\n- Build and push the Node.js Docker image to ECR (or use Docker Hub if preferred).\n- Use Kubernetes manifests (namespace, deployment, service) to deploy the application to EKS.\n- Configure an Ingress resource to connect the ALB to the Kubernetes service, exposing the app on standard HTTP/HTTPS ports.\n- Use IAM roles for service accounts (IRSA) for secure pod-level AWS access if needed.\n\nThis architecture is secure, scalable, and follows AWS best practices for running containerized workloads on Kubernetes.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across AZs)",
+    "Private Subnets (at least 2, across AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables and Route Table Associations",
+    "Amazon EKS Cluster",
+    "EKS Node Group (EC2 Auto Scaling Group)",
+    "IAM Roles and Policies (EKS Cluster, Node Group, Service Accounts)",
+    "Security Groups (for ALB and EKS nodes)",
+    "Elastic Load Balancer (Application Load Balancer)",
+    "Elastic Container Registry (ECR) (optional, for Docker images)",
+    "CloudWatch Log Groups and Metrics",
+    "Kubernetes Namespace (node)",
+    "Kubernetes Deployment (node-app-deployment, 3 replicas)",
+    "Kubernetes Service (ClusterIP or LoadBalancer type, fronted by ALB)",
+    "Kubernetes Ingress (for ALB integration)",
+    "(Optional) S3 Bucket (for assets/logs/backups)"
+  ]
+}

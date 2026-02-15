@@ -1,0 +1,36 @@
+
+Error: POST https://api.github.com/user/repos: 401 Requires authentication []
+
+  with github_repository.main,
+  on main.tf line 10, in resource "github_repository" "main":
+  10: resource "github_repository" "main" {
+
+
+Error: 
+============= RKE outputs ==============
+time="2026-01-22T20:54:55+01:00" level=info msg="[rke_provider] rke cluster changed arguments: map[authentication:true authorization:true cluster_name:true kubernetes_version:true network:true services:true ssh_key_path:true]"
+time="2026-01-22T20:54:55+01:00" level=info msg="Creating RKE cluster..."
+time="2026-01-22T20:54:55+01:00" level=info msg="Initiating Kubernetes cluster"
+time="2026-01-22T20:54:55+01:00" level=warning msg="[state] can't fetch legacy cluster state from Kubernetes: Cluster must have at least one etcd plane host: please specify one or more etcd in cluster config"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] Generating CA kubernetes certificates"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] Generating Kubernetes API server aggregation layer requestheader client CA certificates"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] GenerateServingCertificate is disabled, checking if there are unused kubelet certificates"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] Generating Kubernetes API server certificates"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] Generating Service account token key"
+time="2026-01-22T20:54:55+01:00" level=info msg="[certificates] Generating Kube Controller certificates"
+time="2026-01-22T20:54:56+01:00" level=info msg="[certificates] Generating Kube Scheduler certificates"
+time="2026-01-22T20:54:56+01:00" level=info msg="[certificates] Generating Kube Proxy certificates"
+time="2026-01-22T20:54:56+01:00" level=info msg="[certificates] Generating Node certificate"
+time="2026-01-22T20:54:56+01:00" level=info msg="[certificates] Generating admin certificates and kubeconfig"
+time="2026-01-22T20:54:56+01:00" level=info msg="[certificates] Generating Kubernetes API server proxy client certificates"
+time="2026-01-22T20:54:56+01:00" level=info msg="Successfully Deployed state file at [/ai-code-generation-from-code-to-iac/workspace/533946526/terraform/terraform-provider-rke-tmp-2469773212/cluster.rkestate]"
+time="2026-01-22T20:54:56+01:00" level=info msg="Building Kubernetes cluster"
+
+Failed running cluster err:Cluster must have at least one etcd plane host: please specify one or more etcd in cluster config
+========================================
+
+
+  with rke_cluster.cluster,
+  on main.tf line 52, in resource "rke_cluster" "cluster":
+  52: resource "rke_cluster" "cluster" {
+

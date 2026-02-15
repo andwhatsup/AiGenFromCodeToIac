@@ -1,0 +1,30 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.amazon_linux_2: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-20b2a32ab5c51cd41]
+data.aws_subnets.default: Reading...
+aws_security_group.squid: Refreshing state... [id=sg-c346eefe7d73afcbf]
+data.aws_subnets.default: Read complete after 0s [id=ap-northeast-1]
+data.aws_ami.amazon_linux_2: Read complete after 3s [id=ami-04681a1dbd79675a5]
+aws_instance.squid: Refreshing state... [id=i-bb5d691948be979b7]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.squid will be updated in-place
+  ~ resource "aws_instance" "squid" {
+        id                                   = "i-bb5d691948be979b7"
+        tags                                 = {
+            "Name" = "ec2-squid-proxy-ec2"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-c346eefe7d73afcbf",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

@@ -1,0 +1,27 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.archive_file.lambda_zip" [label="data.archive_file.lambda_zip"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_event_rule.schedule" [label="aws_cloudwatch_event_rule.schedule"];
+  "aws_cloudwatch_event_target.lambda" [label="aws_cloudwatch_event_target.lambda"];
+  "aws_iam_policy.lambda_permissions" [label="aws_iam_policy.lambda_permissions"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy_attachment.basic" [label="aws_iam_role_policy_attachment.basic"];
+  "aws_iam_role_policy_attachment.lambda_permissions" [label="aws_iam_role_policy_attachment.lambda_permissions"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_lambda_permission.allow_eventbridge" [label="aws_lambda_permission.allow_eventbridge"];
+  "aws_cloudwatch_event_target.lambda" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_cloudwatch_event_target.lambda" -> "aws_lambda_function.this";
+  "aws_iam_role_policy_attachment.basic" -> "data.aws_partition.current";
+  "aws_iam_role_policy_attachment.basic" -> "aws_iam_role.lambda";
+  "aws_iam_role_policy_attachment.lambda_permissions" -> "aws_iam_policy.lambda_permissions";
+  "aws_iam_role_policy_attachment.lambda_permissions" -> "aws_iam_role.lambda";
+  "aws_lambda_function.this" -> "data.archive_file.lambda_zip";
+  "aws_lambda_function.this" -> "aws_iam_role.lambda";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_lambda_permission.allow_eventbridge" -> "aws_lambda_function.this";
+}

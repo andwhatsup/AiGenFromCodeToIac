@@ -1,0 +1,338 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_vpc_endpoint"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_listener_rule",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs"
+        ],
+        "partial": [
+          "ec2",
+          "ecr",
+          "ecs",
+          "elbv2",
+          "iam",
+          "route53"
+        ],
+        "none": [],
+        "unknown": [
+          "acm",
+          "availability",
+          "caller",
+          "region",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"hello-tomcat\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.10.0.0/16\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.10.0.0/24\", \"10.10.1.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.10.10.0/24\", \"10.10.11.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "enable_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "single_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "8080",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "image_tag": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"latest\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "health_check_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/hello\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "domain_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "hosted_zone_id": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "enable_https": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "enable_http_redirect": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "enable_vpc_endpoints": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "enable_container_insights": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "log_retention_in_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "14",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "task_environment": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "task_secrets": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        },
+        "create_ecr_repository": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "environment"
+      ],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_availability_zones",
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_listener_rule",
+        "aws_lb_target_group",
+        "aws_region",
+        "aws_route53_record",
+        "aws_security_group",
+        "aws_vpc_endpoint"
+      ],
+      "resource_type_counts": {
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 2,
+        "aws_acm_certificate": 1,
+        "aws_route53_record": 2,
+        "aws_acm_certificate_validation": 1,
+        "aws_lb_listener_rule": 1,
+        "aws_availability_zones": 1,
+        "aws_region": 1,
+        "aws_caller_identity": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_ecs_cluster": 1,
+        "aws_iam_policy_document": 1,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_iam_role_policy": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_security_group": 3,
+        "aws_vpc_endpoint": 4,
+        "aws_ecs_service": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/577419564/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

@@ -1,0 +1,441 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_192",
+                "bc_check_id": "BC_AWS_NETWORKING_61",
+                "check_name": "Ensure WAF prevents message lookup in Log4j2. See CVE-2021-44228 aka log4jshell",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "rule/[0]/statement/[0]/managed_rule_group_statement/[0]/name"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    134,
+                    171
+                ],
+                "resource": "aws_wafv2_web_acl.this[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.WAFACLCVE202144228",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-waf-prevents-message-lookup-in-log4j2",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.spa",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "visibility_config.metric_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.spa",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_174",
+                "bc_check_id": "BC_AWS_NETWORKING_63",
+                "check_name": "Verify CloudFront Distribution Viewer Certificate is using TLS v1.2 or higher",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "viewer_certificate/[0]/minimum_protocol_version"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    176,
+                    247
+                ],
+                "resource": "aws_cloudfront_distribution.spa",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudfrontTLS12",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-networking-63",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "price_class": [
+                        {
+                            "type": "variable",
+                            "name": "cloudfront_price_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config.for_each": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "web_acl_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "comment": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.spa",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_310",
+                "bc_check_id": "BC_AWS_GENERAL_222",
+                "check_name": "Ensure CloudFront distributions should have origin failover configured",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    176,
+                    247
+                ],
+                "resource": "aws_cloudfront_distribution.spa",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudfrontDistributionOriginFailover",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-310",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "price_class": [
+                        {
+                            "type": "variable",
+                            "name": "cloudfront_price_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config.for_each": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "web_acl_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "comment": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.spa",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_374",
+                "bc_check_id": "BC_AWS_NETWORKING_97",
+                "check_name": "Ensure AWS CloudFront web distribution has geo restriction enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "restrictions/[0]/geo_restriction/[0]/restriction_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    176,
+                    247
+                ],
+                "resource": "aws_cloudfront_distribution.spa",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudFrontGeoRestrictionDisabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-374",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "aliases": [
+                        {
+                            "type": "variable",
+                            "name": "domain_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "price_class": [
+                        {
+                            "type": "variable",
+                            "name": "cloudfront_price_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config.for_each": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.logging_config": [
+                        {
+                            "type": "variable",
+                            "name": "enable_cloudfront_logs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "web_acl_id": [
+                        {
+                            "type": "tfvar",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "enable_waf",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "comment": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.spa",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/753423370/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 28,
+        "failed": 4,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 28,
+        "checkov_version": "3.2.490"
+    }
+}

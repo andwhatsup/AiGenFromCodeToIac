@@ -1,0 +1,36 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_iam_policy_document.apprunner_assume" [label="data.aws_iam_policy_document.apprunner_assume"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_apprunner_service.mlflow" [label="aws_apprunner_service.mlflow"];
+  "aws_db_instance.mlflow" [label="aws_db_instance.mlflow"];
+  "aws_db_subnet_group.default" [label="aws_db_subnet_group.default"];
+  "aws_iam_role.apprunner_ecr_access" [label="aws_iam_role.apprunner_ecr_access"];
+  "aws_iam_role_policy_attachment.apprunner_ecr_access" [label="aws_iam_role_policy_attachment.apprunner_ecr_access"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "aws_security_group.rds" [label="aws_security_group.rds"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_apprunner_service.mlflow" -> "aws_db_instance.mlflow";
+  "aws_apprunner_service.mlflow" -> "aws_s3_bucket.artifacts";
+  "aws_db_instance.mlflow" -> "aws_db_subnet_group.default";
+  "aws_db_instance.mlflow" -> "aws_security_group.rds";
+  "aws_db_subnet_group.default" -> "data.aws_subnets.default";
+  "aws_db_subnet_group.default" -> "random_id.suffix";
+  "aws_iam_role.apprunner_ecr_access" -> "data.aws_iam_policy_document.apprunner_assume";
+  "aws_iam_role.apprunner_ecr_access" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.apprunner_ecr_access" -> "data.aws_partition.current";
+  "aws_iam_role_policy_attachment.apprunner_ecr_access" -> "aws_iam_role.apprunner_ecr_access";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_security_group.rds" -> "data.aws_vpc.default";
+  "aws_security_group.rds" -> "random_id.suffix";
+}

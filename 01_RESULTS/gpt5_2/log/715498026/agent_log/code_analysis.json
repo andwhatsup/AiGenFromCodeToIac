@@ -1,0 +1,34 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/715498026",
+      "programming_languages": [
+        "Go",
+        "Shell",
+        "Dockerfile",
+        "YAML"
+      ],
+      "frameworks": [
+        "Go net/http (standard library)"
+      ],
+      "dependencies": [
+        "Go standard library only (no third-party modules) — go.mod, main.go",
+        "GitHub Actions: aws-actions/configure-aws-credentials@v1, gitleaks/gitleaks-action@v2, pavi2410/html-preview-action@v2, actions/checkout@v2/v3 — .github/workflows/main.yml",
+        "Security tooling used in CI: trufflehog3 (pip) — .github/workflows/main.yml"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (/Dockerfile)",
+        "GitHub Actions workflow (/ .github/workflows/main.yml)",
+        "Deployment script (/script/install.sh)",
+        "Module definition (/go.mod)"
+      ],
+      "architectural_resources": [
+        "Containerized web application listening on :8080 (API/web service) — main.go, Dockerfile",
+        "AWS ECR repository (image push target) implied by workflow and script (repository name pw_ecr_dsop_webapp) — .github/workflows/main.yml, script/install.sh",
+        "AWS credentials/region required (uses AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY/AWS_DEFAULT_REGION) — .github/workflows/main.yml, script/install.sh",
+        "Terraform-managed AWS infrastructure implied (script/workflow run terraform init/apply; references outputs ecr_repository_uri, alb_hostname) — script/install.sh, .github/workflows/main.yml",
+        "Application Load Balancer (ALB) implied by terraform output alb_hostname and printed URL — script/install.sh"
+      ]
+    }
+  ]
+}

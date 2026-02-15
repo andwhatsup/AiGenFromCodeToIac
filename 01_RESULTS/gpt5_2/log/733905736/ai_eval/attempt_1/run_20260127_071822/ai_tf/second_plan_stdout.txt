@@ -1,0 +1,151 @@
+random_password.db: Refreshing state... [id=none]
+data.aws_partition.current: Reading...
+data.aws_region.current: Reading...
+data.aws_availability_zones.available: Reading...
+aws_iam_role.ecs_task: Refreshing state... [id=sonarqube-ecs-task]
+aws_vpc.this: Refreshing state... [id=vpc-6e8ee3d8e23a527ac]
+aws_efs_file_system.this: Refreshing state... [id=fs-333238fa]
+data.aws_caller_identity.current: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/sonarqube-cluster]
+aws_eip.nat: Refreshing state... [id=eipalloc-fe90a1b6278e50a58]
+aws_cloudwatch_log_group.this: Refreshing state... [id=/ecs/sonarqube]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=sonarqube-ecs-task-exec]
+aws_secretsmanager_secret.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:sonarqube/db-AUTbaN]
+data.aws_availability_zones.available: Read complete after 1s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 1s [id=000000000000]
+aws_efs_access_point.this: Refreshing state... [id=fsap-ffd5deb3]
+aws_iam_policy.secrets_read: Refreshing state... [id=arn:aws:iam::000000000000:policy/sonarqube-secrets-read]
+aws_secretsmanager_secret_version.db: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:sonarqube/db-AUTbaN|terraform-20260127061849408200000003]
+aws_iam_role_policy_attachment.secrets_read: Refreshing state... [id=sonarqube-ecs-task-20260127061849844100000005]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=sonarqube-ecs-task-exec-20260127061849843800000004]
+aws_route_table.public: Refreshing state... [id=rtb-bc63f41d807f5ad20]
+aws_internet_gateway.this: Refreshing state... [id=igw-56e9241ca3f3d6bfd]
+aws_route_table.private: Refreshing state... [id=rtb-9180edfee64c6ccc9]
+aws_subnet.public["us-east-1b"]: Refreshing state... [id=subnet-93647b30ab82546a0]
+aws_subnet.private["us-east-1a"]: Refreshing state... [id=subnet-b4acb481eb8290b55]
+aws_subnet.public["us-east-1a"]: Refreshing state... [id=subnet-703bf0098cf8e9008]
+aws_subnet.private["us-east-1b"]: Refreshing state... [id=subnet-540f37f2d3189f209]
+aws_security_group.alb: Refreshing state... [id=sg-df52cbc5f380f3e59]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/sonarqube-tg/78fa4f832497f20a]
+aws_route.public_inet: Refreshing state... [id=r-rtb-bc63f41d807f5ad201080289494]
+aws_security_group.ecs: Refreshing state... [id=sg-4d1d7731515c77272]
+aws_route_table_association.private["us-east-1a"]: Refreshing state... [id=rtbassoc-4a92ce8b5219ccdd0]
+aws_db_subnet_group.this: Refreshing state... [id=sonarqube-db-subnets]
+aws_route_table_association.private["us-east-1b"]: Refreshing state... [id=rtbassoc-8b295dd3f63015c88]
+aws_route_table_association.public["us-east-1a"]: Refreshing state... [id=rtbassoc-7e3a68141139e7af8]
+aws_route_table_association.public["us-east-1b"]: Refreshing state... [id=rtbassoc-d6a7e93aec782b6d1]
+aws_nat_gateway.this: Refreshing state... [id=nat-911f1d9ed056c9776]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/sonarqube-alb/d1185a358734083c]
+aws_security_group.efs: Refreshing state... [id=sg-b457830f324bdb9f2]
+aws_security_group.rds: Refreshing state... [id=sg-d2c5a51257b24a92f]
+aws_efs_mount_target.this["us-east-1a"]: Refreshing state... [id=fsmt-2d466b1b]
+aws_efs_mount_target.this["us-east-1b"]: Refreshing state... [id=fsmt-43df18a1]
+aws_route.private_nat: Refreshing state... [id=r-rtb-9180edfee64c6ccc91080289494]
+aws_db_instance.this: Refreshing state... [id=db-6D835BD6]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/sonarqube-alb/d1185a358734083c/7dca0f966f042469]
+aws_ecs_task_definition.this: Refreshing state... [id=sonarqube]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/sonarqube-cluster/sonarqube-svc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.this will be updated in-place
+  ~ resource "aws_db_instance" "this" {
+      ~ final_snapshot_identifier             = "sonarqube-final-2026-01-27T06-19-00Z" -> (known after apply)
+        id                                    = "db-6D835BD6"
+        tags                                  = {
+            "Name" = "sonarqube-postgres"
+        }
+        # (72 unchanged attributes hidden)
+    }
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/sonarqube-cluster/sonarqube-svc"
+        name                               = "sonarqube-svc"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/sonarqube:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.this must be replaced
+-/+ resource "aws_ecs_task_definition" "this" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/sonarqube:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/sonarqube" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                    name             = "sonarqube"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 40964
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (6 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "sonarqube" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+
+      - volume {
+          - configure_at_launch = false -> null
+          - name                = "sonarqube-efs" -> null
+            # (1 unchanged attribute hidden)
+
+          - efs_volume_configuration {
+              - file_system_id          = "fs-333238fa" -> null
+              - root_directory          = "/" -> null
+              - transit_encryption      = "ENABLED" -> null
+              - transit_encryption_port = 0 -> null
+
+              - authorization_config {
+                  - access_point_id = "fsap-ffd5deb3" -> null
+                  - iam             = "ENABLED" -> null
+                }
+            }
+        }
+      + volume {
+          + configure_at_launch = (known after apply)
+          + name                = "sonarqube-efs"
+            # (1 unchanged attribute hidden)
+
+          + efs_volume_configuration {
+              + file_system_id          = "fs-333238fa"
+              + root_directory          = "/"
+              + transit_encryption      = "ENABLED"
+              + transit_encryption_port = 0
+
+              + authorization_config {
+                  + access_point_id = "fsap-ffd5deb3"
+                  + iam             = "ENABLED"
+                }
+            }
+        }
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/sonarqube-alb/d1185a358734083c/7dca0f966f042469"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 3 to change, 1 to destroy.

@@ -1,0 +1,1489 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_149",
+                "bc_check_id": "BC_AWS_GENERAL_79",
+                "check_name": "Ensure that Secrets Manager secret is encrypted using KMS CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    29,
+                    32
+                ],
+                "resource": "aws_secretsmanager_secret.venmo_auth_token",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecretManagerSecretEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-secrets-manager-secret-is-encrypted-using-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    83,
+                    86
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_days",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    83,
+                    86
+                ],
+                "resource": "aws_cloudwatch_log_group.lambda",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_days",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_50",
+                "bc_check_id": "BC_AWS_SERVERLESS_4",
+                "check_name": "X-Ray tracing is enabled for Lambda",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_config/[0]/mode"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaXrayEnabled",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-4",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_117",
+                "bc_check_id": "BC_AWS_GENERAL_65",
+                "check_name": "Ensure that AWS Lambda function is configured inside a VPC",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "vpc_config"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaInVPC",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-inside-a-vpc-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_116",
+                "bc_check_id": "BC_AWS_GENERAL_64",
+                "check_name": "Ensure that AWS Lambda function is configured for a Dead Letter Queue(DLQ)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "dead_letter_config/[0]/target_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaDLQConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-a-dead-letter-queue-dlq",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_173",
+                "bc_check_id": "BC_AWS_SERVERLESS_5",
+                "check_name": "Check encryption settings for Lambda environmental variable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaEnvironmentEncryptionSettings",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-serverless-policies/bc-aws-serverless-5",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_272",
+                "bc_check_id": "BC_AWS_General_201",
+                "check_name": "Ensure AWS Lambda function is configured to validate code-signing",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "code_signing_config_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaCodeSigningConfigured",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-272",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_115",
+                "bc_check_id": "BC_AWS_GENERAL_63",
+                "check_name": "Ensure that AWS Lambda function is configured for function-level concurrent execution limit",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "reserved_concurrent_executions/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    88,
+                    111
+                ],
+                "resource": "aws_lambda_function.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaFunctionLevelConcurrentExecutionLimit",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-aws-lambda-function-is-configured-for-function-level-concurrent-execution-limit",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "runtime": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_runtime",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "timeout": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_timeout_seconds",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "memory_size": [
+                        {
+                            "type": "variable",
+                            "name": "lambda_memory_mb",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "filename": [
+                        {
+                            "type": "data",
+                            "name": "archive_file.lambda_zip",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables.VENMO_AUTH_TOKEN": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.variables": [
+                        {
+                            "type": "tfvar",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_secretsmanager_secret_version.venmo_auth_token",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_364",
+                "bc_check_id": "BC_AWS_IAM_91",
+                "check_name": "Ensure that AWS Lambda function permissions delegated to AWS services are limited by SourceArn or SourceAccount",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "principal",
+                        "source_arn",
+                        "source_account"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    161,
+                    167
+                ],
+                "resource": "aws_lambda_permission.allow_scheduler",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LambdaServicePermission",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-364",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "function_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "qualifier": [
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_alias.prod",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_297",
+                "bc_check_id": "BC_AWS_GENERAL_212",
+                "check_name": "Ensure EventBridge Scheduler Schedule uses Customer Managed Key (CMK)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_arn"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    170,
+                    189
+                ],
+                "resource": "aws_scheduler_schedule.venmo",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SchedulerScheduleUsesCMK",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-297",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "for_each": [
+                        {
+                            "type": "variable",
+                            "name": "venmo_schedules",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "group_name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_26",
+                "bc_check_id": "BC_AWS_GENERAL_15",
+                "check_name": "Ensure all data stored in the SNS topic is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    192,
+                    194
+                ],
+                "resource": "aws_sns_topic.alerts",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SNSTopicEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-15",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_scheduler_schedule_group.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.scheduler_invoke",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.lambda_exec",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_lambda_function.venmo",
+                            "path": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 59,
+        "failed": 12,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 19,
+        "checkov_version": "3.2.490"
+    }
+}

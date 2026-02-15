@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_policy.basic_policy" [label="aws_iam_policy.basic_policy"];
+  "aws_iam_role.basic" [label="aws_iam_role.basic"];
+  "aws_iam_role_policy_attachment.basic_attach" [label="aws_iam_role_policy_attachment.basic_attach"];
+  "aws_s3_bucket.artifact" [label="aws_s3_bucket.artifact"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_policy.basic_policy" -> "aws_s3_bucket.artifact";
+  "aws_iam_role.basic" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.basic_attach" -> "aws_iam_policy.basic_policy";
+  "aws_iam_role_policy_attachment.basic_attach" -> "aws_iam_role.basic";
+  "aws_s3_bucket.artifact" -> "random_id.suffix";
+}

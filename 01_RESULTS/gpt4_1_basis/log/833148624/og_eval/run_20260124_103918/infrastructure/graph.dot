@@ -1,0 +1,12 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "docker_container.server_1" [label="docker_container.server_1"];
+  "docker_container.server_2" [label="docker_container.server_2"];
+  "docker_image.server" [label="docker_image.server"];
+  "docker_network.devops_net" [label="docker_network.devops_net"];
+  "docker_container.server_1" -> "docker_image.server";
+  "docker_container.server_1" -> "docker_network.devops_net";
+  "docker_container.server_2" -> "docker_image.server";
+  "docker_container.server_2" -> "docker_network.devops_net";
+}

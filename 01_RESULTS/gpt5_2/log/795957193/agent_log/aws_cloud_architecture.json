@@ -1,0 +1,31 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable enough for a single-node Express app)\n\n### 1) Networking foundation\n- Create a dedicated **VPC** spanning **2 Availability Zones** for future resilience.\n- Use **public subnets** (one per AZ) for internet-facing entry points.\n- Use **private subnets** (one per AZ) for the application host so the Node.js server is not directly exposed to the internet.\n- Attach an **Internet Gateway (IGW)** to the VPC.\n- Add a **NAT Gateway** in a public subnet so the private EC2 instance can reach the internet for OS/package updates (e.g., `npm install`, security patches) without being publicly reachable.\n\n### 2) Ingress and TLS\n- Put an **Application Load Balancer (ALB)** in the public subnets.\n- Terminate **HTTPS (443)** at the ALB using an **ACM certificate**.\n- Forward traffic from the ALB to a **Target Group** on the EC2 instance’s **port 3000**.\n- Optionally redirect **HTTP (80) → HTTPS (443)** at the ALB.\n\nThis keeps the app’s native port (3000) internal while presenting a standard secure endpoint to users.\n\n### 3) Compute (application runtime)\n- Run the Express app on **EC2** in a private subnet.\n- Use a small **Auto Scaling Group (ASG)** (min=1, desired=1, max=2) so you can replace unhealthy instances automatically and scale out later with minimal change.\n- Use a **Launch Template** that:\n  - Installs Node.js and dependencies.\n  - Starts the app via `npm start` (which runs `node server.js`).\n  - Configures a process manager (commonly `systemd`) to keep the service running.\n\n### 4) Security controls\n- **Security Groups**:\n  - ALB SG: allow inbound 443 (and optionally 80) from the internet; allow outbound to EC2 on 3000.\n  - EC2 SG: allow inbound 3000 **only from the ALB SG**; allow outbound to the internet via NAT for updates.\n- **IAM**:\n  - EC2 instance role with least-privilege permissions for CloudWatch logging/metrics (and SSM if you choose to manage without SSH).\n- Prefer **AWS Systems Manager (SSM)** for admin access (Session Manager) instead of opening SSH to the world. If SSH is required by your current workflow, restrict it to a known admin IP range.\n\n### 5) Observability\n- Send application logs to **CloudWatch Logs** (via CloudWatch Agent or the app writing to stdout + agent).\n- Enable **ALB access logs** to an S3 bucket (optional but useful).\n- Create **CloudWatch Alarms** (CPU, memory/disk if using agent, 5xx from ALB, target health) and notify via SNS.\n\n### 6) DNS\n- Use **Route 53** to map a friendly domain (e.g., `api.example.com`) to the ALB.\n\n### Request flow\n1. User hits `https://api.example.com`.\n2. Route 53 resolves to the ALB.\n3. ALB terminates TLS and forwards to the target group on port 3000.\n4. EC2 instance runs Express (`server.js`) and returns the response.\n5. Logs/metrics go to CloudWatch.\n\n---\n\n## Notes on Terraform alignment\nYour README already implies Terraform-managed VPC/Subnet/EC2/Security Group. The above keeps that model but upgrades it to a best-practice pattern (private app host + ALB + TLS) while still running the same Node/Express process on port 3000.\n",
+  "aws_resources": [
+    "VPC",
+    "Internet Gateway (IGW)",
+    "Public Subnets (2, across 2 AZs)",
+    "Private Subnets (2, across 2 AZs)",
+    "Route Tables (public and private)",
+    "NAT Gateway (1)",
+    "Elastic IP (for NAT Gateway)",
+    "Security Group - ALB",
+    "Security Group - EC2",
+    "Application Load Balancer (ALB)",
+    "ALB Target Group (instance target, port 3000)",
+    "ALB Listener (HTTPS 443)",
+    "ALB Listener Rule(s) / HTTP->HTTPS redirect (optional)",
+    "ACM Certificate (for TLS on ALB)",
+    "EC2 Launch Template",
+    "Auto Scaling Group (min/desired 1)",
+    "EC2 Instance Profile",
+    "IAM Role for EC2 (CloudWatch Logs/metrics; SSM optional)",
+    "IAM Policy attachments (least privilege)",
+    "CloudWatch Log Group(s)",
+    "CloudWatch Alarms",
+    "SNS Topic (alarm notifications)",
+    "Route 53 Hosted Zone (if not existing)",
+    "Route 53 Record (A/AAAA alias to ALB)",
+    "S3 Bucket for ALB access logs (optional)",
+    "AWS Systems Manager (SSM) enablement (optional: requires IAM role + agent, no separate ‘resource’ but configure access)"
+  ]
+}

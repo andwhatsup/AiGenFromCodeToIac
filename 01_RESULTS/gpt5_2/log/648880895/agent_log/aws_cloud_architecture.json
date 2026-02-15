@@ -1,0 +1,25 @@
+{
+  "aws_architecture_description": "### Target deployment model\nThis repository is **not a server-side application**; it’s a set of **Python CLI utilities** that run on an operator’s machine and call AWS APIs (S3 + EC2 Describe*). So the “deployment” is primarily:\n1) provisioning the **AWS-side resources** the scripts interact with, and\n2) providing a **secure execution environment** for operators (either local workstation with SSO, or an AWS-hosted workstation).\n\nBelow is a lean, best-practice AWS architecture that supports both options.\n\n---\n## High-level AWS architecture\n\n### 1) Identity & access (recommended: SSO + least privilege)\n- Use **IAM Identity Center (AWS SSO)** for human access instead of long-lived IAM user access keys.\n- Create a **Permission Set** that grants only what the scripts need:\n  - S3: list bucket, get/put objects under a specific prefix (e.g., `imagenes/`)\n  - EC2: read-only `Describe*` calls (regions/AZs/instances)\n- Operators authenticate via SSO and obtain short-lived credentials locally (or on an AWS workstation).\n\nIf you must keep the current `boto3.Session(profile_name='user1001')` pattern, map that profile to SSO-based credentials (preferred) or to an IAM user (not preferred).\n\n### 2) Data plane: Amazon S3 bucket for uploads/downloads\n- Provision a dedicated **S3 bucket** (e.g., `s3-bucket-workshop-1001-pyday` or an environment-specific name).\n- Enforce security controls:\n  - **Block Public Access** enabled\n  - **Bucket policy** that denies non-TLS (`aws:SecureTransport=false`)\n  - **Default encryption** (SSE-S3 or SSE-KMS)\n  - Optional: **versioning** (useful for accidental overwrite protection)\n- Use a prefix convention such as `imagenes/` for the objects the scripts manage.\n\n### 3) Optional: AWS-hosted “operator workstation” (for teams / controlled environment)\nIf you want a reproducible, centrally managed runtime (instead of relying on each developer laptop):\n- Provide an **EC2-based workstation** (or AWS-managed desktop) in a private subnet.\n- The workstation assumes an **IAM role** (no static keys) with the same least-privilege permissions.\n- Add **VPC endpoints** so S3 and AWS APIs can be reached privately without traversing the public internet:\n  - Gateway endpoint for S3\n  - Interface endpoints for STS/EC2 (and optionally CloudWatch Logs if you ship logs)\n\nThis option is especially useful if you need tighter control over credentials, egress, and auditability.\n\n### 4) Observability & audit\n- Enable **CloudTrail** to log S3 and EC2 API calls made by the scripts.\n- Optionally enable **S3 server access logs** (or S3 data events in CloudTrail) if you need object-level auditing.\n\n---\n## Notes on what you *don’t* need\n- No load balancer, ECS/EKS, API Gateway, Lambda, or database is required because the codebase is not a long-running service.\n- EC2 instances are only *listed* by the scripts; you don’t need to provision EC2 unless you choose the optional AWS-hosted workstation pattern.\n\n---\n## Deployment strategy (practical)\n- Package the CLI as a small internal tool:\n  - `pip install -r requirements.txt`\n  - Provide a standard config for bucket name/prefix and AWS profile/region\n- Provision AWS resources via IaC (CloudFormation/Terraform/CDK) in at least two environments (dev/prod) if needed.\n- Prefer SSO-based profiles for `boto3.Session(profile_name=...)` to avoid long-lived access keys.\n",
+  "aws_resources": [
+    "Amazon S3 bucket (for images/ uploads/downloads)",
+    "S3 bucket prefix convention (e.g., imagenes/)",
+    "S3 Block Public Access configuration",
+    "S3 bucket policy (deny non-TLS, restrict principals, restrict prefix)",
+    "S3 default encryption (SSE-S3 or SSE-KMS)",
+    "AWS KMS key (optional, if using SSE-KMS)",
+    "S3 bucket versioning (optional)",
+    "AWS IAM Identity Center (AWS SSO) instance (if not already enabled)",
+    "IAM Identity Center Permission Set for the CLI (S3 scoped + EC2 Describe*)",
+    "IAM role for AWS-hosted workstation (optional)",
+    "AWS CloudTrail trail (management events; optionally S3 data events)",
+    "CloudWatch Logs log group for CloudTrail (optional)",
+    "Amazon VPC (optional; only if using AWS-hosted workstation)",
+    "VPC subnets (private subnets across 2 AZs) (optional)",
+    "Security group for workstation (optional)",
+    "EC2 instance for operator workstation (optional)",
+    "IAM instance profile for workstation (optional)",
+    "VPC Gateway Endpoint for S3 (optional)",
+    "VPC Interface Endpoints: STS, EC2 (optional)",
+    "Route tables / NACLs (optional; if VPC is used)"
+  ]
+}

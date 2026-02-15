@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/832959733",
+      "programming_languages": [
+        "Shell (GitHub Actions steps)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Terraform CLI (packaged into container)",
+        "HCP Terraform Migrator (tf-migrate binary)",
+        "Docker / Docker Compose",
+        "GitHub Actions"
+      ],
+      "dependencies": [
+        "alpine:latest base image (Dockerfile)",
+        "apk packages: wget, unzip (Dockerfile)",
+        "Terraform CLI downloaded from releases.hashicorp.com using build arg TERRAFORM_VERSION (Dockerfile)",
+        "tf-migrate binary copied into image (Dockerfile; file: /tf-migrate)",
+        "GitHub Actions: actions/checkout@v4, docker/setup-buildx-action@v3, docker/build-push-action@v6; uses curl + jq in workflow steps (/.github/workflows/check-tf-version.yml)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/832959733/Dockerfile",
+        "/ai-code-generation-from-code-to-iac/workspace/832959733/docker-compose.yml",
+        "/ai-code-generation-from-code-to-iac/workspace/832959733/.github/workflows/check-tf-version.yml",
+        "/ai-code-generation-from-code-to-iac/workspace/832959733/tf-migrate"
+      ],
+      "architectural_resources": [
+        "Container image: custom-alpine-terraform (Terraform tooling container)",
+        "Local/CI container runtime (Docker) used to run Terraform and tf-migrate",
+        "External service/API dependency: HashiCorp Checkpoint API (https://checkpoint-api.hashicorp.com) to fetch latest Terraform version (workflow)",
+        "External artifact source: HashiCorp Terraform release downloads (https://releases.hashicorp.com) (Dockerfile)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed for a static HTML web application served by Nginx, containerized with Docker, and deployed using a fully managed CI/CD pipeline on AWS. The workflow is as follows:\n\n1. Developers push code to AWS CodeCommit, which acts as the source code repository.\n2. A commit to CodeCommit triggers AWS CodePipeline, which orchestrates the build and deployment process.\n3. AWS CodeBuild executes the build process as defined in buildspec.yml, builds the Docker image (Nginx + HTML), and pushes the image to Amazon ECR (Elastic Container Registry).\n4. CodeBuild notifies AWS CodeDeploy, and CodePipeline triggers CodeDeploy to start the deployment.\n5. AWS CodeDeploy deploys the new Docker image to an ECS Fargate service.\n6. The ECS Fargate service registers its running tasks with a Target Group.\n7. An Application Load Balancer (ALB) routes incoming HTTP/HTTPS traffic to the Target Group, which forwards requests to the ECS Fargate tasks running the Nginx container.\n8. IAM roles and policies are used to securely manage permissions for CodeBuild, CodePipeline, CodeDeploy, ECS, and other AWS services.\n9. Foundational AWS resources such as VPC, subnets, security groups, and CloudWatch for monitoring/logging are included to ensure a secure, scalable, and observable environment.\n\nThis architecture follows AWS best practices for containerized web applications, providing automation, scalability, and security.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (for ECS tasks and ALB)",
+    "Internet Gateway (for public access via ALB)",
+    "NAT Gateway (if ECS tasks need outbound internet)",
+    "Route Tables (for subnet routing)",
+    "Security Groups (for ALB, ECS tasks, CodeBuild, etc.)",
+    "IAM Roles and Policies (for CodeBuild, CodePipeline, CodeDeploy, ECS tasks, ECR access)",
+    "AWS CodeCommit (source code repository)",
+    "AWS CodePipeline (CI/CD orchestration)",
+    "AWS CodeBuild (build and Docker image creation)",
+    "Amazon ECR (Elastic Container Registry for Docker images)",
+    "AWS CodeDeploy (deployment automation)",
+    "Amazon ECS Cluster (with Fargate launch type)",
+    "ECS Task Definition (for Nginx + HTML container)",
+    "ECS Service (to manage running tasks)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ECS service registration)",
+    "CloudWatch Logs (for ECS, ALB, and build/deploy logs)",
+    "CloudWatch Alarms (for monitoring and alerting)"
+  ]
+}

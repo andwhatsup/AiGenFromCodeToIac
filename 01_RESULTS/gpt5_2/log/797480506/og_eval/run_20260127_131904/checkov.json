@@ -1,0 +1,1340 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_356",
+                "bc_check_id": "BC_AWS_IAM_89",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "statement/[2]/actions"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_iam_policy_document.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_iam_policy_document.tf",
+                "repo_file_path": "/aws_iam_policy_document.tf",
+                "file_line_range": [
+                    241,
+                    274
+                ],
+                "resource": "aws_iam_policy_document.sfn_state_machine_rekognition_detect_moderation_labels",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.data.aws.ResourcePolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-356",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_iam_policy_document.tf",
+                "breadcrumbs": {
+                    "statement.0.resources.0": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "statement.0.resources": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "statement.0": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_53",
+                "bc_check_id": "BC_AWS_S3_19",
+                "check_name": "Ensure S3 bucket has block public ACLS enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "block_public_acls"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_s3_bucket_public_access_block.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_public_access_block.tf",
+                "repo_file_path": "/aws_s3_bucket_public_access_block.tf",
+                "file_line_range": [
+                    1,
+                    7
+                ],
+                "resource": "aws_s3_bucket_public_access_block.main",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.S3BlockPublicACLs",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/s3-policies/bc-aws-s3-19",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_public_access_block.tf",
+                "breadcrumbs": {
+                    "bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    1,
+                    27
+                ],
+                "resource": "aws_sfn_state_machine.rekognition",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "definition": [
+                        {
+                            "type": "resource",
+                            "name": "aws_sfn_state_machine.rekognition_detect_moderation_labels",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    1,
+                    27
+                ],
+                "resource": "aws_sfn_state_machine.rekognition",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "definition": [
+                        {
+                            "type": "resource",
+                            "name": "aws_sfn_state_machine.rekognition_detect_moderation_labels",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    29,
+                    45
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_faces",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectFaces",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    29,
+                    45
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_faces",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectFaces",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    47,
+                    63
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_labels",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectLabels",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    47,
+                    63
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_labels",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectLabels",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    65,
+                    81
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_moderation_labels",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectModerationLabels",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    65,
+                    81
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_moderation_labels",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectModerationLabels",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    83,
+                    99
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_protective_equipment",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectProtectiveEquipment",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    83,
+                    99
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_protective_equipment",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectProtectiveEquipment",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    101,
+                    117
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_text",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectText",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sfn_state_machine.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "repo_file_path": "/aws_sfn_state_machine.tf",
+                "file_line_range": [
+                    101,
+                    117
+                ],
+                "resource": "aws_sfn_state_machine.rekognition_detect_text",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "bucket": "${aws_s3_bucket.main.bucket}",
+                    "bucket_key": "images/",
+                    "caller_identity_account_arn": "data.aws_caller_identity.main.arn",
+                    "caller_identity_account_id": "data.aws_caller_identity.main.account_id",
+                    "caller_identity_user_id": "data.aws_caller_identity.main.user_id",
+                    "canonical_user_id": "data.aws_canonical_user_id.main.id",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "rekognition": "DetectText",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sfn_state_machine.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_ownership_controls.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_ownership_controls.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_bucket_acl.main",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_bucket_acl.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_27",
+                "bc_check_id": "BC_AWS_GENERAL_16",
+                "check_name": "Ensure all data stored in the SQS queue is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "sqs_managed_sse_enabled",
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/aws_sqs_queue.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sqs_queue.tf",
+                "repo_file_path": "/aws_sqs_queue.tf",
+                "file_line_range": [
+                    1,
+                    13
+                ],
+                "resource": "aws_sqs_queue.s3_object_created_image",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SQSQueueEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "account_arn": "data.aws_caller_identity.main.arn",
+                    "account_id": "data.aws_caller_identity.main.account_id",
+                    "bucket": "aws_s3_bucket.main.id",
+                    "bucket_key": "images/",
+                    "organization": "lower(random_pet.organization.id)",
+                    "region": "data.aws_region.main.name",
+                    "workspace": "terraform.workspace"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-16-encrypt-sqs-queue",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_sqs_queue.tf",
+                "breadcrumbs": {
+                    "tags.organization": [
+                        {
+                            "type": "locals",
+                            "name": "organization",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/local.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.bucket_key": [
+                        {
+                            "type": "resource",
+                            "name": "aws_s3_object.images",
+                            "path": "/ai-gen-from-code-to-iac/workspace/797480506/aws_s3_object.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 194,
+        "failed": 15,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 43,
+        "checkov_version": "3.2.490"
+    }
+}

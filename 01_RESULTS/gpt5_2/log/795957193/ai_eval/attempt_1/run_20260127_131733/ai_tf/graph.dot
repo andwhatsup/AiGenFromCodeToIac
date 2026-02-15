@@ -1,0 +1,31 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.al2023" [label="data.aws_ami.al2023"];
+  "data.aws_availability_zones.available" [label="data.aws_availability_zones.available"];
+  "aws_cloudwatch_log_group.app" [label="aws_cloudwatch_log_group.app"];
+  "aws_iam_instance_profile.ec2" [label="aws_iam_instance_profile.ec2"];
+  "aws_iam_role.ec2" [label="aws_iam_role.ec2"];
+  "aws_iam_role_policy_attachment.ssm" [label="aws_iam_role_policy_attachment.ssm"];
+  "aws_instance.app" [label="aws_instance.app"];
+  "aws_internet_gateway.this" [label="aws_internet_gateway.this"];
+  "aws_route_table.public" [label="aws_route_table.public"];
+  "aws_route_table_association.public" [label="aws_route_table_association.public"];
+  "aws_security_group.instance" [label="aws_security_group.instance"];
+  "aws_subnet.public" [label="aws_subnet.public"];
+  "aws_vpc.this" [label="aws_vpc.this"];
+  "aws_iam_instance_profile.ec2" -> "aws_iam_role.ec2";
+  "aws_iam_role_policy_attachment.ssm" -> "aws_iam_role.ec2";
+  "aws_instance.app" -> "data.aws_ami.al2023";
+  "aws_instance.app" -> "aws_cloudwatch_log_group.app";
+  "aws_instance.app" -> "aws_iam_instance_profile.ec2";
+  "aws_instance.app" -> "aws_security_group.instance";
+  "aws_instance.app" -> "aws_subnet.public";
+  "aws_internet_gateway.this" -> "aws_vpc.this";
+  "aws_route_table.public" -> "aws_internet_gateway.this";
+  "aws_route_table_association.public" -> "aws_route_table.public";
+  "aws_route_table_association.public" -> "aws_subnet.public";
+  "aws_security_group.instance" -> "aws_vpc.this";
+  "aws_subnet.public" -> "data.aws_availability_zones.available";
+  "aws_subnet.public" -> "aws_vpc.this";
+}

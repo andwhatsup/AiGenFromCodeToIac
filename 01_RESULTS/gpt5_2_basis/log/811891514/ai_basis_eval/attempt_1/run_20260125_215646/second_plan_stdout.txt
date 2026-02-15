@@ -1,0 +1,80 @@
+data.aws_vpc.default: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/hello-node-cluster]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/hello-node]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=hello-node-ecs-task-exec]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=hello-node-ecs-task-exec-20260125205729851200000001]
+aws_ecs_task_definition.this: Refreshing state... [id=hello-node]
+data.aws_vpc.default: Read complete after 0s [id=vpc-0062f9c74df2e057d]
+data.aws_subnets.default: Reading...
+aws_security_group.service: Refreshing state... [id=sg-b55af60dea1347fc0]
+aws_security_group.alb: Refreshing state... [id=sg-7968af900d00b189a]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/hello-node-tg/448559b325a7c2f3]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/hello-node-alb/1f933f1f0d01362f]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-node-alb/1f933f1f0d01362f/bad598fe7ba0ba73]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/hello-node-cluster/hello-node-svc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/hello-node-cluster/hello-node-svc"
+        name                               = "hello-node-svc"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-node:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.this must be replaced
+-/+ resource "aws_ecs_task_definition" "this" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-node:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-node" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                  - mountPoints      = []
+                    name             = "app"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 39624
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (4 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "hello-node" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-node-alb/1f933f1f0d01362f/bad598fe7ba0ba73"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.
+
+Changes to Outputs:
+  ~ task_definition_arn = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-node:1" -> (known after apply)

@@ -1,0 +1,56 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "JavaScript",
+        "CSS"
+      ],
+      "frameworks": [
+        "Nginx (for static serving)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/docker-publish.yml",
+        ".github/workflows/static.yml",
+        "Jenkinsfile"
+      ],
+      "architectural_resources": [
+        "Kubernetes cluster (Deployment, Service)",
+        "AWS Load Balancer (via service annotation)",
+        "Docker container registry (DockerHub, GitHub Container Registry)",
+        "Jenkins (CI/CD)",
+        "GitHub Actions (CI/CD)",
+        "Static web hosting (via Nginx container)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "Terraform"
+      ],
+      "frameworks": [
+        "Terraform"
+      ],
+      "dependencies": [
+        "hashicorp/aws ~> 5.0 (init_validate_stdout.txt)"
+      ],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "AWS (EKS, IAM, VPC, etc. as implied by Terraform AWS provider)"
+      ]
+    }
+  ]
+}

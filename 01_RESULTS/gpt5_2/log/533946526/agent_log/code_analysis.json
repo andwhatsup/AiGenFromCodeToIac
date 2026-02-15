@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "YAML (Ansible playbooks/config)",
+        "Shell (Bash)"
+      ],
+      "frameworks": [
+        "Ansible (automation/configuration management)",
+        "Poetry (Python packaging)"
+      ],
+      "dependencies": [
+        "Python: ansible ^8.5.0 (from ./pyproject.toml)",
+        "Ansible Galaxy roles (from ./ansible/requirements.yaml): avnes.crictl, avnes.flux, avnes.helm, avnes.k9s, avnes.kubectl, avnes.kubectx, avnes.rke"
+      ],
+      "deployment_relevant_files": [
+        "./pyproject.toml (Poetry project + dependencies)",
+        "./poetry.lock (locked Python deps)",
+        "./ansible/install_cli_tools.yaml (playbook installing CLI tools via roles)",
+        "./ansible/requirements.yaml (Ansible Galaxy role requirements)",
+        "./ansible/inventory/hosts.yaml (inventory: localhost)",
+        "./bin/01_install_cli_tools.sh (bootstrap: installs python/curl, Poetry, Ansible deps, roles, runs playbook)",
+        "./bin/02_create_cluster.sh (runs `terraform init/apply` in ./terraform; directory not present in this repo snapshot)",
+        "./.github/workflows/tfsec.yaml (GitHub Action running tfsec)",
+        "./renovate.json (dependency update automation)"
+      ],
+      "architectural_resources": [
+        "Automation project for provisioning/configuring a Kubernetes cluster using Rancher/RKE (per ./README.md and role list)",
+        "Local execution host (inventory targets localhost)",
+        "Kubernetes cluster management tooling installed: kubectl, helm, flux, k9s, crictl, kubectx, rke (implies interaction with a Kubernetes control plane and container runtime)",
+        "Potential Terraform-managed infrastructure (bin/02_create_cluster.sh references a ./terraform directory and `terraform apply`, but no Terraform files/directories were found in this repository snapshot)",
+        "CI security scanning resource: tfsec GitHub Actions workflow (./.github/workflows/tfsec.yaml)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/781285603",
+      "programming_languages": [
+        "Dockerfile (container build instructions)",
+        "YAML (GitHub Actions, Kubernetes manifests)"
+      ],
+      "frameworks": [
+        "Kubernetes (StatefulSet)",
+        "GitHub Actions (CI pipeline)"
+      ],
+      "dependencies": [
+        "Base image: alpine:latest (Dockerfile)",
+        "OS package: curl (apk add) (Dockerfile)",
+        "Energi Core Node binary release energi3 v1.1.7 downloaded from S3 (Dockerfile)",
+        "GitHub Actions: actions/checkout@v2, docker/setup-qemu-action@v1, docker/setup-buildx-action@v1, hashicorp/setup-terraform@v1, docker/login-action@v1, aws-actions/configure-aws-credentials@v1 (.github/workflows/build-and-scan.yml)",
+        "Security scanner: Trivy v0.21.0 downloaded from GitHub releases (.github/workflows/build-and-scan.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "statefullset/app-statefullset.yaml",
+        "/.github/workflows/build-and-scan.yml",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "Containerized Energi node application (Docker image awskanojia/devops-challenge:latest)",
+        "Kubernetes StatefulSet: energi-node with 3 replicas (statefullset/app-statefullset.yaml)",
+        "Persistent storage: Kubernetes PersistentVolumeClaims via volumeClaimTemplates (1Gi, ReadWriteOnce) (statefullset/app-statefullset.yaml)",
+        "Kubernetes Service dependency implied by spec.serviceName=energi-node (statefullset/app-statefullset.yaml)",
+        "Kubernetes imagePullSecret: dockersecret for pulling from Docker Hub (statefullset/app-statefullset.yaml)",
+        "Network exposure: container ports 39797 (rpc) and 39798 (p2p) in K8s; Dockerfile exposes 39795-39797 and 39797/udp (Dockerfile)",
+        "CI/CD pipeline: GitHub Actions workflow to build multi-arch image, push to Docker Hub, scan with Trivy (.github/workflows/build-and-scan.yml)",
+        "AWS integration: uses aws-actions/configure-aws-credentials; commented EKS deploy steps indicate intended EKS target; Terraform init/plan/apply/destroy steps indicate intended IaC execution (though no *.tf files found in repo) (.github/workflows/build-and-scan.yml)",
+        "External artifact source: Energi release tarball from s3-us-west-2.amazonaws.com (Dockerfile)"
+      ]
+    }
+  ]
+}

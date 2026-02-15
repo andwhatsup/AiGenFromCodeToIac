@@ -1,0 +1,140 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_availability_zones.available: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/pynecone-mail-sorter-dev-cluster]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/pynecone-mail-sorter-dev]
+aws_vpc.this: Refreshing state... [id=vpc-f818348723ebf7890]
+aws_eip.nat: Refreshing state... [id=eipalloc-35dbcaf032a13155e]
+aws_efs_file_system.this: Refreshing state... [id=fs-1c765284]
+aws_ecr_repository.app: Refreshing state... [id=pynecone-mail-sorter-dev-app]
+aws_secretsmanager_secret.google_oauth: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:pynecone-mail-sorter-dev/google/client_secret_json-uRqVUQ]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.task: Refreshing state... [id=pynecone-mail-sorter-dev-ecs-task]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_iam_role.task_execution: Refreshing state... [id=pynecone-mail-sorter-dev-ecs-task-exec]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=pynecone-mail-sorter-dev-app]
+data.aws_iam_policy_document.task_inline: Reading...
+aws_secretsmanager_secret_version.google_oauth: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:pynecone-mail-sorter-dev/google/client_secret_json-uRqVUQ|terraform-20260127004620541700000003]
+aws_iam_role_policy_attachment.task_execution: Refreshing state... [id=pynecone-mail-sorter-dev-ecs-task-exec-20260127004621323500000004]
+data.aws_iam_policy_document.task_inline: Read complete after 0s [id=1306628114]
+aws_efs_access_point.this: Refreshing state... [id=fsap-79160df3]
+aws_iam_role_policy.task_inline: Refreshing state... [id=pynecone-mail-sorter-dev-ecs-task:pynecone-mail-sorter-dev-task-inline]
+aws_internet_gateway.this: Refreshing state... [id=igw-2e9ae6c7f76713160]
+aws_subnet.public["us-east-1a"]: Refreshing state... [id=subnet-d4af4f3a55c68ec00]
+aws_subnet.public["us-east-1b"]: Refreshing state... [id=subnet-d07963f7d17ef0eb3]
+aws_subnet.private["us-east-1a"]: Refreshing state... [id=subnet-bc5435f6bfe02a5c0]
+aws_subnet.private["us-east-1b"]: Refreshing state... [id=subnet-516c49586cc288d27]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/pynecone-mail-sorter-dev-tg/852ee50432c5102a]
+aws_security_group.alb: Refreshing state... [id=sg-39204242cc788ea72]
+aws_route_table.public: Refreshing state... [id=rtb-9e74b58fe52a4c885]
+aws_nat_gateway.this: Refreshing state... [id=nat-546bbc565b87ea9bb]
+aws_route_table_association.public["us-east-1b"]: Refreshing state... [id=rtbassoc-bd0248e17dcf765ec]
+aws_route_table_association.public["us-east-1a"]: Refreshing state... [id=rtbassoc-f7d2926370a416ee5]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/pynecone-mail-sorter-dev-alb/c53b91b24ae8195e]
+aws_security_group.ecs: Refreshing state... [id=sg-d5c3a6887ab7b0848]
+aws_route_table.private: Refreshing state... [id=rtb-70945b903682d02c4]
+aws_route_table_association.private["us-east-1a"]: Refreshing state... [id=rtbassoc-2e7ff745a97e5fa33]
+aws_route_table_association.private["us-east-1b"]: Refreshing state... [id=rtbassoc-694bff5ce279a03a2]
+aws_security_group.efs: Refreshing state... [id=sg-d9d9ee868ca2977ed]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/pynecone-mail-sorter-dev-alb/c53b91b24ae8195e/5778625e6b04a67c]
+aws_ecs_task_definition.app: Refreshing state... [id=pynecone-mail-sorter-dev-task]
+aws_efs_mount_target.this["us-east-1b"]: Refreshing state... [id=fsmt-6cf59853]
+aws_efs_mount_target.this["us-east-1a"]: Refreshing state... [id=fsmt-55d24cef]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/pynecone-mail-sorter-dev-cluster/pynecone-mail-sorter-dev-svc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/pynecone-mail-sorter-dev-cluster/pynecone-mail-sorter-dev-svc"
+        name                               = "pynecone-mail-sorter-dev-svc"
+        tags                               = {
+            "Name" = "pynecone-mail-sorter-dev-svc"
+        }
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/pynecone-mail-sorter-dev-task:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.app must be replaced
+-/+ resource "aws_ecs_task_definition" "app" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/pynecone-mail-sorter-dev-task:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/pynecone-mail-sorter-dev-task" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                    name             = "app"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 34650
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (7 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "pynecone-mail-sorter-dev-task" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+        tags                     = {
+            "Name" = "pynecone-mail-sorter-dev-task"
+        }
+        # (12 unchanged attributes hidden)
+
+      - volume {
+          - configure_at_launch = false -> null
+          - name                = "efs-data" -> null
+            # (1 unchanged attribute hidden)
+
+          - efs_volume_configuration {
+              - file_system_id          = "fs-1c765284" -> null
+              - root_directory          = "/" -> null
+              - transit_encryption      = "ENABLED" -> null
+              - transit_encryption_port = 0 -> null
+
+              - authorization_config {
+                  - access_point_id = "fsap-79160df3" -> null
+                  - iam             = "ENABLED" -> null
+                }
+            }
+        }
+      + volume {
+          + configure_at_launch = (known after apply)
+          + name                = "efs-data"
+            # (1 unchanged attribute hidden)
+
+          + efs_volume_configuration {
+              + file_system_id          = "fs-1c765284"
+              + root_directory          = "/"
+              + transit_encryption      = "ENABLED"
+              + transit_encryption_port = 0
+
+              + authorization_config {
+                  + access_point_id = "fsap-79160df3"
+                  + iam             = "ENABLED"
+                }
+            }
+        }
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/pynecone-mail-sorter-dev-alb/c53b91b24ae8195e/5778625e6b04a67c"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.

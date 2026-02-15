@@ -1,0 +1,38 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_cloudwatch_dashboard.main" [label="aws_cloudwatch_dashboard.main"];
+  "aws_ecr_repository.ecr" [label="aws_ecr_repository.ecr"];
+  "aws_ecs_cluster.cluster" [label="aws_ecs_cluster.cluster"];
+  "aws_ecs_service.service" [label="aws_ecs_service.service"];
+  "aws_ecs_task_definition.task" [label="aws_ecs_task_definition.task"];
+  "aws_iam_role.role" [label="aws_iam_role.role"];
+  "aws_internet_gateway.igw" [label="aws_internet_gateway.igw"];
+  "aws_lb.lb" [label="aws_lb.lb"];
+  "aws_lb_listener.listener" [label="aws_lb_listener.listener"];
+  "aws_lb_target_group.tg" [label="aws_lb_target_group.tg"];
+  "aws_route_table.rt" [label="aws_route_table.rt"];
+  "aws_route_table_association.subnet_routes" [label="aws_route_table_association.subnet_routes"];
+  "aws_security_group.external" [label="aws_security_group.external"];
+  "aws_security_group.internal" [label="aws_security_group.internal"];
+  "aws_subnet.subnets" [label="aws_subnet.subnets"];
+  "aws_vpc.main" [label="aws_vpc.main"];
+  "aws_ecs_service.service" -> "aws_ecs_cluster.cluster";
+  "aws_ecs_service.service" -> "aws_ecs_task_definition.task";
+  "aws_ecs_service.service" -> "aws_lb_target_group.tg";
+  "aws_ecs_service.service" -> "aws_security_group.internal";
+  "aws_ecs_service.service" -> "aws_subnet.subnets";
+  "aws_ecs_task_definition.task" -> "aws_iam_role.role";
+  "aws_internet_gateway.igw" -> "aws_vpc.main";
+  "aws_lb.lb" -> "aws_security_group.external";
+  "aws_lb.lb" -> "aws_subnet.subnets";
+  "aws_lb_listener.listener" -> "aws_lb.lb";
+  "aws_lb_listener.listener" -> "aws_lb_target_group.tg";
+  "aws_lb_target_group.tg" -> "aws_vpc.main";
+  "aws_route_table.rt" -> "aws_internet_gateway.igw";
+  "aws_route_table_association.subnet_routes" -> "aws_route_table.rt";
+  "aws_route_table_association.subnet_routes" -> "aws_subnet.subnets";
+  "aws_security_group.external" -> "aws_vpc.main";
+  "aws_security_group.internal" -> "aws_security_group.external";
+  "aws_subnet.subnets" -> "aws_vpc.main";
+}

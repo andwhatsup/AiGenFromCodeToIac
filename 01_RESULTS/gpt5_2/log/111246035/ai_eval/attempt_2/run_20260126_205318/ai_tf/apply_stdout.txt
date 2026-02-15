@@ -1,0 +1,832 @@
+data.aws_caller_identity.current: Reading...
+data.aws_ami.al2023: Reading...
+data.aws_iam_policy_document.ec2_assume: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ec2_assume: Read complete after 0s [id=2851119427]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_iam_policy_document.ssm_params_read: Reading...
+data.aws_iam_policy_document.ssm_params_read: Read complete after 0s [id=870884194]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+data.aws_ami.al2023: Read complete after 4s [id=ami-07c1fa5792ef8fe27]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_autoscaling_group.this will be created
+  + resource "aws_autoscaling_group" "this" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 120
+      + health_check_type                = "EC2"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 1
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "ssh-key-agent"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = "$Latest"
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "ssh-key-agent"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_cloudwatch_log_group.ssh_key_agent will be created
+  + resource "aws_cloudwatch_log_group" "ssh_key_agent" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ssh-key-agent/daemon"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 30
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+    }
+
+  # aws_iam_instance_profile.this will be created
+  + resource "aws_iam_instance_profile" "this" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "ssh-key-agent-"
+      + path        = "/"
+      + role        = (known after apply)
+      + tags_all    = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_policy.ssm_params_read will be created
+  + resource "aws_iam_policy" "ssm_params_read" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "ssh-key-agent-ssm-params-"
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ssm:GetParametersByPath",
+                          + "ssm:GetParameters",
+                          + "ssm:GetParameter",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "arn:aws:ssm:us-east-1:000000000000:parameter/ssh-key-agent/*"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+    }
+
+  # aws_iam_role.this will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "ssh-key-agent-ec2-"
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.cw_agent will be created
+  + resource "aws_iam_role_policy_attachment" "cw_agent" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+      + role       = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ssm will be created
+  + resource "aws_iam_role_policy_attachment" "ssm" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      + role       = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ssm_params_read will be created
+  + resource "aws_iam_role_policy_attachment" "ssm_params_read" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
+  # aws_launch_template.this will be created
+  + resource "aws_launch_template" "this" {
+      + arn                    = (known after apply)
+      + default_version        = (known after apply)
+      + id                     = (known after apply)
+      + image_id               = "ami-07c1fa5792ef8fe27"
+      + instance_type          = "t3.micro"
+      + latest_version         = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "ssh-key-agent-"
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + user_data              = "IyEvYmluL2Jhc2gKc2V0IC1ldW8gcGlwZWZhaWwKCiMgTG9nIHVzZXItZGF0YQpleGVjID4gPih0ZWUgL3Zhci9sb2cvdXNlci1kYXRhLmxvZyB8IGxvZ2dlciAtdCB1c2VyLWRhdGEgLXMgMj4vZGV2L2NvbnNvbGUpIDI+JjEKCmVjaG8gIkJvb3RzdHJhcHBpbmcgc3NoLWtleS1hZ2VudC4uLiIKCnl1bSAteSB1cGRhdGUKCnl1bSAteSBpbnN0YWxsIGRvY2tlciBhbWF6b24tY2xvdWR3YXRjaC1hZ2VudCBhbWF6b24tZWZzLXV0aWxzIGpxCnN5c3RlbWN0bCBlbmFibGUgLS1ub3cgZG9ja2VyCgojIEZldGNoIGNvbmZpZyBmcm9tIFNTTSBQYXJhbWV0ZXIgU3RvcmUKU0tBX0tFWV9VUkk9JChhd3Mgc3NtIGdldC1wYXJhbWV0ZXIgLS1yZWdpb24gdXMtZWFzdC0xIC0tbmFtZSAiL3NzaC1rZXktYWdlbnQvU0tBX0tFWV9VUkkiIC0tcXVlcnkgJ1BhcmFtZXRlci5WYWx1ZScgLS1vdXRwdXQgdGV4dCkKU0tBX0dST1VQUz0kKGF3cyBzc20gZ2V0LXBhcmFtZXRlciAtLXJlZ2lvbiB1cy1lYXN0LTEgLS1uYW1lICIvc3NoLWtleS1hZ2VudC9TS0FfR1JPVVBTIiAtLXF1ZXJ5ICdQYXJhbWV0ZXIuVmFsdWUnIC0tb3V0cHV0IHRleHQpClNLQV9JTlRFUlZBTD0kKGF3cyBzc20gZ2V0LXBhcmFtZXRlciAtLXJlZ2lvbiB1cy1lYXN0LTEgLS1uYW1lICIvc3NoLWtleS1hZ2VudC9TS0FfSU5URVJWQUwiIC0tcXVlcnkgJ1BhcmFtZXRlci5WYWx1ZScgLS1vdXRwdXQgdGV4dCkKCiMgUHJlcGFyZSBhdXRob3JpemVkX2tleXMgbG9jYXRpb24KQUtfSE9TVF9QQVRIPSIvaG9tZS9lYzItdXNlci8uc3NoL2F1dGhvcml6ZWRfa2V5cyIKQUtfSE9TVF9ESVI9JChkaXJuYW1lICIkQUtfSE9TVF9QQVRIIikKbWtkaXIgLXAgIiRBS19IT1NUX0RJUiIKCiMgSWYgRUZTIGVuYWJsZWQsIG1vdW50IGl0IGF0IC9tbnQvc3NoLWtleXMKaWYgWyAiZmFsc2UiID0gInRydWUiIF07IHRoZW4KICBta2RpciAtcCAvbW50L3NzaC1rZXlzCiAgIyBVc2UgVExTIGZvciBFRlMgbW91bnQKICBlY2hvICI6LyAvbW50L3NzaC1rZXlzIGVmcyBfbmV0ZGV2LHRscyAwIDAiID4+IC9ldGMvZnN0YWIKICBtb3VudCAtYQogIEFLX0hPU1RfUEFUSD0iL21udC9zc2gta2V5cy9hdXRob3JpemVkX2tleXMiCmZpCgp0b3VjaCAiJEFLX0hPU1RfUEFUSCIKY2htb2QgNzAwICIkQUtfSE9TVF9ESVIiIHx8IHRydWUKY2htb2QgNjAwICIkQUtfSE9TVF9QQVRIIiB8fCB0cnVlCgojIENvbmZpZ3VyZSBDbG91ZFdhdGNoIEFnZW50IChiYXNpYykKY2F0ID4vb3B0L2F3cy9hbWF6b24tY2xvdWR3YXRjaC1hZ2VudC9ldGMvYW1hem9uLWNsb3Vkd2F0Y2gtYWdlbnQuanNvbiA8PCdDV0FHRU5UJwp7CiAgImxvZ3MiOiB7CiAgICAibG9nc19jb2xsZWN0ZWQiOiB7CiAgICAgICJmaWxlcyI6IHsKICAgICAgICAiY29sbGVjdF9saXN0IjogWwogICAgICAgICAgewogICAgICAgICAgICAiZmlsZV9wYXRoIjogIi92YXIvbG9nL3VzZXItZGF0YS5sb2ciLAogICAgICAgICAgICAibG9nX2dyb3VwX25hbWUiOiAiL3NzaC1rZXktYWdlbnQvZGFlbW9uIiwKICAgICAgICAgICAgImxvZ19zdHJlYW1fbmFtZSI6ICJ7aW5zdGFuY2VfaWR9L3VzZXItZGF0YSIsCiAgICAgICAgICAgICJ0aW1lc3RhbXBfZm9ybWF0IjogIiVZLSVtLSVkICVIOiVNOiVTIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfQogICAgfQogIH0KfQpDV0FHRU5UCgovb3B0L2F3cy9hbWF6b24tY2xvdWR3YXRjaC1hZ2VudC9iaW4vYW1hem9uLWNsb3Vkd2F0Y2gtYWdlbnQtY3RsIC1hIHN0b3AgfHwgdHJ1ZQovb3B0L2F3cy9hbWF6b24tY2xvdWR3YXRjaC1hZ2VudC9iaW4vYW1hem9uLWNsb3Vkd2F0Y2gtYWdlbnQtY3RsIC1hIGZldGNoLWNvbmZpZyAtbSBlYzIgLWMgZmlsZTovb3B0L2F3cy9hbWF6b24tY2xvdWR3YXRjaC1hZ2VudC9ldGMvYW1hem9uLWNsb3Vkd2F0Y2gtYWdlbnQuanNvbiAtcwoKIyBSdW4gY29udGFpbmVyCiMgVXNlIGF3c2xvZ3MgZHJpdmVyIHRvIHNlbmQgY29udGFpbmVyIGxvZ3MgdG8gQ2xvdWRXYXRjaApDT05UQUlORVJfTkFNRT0ic3NoLWtleS1hZ2VudCIKCmRvY2tlciBybSAtZiAiJENPTlRBSU5FUl9OQU1FIiB8fCB0cnVlCgpkb2NrZXIgcnVuIC1kIC0tbmFtZSAiJENPTlRBSU5FUl9OQU1FIiAtLXJlc3RhcnQ9YWx3YXlzIFwKICAtLWxvZy1kcml2ZXI9YXdzbG9ncyBcCiAgLS1sb2ctb3B0IGF3c2xvZ3MtcmVnaW9uPXVzLWVhc3QtMSBcCiAgLS1sb2ctb3B0IGF3c2xvZ3MtZ3JvdXA9L3NzaC1rZXktYWdlbnQvZGFlbW9uIFwKICAtLWxvZy1vcHQgYXdzbG9ncy1zdHJlYW09IntpbnN0YW5jZV9pZH0vY29udGFpbmVyIiBcCiAgLXYgIiRBS19IT1NUX1BBVEgiOiIvYXV0aG9yaXplZF9rZXlzIjpydyBcCiAgLWUgU0tBX0tFWV9VUkk9IiRTS0FfS0VZX1VSSSIgXAogIC1lIFNLQV9HUk9VUFM9IiRTS0FfR1JPVVBTIiBcCiAgLWUgU0tBX0FLRl9MT0M9Ii9hdXRob3JpemVkX2tleXMiIFwKICAtZSBTS0FfSU5URVJWQUw9IiRTS0FfSU5URVJWQUwiIFwKICBxdWF5LmlvL3V0aWxpdHl3YXJlaG91c2Uvc3NoLWtleS1hZ2VudDpsYXRlc3QKCmVjaG8gIkRvbmUuIgo="
+      + vpc_security_group_ids = (known after apply)
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + delete_on_termination      = "true"
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 10
+              + volume_type                = "gp3"
+            }
+        }
+
+      + iam_instance_profile {
+          + name = (known after apply)
+        }
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 2
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Managed" = "terraform"
+              + "Name"    = "ssh-key-agent"
+              + "Project" = "ssh-key-agent"
+            }
+        }
+    }
+
+  # aws_security_group.instance will be created
+  + resource "aws_security_group" "instance" {
+      + arn                    = (known after apply)
+      + description            = "Instance security group for ssh-key-agent host"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow DNS"
+              + from_port        = 53
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "udp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 53
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTPS egress"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow NTP"
+              + from_port        = 123
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "udp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 123
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "ssh-key-agent-instance-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_ssm_parameter.ska_groups will be created
+  + resource "aws_ssm_parameter" "ska_groups" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Comma separated list of groups"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/ssh-key-agent/SKA_GROUPS"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.ska_interval will be created
+  + resource "aws_ssm_parameter" "ska_interval" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Sync interval in seconds"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/ssh-key-agent/SKA_INTERVAL"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.ska_key_uri will be created
+  + resource "aws_ssm_parameter" "ska_key_uri" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "URI location of the authmap JSON"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/ssh-key-agent/SKA_KEY_URI"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "ssh-key-agent"
+        }
+      + tier           = (known after apply)
+      + type           = "String"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # module.vpc.aws_default_network_acl.this[0] will be created
+  + resource "aws_default_network_acl" "this" {
+      + arn                    = (known after apply)
+      + default_network_acl_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + tags                   = {
+          + "Name" = "ssh-key-agent-default"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-default"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                 = (known after apply)
+
+      + egress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + egress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+
+      + ingress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + ingress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.vpc.aws_default_route_table.default[0] will be created
+  + resource "aws_default_route_table" "default" {
+      + arn                    = (known after apply)
+      + default_route_table_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + route                  = (known after apply)
+      + tags                   = {
+          + "Name" = "ssh-key-agent-default"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-default"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                 = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+          + update = "5m"
+        }
+    }
+
+  # module.vpc.aws_default_security_group.this[0] will be created
+  + resource "aws_default_security_group" "this" {
+      + arn                    = (known after apply)
+      + description            = (known after apply)
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "ssh-key-agent-default"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-default"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpc.aws_eip.nat[0] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "ssh-key-agent-us-east-1a"
+        }
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-us-east-1a"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # module.vpc.aws_internet_gateway.this[0] will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "ssh-key-agent"
+        }
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.vpc.aws_nat_gateway.this[0] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "ssh-key-agent-us-east-1a"
+        }
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-us-east-1a"
+          + "Project" = "ssh-key-agent"
+        }
+    }
+
+  # module.vpc.aws_route.private_nat_gateway[0] will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route.public_internet_gateway[0] will be created
+  + resource "aws_route" "public_internet_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route_table.private[0] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "ssh-key-agent-private"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-private"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.public[0] will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "ssh-key-agent-public"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-public"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.10.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ssh-key-agent-private-us-east-1a"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-private-us-east-1a"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.11.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ssh-key-agent-private-us-east-1b"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-private-us-east-1b"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ssh-key-agent-public-us-east-1a"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-public-us-east-1a"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "ssh-key-agent-public-us-east-1b"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent-public-us-east-1b"
+          + "Project" = "ssh-key-agent"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_vpc.this[0] will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.20.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "ssh-key-agent"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "ssh-key-agent"
+          + "Project" = "ssh-key-agent"
+        }
+    }
+
+Plan: 32 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + autoscaling_group_name = "ssh-key-agent"
+  + cloudwatch_log_group   = "/ssh-key-agent/daemon"
+  + private_subnet_ids     = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + ssm_parameters         = {
+      + ska_groups   = "/ssh-key-agent/SKA_GROUPS"
+      + ska_interval = "/ssh-key-agent/SKA_INTERVAL"
+      + ska_key_uri  = "/ssh-key-agent/SKA_KEY_URI"
+    }
+  + vpc_id                 = (known after apply)
+aws_ssm_parameter.ska_key_uri: Creating...
+aws_iam_policy.ssm_params_read: Creating...
+aws_iam_role.this: Creating...
+aws_cloudwatch_log_group.ssh_key_agent: Creating...
+aws_ssm_parameter.ska_interval: Creating...
+aws_ssm_parameter.ska_groups: Creating...
+module.vpc.aws_vpc.this[0]: Creating...
+aws_iam_policy.ssm_params_read: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/ssh-key-agent-ssm-params-20260126195343100300000001]
+aws_iam_role.this: Creation complete after 0s [id=ssh-key-agent-ec2-20260126195343100600000002]
+aws_iam_role_policy_attachment.ssm: Creating...
+aws_iam_role_policy_attachment.cw_agent: Creating...
+aws_iam_role_policy_attachment.ssm_params_read: Creating...
+aws_iam_instance_profile.this: Creating...
+aws_iam_role_policy_attachment.cw_agent: Creation complete after 1s [id=ssh-key-agent-ec2-20260126195343100600000002-20260126195343504300000004]
+aws_iam_role_policy_attachment.ssm_params_read: Creation complete after 1s [id=ssh-key-agent-ec2-20260126195343100600000002-20260126195343508500000005]
+aws_iam_role_policy_attachment.ssm: Creation complete after 1s [id=ssh-key-agent-ec2-20260126195343100600000002-20260126195343508600000006]
+aws_cloudwatch_log_group.ssh_key_agent: Creation complete after 1s [id=/ssh-key-agent/daemon]
+aws_ssm_parameter.ska_key_uri: Creation complete after 1s [id=/ssh-key-agent/SKA_KEY_URI]
+aws_ssm_parameter.ska_interval: Creation complete after 2s [id=/ssh-key-agent/SKA_INTERVAL]
+aws_iam_instance_profile.this: Creation complete after 6s [id=ssh-key-agent-20260126195343489700000003]
+module.vpc.aws_vpc.this[0]: Still creating... [00m10s elapsed]
+module.vpc.aws_vpc.this[0]: Creation complete after 10s [id=vpc-5a2ad86d55c4af1ab]
+module.vpc.aws_default_route_table.default[0]: Creating...
+module.vpc.aws_subnet.public[1]: Creating...
+module.vpc.aws_default_security_group.this[0]: Creating...
+module.vpc.aws_subnet.private[1]: Creating...
+module.vpc.aws_route_table.public[0]: Creating...
+module.vpc.aws_default_network_acl.this[0]: Creating...
+module.vpc.aws_subnet.public[0]: Creating...
+module.vpc.aws_route_table.private[0]: Creating...
+module.vpc.aws_subnet.private[0]: Creating...
+aws_security_group.instance: Creating...
+module.vpc.aws_subnet.public[0]: Creation complete after 0s [id=subnet-8623a51349a7d9688]
+module.vpc.aws_subnet.private[1]: Creation complete after 0s [id=subnet-a59b826ad715e484d]
+module.vpc.aws_default_route_table.default[0]: Creation complete after 0s [id=rtb-6807e11bef4f13ab4]
+module.vpc.aws_internet_gateway.this[0]: Creating...
+module.vpc.aws_subnet.public[1]: Creation complete after 0s [id=subnet-5d947e2d23d673f26]
+module.vpc.aws_subnet.private[0]: Creation complete after 0s [id=subnet-3395c0cf27540e8da]
+module.vpc.aws_default_security_group.this[0]: Creation complete after 0s [id=sg-0f709437568c213a1]
+module.vpc.aws_internet_gateway.this[0]: Creation complete after 0s [id=igw-21115a3d154b21054]
+module.vpc.aws_default_network_acl.this[0]: Creation complete after 0s [id=acl-dfad5ba4e3c2dc529]
+module.vpc.aws_eip.nat[0]: Creating...
+module.vpc.aws_eip.nat[0]: Creation complete after 0s [id=eipalloc-11790df02040a050c]
+module.vpc.aws_nat_gateway.this[0]: Creating...
+module.vpc.aws_nat_gateway.this[0]: Creation complete after 0s [id=nat-6e8fea174930f7f47]
+module.vpc.aws_route_table.public[0]: Creation complete after 0s [id=rtb-0a79072d3a2262ee4]
+module.vpc.aws_route_table.private[0]: Creation complete after 0s [id=rtb-d798e3fdfc7ef5974]
+module.vpc.aws_route_table_association.public[0]: Creating...
+module.vpc.aws_route_table_association.public[1]: Creating...
+module.vpc.aws_route_table_association.private[1]: Creating...
+module.vpc.aws_route_table_association.private[0]: Creating...
+module.vpc.aws_route.public_internet_gateway[0]: Creating...
+module.vpc.aws_route.private_nat_gateway[0]: Creating...
+module.vpc.aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-7fcfea67cec7227f0]
+module.vpc.aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-b479033f0f3ca9bb9]
+module.vpc.aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-cff6e3c75575dede5]
+module.vpc.aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-f54e7c9be6317718b]
+module.vpc.aws_route.public_internet_gateway[0]: Creation complete after 1s [id=r-rtb-0a79072d3a2262ee41080289494]
+module.vpc.aws_route.private_nat_gateway[0]: Creation complete after 1s [id=r-rtb-d798e3fdfc7ef59741080289494]
+aws_security_group.instance: Creation complete after 1s [id=sg-243c09afd9868ac49]

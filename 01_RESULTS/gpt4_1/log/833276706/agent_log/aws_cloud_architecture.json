@@ -1,0 +1,16 @@
+{
+  "aws_architecture_description": "This system is an infrastructure automation pipeline that leverages Docker, Terraform, and AWS CLI to provision and manage AWS resources. The architecture is designed for reproducibility, isolation, and automation, following best practices for infrastructure-as-code (IaC) workflows.\n\n**High-Level AWS Architecture:**\n1. **Developer Workstation**: Developers maintain and update the IaC source code locally.\n2. **Dockerized Tooling Environment**: Developers use a Docker container (based on Ubuntu) that includes Terraform CLI, AWS CLI, and supporting tools. This ensures a consistent environment for running infrastructure automation scripts.\n3. **AWS Cloud**: The Dockerized environment, running Terraform and AWS CLI, provisions and manages AWS resources in the target AWS account. The specific AWS resources to be provisioned are defined in the Terraform scripts. While the exact application resources are not specified in the codebase, a foundational AWS environment is required for most IaC projects.\n\n**Deployment Strategy:**\n- Developers run the Docker container locally or in a CI/CD pipeline, mounting the IaC source code.\n- Terraform (via AWS CLI) authenticates using IAM credentials and provisions AWS resources as defined in the Terraform configuration.\n- The architecture is modular and can be extended to provision any AWS resources (e.g., compute, storage, networking) as needed by the project.\n\n**Security & Best Practices:**\n- Use IAM roles and policies with least privilege for Terraform/AWS CLI operations.\n- Store state files securely (e.g., in S3 with versioning and encryption enabled).\n- Use remote state locking (e.g., DynamoDB) to prevent concurrent modifications.\n- Isolate resources in a dedicated VPC with appropriate subnets and security groups.\n- Enable logging and monitoring (e.g., CloudTrail, CloudWatch) for auditing and troubleshooting.\n\n**Scalability:**\n- The architecture supports scaling by allowing multiple developers or CI/CD agents to run the Dockerized tooling in parallel, with proper state management.\n- AWS resources can be scaled as needed by updating Terraform configurations.\n\n**Extensibility:**\n- The architecture can be extended to provision application-specific resources (e.g., EC2, RDS, Lambda, S3) as required by future project needs.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway (if private subnets are used)",
+    "Route Tables",
+    "Security Groups",
+    "IAM Roles and Policies for Terraform/AWS CLI",
+    "S3 Bucket for Terraform State (with versioning and encryption)",
+    "DynamoDB Table for Terraform State Locking",
+    "CloudTrail (for API auditing)",
+    "CloudWatch Logs (for monitoring)"
+  ]
+}

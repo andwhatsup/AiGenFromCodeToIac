@@ -1,0 +1,96 @@
+aws_cloudwatch_log_group.ecs_cluster: Refreshing state... [id=ecs_cluster]
+aws_cloudwatch_log_group.frontend_landing_page-apps: Refreshing state... [id=frontend-landing-page-log-group]
+aws_vpc.my-vpc-02: Refreshing state... [id=vpc-251bfd0b4bc8b9fb1]
+aws_sns_topic.notification_topic: Refreshing state... [id=arn:aws:sns:us-east-1:000000000000:ecs-cpu-usage-alert]
+aws_ecs_task_definition.poc_assessment: Refreshing state... [id=poc-Assessment]
+aws_ecs_cluster.poc_assessment: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/white-hart]
+aws_sns_topic_subscription.email_subscription: Refreshing state... [id=arn:aws:sns:us-east-1:000000000000:ecs-cpu-usage-alert:3eec7471-7816-47ae-ae37-564f387e76f5]
+aws_cloudwatch_metric_alarm.ecs_cpu_alarm: Refreshing state... [id=ecs-cpu-alarm]
+aws_internet_gateway.my-internet-gateway: Refreshing state... [id=igw-75e00ff3d5077c766]
+aws_security_group.ecs_security_group: Refreshing state... [id=sg-465a3953a221092c9]
+aws_subnet.private_subnet_1: Refreshing state... [id=subnet-a66fa17e1c9a2d899]
+aws_subnet.private_subnet_2: Refreshing state... [id=subnet-467bf2af8b4165f7f]
+aws_security_group.elb_security_group: Refreshing state... [id=sg-1894b3283352eada9]
+aws_subnet.public_subnet_2: Refreshing state... [id=subnet-e5f081622a8476782]
+aws_subnet.public_subnet_1: Refreshing state... [id=subnet-cfbaa65ce70359943]
+aws_lb_target_group.poc_revamp_ecs_containers: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/poc-load-balancer-Group/17f4d3b8dbdf1add]
+aws_eip.nat_eip_2: Refreshing state... [id=eipalloc-508e6e63b48d5df9b]
+aws_route_table.public_route_table: Refreshing state... [id=rtb-be325098cd2a91358]
+aws_eip.nat_eip_1: Refreshing state... [id=eipalloc-6b19759b772ee8788]
+aws_security_group_rule.allow_http_egress_traffic: Refreshing state... [id=sgrule-2648197797]
+aws_security_group_rule.elb_allow_http_egress_traffic: Refreshing state... [id=sgrule-1629923555]
+aws_security_group_rule.allow_http_ingress_traffic: Refreshing state... [id=sgrule-2107837978]
+aws_security_group_rule.elb_allow_http_ingress_traffic: Refreshing state... [id=sgrule-4152312678]
+aws_lb.poc-revamp-elb: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/poc-accessment-elb/8366074b86d8e7f6]
+aws_route_table_association.public_subnet_2_association: Refreshing state... [id=rtbassoc-44adbc86dd97b713a]
+aws_route_table_association.public_subnet_1_association: Refreshing state... [id=rtbassoc-cbdc10efba2c1a5d0]
+aws_nat_gateway.nat_gateway_2: Refreshing state... [id=nat-72cb4ed7dd720e019]
+aws_nat_gateway.nat_gateway_1: Refreshing state... [id=nat-e98f564c7fcdce132]
+aws_ecs_service.poc_assessment_service: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/white-hart/Poc-Assessment]
+aws_route_table.private_route_table_1: Refreshing state... [id=rtb-be6169387d903fb1c]
+aws_lb_listener.revamp_frontend_landing: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/poc-accessment-elb/8366074b86d8e7f6/5a8df966982e8e67]
+aws_route_table.private_route_table_2: Refreshing state... [id=rtb-f68db9908bc9c63c3]
+aws_route_table_association.private_subnet_1_association: Refreshing state... [id=rtbassoc-406d5ab47ea8683d7]
+aws_route_table_association.private_subnet_2_association: Refreshing state... [id=rtbassoc-241ccf7a2e935bd8d]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.poc_assessment_service will be updated in-place
+  ~ resource "aws_ecs_service" "poc_assessment_service" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/white-hart/Poc-Assessment"
+        name                               = "Poc-Assessment"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/poc-Assessment:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.poc_assessment must be replaced
+-/+ resource "aws_ecs_task_definition" "poc_assessment" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/poc-Assessment:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/poc-Assessment" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                  - environment      = []
+                  - mountPoints      = []
+                    name             = "hashicorp-http-echo-container"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 2786
+                            # (1 unchanged attribute hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (3 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "poc-Assessment" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+      ~ tags_all                 = {} -> (known after apply)
+        # (11 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_lb_listener.revamp_frontend_landing will be updated in-place
+  ~ resource "aws_lb_listener" "revamp_frontend_landing" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/poc-accessment-elb/8366074b86d8e7f6/5a8df966982e8e67"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.

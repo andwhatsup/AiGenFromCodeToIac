@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is a containerized Node.js (Express) web application, built and deployed via a CI/CD pipeline (GitHub Actions), with potential for infrastructure-as-code (Terraform). The recommended AWS architecture is as follows:\n\n1. **Networking**: Deploy the application within a dedicated VPC for network isolation and security. Use public and private subnets across at least two Availability Zones for high availability.\n\n2. **Compute**: Host the Dockerized application using AWS Elastic Container Service (ECS) with Fargate launch type for serverless container management. ECS will pull the container image from Amazon Elastic Container Registry (ECR), which is populated by the CI/CD pipeline.\n\n3. **Load Balancing**: Use an Application Load Balancer (ALB) to distribute incoming HTTP(S) traffic to the ECS service, enabling scalability and health checks.\n\n4. **CI/CD Integration**: GitHub Actions will build and push Docker images to ECR, and (optionally) trigger deployments to ECS using AWS credentials (IAM user/role with least privilege for CI/CD).\n\n5. **IAM & Security**: Use IAM roles for ECS tasks, ECR access, and CI/CD integration. Security groups will restrict access to only necessary ports (e.g., 80/443 for ALB, 3000 for ECS tasks if needed).\n\n6. **Monitoring & Logging**: Enable Amazon CloudWatch for ECS service and ALB logs, and set up log groups for application logs.\n\n7. **(Optional) Infrastructure as Code**: If Terraform is used, manage all AWS resources declaratively for repeatability and version control.\n\nThis architecture is secure, scalable, and cost-effective, following AWS best practices for containerized web applications.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway (for ECS tasks to access the internet if needed)",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "Elastic Container Registry (ECR)",
+    "Elastic Container Service (ECS) Cluster (Fargate)",
+    "ECS Task Definition (with IAM role)",
+    "ECS Service (with desired count, auto-scaling policies)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS service)",
+    "IAM Roles and Policies (for ECS tasks, ECR access, CI/CD integration)",
+    "CloudWatch Log Groups (for ECS and application logs)",
+    "CloudWatch Alarms (for monitoring)",
+    "(Optional) S3 Bucket (for storing logs or artifacts)"
+  ]
+}

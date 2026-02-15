@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.s3_public_read" [label="data.aws_iam_policy_document.s3_public_read"];
+  "aws_s3_bucket.static_assets" [label="aws_s3_bucket.static_assets"];
+  "aws_s3_bucket_policy.static_assets" [label="aws_s3_bucket_policy.static_assets"];
+  "aws_s3_bucket_public_access_block.static_assets" [label="aws_s3_bucket_public_access_block.static_assets"];
+  "random_id.bucket_suffix" [label="random_id.bucket_suffix"];
+  "data.aws_iam_policy_document.s3_public_read" -> "aws_s3_bucket.static_assets";
+  "aws_s3_bucket.static_assets" -> "random_id.bucket_suffix";
+  "aws_s3_bucket_policy.static_assets" -> "data.aws_iam_policy_document.s3_public_read";
+  "aws_s3_bucket_public_access_block.static_assets" -> "aws_s3_bucket.static_assets";
+}

@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This Go-based ssh-key-agent application is best deployed on AWS using a containerized approach for scalability, maintainability, and security. The application will be packaged as a Docker container and deployed using AWS Fargate (a serverless compute engine for containers) within an ECS (Elastic Container Service) cluster. This approach eliminates the need to manage EC2 instances directly, while providing robust networking and IAM controls. \n\nThe architecture includes the following components:\n\n1. **Networking**: A dedicated VPC with public and private subnets across multiple Availability Zones for high availability. The ECS service will run in private subnets, with a NAT Gateway for outbound internet access (to reach external SSH servers and HTTP APIs).\n\n2. **ECS & Fargate**: The Go application is built into a Docker image, stored in Amazon ECR (Elastic Container Registry), and deployed as an ECS service using Fargate. The ECS task definition will specify environment variables for configuration.\n\n3. **IAM**: IAM roles and policies will be created for ECS tasks to securely access AWS resources if needed (e.g., SSM Parameter Store or Secrets Manager for sensitive configuration).\n\n4. **Security Groups**: Security groups will restrict inbound and outbound traffic. Outbound access will be allowed to external SSH servers and HTTP APIs as required.\n\n5. **Parameter Store/Secrets Manager**: Environment variables and sensitive configuration (such as SKA_KEY_URI) can be stored securely in AWS Systems Manager Parameter Store or AWS Secrets Manager, and injected into the ECS task at runtime.\n\n6. **Monitoring & Logging**: CloudWatch Logs will collect application logs from ECS tasks. CloudWatch Alarms can be set up for monitoring application health and resource usage.\n\n7. **Optional**: If the application needs to be triggered externally (e.g., via HTTP), an Application Load Balancer (ALB) and/or API Gateway can be added. For now, this is omitted as the app appears to be a background service.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized workloads.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Task Definition (Fargate launch type)",
+    "ECS Service (Fargate)",
+    "Elastic Container Registry (ECR) Repository",
+    "IAM Role for ECS Task Execution",
+    "IAM Policy for ECS Task (access to Parameter Store/Secrets Manager if needed)",
+    "Security Groups (for ECS tasks, NAT Gateway, etc.)",
+    "AWS Systems Manager Parameter Store or AWS Secrets Manager (for environment variables/secrets)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (optional, for monitoring)"
+  ]
+}

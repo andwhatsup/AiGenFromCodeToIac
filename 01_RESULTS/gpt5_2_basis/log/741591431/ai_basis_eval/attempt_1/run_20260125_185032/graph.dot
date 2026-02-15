@@ -1,0 +1,34 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_availability_zones.available" [label="data.aws_availability_zones.available"];
+  "aws_eks_cluster.this" [label="aws_eks_cluster.this"];
+  "aws_eks_node_group.this" [label="aws_eks_node_group.this"];
+  "aws_iam_role.eks_cluster" [label="aws_iam_role.eks_cluster"];
+  "aws_iam_role.eks_node" [label="aws_iam_role.eks_node"];
+  "aws_iam_role_policy_attachment.ecr_readonly" [label="aws_iam_role_policy_attachment.ecr_readonly"];
+  "aws_iam_role_policy_attachment.eks_cluster_policy" [label="aws_iam_role_policy_attachment.eks_cluster_policy"];
+  "aws_iam_role_policy_attachment.eks_cni" [label="aws_iam_role_policy_attachment.eks_cni"];
+  "aws_iam_role_policy_attachment.eks_worker_node" [label="aws_iam_role_policy_attachment.eks_worker_node"];
+  "aws_internet_gateway.this" [label="aws_internet_gateway.this"];
+  "aws_route_table.public" [label="aws_route_table.public"];
+  "aws_route_table_association.public" [label="aws_route_table_association.public"];
+  "aws_subnet.public" [label="aws_subnet.public"];
+  "aws_vpc.this" [label="aws_vpc.this"];
+  "aws_eks_cluster.this" -> "aws_iam_role_policy_attachment.eks_cluster_policy";
+  "aws_eks_cluster.this" -> "aws_subnet.public";
+  "aws_eks_node_group.this" -> "aws_eks_cluster.this";
+  "aws_eks_node_group.this" -> "aws_iam_role_policy_attachment.ecr_readonly";
+  "aws_eks_node_group.this" -> "aws_iam_role_policy_attachment.eks_cni";
+  "aws_eks_node_group.this" -> "aws_iam_role_policy_attachment.eks_worker_node";
+  "aws_iam_role_policy_attachment.ecr_readonly" -> "aws_iam_role.eks_node";
+  "aws_iam_role_policy_attachment.eks_cluster_policy" -> "aws_iam_role.eks_cluster";
+  "aws_iam_role_policy_attachment.eks_cni" -> "aws_iam_role.eks_node";
+  "aws_iam_role_policy_attachment.eks_worker_node" -> "aws_iam_role.eks_node";
+  "aws_internet_gateway.this" -> "aws_vpc.this";
+  "aws_route_table.public" -> "aws_internet_gateway.this";
+  "aws_route_table_association.public" -> "aws_route_table.public";
+  "aws_route_table_association.public" -> "aws_subnet.public";
+  "aws_subnet.public" -> "data.aws_availability_zones.available";
+  "aws_subnet.public" -> "aws_vpc.this";
+}

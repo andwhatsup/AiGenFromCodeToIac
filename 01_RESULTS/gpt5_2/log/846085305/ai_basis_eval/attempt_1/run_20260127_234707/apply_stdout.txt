@@ -1,0 +1,178 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_event_rule.schedule will be created
+  + resource "aws_cloudwatch_event_rule" "schedule" {
+      + arn                 = (known after apply)
+      + event_bus_name      = "default"
+      + force_destroy       = false
+      + id                  = (known after apply)
+      + name                = "home-automation-collector-schedule"
+      + name_prefix         = (known after apply)
+      + region              = "us-east-1"
+      + schedule_expression = "rate(5 minutes)"
+      + tags_all            = {
+          + "Managed" = "terraform"
+          + "Project" = "home-automation"
+        }
+    }
+
+  # aws_cloudwatch_event_target.lambda will be created
+  + resource "aws_cloudwatch_event_target" "lambda" {
+      + arn            = (known after apply)
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + rule           = "home-automation-collector-schedule"
+      + target_id      = "lambda"
+    }
+
+  # aws_ecr_repository.app will be created
+  + resource "aws_ecr_repository" "app" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "home-automation"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Project" = "home-automation"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_iam_role.lambda will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "home-automation-collector-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "home-automation"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "home-automation-collector-role"
+    }
+
+  # aws_lambda_function.collector will be created
+  + resource "aws_lambda_function" "collector" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "home-automation-collector"
+      + id                             = (known after apply)
+      + image_uri                      = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Image"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Managed" = "terraform"
+          + "Project" = "home-automation"
+        }
+      + timeout                        = 60
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "INFLUXDB_BUCKET" = "ai-basis-tf-bucket"
+              + "INFLUXDB_ORG"    = "ai-basis-tf"
+              + "INFLUXDB_TOKEN"  = (sensitive value)
+              + "INFLUXDB_URL"    = "ai-basis-tf"
+              + "TUYA_APIKEY"     = (sensitive value)
+              + "TUYA_APISECRET"  = (sensitive value)
+              + "TUYA_APISREGION" = "ai-basis-tf"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_events will be created
+  + resource "aws_lambda_permission" "allow_events" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "home-automation-collector"
+      + id                  = (known after apply)
+      + principal           = "events.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromEventBridge"
+      + statement_id_prefix = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aws_region            = "us-east-1"
+  + ecr_repository_url    = (known after apply)
+  + eventbridge_rule_name = "home-automation-collector-schedule"
+  + lambda_function_name  = "home-automation-collector"
+aws_ecr_repository.app: Creating...
+aws_cloudwatch_event_rule.schedule: Creating...
+aws_iam_role.lambda: Creating...
+aws_cloudwatch_event_rule.schedule: Creation complete after 0s [id=home-automation-collector-schedule]
+aws_iam_role.lambda: Creation complete after 0s [id=home-automation-collector-role]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=home-automation-collector-role/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_ecr_repository.app: Creation complete after 1s [id=home-automation]
+aws_lambda_function.collector: Creating...

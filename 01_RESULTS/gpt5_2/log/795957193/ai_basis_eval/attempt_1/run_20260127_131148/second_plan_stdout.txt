@@ -1,0 +1,30 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.al2023: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-b89026ff08b0ed100]
+data.aws_subnets.default: Reading...
+aws_security_group.app: Refreshing state... [id=sg-b81807c68de7aa326]
+data.aws_subnets.default: Read complete after 0s [id=us-west-2]
+data.aws_ami.al2023: Read complete after 4s [id=ami-06a974f9b8a97ecf2]
+aws_instance.app: Refreshing state... [id=i-03b33154587c6cd87]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.app will be updated in-place
+  ~ resource "aws_instance" "app" {
+        id                                   = "i-03b33154587c6cd87"
+        tags                                 = {
+            "Name" = "zezf-ec2"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-b81807c68de7aa326",
+        ]
+        # (37 unchanged attributes hidden)
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

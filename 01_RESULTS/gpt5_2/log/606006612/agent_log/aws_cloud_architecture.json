@@ -1,0 +1,27 @@
+{
+  "aws_architecture_description": "### Target deployment: ECS on Fargate (private subnets) + ECR + CloudWatch Logs, connecting outbound to MongoDB Atlas\n\n#### 1) Container build & registry\n- Build the Java app into a shaded JAR (`bin/App.jar`) via Maven Shade, then build a container image (OpenJDK 19 base) using the provided `Dockerfile`.\n- Push the image to **Amazon ECR**.\n- Use **ECR image scanning** (basic) and immutable tags (recommended) to reduce supply-chain risk.\n\n#### 2) Networking (VPC)\n- Create a dedicated **VPC** spanning **at least 2 Availability Zones**.\n- Create **private subnets** in each AZ for the ECS tasks.\n- Create **public subnets** in each AZ only for internet-facing egress components (NAT) and optional load balancer (not required for a console/worker-style app).\n- Add:\n  - **Internet Gateway (IGW)** attached to the VPC.\n  - **NAT Gateway(s)** in public subnets so tasks in private subnets can reach the public internet.\n  - Route tables:\n    - Public subnets route `0.0.0.0/0` to IGW.\n    - Private subnets route `0.0.0.0/0` to NAT.\n\n#### 3) Compute: ECS Cluster + Fargate Service\n- Create an **ECS Cluster**.\n- Define an **ECS Task Definition** (Fargate) that:\n  - References the ECR image.\n  - Configures CPU/memory.\n  - Sends container stdout/stderr to **CloudWatch Logs**.\n  - Injects `MONGODB_URI` via **AWS Secrets Manager** (preferred) or SSM Parameter Store.\n  - Uses two IAM roles:\n    - **Task execution role** (pull from ECR, write logs).\n    - **Task role** (application role) used by the MongoDB driver when `authMechanism=MONGODB-AWS` is used.\n- Create an **ECS Service** (Fargate) in the private subnets to maintain desired count (e.g., 1+). This is a worker/console-style workload, so no load balancer is required unless you later add an HTTP endpoint.\n\n#### 4) Security controls\n- **Security Group for ECS tasks**:\n  - No inbound rules (typical for a worker).\n  - Egress restricted to:\n    - MongoDB Atlas endpoints on TCP 27017 (or SRV-resolved targets) over TLS.\n    - AWS endpoints needed for ECR/Logs/Secrets (either via NAT or via VPC endpoints).\n- **IAM**:\n  - Least-privilege policies for execution role (ECR pull + CloudWatch Logs).\n  - Least-privilege policies for task role (only what MongoDB AWS auth requires; typically STS-related calls and any required AWS auth integration).\n- **Secrets**:\n  - Store `MONGODB_URI` in Secrets Manager; grant read to the task role.\n\n#### 5) Observability\n- **CloudWatch Log Group** for the ECS task logs with retention configured.\n- **CloudWatch Alarms** on:\n  - ECS service running task count < desired.\n  - Task failures / high restart rate.\n  - (Optional) NAT Gateway errors/bytes if egress is critical.\n\n#### 6) Optional hardening / cost optimizations (choose based on needs)\n- **VPC Endpoints** to reduce NAT dependency/cost and keep traffic private for AWS services:\n  - Gateway endpoint: S3 (used by ECR under the hood in some flows).\n  - Interface endpoints: ECR (api + dkr), CloudWatch Logs, Secrets Manager, STS.\n- **ECS capacity providers / autoscaling**:\n  - Service autoscaling based on CloudWatch metrics if the workload becomes variable.\n\n#### 7) MongoDB Atlas connectivity notes\n- The app connects outbound to **MongoDB Atlas** using `MONGODB_URI` and `authMechanism=MONGODB-AWS`.\n- Ensure Atlas network access allows the ECS tasks’ egress IPs (commonly via NAT Gateway Elastic IPs) or use Atlas features such as private connectivity if you later decide to avoid public internet paths.\n",
+  "aws_resources": [
+    "Amazon ECR Repository (with image scanning and lifecycle policy)",
+    "Amazon ECS Cluster",
+    "Amazon ECS Task Definition (Fargate)",
+    "Amazon ECS Service (Fargate)",
+    "Amazon CloudWatch Logs Log Group (and log retention policy)",
+    "Amazon CloudWatch Alarms (ECS service/task health, optional NAT metrics)",
+    "AWS IAM Role: ECS Task Execution Role",
+    "AWS IAM Role: ECS Task Role (application role for MongoDB AWS auth)",
+    "AWS IAM Policies/Attachments for ECR pull, CloudWatch Logs, Secrets access, and required STS permissions",
+    "AWS Secrets Manager Secret (stores MONGODB_URI)",
+    "Amazon VPC",
+    "VPC Subnets: Private subnets (>=2 AZs)",
+    "VPC Subnets: Public subnets (>=2 AZs)",
+    "VPC Route Tables (public and private) + route associations",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (1 per AZ recommended, or 1 for lower cost)",
+    "Elastic IP(s) for NAT Gateway(s)",
+    "Security Group for ECS Tasks",
+    "(Optional) VPC Endpoints: Interface endpoints for ECR (api, dkr), CloudWatch Logs, Secrets Manager, STS",
+    "(Optional) VPC Endpoint: Gateway endpoint for S3",
+    "(Optional) AWS KMS Key (customer-managed) for Secrets Manager encryption and log group encryption if required by policy",
+    "(Optional) Application Auto Scaling target/policy for ECS Service desired count"
+  ]
+}

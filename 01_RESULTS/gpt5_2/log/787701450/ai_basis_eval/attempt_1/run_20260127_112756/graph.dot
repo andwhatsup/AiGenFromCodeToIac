@@ -1,0 +1,35 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_role.sfn" [label="aws_iam_role.sfn"];
+  "aws_iam_role_policy.sfn" [label="aws_iam_role_policy.sfn"];
+  "aws_s3_bucket.pipeline" [label="aws_s3_bucket.pipeline"];
+  "aws_s3_bucket_notification.pipeline" [label="aws_s3_bucket_notification.pipeline"];
+  "aws_s3_bucket_public_access_block.pipeline" [label="aws_s3_bucket_public_access_block.pipeline"];
+  "aws_s3_bucket_server_side_encryption_configuration.pipeline" [label="aws_s3_bucket_server_side_encryption_configuration.pipeline"];
+  "aws_s3_bucket_versioning.pipeline" [label="aws_s3_bucket_versioning.pipeline"];
+  "aws_sfn_state_machine.s3_object_created_comprehend" [label="aws_sfn_state_machine.s3_object_created_comprehend"];
+  "aws_sfn_state_machine.s3_object_created_text" [label="aws_sfn_state_machine.s3_object_created_text"];
+  "aws_sqs_queue.comprehend_events" [label="aws_sqs_queue.comprehend_events"];
+  "aws_sqs_queue.text_events" [label="aws_sqs_queue.text_events"];
+  "aws_sqs_queue_policy.comprehend_events" [label="aws_sqs_queue_policy.comprehend_events"];
+  "aws_sqs_queue_policy.text_events" [label="aws_sqs_queue_policy.text_events"];
+  "aws_iam_role_policy.sfn" -> "aws_iam_role.sfn";
+  "aws_iam_role_policy.sfn" -> "aws_s3_bucket.pipeline";
+  "aws_s3_bucket.pipeline" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket.pipeline" -> "data.aws_region.current";
+  "aws_s3_bucket_notification.pipeline" -> "aws_sqs_queue_policy.comprehend_events";
+  "aws_s3_bucket_notification.pipeline" -> "aws_sqs_queue_policy.text_events";
+  "aws_s3_bucket_public_access_block.pipeline" -> "aws_s3_bucket.pipeline";
+  "aws_s3_bucket_server_side_encryption_configuration.pipeline" -> "aws_s3_bucket.pipeline";
+  "aws_s3_bucket_versioning.pipeline" -> "aws_s3_bucket.pipeline";
+  "aws_sfn_state_machine.s3_object_created_comprehend" -> "aws_iam_role.sfn";
+  "aws_sfn_state_machine.s3_object_created_text" -> "aws_iam_role.sfn";
+  "aws_sqs_queue_policy.comprehend_events" -> "aws_s3_bucket.pipeline";
+  "aws_sqs_queue_policy.comprehend_events" -> "aws_sqs_queue.comprehend_events";
+  "aws_sqs_queue_policy.text_events" -> "aws_s3_bucket.pipeline";
+  "aws_sqs_queue_policy.text_events" -> "aws_sqs_queue.text_events";
+}

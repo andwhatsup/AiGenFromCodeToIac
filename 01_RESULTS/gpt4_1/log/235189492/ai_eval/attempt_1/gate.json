@@ -1,0 +1,152 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "stepfunctions": {
+          "status": "none",
+          "resource_types": [
+            "aws_sfn_state_machine"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "iam"
+        ],
+        "none": [
+          "stepfunctions"
+        ],
+        "unknown": []
+      },
+      "unsupported_resource_types": [
+        "aws_sfn_state_machine"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"iterator-lambda\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"main\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"go1.x\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_role_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"iterator-lambda-role\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_s3_bucket": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        },
+        "lambda_s3_key": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "lambda_s3_bucket",
+        "lambda_s3_key"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_log_group",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_lambda_function",
+        "aws_sfn_state_machine"
+      ],
+      "resource_type_counts": {
+        "aws_cloudwatch_log_group": 2,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 1,
+        "aws_iam_policy_document": 1,
+        "aws_lambda_function": 1,
+        "aws_sfn_state_machine": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "6.27.0"
+          ]
+        },
+        "random": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/235189492/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "3.7.2"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

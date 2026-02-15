@@ -1,0 +1,20 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_ecs_cluster.main" [label="aws_ecs_cluster.main"];
+  "aws_ecs_service.hello_world" [label="aws_ecs_service.hello_world"];
+  "aws_ecs_task_definition.hello_world" [label="aws_ecs_task_definition.hello_world"];
+  "aws_lb.default" [label="aws_lb.default"];
+  "aws_lb_listener.hello_world" [label="aws_lb_listener.hello_world"];
+  "aws_lb_target_group.hello_world" [label="aws_lb_target_group.hello_world"];
+  "aws_security_group.hello_world_task" [label="aws_security_group.hello_world_task"];
+  "aws_security_group.lb" [label="aws_security_group.lb"];
+  "aws_ecs_service.hello_world" -> "aws_ecs_cluster.main";
+  "aws_ecs_service.hello_world" -> "aws_ecs_task_definition.hello_world";
+  "aws_ecs_service.hello_world" -> "aws_lb_listener.hello_world";
+  "aws_ecs_service.hello_world" -> "aws_security_group.hello_world_task";
+  "aws_lb.default" -> "aws_security_group.lb";
+  "aws_lb_listener.hello_world" -> "aws_lb.default";
+  "aws_lb_listener.hello_world" -> "aws_lb_target_group.hello_world";
+  "aws_security_group.hello_world_task" -> "aws_security_group.lb";
+}

@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a modern static web application deployed on AWS using Amazon EKS (Elastic Kubernetes Service) for container orchestration, with infrastructure as code managed by Terraform and CI/CD handled by Jenkins and GitHub Actions. The application is a static site (HTML, JS, CSS) served by Nginx in a Docker container. The deployment pipeline includes building Docker images, pushing them to a container registry (DockerHub or GHCR), and deploying to EKS. The application is exposed to the internet via an AWS Application Load Balancer (ALB), with all resources securely isolated within a VPC. The architecture follows AWS best practices for security, scalability, and automation, leveraging managed services where possible. Monitoring, logging, and IAM roles are included for operational excellence and least-privilege access control.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (for EKS nodes and ALB)",
+    "Internet Gateway (for public access)",
+    "NAT Gateway (for private subnet egress)",
+    "Route Tables (for subnet routing)",
+    "Security Groups (for EKS nodes, ALB, and control plane)",
+    "EKS Cluster (Amazon Elastic Kubernetes Service)",
+    "EKS Node Groups (managed or self-managed EC2 worker nodes)",
+    "IAM Roles and Policies (for EKS, nodes, and CI/CD integration)",
+    "Amazon ECR (optional, if using AWS-native container registry)",
+    "AWS Application Load Balancer (ALB)",
+    "Kubernetes Service of type LoadBalancer (integrated with ALB)",
+    "Kubernetes Deployment (Nginx static web app)",
+    "CloudWatch Logs (for EKS and application logging)",
+    "CloudWatch Metrics (for monitoring)",
+    "VPC Endpoints (optional, for private access to AWS services)",
+    "S3 Bucket (optional, for Terraform state or artifacts)",
+    "AWS KMS (optional, for encryption of secrets and state)"
+  ]
+}

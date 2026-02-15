@@ -1,0 +1,21 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "aws_iam_role.iterator" [label="aws_iam_role.iterator"];
+  "aws_iam_role.sfn" [label="aws_iam_role.sfn"];
+  "aws_iam_role_policy.iterator_invoke_target" [label="aws_iam_role_policy.iterator_invoke_target"];
+  "aws_iam_role_policy.sfn_invoke_iterator" [label="aws_iam_role_policy.sfn_invoke_iterator"];
+  "aws_iam_role_policy_attachment.iterator_basic" [label="aws_iam_role_policy_attachment.iterator_basic"];
+  "aws_lambda_function.iterator" [label="aws_lambda_function.iterator"];
+  "aws_sfn_state_machine.hfl" [label="aws_sfn_state_machine.hfl"];
+  "aws_iam_role_policy.iterator_invoke_target" -> "aws_iam_role.iterator";
+  "aws_iam_role_policy.sfn_invoke_iterator" -> "aws_iam_role.sfn";
+  "aws_iam_role_policy.sfn_invoke_iterator" -> "aws_lambda_function.iterator";
+  "aws_iam_role_policy_attachment.iterator_basic" -> "data.aws_partition.current";
+  "aws_iam_role_policy_attachment.iterator_basic" -> "aws_iam_role.iterator";
+  "aws_lambda_function.iterator" -> "aws_iam_role.iterator";
+  "aws_sfn_state_machine.hfl" -> "aws_iam_role.sfn";
+  "aws_sfn_state_machine.hfl" -> "aws_lambda_function.iterator";
+}

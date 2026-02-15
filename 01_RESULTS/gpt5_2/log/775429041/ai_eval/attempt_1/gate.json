@@ -1,0 +1,237 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "eks": {
+          "status": "none",
+          "resource_types": [
+            "aws_eks_cluster",
+            "aws_eks_cluster_auth"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "route53"
+        ],
+        "none": [
+          "eks"
+        ],
+        "unknown": [
+          "acm",
+          "availability"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_eks_cluster",
+        "aws_eks_cluster_auth"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"react-jg-app\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "az_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "cluster_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"1.29\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "node_instance_types": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"t3.medium\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "node_desired_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "node_min_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "node_max_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "4",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "app_namespace": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"react-jg\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "app_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"yash5090/react-jg-app:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "app_replicas": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "app_container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "3000",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "enable_ingress": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "domain_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "route53_zone_id": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        },
+        "enable_hpa": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_availability_zones",
+        "aws_eks_cluster",
+        "aws_eks_cluster_auth",
+        "aws_route53_record"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1,
+        "aws_eks_cluster": 1,
+        "aws_eks_cluster_auth": 1,
+        "aws_acm_certificate": 1,
+        "aws_route53_record": 1,
+        "aws_acm_certificate_validation": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "kubernetes": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.25"
+          ]
+        },
+        "helm": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.12"
+          ]
+        },
+        "tls": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 4.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/775429041/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

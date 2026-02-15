@@ -1,0 +1,904 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    165,
+                    172
+                ],
+                "resource": "aws_security_group_rule.allow_http_ingress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "from_port": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/variable.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "to_port": [
+                        {
+                            "type": "tfvar",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/variable.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    174,
+                    181
+                ],
+                "resource": "aws_security_group_rule.allow_http_egress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    174,
+                    181
+                ],
+                "resource": "aws_security_group_rule.allow_http_egress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_260",
+                "bc_check_id": "BC_AWS_NETWORKING_67",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    191,
+                    198
+                ],
+                "resource": "aws_security_group_rule.elb_allow_http_ingress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress80",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-aws-security-groups-do-not-allow-ingress-from-00000-to-port-80",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    191,
+                    198
+                ],
+                "resource": "aws_security_group_rule.elb_allow_http_ingress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    200,
+                    207
+                ],
+                "resource": "aws_security_group_rule.elb_allow_http_egress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    200,
+                    207
+                ],
+                "resource": "aws_security_group_rule.elb_allow_http_egress_traffic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_150",
+                "bc_check_id": "BC_AWS_NETWORKING_62",
+                "check_name": "Ensure that Load Balancer has deletion protection enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "enable_deletion_protection"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    212,
+                    222
+                ],
+                "resource": "aws_lb.poc-revamp-elb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LBDeletionProtection",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-150",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/variable.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_91",
+                "bc_check_id": "BC_AWS_LOGGING_22",
+                "check_name": "Ensure the ELBv2 (Application/Network) has access logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "access_logs/0/enabled/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    212,
+                    222
+                ],
+                "resource": "aws_lb.poc-revamp-elb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ELBv2AccessLogs",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-logging-22",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/variable.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_131",
+                "bc_check_id": "BC_AWS_NETWORKING_41",
+                "check_name": "Ensure that ALB drops HTTP headers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "drop_invalid_header_fields"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    212,
+                    222
+                ],
+                "resource": "aws_lb.poc-revamp-elb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ALBDropHttpHeaders",
+                "fixed_definition": null,
+                "entity_tags": {},
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-alb-drops-http-headers",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "revamp_elb_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/variable.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_2",
+                "bc_check_id": "BC_AWS_NETWORKING_29",
+                "check_name": "Ensure ALB protocol is HTTPS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "protocol"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    244,
+                    252
+                ],
+                "resource": "aws_lb_listener.revamp_frontend_landing",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ALBListenerHTTPS",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-29",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_65",
+                "bc_check_id": "BC_AWS_LOGGING_11",
+                "check_name": "Ensure container insights are enabled on ECS cluster",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    256,
+                    267
+                ],
+                "resource": "aws_ecs_cluster.poc_assessment",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSClusterContainerInsights",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-logging-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "configuration.execute_command_configuration.log_configuration.cloud_watch_log_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "configuration.execute_command_configuration.log_configuration": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "configuration.execute_command_configuration": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_224",
+                "bc_check_id": "BC_AWS_GENERAL_158",
+                "check_name": "Ensure ECS Cluster logging is enabled and client to container communication uses CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "configuration/[0]/execute_command_configuration"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    256,
+                    267
+                ],
+                "resource": "aws_ecs_cluster.poc_assessment",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECSClusterLoggingEncryptedWithCMK",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-cluster-logging-is-encrypted-using-a-customer-managed-key-cmk",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "breadcrumbs": {
+                    "configuration.execute_command_configuration.log_configuration.cloud_watch_log_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "configuration.execute_command_configuration.log_configuration": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "configuration.execute_command_configuration": [
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_66",
+                "bc_check_id": "BC_AWS_LOGGING_13",
+                "check_name": "Ensure that CloudWatch Log Group specifies retention days",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    270,
+                    272
+                ],
+                "resource": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetention",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    270,
+                    272
+                ],
+                "resource": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    270,
+                    272
+                ],
+                "resource": "aws_cloudwatch_log_group.frontend_landing_page-apps",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_66",
+                "bc_check_id": "BC_AWS_LOGGING_13",
+                "check_name": "Ensure that CloudWatch Log Group specifies retention days",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    333,
+                    335
+                ],
+                "resource": "aws_cloudwatch_log_group.ecs_cluster",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetention",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/logging-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    333,
+                    335
+                ],
+                "resource": "aws_cloudwatch_log_group.ecs_cluster",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    333,
+                    335
+                ],
+                "resource": "aws_cloudwatch_log_group.ecs_cluster",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            },
+            {
+                "check_id": "CKV_AWS_26",
+                "bc_check_id": "BC_AWS_GENERAL_15",
+                "check_name": "Ensure all data stored in the SNS topic is encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_master_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    363,
+                    365
+                ],
+                "resource": "aws_sns_topic.notification_topic",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SNSTopicEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-15",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/780565387/Iac/main.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 35,
+        "failed": 20,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 34,
+        "checkov_version": "3.2.490"
+    }
+}

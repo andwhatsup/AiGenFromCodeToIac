@@ -1,0 +1,27 @@
+{
+  "aws_architecture_description": "This system is a Python-based data workflow platform orchestrated by Prefect, leveraging Dask for distributed compute, AWS S3 for object storage, and a managed SQL database for persistence. The architecture is designed for scalability, security, and operational efficiency, following AWS best practices.\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all compute resources within a dedicated VPC for network isolation and security.\n   - Use public and private subnets across multiple Availability Zones for high availability.\n   - Configure security groups and NACLs to restrict access to only necessary ports and services.\n\n2. **Prefect Orchestration:**\n   - Deploy the Prefect orchestration engine as a containerized service on AWS ECS (Fargate) for managed, scalable orchestration.\n   - ECS Service runs the Prefect agent, configured via the provided YAML, and schedules/monitors flows.\n   - Use AWS CloudWatch for logging and monitoring Prefect agent/container activity.\n\n3. **Dask Cluster:**\n   - Deploy a Dask cluster using ECS (Fargate) or EC2 Auto Scaling Group, depending on workload and cost considerations.\n   - Dask workers are dynamically scaled based on task demand, and communicate securely with the Prefect agent.\n\n4. **Database:**\n   - Use Amazon RDS (PostgreSQL) as the managed SQL database backend for logs and workflow results.\n   - Place RDS in private subnets, accessible only from ECS tasks within the VPC.\n   - Enable automated backups, multi-AZ deployment, and encryption at rest.\n\n5. **Object Storage:**\n   - Use an S3 bucket (e.g., bucket-full-of-sunshine-prefect/ecs-agent-bucket) for storing data artifacts, logs, and intermediate results.\n   - Apply least-privilege IAM policies to allow ECS tasks access to only the required S3 resources.\n   - Enable versioning and server-side encryption on the S3 bucket.\n\n6. **IAM & Security:**\n   - Create IAM roles for ECS tasks with permissions to access S3, RDS (via Secrets Manager), and CloudWatch.\n   - Store database credentials and other secrets in AWS Secrets Manager or Parameter Store.\n\n7. **Monitoring & Logging:**\n   - Use CloudWatch for centralized logging, metrics, and alarms for ECS, Dask, and RDS.\n   - Enable VPC flow logs for network monitoring.\n\n8. **Optional Enhancements:**\n   - Use AWS Lambda for lightweight event-driven tasks (e.g., S3 triggers, notifications).\n   - Set up AWS API Gateway if external API access to flows is required.\n\nThis architecture ensures secure, scalable, and cost-effective deployment of the Prefect/Dask workflow system, with managed services for orchestration, compute, storage, and persistence.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for ECS, Dask, RDS)",
+    "Network ACLs",
+    "ECS Cluster (Fargate)",
+    "ECS Service (Prefect agent)",
+    "ECS Task Definitions (Prefect, Dask workers)",
+    "EC2 Auto Scaling Group (optional, for Dask if not using Fargate)",
+    "Amazon RDS (PostgreSQL, Multi-AZ, encrypted)",
+    "RDS Subnet Group",
+    "RDS Parameter Group",
+    "S3 Bucket (bucket-full-of-sunshine-prefect/ecs-agent-bucket, versioned, encrypted)",
+    "IAM Roles (ECS task execution, S3 access, RDS access, CloudWatch logging)",
+    "IAM Policies (least privilege for S3, RDS, CloudWatch)",
+    "AWS Secrets Manager (for DB credentials)",
+    "CloudWatch Log Groups (ECS, Dask, Prefect)",
+    "CloudWatch Alarms (ECS, RDS, S3)",
+    "VPC Flow Logs",
+    "(Optional) AWS Lambda (for event-driven tasks)",
+    "(Optional) API Gateway (if external API access is needed)"
+  ]
+}

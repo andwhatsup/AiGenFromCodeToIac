@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a containerized Node.js web application, originally designed for Kubernetes, and will be deployed on AWS using managed services for scalability, security, and operational simplicity. The architecture leverages Amazon EKS (Elastic Kubernetes Service) to run the Kubernetes cluster, with Docker images stored in Amazon ECR (Elastic Container Registry). The application is exposed to the internet via a Kubernetes Service of type LoadBalancer, which will provision an AWS Network Load Balancer (NLB) for external access. Networking is secured and isolated using a dedicated VPC with public and private subnets. IAM roles and policies are used for secure access to AWS resources (e.g., ECR image pulls). CloudWatch is used for logging and monitoring. The architecture is designed for high availability, scalability, and follows AWS best practices for containerized workloads.\n\n**Key Components:**\n- **Amazon ECR:** Stores Docker images for the Node.js application.\n- **Amazon EKS:** Managed Kubernetes cluster to orchestrate application deployment and scaling.\n- **Kubernetes Namespace:** Logical separation for the application resources within the cluster.\n- **Kubernetes Deployment (3 Replicas):** Ensures three pods of the Node.js app are always running.\n- **Kubernetes Service (LoadBalancer):** Exposes the app to the internet via an AWS NLB.\n- **VPC, Subnets, Security Groups:** Provides network isolation and security.\n- **IAM Roles/Policies:** Secure access for EKS nodes to pull images from ECR and interact with AWS APIs.\n- **CloudWatch:** Centralized logging and monitoring for the cluster and application.\n\n**Deployment Strategy:**\n- Build and push Docker images to ECR.\n- Deploy EKS cluster in a dedicated VPC with public/private subnets.\n- Deploy the application using Kubernetes manifests (namespace, deployment, service).\n- Use IAM roles for service accounts (IRSA) to grant least-privilege access to AWS resources.\n- Monitor and log application and cluster activity with CloudWatch.",
+  "aws_resources": [
+    "Amazon ECR Repository",
+    "Amazon EKS Cluster",
+    "EKS Node Group (EC2 or Fargate)",
+    "VPC (with public and private subnets)",
+    "Internet Gateway",
+    "NAT Gateway (for private subnet egress)",
+    "Route Tables (public and private)",
+    "Security Groups (for EKS nodes and Load Balancer)",
+    "IAM Roles and Policies (for EKS nodes, EKS cluster, and IRSA)",
+    "Kubernetes Namespace (nodeaws)",
+    "Kubernetes Deployment (3 replicas)",
+    "Kubernetes Service (type LoadBalancer)",
+    "AWS Network Load Balancer (provisioned by K8s Service)",
+    "CloudWatch Log Group (for EKS and application logs)",
+    "CloudWatch Metrics and Alarms (for monitoring)"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system implements a modern DevOps workflow for AI-driven code generation to Infrastructure-as-Code (IaC) on AWS, using Python and Terraform. The architecture is designed for security, scalability, and automation, following AWS best practices.\n\n**Architecture Overview:**\n\n1. **Developer Workstation**: Developers write Python and Terraform code locally, using pre-commit hooks for code quality and security checks. Code is version-controlled with Git and pushed to GitHub.\n\n2. **CI/CD Pipeline (GitHub Actions)**: On code push or pull request, GitHub Actions runs automated tests, linting, and triggers deployment workflows. The pipeline uses Terraform to provision and manage AWS resources.\n\n3. **AWS Cloud Infrastructure** (provisioned via Terraform):\n   - **Networking**: A dedicated VPC with public/private subnets, route tables, and NAT Gateway for secure, isolated networking.\n   - **Compute**: EC2 instances for running application workloads, with security groups restricting access.\n   - **Storage**: S3 bucket for storing artifacts, Terraform state files, or application data.\n   - **Database/State Management**: DynamoDB table for Terraform state locking and/or application data.\n   - **Secrets/Configuration**: SSM Parameter Store for secure storage of configuration values and secrets.\n   - **IAM**: Custom IAM roles and policies for least-privilege access by EC2, CI/CD, and Terraform.\n   - **DNS**: Route53 for DNS management of application endpoints.\n   - **Monitoring/Logging**: CloudWatch for logging, metrics, and alarms (recommended for production).\n\n**Deployment Strategy:**\n- All AWS resources are defined as Terraform modules, enabling repeatable, version-controlled infrastructure deployments.\n- CI/CD pipeline assumes a dedicated IAM role with permissions to manage AWS resources.\n- S3 and DynamoDB are used for Terraform state management, ensuring safe, concurrent infrastructure changes.\n- Security groups, IAM roles, and SSM Parameter Store are used to enforce security best practices.\n\nThis architecture provides a secure, automated, and scalable foundation for deploying and managing AI-driven code generation workflows on AWS, with full infrastructure-as-code and DevOps automation.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables and Associations",
+    "Security Groups (for EC2, S3, etc.)",
+    "EC2 Instances",
+    "IAM Roles and Policies (for EC2, CI/CD, Terraform)",
+    "S3 Bucket (for artifacts, Terraform state)",
+    "DynamoDB Table (for state locking or app data)",
+    "SSM Parameter Store (for secrets/configuration)",
+    "Route53 Hosted Zone and DNS Records",
+    "CloudWatch Logs and Metrics (for monitoring/logging)",
+    "Terraform Backend Configuration (S3 + DynamoDB)"
+  ]
+}

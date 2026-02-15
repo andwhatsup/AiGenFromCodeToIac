@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Nginx (as static file server)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/docker-publish.yml"
+      ],
+      "architectural_resources": [
+        "Web application (static site served by Nginx)",
+        "Kubernetes Deployment (deployment.yaml, manifests/app-deploy.yaml)",
+        "Kubernetes Service with AWS Load Balancer (service.yaml, manifests/app-svc.yaml)",
+        "Docker image registry (GitHub Actions workflows)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "Terraform logs/outputs (potentially related to EKS infrastructure)"
+      ]
+    }
+  ]
+}

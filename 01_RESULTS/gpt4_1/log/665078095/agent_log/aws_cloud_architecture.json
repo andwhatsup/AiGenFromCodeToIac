@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is designed to manage and execute database schema migrations using the Atlas Migration Tool, targeting a managed MySQL 8 database on AWS RDS. The architecture is simple, secure, and follows AWS best practices for containerized workloads and managed databases.\n\n**Architecture Overview:**\n\n1. **Networking:**\n   - All resources are deployed within a dedicated Virtual Private Cloud (VPC) to ensure network isolation and security. The VPC contains both public and private subnets. The RDS instance is placed in private subnets, while the migration tool (if run as a container task) can be placed in a public or private subnet depending on access requirements.\n\n2. **Atlas Migration Tool (Docker Container):**\n   - The migration tool is packaged as a Docker container. It can be run as a one-off task or job using AWS Fargate (ECS) or AWS Batch, which provides a serverless compute environment for containers. This approach allows the migration tool to be triggered as part of a CI/CD pipeline or manually as needed.\n   - The container is granted network access to the RDS instance and the necessary IAM permissions to retrieve secrets (e.g., database credentials) from AWS Secrets Manager.\n\n3. **MySQL 8 Database (AWS RDS):**\n   - The database is provisioned as an RDS MySQL 8 instance, deployed in private subnets for security. It is not directly accessible from the public internet. Security groups restrict access to only the migration tool and other authorized resources.\n\n4. **Secrets Management:**\n   - Database credentials are stored securely in AWS Secrets Manager. The migration tool retrieves these credentials at runtime.\n\n5. **IAM and Security:**\n   - IAM roles and policies are created to grant the migration tool least-privilege access to required AWS resources (e.g., Secrets Manager).\n   - Security groups are configured to allow only necessary traffic between the migration tool and the RDS instance.\n\n6. **Monitoring and Logging:**\n   - CloudWatch is used for logging and monitoring the migration tool's execution and the health of the RDS instance.\n\n**Deployment Strategy:**\n- The Atlas Migration Tool container image is built and pushed to Amazon Elastic Container Registry (ECR).\n- Migrations are executed by running the container as an ECS Fargate task (or AWS Batch job) within the VPC, with network access to the RDS instance.\n- The RDS instance is managed and backed up automatically by AWS RDS services.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "NAT Gateway (if migration tool needs outbound internet access from private subnet)",
+    "Route Tables",
+    "Security Group for ECS Task (Atlas Migration Tool)",
+    "Security Group for RDS MySQL Instance",
+    "AWS RDS MySQL 8 Instance",
+    "AWS ECS Cluster (Fargate) or AWS Batch Compute Environment",
+    "ECS Task Definition for Atlas Migration Tool (Docker container)",
+    "Amazon ECR Repository (for container image)",
+    "AWS Secrets Manager Secret (for database credentials)",
+    "IAM Role for ECS Task (with permissions for Secrets Manager and logging)",
+    "IAM Policy for ECS Task",
+    "CloudWatch Log Group (for ECS Task logs)",
+    "CloudWatch Alarms (for RDS health and ECS task failures)"
+  ]
+}

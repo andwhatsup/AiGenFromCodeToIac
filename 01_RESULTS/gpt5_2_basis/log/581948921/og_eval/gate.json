@@ -1,0 +1,178 @@
+{
+  "roots_scanned": [
+    "infra",
+    "infra/modules/simple-site-bucket"
+  ],
+  "recommended_roots": [
+    "infra/modules/simple-site-bucket"
+  ],
+  "varfiles_created": {
+    "infra": true,
+    "infra/modules/simple-site-bucket": false
+  },
+  "services_report": {
+    "infra": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "infra/modules/simple-site-bucket": {
+      "by_service": {
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_acl",
+            "aws_s3_bucket_policy",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning",
+            "aws_s3_bucket_website_configuration"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [],
+        "none": [],
+        "unknown": []
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "infra": [
+      "non_leaf"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra",
+      "variables": {
+        "region": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/variables.tf"
+        },
+        "site_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"factually-settled-boxer\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/variables.tf"
+        },
+        "github_repo": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"mkdocs-demo\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/variables.tf"
+        },
+        "github_org": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ntno\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/variables.tf"
+        }
+      },
+      "required_missing": [
+        "region"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/main.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/providers.tf"
+          ],
+          "versions": [
+            ">= 4.6.0"
+          ]
+        }
+      },
+      "backend": {
+        "type": "s3",
+        "decl_files": [
+          "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/main.tf"
+        ]
+      },
+      "existing_varfiles": []
+    },
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/modules/simple-site-bucket",
+      "variables": {
+        "bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/modules/simple-site-bucket/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/modules/simple-site-bucket/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_s3_bucket",
+        "aws_s3_bucket_acl",
+        "aws_s3_bucket_policy",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning",
+        "aws_s3_bucket_website_configuration"
+      ],
+      "resource_type_counts": {
+        "aws_s3_bucket_acl": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_s3_bucket_website_configuration": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_policy": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/581948921/infra/modules/simple-site-bucket/providers.tf"
+          ],
+          "versions": [
+            ">= 4.6.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

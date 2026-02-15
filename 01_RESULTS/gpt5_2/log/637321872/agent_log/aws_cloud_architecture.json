@@ -1,0 +1,27 @@
+{
+  "aws_architecture_description": "### Target outcome\nProvision a minimal, secure AWS environment that runs a single Squid proxy on an EC2 instance in a public subnet, reachable on TCP/3128 only from an approved client public IP (and optionally SSH/22 only from an admin IP). Terraform is executed locally via a containerized Terraform CLI (docker-compose), using an AWS profile/credentials mounted into the container.\n\n### High-level AWS architecture\n1. **Networking (VPC, public subnet, Internet egress)**\n   - Create a dedicated **VPC** with DNS support enabled.\n   - Create **one public subnet** (single-AZ is sufficient for a single proxy; optionally add a second public subnet in another AZ if you want future HA).\n   - Attach an **Internet Gateway (IGW)** to the VPC.\n   - Create a **public route table** with a default route (0.0.0.0/0) to the IGW and associate it to the public subnet.\n\n2. **Compute (EC2 running Squid)**\n   - Launch a **Linux EC2 instance** in the public subnet with a **public IPv4 address** (either auto-assigned or via an Elastic IP).\n   - Use **user data / cloud-init** (or a configuration step) to install and configure **Squid**, and place the repository’s `squid.conf` (or a templated variant) onto the instance.\n   - Ensure Squid listens on **port 3128** and enforces the same client-IP allowlist in Squid ACLs.\n\n3. **Security (defense in depth: SG + Squid ACL)**\n   - Attach a dedicated **Security Group** to the instance:\n     - Inbound **TCP/3128**: allow only from the approved **client public IP/CIDR**.\n     - Inbound **TCP/22** (optional): allow only from an **admin public IP/CIDR**.\n     - Outbound: allow required egress (commonly 0.0.0.0/0) so the proxy can reach the internet.\n   - Keep the Squid ACL restrictions in `squid.conf` as a second layer of control.\n\n4. **Identity & access (least privilege for provisioning and operations)**\n   - Terraform runs under the operator’s AWS credentials/profile; ensure that identity has only the permissions needed to create the VPC/EC2/IAM resources.\n   - Create an **EC2 instance role** (IAM role + instance profile) for the proxy instance, primarily to:\n     - Publish logs/metrics to CloudWatch (recommended).\n     - Optionally read configuration artifacts from S3 or Parameter Store (optional).\n\n5. **Observability & operations**\n   - Enable **CloudWatch Logs** for Squid logs (via CloudWatch Agent) and basic **CloudWatch metrics/alarms** (CPU, status checks, disk).\n   - Use **SSM Session Manager** (recommended) to manage the instance without opening SSH, if you choose to avoid port 22 entirely.\n\n6. **Optional hardening / quality-of-life**\n   - **Elastic IP** to keep a stable public IP for the proxy endpoint.\n   - **EBS encryption** (default KMS-managed) for the root volume.\n   - **AWS Backup** (optional) if you want scheduled snapshots (often unnecessary for a stateless proxy).\n\n---\n\nDeployment flow (as implemented by the repo)\n- Operator runs `docker-compose` locally → starts Terraform container (`hashicorp/terraform:1.4.5`).\n- Terraform uses mounted `~/.aws` and `AWS_PROFILE` to authenticate.\n- Terraform provisions the VPC + subnet + IGW + routes, then the security group, key pair, and EC2 instance.\n- EC2 boots, installs/configures Squid, and becomes reachable on TCP/3128 from the allowed client IP only.",
+  "aws_resources": [
+    "VPC",
+    "VPC DHCP Options (default or custom)",
+    "Internet Gateway (IGW)",
+    "Public Subnet (1x; optionally 2x for future HA)",
+    "Route Table (public)",
+    "Route (0.0.0.0/0 -> IGW)",
+    "Subnet Route Table Association",
+    "Security Group (Squid proxy SG)",
+    "EC2 Instance (Linux)",
+    "EC2 Key Pair (if using SSH)",
+    "Elastic IP (optional, for stable public IP)",
+    "EBS Volume (root) + EBS encryption (KMS-managed)",
+    "IAM Role (EC2 instance role)",
+    "IAM Instance Profile (to attach role to EC2)",
+    "IAM Policy attachments (CloudWatch Agent, SSM core, least-privilege as needed)",
+    "AWS Systems Manager (SSM) managed instance enablement (via IAM + agent on AMI)",
+    "CloudWatch Log Group(s) (e.g., /squid/access, /squid/cache)",
+    "CloudWatch Agent configuration (SSM Parameter or user-data rendered config)",
+    "CloudWatch Alarms (EC2 status check failed, CPU high, disk space low)",
+    "AWS KMS Key (optional; otherwise use AWS-managed key for EBS encryption)",
+    "S3 Bucket (optional; to store squid.conf or bootstrap artifacts)",
+    "SSM Parameter Store parameters (optional; store allowed client IP/CIDR, config values)"
+  ]
+}

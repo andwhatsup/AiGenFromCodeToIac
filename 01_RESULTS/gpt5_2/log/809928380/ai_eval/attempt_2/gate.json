@@ -1,0 +1,285 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_openid_connect_provider",
+            "aws_iam_role",
+            "aws_iam_role_policy"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "scheduler": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_scheduler_schedule"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_subscription"
+          ]
+        },
+        "ssm": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ssm_parameter"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs",
+          "sns"
+        ],
+        "partial": [
+          "cloudwatch",
+          "iam",
+          "secretsmanager",
+          "ssm"
+        ],
+        "none": [],
+        "unknown": [
+          "scheduler"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"reminder-bot\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"prod\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"reminder-bot-lambda\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_handler": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"handler.Handler::handleRequest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"java21\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "1024",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_timeout_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_reserved_concurrency": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_log_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "lambda_package_path": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"./build/lambda.zip\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "telegram_bot_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "telegram_chat_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "half_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "end_month_message": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "schedule_half_month_cron": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"cron(0 9 15 * ? *)\" # 09:00 UTC on the 15th",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "schedule_end_month_cron": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"cron(0 9 L * ? *)\" # 09:00 UTC on the last day of month",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "enable_sns_alarm_notifications": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "alarm_email": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "github_org": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "github_repo": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        },
+        "create_github_oidc": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "end_month_message",
+        "half_month_message",
+        "telegram_bot_token",
+        "telegram_chat_id"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_log_group",
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_openid_connect_provider",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_lambda_function",
+        "aws_scheduler_schedule",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_sns_topic",
+        "aws_sns_topic_subscription",
+        "aws_ssm_parameter"
+      ],
+      "resource_type_counts": {
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1,
+        "aws_ssm_parameter": 3,
+        "aws_iam_role": 3,
+        "aws_iam_role_policy": 3,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_function": 1,
+        "aws_scheduler_schedule": 2,
+        "aws_sns_topic": 1,
+        "aws_sns_topic_subscription": 1,
+        "aws_cloudwatch_metric_alarm": 2,
+        "aws_iam_openid_connect_provider": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/809928380/ai_tf/localstack.auto.tfvars.json"
+      ]
+    }
+  ]
+}

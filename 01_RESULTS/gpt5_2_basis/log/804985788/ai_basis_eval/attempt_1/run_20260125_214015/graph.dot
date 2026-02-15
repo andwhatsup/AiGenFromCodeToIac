@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+}

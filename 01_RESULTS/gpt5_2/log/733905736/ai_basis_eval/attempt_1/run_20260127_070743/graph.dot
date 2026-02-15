@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_policy.s3_artifacts_rw" [label="aws_iam_policy.s3_artifacts_rw"];
+  "aws_iam_role.app" [label="aws_iam_role.app"];
+  "aws_iam_role_policy_attachment.app_s3" [label="aws_iam_role_policy_attachment.app_s3"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "aws_iam_policy.s3_artifacts_rw" -> "aws_s3_bucket.artifacts";
+  "aws_iam_role_policy_attachment.app_s3" -> "aws_iam_policy.s3_artifacts_rw";
+  "aws_iam_role_policy_attachment.app_s3" -> "aws_iam_role.app";
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+}

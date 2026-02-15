@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This system is a serverless, event-driven IoT data pipeline and visualization platform on AWS. The core application logic runs in an AWS Lambda function (Python), which uses the tinytuya library to interact with the Tuya Cloud API for IoT device data collection and control. The Lambda function processes the data and writes it to an InfluxDB instance for time-series storage. Grafana is used for data visualization and analytics, connecting to InfluxDB as its data source.\n\nKey AWS architectural components and deployment strategies:\n\n1. **Networking**: Deploy all resources within a dedicated VPC for security and isolation. Use public and private subnets to separate internet-facing and internal resources. Lambda will be configured to run inside the VPC for secure access to InfluxDB and Grafana.\n\n2. **Compute**: The main application logic is packaged as a Docker image and deployed to AWS Lambda (using Lambda's container image support). This allows for custom dependencies and native libraries.\n\n3. **Database**: InfluxDB is deployed on an EC2 instance (or as a container on ECS/Fargate for easier management and scaling) within a private subnet. Security groups restrict access to only the Lambda function and Grafana.\n\n4. **Visualization**: Grafana is deployed on an EC2 instance (or as a container on ECS/Fargate) in a private subnet. Access to Grafana can be exposed via an Application Load Balancer (ALB) with authentication, or via a bastion host/VPN for internal-only access.\n\n5. **IAM & Security**: IAM roles and policies are created for Lambda to allow access to VPC resources, CloudWatch Logs, and Secrets Manager (for storing Tuya API credentials and InfluxDB connection info). Security groups and NACLs are configured for least-privilege network access.\n\n6. **Secrets Management**: AWS Secrets Manager is used to securely store and manage Tuya API credentials and InfluxDB connection details, accessed by Lambda at runtime.\n\n7. **Monitoring & Logging**: CloudWatch is used for Lambda logs, metrics, and alarms. EC2/ECS resources are monitored via CloudWatch as well.\n\n8. **Optional Enhancements**: For scalability and easier management, InfluxDB and Grafana can be containerized and run on ECS Fargate. For production, consider using AWS Managed Grafana and a managed time-series database if available.\n\nThis architecture is secure, scalable, and follows AWS best practices for serverless and containerized workloads, with clear separation of concerns and secure access patterns.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway (for private subnet egress)",
+    "Route Tables",
+    "Security Groups (for Lambda, EC2/ECS, Grafana, InfluxDB)",
+    "AWS Lambda (container image, Python runtime)",
+    "IAM Role for Lambda (VPC access, CloudWatch, Secrets Manager)",
+    "EC2 Instance(s) for InfluxDB (or ECS/Fargate Service)",
+    "EC2 Instance(s) for Grafana (or ECS/Fargate Service)",
+    "Elastic IP (for NAT Gateway)",
+    "Application Load Balancer (for Grafana, if public access needed)",
+    "AWS Secrets Manager (for Tuya API and InfluxDB credentials)",
+    "CloudWatch Logs (for Lambda and EC2/ECS)",
+    "CloudWatch Alarms (for monitoring)",
+    "ECR (Elastic Container Registry) for Lambda container image storage"
+  ]
+}

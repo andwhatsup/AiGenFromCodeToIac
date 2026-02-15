@@ -1,0 +1,58 @@
+{
+  "projects": [
+    {
+      "project_directory": "rust-source",
+      "programming_languages": [
+        "Rust"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "No third-party Rust crates declared (rust-source/Cargo.toml: [dependencies] is empty)"
+      ],
+      "deployment_relevant_files": [
+        "rust-source/Cargo.toml",
+        "rust-source/Cargo.lock"
+      ],
+      "architectural_resources": [
+        "CLI / code generator (Rust binary)"
+      ]
+    },
+    {
+      "project_directory": "cobol-source",
+      "programming_languages": [
+        "COBOL"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "GnuCOBOL compiler/runtime implied by repository Dockerfile installing `gnucobol` (Dockerfile)"
+      ],
+      "deployment_relevant_files": [],
+      "architectural_resources": [
+        "COBOL programs/modules (batch/CLI style)"
+      ]
+    },
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Dockerfile",
+        "Shell"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "Base image: rust:latest (Dockerfile)",
+        "System package: gnucobol (Dockerfile via apt install gnucobol)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "scripts/bash/environment.sh",
+        "scripts/bash/clean_up.sh",
+        "README.md",
+        "LICENSE",
+        ".gitignore"
+      ],
+      "architectural_resources": [
+        "Container image build environment (Rust toolchain + GnuCOBOL)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_log_group.lambda" [label="aws_cloudwatch_log_group.lambda"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy.lambda_inline" [label="aws_iam_role_policy.lambda_inline"];
+  "aws_lambda_function.mover" [label="aws_lambda_function.mover"];
+  "aws_lambda_permission.allow_s3" [label="aws_lambda_permission.allow_s3"];
+  "aws_s3_bucket.this" [label="aws_s3_bucket.this"];
+  "aws_s3_bucket_notification.this" [label="aws_s3_bucket_notification.this"];
+  "aws_s3_bucket_public_access_block.this" [label="aws_s3_bucket_public_access_block.this"];
+  "aws_s3_bucket_server_side_encryption_configuration.this" [label="aws_s3_bucket_server_side_encryption_configuration.this"];
+  "aws_s3_bucket_versioning.this" [label="aws_s3_bucket_versioning.this"];
+  "aws_iam_role_policy.lambda_inline" -> "aws_iam_role.lambda_exec";
+  "aws_iam_role_policy.lambda_inline" -> "aws_s3_bucket.this";
+  "aws_lambda_function.mover" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.mover" -> "aws_cloudwatch_log_group.lambda";
+  "aws_lambda_function.mover" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.mover" -> "aws_s3_bucket.this";
+  "aws_lambda_permission.allow_s3" -> "aws_lambda_function.mover";
+  "aws_s3_bucket.this" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket.this" -> "data.aws_region.current";
+  "aws_s3_bucket_notification.this" -> "aws_lambda_permission.allow_s3";
+  "aws_s3_bucket_public_access_block.this" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_server_side_encryption_configuration.this" -> "aws_s3_bucket.this";
+  "aws_s3_bucket_versioning.this" -> "aws_s3_bucket.this";
+}

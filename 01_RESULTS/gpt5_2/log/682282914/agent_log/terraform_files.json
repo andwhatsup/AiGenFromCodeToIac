@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.5.0\"\n\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 5.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n\n  default_tags {\n    tags = var.tags\n  }\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy into.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"name\" {\n  description = \"Name prefix for resources.\"\n  type        = string\n  default     = \"s3-versioning-demo\"\n}\n\nvariable \"bucket_name\" {\n  description = \"S3 bucket name to store versioned objects. Must be globally unique.\"\n  type        = string\n  default     = \"versionedexample\"\n}\n\nvariable \"tags\" {\n  description = \"Tags applied to all supported resources.\"\n  type        = map(string)\n  default = {\n    Project = \"s3-versioning-demo\"\n    Managed = \"terraform\"\n  }\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"aws_s3_bucket\" \"versioned\" {\n  bucket = var.bucket_name\n\n  # Prevent accidental deletion of the bucket (and all versions) in production.\n  # Set to false if you want to allow terraform destroy.\n  force_destroy = false\n}\n\nresource \"aws_s3_bucket_versioning\" \"this\" {\n  bucket = aws_s3_bucket.versioned.id\n\n  versioning_configuration {\n    status = \"Enabled\"\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"this\" {\n  bucket = aws_s3_bucket.versioned.id\n\n  block_public_acls       = true\n  block_public_policy     = true\n  ignore_public_acls      = true\n  restrict_public_buckets = true\n}\n\nresource \"aws_s3_bucket_server_side_encryption_configuration\" \"this\" {\n  bucket = aws_s3_bucket.versioned.id\n\n  rule {\n    apply_server_side_encryption_by_default {\n      sse_algorithm = \"AES256\"\n    }\n  }\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"bucket_name\" {\n  description = \"Name of the S3 bucket used by the application.\"\n  value       = aws_s3_bucket.versioned.bucket\n}\n\noutput \"bucket_arn\" {\n  description = \"ARN of the S3 bucket used by the application.\"\n  value       = aws_s3_bucket.versioned.arn\n}\n"
+    },
+    {
+      "name": "terraform.tfvars",
+      "content": "aws_region  = \"us-east-1\"\nname        = \"s3-versioning-demo\"\n# IMPORTANT: S3 bucket names are globally unique. Change if this is already taken.\nbucket_name = \"versionedexample\"\n\ntags = {\n  Project = \"s3-versioning-demo\"\n  Managed = \"terraform\"\n}\n"
+    }
+  ]
+}

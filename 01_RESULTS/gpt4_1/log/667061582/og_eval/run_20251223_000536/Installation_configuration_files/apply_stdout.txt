@@ -1,0 +1,518 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.web["web-1"] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0376ec8eacdf70aae"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "my-key-pair"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Environment" = "dev"
+          + "Name"        = "jenkins_Master"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "Name"        = "jenkins_Master"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd mod_ssl
+            
+            # Generate a self-signed SSL certificate
+            sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout /etc/pki/tls/private/webserver.key \
+              -out /etc/pki/tls/certs/webserver.crt \
+              -subj "/C=US/ST=State/L=City/O=Organization/CN=webserver.example.com"
+            
+            # Configure Apache to use the SSL certificate
+            sudo sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/httpd/conf/httpd.conf
+            sudo sed -i 's/^<VirtualHost _default_:443>$/<VirtualHost _default_:443>\n  SSLEngine on\n  SSLCertificateFile \/etc\/pki\/tls\/certs\/webserver.crt\n  SSLCertificateKeyFile \/etc\/pki\/tls\/private\/webserver.key\n/' /etc/httpd/conf.d/ssl.conf
+            
+            # Configure firewall rules
+            sudo firewall-cmd --permanent --add-service=http
+            sudo firewall-cmd --permanent --add-service=https
+            sudo firewall-cmd --reload
+            
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_instance.web["web-2"] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0376ec8eacdf70aae"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "my-key-pair"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Environment" = "build"
+          + "Name"        = "app_build_server"
+        }
+      + tags_all                             = {
+          + "Environment" = "build"
+          + "Name"        = "app_build_server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd mod_ssl
+            
+            # Generate a self-signed SSL certificate
+            sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout /etc/pki/tls/private/webserver.key \
+              -out /etc/pki/tls/certs/webserver.crt \
+              -subj "/C=US/ST=State/L=City/O=Organization/CN=webserver.example.com"
+            
+            # Configure Apache to use the SSL certificate
+            sudo sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/httpd/conf/httpd.conf
+            sudo sed -i 's/^<VirtualHost _default_:443>$/<VirtualHost _default_:443>\n  SSLEngine on\n  SSLCertificateFile \/etc\/pki\/tls\/certs\/webserver.crt\n  SSLCertificateKeyFile \/etc\/pki\/tls\/private\/webserver.key\n/' /etc/httpd/conf.d/ssl.conf
+            
+            # Configure firewall rules
+            sudo firewall-cmd --permanent --add-service=http
+            sudo firewall-cmd --permanent --add-service=https
+            sudo firewall-cmd --reload
+            
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_instance.web["web-3"] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0376ec8eacdf70aae"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "my-key-pair"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Environment" = "deploy"
+          + "Name"        = "kube_master"
+        }
+      + tags_all                             = {
+          + "Environment" = "deploy"
+          + "Name"        = "kube_master"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd mod_ssl
+            
+            # Generate a self-signed SSL certificate
+            sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout /etc/pki/tls/private/webserver.key \
+              -out /etc/pki/tls/certs/webserver.crt \
+              -subj "/C=US/ST=State/L=City/O=Organization/CN=webserver.example.com"
+            
+            # Configure Apache to use the SSL certificate
+            sudo sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/httpd/conf/httpd.conf
+            sudo sed -i 's/^<VirtualHost _default_:443>$/<VirtualHost _default_:443>\n  SSLEngine on\n  SSLCertificateFile \/etc\/pki\/tls\/certs\/webserver.crt\n  SSLCertificateKeyFile \/etc\/pki\/tls\/private\/webserver.key\n/' /etc/httpd/conf.d/ssl.conf
+            
+            # Configure firewall rules
+            sudo firewall-cmd --permanent --add-service=http
+            sudo firewall-cmd --permanent --add-service=https
+            sudo firewall-cmd --reload
+            
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_instance.web["web-4"] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0376ec8eacdf70aae"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "my-key-pair"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Environment" = "deploy"
+          + "Name"        = "kube_worknode1"
+        }
+      + tags_all                             = {
+          + "Environment" = "deploy"
+          + "Name"        = "kube_worknode1"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd mod_ssl
+            
+            # Generate a self-signed SSL certificate
+            sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout /etc/pki/tls/private/webserver.key \
+              -out /etc/pki/tls/certs/webserver.crt \
+              -subj "/C=US/ST=State/L=City/O=Organization/CN=webserver.example.com"
+            
+            # Configure Apache to use the SSL certificate
+            sudo sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/httpd/conf/httpd.conf
+            sudo sed -i 's/^<VirtualHost _default_:443>$/<VirtualHost _default_:443>\n  SSLEngine on\n  SSLCertificateFile \/etc\/pki\/tls\/certs\/webserver.crt\n  SSLCertificateKeyFile \/etc\/pki\/tls\/private\/webserver.key\n/' /etc/httpd/conf.d/ssl.conf
+            
+            # Configure firewall rules
+            sudo firewall-cmd --permanent --add-service=http
+            sudo firewall-cmd --permanent --add-service=https
+            sudo firewall-cmd --reload
+            
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_instance.web["web-5"] will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0376ec8eacdf70aae"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t2.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "my-key-pair"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-south-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Environment" = "test&monitor"
+          + "Name"        = "monitoring_server"
+        }
+      + tags_all                             = {
+          + "Environment" = "test&monitor"
+          + "Name"        = "monitoring_server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            sudo yum update -y
+            sudo yum install -y httpd mod_ssl
+            
+            # Generate a self-signed SSL certificate
+            sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+              -keyout /etc/pki/tls/private/webserver.key \
+              -out /etc/pki/tls/certs/webserver.crt \
+              -subj "/C=US/ST=State/L=City/O=Organization/CN=webserver.example.com"
+            
+            # Configure Apache to use the SSL certificate
+            sudo sed -i 's/^Listen 80$/Listen 0.0.0.0:80/' /etc/httpd/conf/httpd.conf
+            sudo sed -i 's/^<VirtualHost _default_:443>$/<VirtualHost _default_:443>\n  SSLEngine on\n  SSLCertificateFile \/etc\/pki\/tls\/certs\/webserver.crt\n  SSLCertificateKeyFile \/etc\/pki\/tls\/private\/webserver.key\n/' /etc/httpd/conf.d/ssl.conf
+            
+            # Configure firewall rules
+            sudo firewall-cmd --permanent --add-service=http
+            sudo firewall-cmd --permanent --add-service=https
+            sudo firewall-cmd --reload
+            
+            sudo systemctl start httpd
+            sudo systemctl enable httpd
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+aws_instance.web["web-3"]: Creating...
+aws_instance.web["web-5"]: Creating...
+aws_instance.web["web-1"]: Creating...
+aws_instance.web["web-4"]: Creating...
+aws_instance.web["web-2"]: Creating...

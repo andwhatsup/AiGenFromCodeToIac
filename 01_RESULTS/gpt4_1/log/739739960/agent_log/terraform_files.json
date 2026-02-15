@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.3.0\"\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \">= 4.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"site_domain\" {\n  description = \"The domain name for the static website (e.g., example.com).\"\n  type        = string\n}\n\nvariable \"alternate_domains\" {\n  description = \"Alternate domain names (CNAMEs) for the CloudFront distribution.\"\n  type        = list(string)\n  default     = []\n}\n\nvariable \"enable_logging\" {\n  description = \"Enable access logging for S3 and CloudFront.\"\n  type        = bool\n  default     = true\n}\n"
+    },
+    {
+      "name": "s3.tf",
+      "content": "resource \"aws_s3_bucket\" \"static_site\" {\n  bucket = var.site_domain\n  force_destroy = true\n\n  website {\n    index_document = \"index.html\"\n    error_document = \"404.html\"\n  }\n}\n\nresource \"aws_s3_bucket_public_access_block\" \"static_site\" {\n  bucket = aws_s3_bucket.static_site.id\n  block_public_acls   = true\n  block_public_policy = false\n  ignore_public_acls  = true\n  restrict_public_buckets = false\n}\n\nresource \"aws_s3_bucket_policy\" \"static_site\" {\n  bucket = aws_s3_bucket.static_site.id\n  policy = data.aws_iam_policy_document.s3_policy.json\n}\n\ndata \"aws_iam_policy_document\" \"s3_policy\" {\n  statement {\n    actions = [\"s3:GetObject\"]\n    resources = [\"${aws_s3_bucket.static_site.arn}/*\"]\n    principals {\n      type        = \"AWS\"\n      identifiers = [aws_cloudfront_origin_access_identity.oai.iam_arn]\n    }\n    effect = \"Allow\"\n  }\n}\n\nresource \"aws_s3_bucket\" \"log\" {\n  count  = var.enable_logging ? 1 : 0\n  bucket = \"${var.site_domain}-logs\"\n  force_destroy = true\n}\n\nresource \"aws_s3_bucket_server_side_encryption_configuration\" \"static_site\" {\n  bucket = aws_s3_bucket.static_site.id\n  rule {\n    apply_server_side_encryption_by_default {\n      sse_algorithm = \"AES256\"\n    }\n  }\n}\n"
+    },
+    {
+      "name": "cloudfront.tf",
+      "content": "resource \"aws_cloudfront_origin_access_identity\" \"oai\" {\n  comment = \"OAI for static site S3 bucket\"\n}\n\nresource \"aws_cloudfront_distribution\" \"static_site\" {\n  enabled             = true\n  is_ipv6_enabled     = true\n  comment             = \"CDN for static site\"\n  default_root_object = \"index.html\"\n\n  aliases = concat([var.site_domain], var.alternate_domains)\n\n  origin {\n    domain_name = aws_s3_bucket.static_site.bucket_regional_domain_name\n    origin_id   = \"s3-static-site\"\n    s3_origin_config {\n      origin_access_identity = aws_cloudfront_origin_access_identity.oai.cloudfront_access_identity_path\n    }\n  }\n\n  default_cache_behavior {\n    allowed_methods  = [\"GET\", \"HEAD\"]\n    cached_methods   = [\"GET\", \"HEAD\"]\n    target_origin_id = \"s3-static-site\"\n    viewer_protocol_policy = \"redirect-to-https\"\n    forwarded_values {\n      query_string = false\n      cookies {\n        forward = \"none\"\n      }\n    }\n    min_ttl     = 0\n    default_ttl = 3600\n    max_ttl     = 86400\n  }\n\n  price_class = \"PriceClass_100\"\n\n  viewer_certificate {\n    acm_certificate_arn = aws_acm_certificate.site_cert.arn\n    ssl_support_method  = \"sni-only\"\n    minimum_protocol_version = \"TLSv1.2_2021\"\n  }\n\n  restrictions {\n    geo_restriction {\n      restriction_type = \"none\"\n    }\n  }\n\n  logging_config {\n    bucket = var.enable_logging ? aws_s3_bucket.log[0].bucket_domain_name : null\n    include_cookies = false\n    prefix = \"cloudfront/\"\n  }\n}\n"
+    },
+    {
+      "name": "acm.tf",
+      "content": "resource \"aws_acm_certificate\" \"site_cert\" {\n  domain_name               = var.site_domain\n  validation_method         = \"DNS\"\n  subject_alternative_names = var.alternate_domains\n  lifecycle {\n    create_before_destroy = true\n  }\n}\n\nresource \"aws_route53_record\" \"cert_validation\" {\n  for_each = {\n    for dvo in aws_acm_certificate.site_cert.domain_validation_options : dvo.domain_name => {\n      name   = dvo.resource_record_name\n      type   = dvo.resource_record_type\n      record = dvo.resource_record_value\n    }\n  }\n  zone_id = data.aws_route53_zone.selected.zone_id\n  name    = each.value.name\n  type    = each.value.type\n  records = [each.value.record]\n  ttl     = 60\n}\n\nresource \"aws_acm_certificate_validation\" \"site_cert_validation\" {\n  certificate_arn         = aws_acm_certificate.site_cert.arn\n  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]\n}\n\ndata \"aws_route53_zone\" \"selected\" {\n  name         = var.site_domain\n  private_zone = false\n}\n"
+    },
+    {
+      "name": "route53.tf",
+      "content": "resource \"aws_route53_record\" \"site\" {\n  zone_id = data.aws_route53_zone.selected.zone_id\n  name    = var.site_domain\n  type    = \"A\"\n  alias {\n    name                   = aws_cloudfront_distribution.static_site.domain_name\n    zone_id                = aws_cloudfront_distribution.static_site.hosted_zone_id\n    evaluate_target_health = false\n  }\n}\n"
+    },
+    {
+      "name": "iam.tf",
+      "content": "resource \"aws_iam_policy\" \"s3_deploy\" {\n  name        = \"S3DeployPolicy\"\n  description = \"Policy for deployment automation to S3 bucket.\"\n  policy      = data.aws_iam_policy_document.s3_deploy.json\n}\n\ndata \"aws_iam_policy_document\" \"s3_deploy\" {\n  statement {\n    actions = [\n      \"s3:PutObject\",\n      \"s3:PutObjectAcl\",\n      \"s3:DeleteObject\",\n      \"s3:ListBucket\"\n    ]\n    resources = [\n      aws_s3_bucket.static_site.arn,\n      \"${aws_s3_bucket.static_site.arn}/*\"\n    ]\n    effect = \"Allow\"\n  }\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"s3_bucket_name\" {\n  value = aws_s3_bucket.static_site.bucket\n}\n\noutput \"cloudfront_domain_name\" {\n  value = aws_cloudfront_distribution.static_site.domain_name\n}\n\noutput \"site_url\" {\n  value = \"https://${aws_cloudfront_distribution.static_site.domain_name}\"\n}\n"
+    }
+  ]
+}

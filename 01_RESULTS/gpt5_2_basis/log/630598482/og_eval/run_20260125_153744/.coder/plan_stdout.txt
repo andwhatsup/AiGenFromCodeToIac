@@ -1,0 +1,237 @@
+data.coder_workspace.me: Reading...
+data.coder_workspace.me: Read complete after 0s [id=159db279-840a-4f1b-b4da-89a214a00dfa]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # coder_agent.main will be created
+  + resource "coder_agent" "main" {
+      + arch                    = "amd64"
+      + auth                    = "token"
+      + connection_timeout      = 120
+      + env                     = {
+          + "GIT_AUTHOR_EMAIL"    = null
+          + "GIT_AUTHOR_NAME"     = "default"
+          + "GIT_COMMITTER_EMAIL" = null
+          + "GIT_COMMITTER_NAME"  = "default"
+        }
+      + id                      = (known after apply)
+      + init_script             = (known after apply)
+      + login_before_ready      = true
+      + os                      = "linux"
+      + shutdown_script_timeout = 300
+      + startup_script          = <<-EOT
+            #!/bin/sh
+                # install and start code-server
+                curl -fsSL https://code-server.dev/install.sh | sh
+                code-server --auth none --port 13337 &
+                coder dotfiles -y
+        EOT
+      + startup_script_timeout  = 300
+      + token                   = (sensitive value)
+    }
+
+  # coder_app.code-server will be created
+  + resource "coder_app" "code-server" {
+      + agent_id     = (known after apply)
+      + display_name = "VS Code"
+      + external     = false
+      + icon         = "/icon/code.svg"
+      + id           = (known after apply)
+      + share        = "authenticated"
+      + slug         = "code-server"
+      + url          = "http://localhost:13337/?folder=/home/coder"
+    }
+
+  # coder_app.fastapi will be created
+  + resource "coder_app" "fastapi" {
+      + agent_id     = (known after apply)
+      + display_name = "FastAPI"
+      + external     = false
+      + icon         = "https://styles.redditmedia.com/t5_22y58b/styles/communityIcon_r5ax236rfw961.png"
+      + id           = (known after apply)
+      + share        = "public"
+      + slug         = "fastapi"
+      + subdomain    = true
+      + url          = "http://localhost:8000"
+    }
+
+  # coder_app.react will be created
+  + resource "coder_app" "react" {
+      + agent_id     = (known after apply)
+      + display_name = "React"
+      + external     = false
+      + icon         = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png"
+      + id           = (known after apply)
+      + share        = "public"
+      + slug         = "react"
+      + subdomain    = true
+      + url          = "http://localhost:3000"
+    }
+
+  # coder_metadata.info[0] will be created
+  + resource "coder_metadata" "info" {
+      + icon        = "https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"
+      + id          = (known after apply)
+      + resource_id = (known after apply)
+
+      + item {
+          + is_null   = (known after apply)
+          + key       = "Python Version"
+          + sensitive = false
+          + value     = "v 3.10"
+        }
+      + item {
+          + is_null   = (known after apply)
+          + key       = "Nodejs Version"
+          + sensitive = false
+          + value     = "v lts"
+        }
+      + item {
+          + is_null   = (known after apply)
+          + key       = "CPU"
+          + sensitive = false
+          + value     = "2"
+        }
+      + item {
+          + is_null   = (known after apply)
+          + key       = "RAM"
+          + sensitive = false
+          + value     = "2"
+        }
+      + item {
+          + is_null   = (known after apply)
+          + key       = "dotfiles"
+          + sensitive = false
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # docker_container.workspace[0] will be created
+  + resource "docker_container" "workspace" {
+      + attach                                      = false
+      + bridge                                      = (known after apply)
+      + command                                     = (known after apply)
+      + container_logs                              = (known after apply)
+      + container_read_refresh_timeout_milliseconds = 15000
+      + cpu_shares                                  = 2
+      + dns                                         = [
+          + "1.1.1.1",
+        ]
+      + entrypoint                                  = (known after apply)
+      + env                                         = (sensitive value)
+      + exit_code                                   = (known after apply)
+      + hostname                                    = (known after apply)
+      + id                                          = (known after apply)
+      + image                                       = "coder-python-default-default"
+      + init                                        = (known after apply)
+      + ipc_mode                                    = (known after apply)
+      + log_driver                                  = (known after apply)
+      + logs                                        = false
+      + memory                                      = 2048
+      + must_run                                    = true
+      + name                                        = "coder-default-default"
+      + network_data                                = (known after apply)
+      + read_only                                   = false
+      + remove_volumes                              = true
+      + restart                                     = "no"
+      + rm                                          = false
+      + runtime                                     = "sysbox-runc"
+      + security_opts                               = (known after apply)
+      + shm_size                                    = (known after apply)
+      + start                                       = true
+      + stdin_open                                  = false
+      + stop_signal                                 = (known after apply)
+      + stop_timeout                                = (known after apply)
+      + tty                                         = false
+      + wait                                        = false
+      + wait_timeout                                = 60
+
+      + healthcheck (known after apply)
+
+      + host {
+          + host = "host.docker.internal"
+          + ip   = "host-gateway"
+        }
+
+      + labels {
+          + label = "coder.owner"
+          + value = "default"
+        }
+      + labels {
+          + label = "coder.owner_id"
+          + value = "00000000-0000-0000-0000-000000000000"
+        }
+      + labels {
+          + label = "coder.workspace_id"
+          + value = "159db279-840a-4f1b-b4da-89a214a00dfa"
+        }
+      + labels {
+          + label = "coder.workspace_name"
+          + value = "default"
+        }
+
+      + networks_advanced {
+          + aliases      = [
+              + "app",
+            ]
+          + name         = "coder-network-default-default"
+            # (2 unchanged attributes hidden)
+        }
+
+      + volumes {
+          + container_path = "/home/coder"
+          + read_only      = false
+          + volume_name    = "coder-default-default-root"
+            # (2 unchanged attributes hidden)
+        }
+    }
+
+  # docker_image.main will be created
+  + resource "docker_image" "main" {
+      + id          = (known after apply)
+      + image_id    = (known after apply)
+      + name        = "coder-python-default-default"
+      + repo_digest = (known after apply)
+
+      + build {
+          + build_args     = {
+              + "NODE_VER"   = "lts"
+              + "PYTHON_VER" = "3.10"
+            }
+          + cache_from     = []
+          + context        = "./build"
+          + dockerfile     = "Dockerfile"
+          + extra_hosts    = []
+          + remove         = true
+          + security_opt   = []
+          + tag            = []
+            # (11 unchanged attributes hidden)
+        }
+    }
+
+  # docker_network.network will be created
+  + resource "docker_network" "network" {
+      + driver      = (known after apply)
+      + id          = (known after apply)
+      + internal    = (known after apply)
+      + ipam_driver = "default"
+      + name        = "coder-network-default-default"
+      + options     = (known after apply)
+      + scope       = (known after apply)
+
+      + ipam_config (known after apply)
+    }
+
+  # docker_volume.home_volume will be created
+  + resource "docker_volume" "home_volume" {
+      + driver     = (known after apply)
+      + id         = (known after apply)
+      + mountpoint = (known after apply)
+      + name       = "coder-default-default-root"
+    }
+
+Plan: 9 to add, 0 to change, 0 to destroy.

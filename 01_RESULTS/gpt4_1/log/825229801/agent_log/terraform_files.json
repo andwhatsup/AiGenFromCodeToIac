@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.3.0\"\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 6.28.0\"\n    }\n    kubernetes = {\n      source  = \"hashicorp/kubernetes\"\n      version = \">= 2.20.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy resources in.\"\n  type        = string\n  default     = \"us-west-2\"\n}\n\nvariable \"vpc_cidr\" {\n  description = \"CIDR block for the VPC.\"\n  type        = string\n  default     = \"10.0.0.0/16\"\n}\n\nvariable \"public_subnet_cidrs\" {\n  description = \"List of public subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.1.0/24\", \"10.0.2.0/24\"]\n}\n\nvariable \"private_subnet_cidrs\" {\n  description = \"List of private subnet CIDR blocks.\"\n  type        = list(string)\n  default     = [\"10.0.101.0/24\", \"10.0.102.0/24\"]\n}\n\nvariable \"eks_cluster_name\" {\n  description = \"Name of the EKS cluster.\"\n  type        = string\n  default     = \"box-game-eks\"\n}\n\nvariable \"node_group_instance_types\" {\n  description = \"EC2 instance types for EKS node group.\"\n  type        = list(string)\n  default     = [\"t3.medium\"]\n}\n\nvariable \"desired_capacity\" {\n  description = \"Desired number of worker nodes.\"\n  type        = number\n  default     = 2\n}\n\nvariable \"max_capacity\" {\n  description = \"Maximum number of worker nodes.\"\n  type        = number\n  default     = 3\n}\n\nvariable \"min_capacity\" {\n  description = \"Minimum number of worker nodes.\"\n  type        = number\n  default     = 1\n}\n\nvariable \"ecr_repo_name\" {\n  description = \"Name of the ECR repository.\"\n  type        = string\n  default     = \"box-game-repo\"\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"eks_cluster_name\" {\n  description = \"EKS cluster name\"\n  value       = module.eks.cluster_name\n}\n\noutput \"eks_cluster_endpoint\" {\n  description = \"EKS cluster endpoint\"\n  value       = module.eks.cluster_endpoint\n}\n\noutput \"eks_cluster_security_group_id\" {\n  description = \"EKS cluster security group id\"\n  value       = module.eks.cluster_security_group_id\n}\n\noutput \"ecr_repository_url\" {\n  description = \"ECR repository URL\"\n  value       = aws_ecr_repository.app.repository_url\n}\n\noutput \"alb_dns_name\" {\n  description = \"DNS name of the ALB\"\n  value       = module.alb.lb_dns_name\n}\n"
+    },
+    {
+      "name": "vpc.tf",
+      "content": "module \"vpc\" {\n  source  = \"terraform-aws-modules/vpc/aws\"\n  version = \"~> 5.0\"\n\n  name = \"box-game-vpc\"\n  cidr = var.vpc_cidr\n\n  azs             = [\"${var.aws_region}a\", \"${var.aws_region}b\"]\n  public_subnets  = var.public_subnet_cidrs\n  private_subnets = var.private_subnet_cidrs\n\n  enable_nat_gateway   = true\n  single_nat_gateway   = true\n  enable_dns_hostnames = true\n  enable_dns_support   = true\n\n  tags = {\n    Terraform   = \"true\"\n    Environment = \"dev\"\n  }\n}\n"
+    },
+    {
+      "name": "ecr.tf",
+      "content": "resource \"aws_ecr_repository\" \"app\" {\n  name = var.ecr_repo_name\n  image_scanning_configuration {\n    scan_on_push = true\n  }\n  tags = {\n    Environment = \"dev\"\n  }\n}\n"
+    },
+    {
+      "name": "eks.tf",
+      "content": "module \"eks\" {\n  source          = \"terraform-aws-modules/eks/aws\"\n  version         = \"~> 20.0\"\n\n  cluster_name    = var.eks_cluster_name\n  cluster_version = \"1.29\"\n  vpc_id          = module.vpc.vpc_id\n  subnet_ids      = module.vpc.private_subnets\n\n  enable_irsa = true\n\n  eks_managed_node_group_defaults = {\n    ami_type       = \"AL2_x86_64\"\n    disk_size      = 20\n    instance_types = var.node_group_instance_types\n  }\n\n  eks_managed_node_groups = {\n    default = {\n      min_size     = var.min_capacity\n      max_size     = var.max_capacity\n      desired_size = var.desired_capacity\n      instance_types = var.node_group_instance_types\n      capacity_type  = \"ON_DEMAND\"\n    }\n  }\n\n  tags = {\n    Environment = \"dev\"\n    Terraform   = \"true\"\n  }\n}\n"
+    },
+    {
+      "name": "alb.tf",
+      "content": "module \"alb\" {\n  source  = \"terraform-aws-modules/alb/aws\"\n  version = \"~> 9.0\"\n\n  name               = \"box-game-alb\"\n  load_balancer_type = \"application\"\n  vpc_id             = module.vpc.vpc_id\n  subnets            = module.vpc.public_subnets\n\n  security_groups    = [module.eks.cluster_security_group_id]\n\n  target_groups = [\n    {\n      name_prefix      = \"boxgame\"\n      backend_protocol = \"HTTP\"\n      backend_port     = 80\n      target_type      = \"ip\"\n      health_check = {\n        enabled             = true\n        healthy_threshold   = 2\n        unhealthy_threshold = 2\n        timeout             = 5\n        interval            = 30\n        matcher             = \"200-399\"\n        path                = \"/\"\n      }\n    }\n  ]\n\n  listeners = [\n    {\n      port     = 80\n      protocol = \"HTTP\"\n      default_action = {\n        type             = \"forward\"\n        target_group_index = 0\n      }\n    }\n  ]\n\n  tags = {\n    Environment = \"dev\"\n    Terraform   = \"true\"\n  }\n}\n"
+    },
+    {
+      "name": "iam.tf",
+      "content": "data \"aws_iam_policy_document\" \"eks_assume_role\" {\n  statement {\n    actions = [\"sts:AssumeRole\"]\n    principals {\n      type        = \"Service\"\n      identifiers = [\"eks.amazonaws.com\"]\n    }\n  }\n}\n\nresource \"aws_iam_role\" \"eks_cluster\" {\n  name               = \"eksClusterRole\"\n  assume_role_policy = data.aws_iam_policy_document.eks_assume_role.json\n}\n\nresource \"aws_iam_role_policy_attachment\" \"eks_cluster_AmazonEKSClusterPolicy\" {\n  role       = aws_iam_role.eks_cluster.name\n  policy_arn = \"arn:aws:iam::aws:policy/AmazonEKSClusterPolicy\"\n}\n\nresource \"aws_iam_role_policy_attachment\" \"eks_cluster_AmazonEKSServicePolicy\" {\n  role       = aws_iam_role.eks_cluster.name\n  policy_arn = \"arn:aws:iam::aws:policy/AmazonEKSServicePolicy\"\n}\n"
+    },
+    {
+      "name": "k8s_provider.tf",
+      "content": "provider \"kubernetes\" {\n  host                   = module.eks.cluster_endpoint\n  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)\n  token                  = data.aws_eks_cluster_auth.cluster.token\n}\n\ndata \"aws_eks_cluster\" \"cluster\" {\n  name = module.eks.cluster_name\n}\n\ndata \"aws_eks_cluster_auth\" \"cluster\" {\n  name = module.eks.cluster_name\n}\n"
+    },
+    {
+      "name": "cloudwatch.tf",
+      "content": "resource \"aws_cloudwatch_log_group\" \"eks\" {\n  name              = \"/aws/eks/${var.eks_cluster_name}/cluster\"\n  retention_in_days = 7\n  tags = {\n    Environment = \"dev\"\n  }\n}\n"
+    },
+    {
+      "name": "locals.tf",
+      "content": "locals {\n  tags = {\n    Terraform   = \"true\"\n    Environment = \"dev\"\n  }\n}\n"
+    },
+    {
+      "name": "backend.tf",
+      "content": "terraform {\n  backend \"s3\" {\n    bucket         = \"my-terraform-state-bucket\"\n    key            = \"box-game/terraform.tfstate\"\n    region         = \"us-west-2\"\n    dynamodb_table = \"my-terraform-locks\"\n    encrypt        = true\n  }\n}\n"
+    }
+  ]
+}

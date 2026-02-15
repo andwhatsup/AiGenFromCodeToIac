@@ -1,0 +1,140 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.site_bucket_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "site_bucket_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "*"
+            }
+        }
+    }
+
+  # aws_s3_bucket.site_bucket will be created
+  + resource "aws_s3_bucket" "site_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "demo"
+          + "Project"     = "mkdocs-demo"
+        }
+      + tags_all                    = {
+          + "Environment" = "demo"
+          + "Project"     = "mkdocs-demo"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website {
+          + error_document = "404.html"
+          + index_document = "index.html"
+        }
+    }
+
+  # aws_s3_bucket_policy.site_bucket_policy will be created
+  + resource "aws_s3_bucket_policy" "site_bucket_policy" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_public_access_block.site_bucket will be created
+  + resource "aws_s3_bucket_public_access_block" "site_bucket" {
+      + block_public_acls       = false
+      + block_public_policy     = false
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = false
+      + region                  = "us-east-1"
+      + restrict_public_buckets = false
+    }
+
+  # random_string.suffix will be created
+  + resource "random_string" "suffix" {
+      + id          = (known after apply)
+      + length      = 8
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (known after apply)
+      + special     = false
+      + upper       = false
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + site_bucket_name             = (known after apply)
+  + site_bucket_website_endpoint = (known after apply)
+
+Warning: Argument is deprecated
+
+  with aws_s3_bucket.site_bucket,
+  on main.tf line 7, in resource "aws_s3_bucket" "site_bucket":
+   7: resource "aws_s3_bucket" "site_bucket" {
+
+website is deprecated. Use the aws_s3_bucket_website_configuration resource
+instead.
+
+Warning: Deprecated attribute
+
+  on outputs.tf line 8, in output "site_bucket_website_endpoint":
+   8:   value       = aws_s3_bucket.site_bucket.website_endpoint
+
+The attribute "website_endpoint" is deprecated. Refer to the provider
+documentation for details.

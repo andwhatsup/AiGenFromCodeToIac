@@ -1,0 +1,87 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_149",
+                "bc_check_id": "BC_AWS_GENERAL_79",
+                "check_name": "Ensure that Secrets Manager secret is encrypted using KMS CMK",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    50
+                ],
+                "resource": "aws_secretsmanager_secret.api_key[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecretManagerSecretEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Managed": "terraform",
+                    "Project": "python-weather-app",
+                    "Name": "python-weather-app-api-key"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-secrets-manager-secret-is-encrypted-using-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "tags": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "api_key_secret_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "api_key_secret_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/792011211/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 6,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 5,
+        "checkov_version": "3.2.490"
+    }
+}

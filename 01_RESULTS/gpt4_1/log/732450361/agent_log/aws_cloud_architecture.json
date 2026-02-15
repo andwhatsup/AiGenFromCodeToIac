@@ -1,0 +1,17 @@
+{
+  "aws_architecture_description": "This system is a simple Python Flask REST API with no external dependencies such as databases or other services. The goal is to deploy this API securely and scalably on AWS, following best practices for networking, security, and high availability. The recommended architecture is as follows:\n\n1. **Networking**: Deploy the application within a dedicated Virtual Private Cloud (VPC) to isolate network resources. Use public subnets for the load balancer and private subnets for the application servers.\n\n2. **Compute**: Host the Flask application using AWS Elastic Beanstalk (with a Python environment) or AWS Fargate (with ECS) for managed containerized deployment. Elastic Beanstalk is recommended for simplicity and direct support for Python web apps.\n\n3. **Load Balancing**: Use an Application Load Balancer (ALB) to distribute incoming HTTP/REST traffic from clients to the Flask application instances, enabling scalability and high availability.\n\n4. **Security**: Use Security Groups to restrict access to only necessary ports (e.g., 80/443 for HTTP/HTTPS). Use IAM roles for the application to securely access AWS resources if needed in the future.\n\n5. **Storage**: No persistent storage is required for the application itself, but an S3 bucket can be provisioned for static assets or future use.\n\n6. **Monitoring & Logging**: Enable AWS CloudWatch for application and infrastructure monitoring, logging, and alerting.\n\n7. **Foundational Resources**: Include IAM roles, VPC, subnets, route tables, and other foundational resources for a secure and robust deployment.\n\nThis architecture is lean, secure, and scalable, and can be easily extended if the application grows in complexity.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "Route Table(s)",
+    "Security Group(s) (for ALB and EC2/Beanstalk instances)",
+    "Elastic Beanstalk Environment (Python) or ECS Cluster with Fargate (for Flask app)",
+    "Application Load Balancer (ALB)",
+    "IAM Role(s) (for EC2/Beanstalk/ECS tasks)",
+    "S3 Bucket (optional, for static assets/logs)",
+    "CloudWatch Log Group(s)",
+    "CloudWatch Alarms (optional, for monitoring)"
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "TypeScript (types only)"
+      ],
+      "frameworks": [
+        "Strapi v4 (headless CMS)",
+        "React (Strapi admin UI)"
+      ],
+      "dependencies": [
+        "@strapi/strapi@4.15.4 (package.json)",
+        "@strapi/plugin-users-permissions@4.15.4 (package.json)",
+        "@strapi/plugin-i18n@4.15.4 (package.json)",
+        "@strapi/plugin-cloud@4.15.4 (package.json)",
+        "better-sqlite3@8.6.0 (package.json)",
+        "mysql@^2.18.1 (package.json)",
+        "react@^18.0.0 (package.json)",
+        "react-dom@^18.0.0 (package.json)",
+        "react-router-dom@5.3.4 (package.json)",
+        "styled-components@5.3.3 (package.json)",
+        "Dev/test tooling: eslint, prettier, jest, supertest, husky (package.json)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile.dev",
+        "Dockerfile.prod",
+        "Makefile (Terraform helper targets; expects ./terraform which is not present in this repo snapshot)",
+        "/.env.example",
+        "/.github/workflows/build-and-publish.yaml",
+        "/.github/workflows/tf-plan-apply.yaml",
+        "/.github/workflows/tf-plan-destroy-apply.yaml",
+        "README.md",
+        "README_TF.md"
+      ],
+      "architectural_resources": [
+        "Strapi web application/API (containerized; listens on port 1337 per config/server.js and Dockerfiles)",
+        "Relational database (MySQL in production implied by .env.example DATABASE_CLIENT=mysql and config/database.js; SQLite supported for local dev)",
+        "Container image registry (Docker Hub; build-and-publish.yaml pushes camillehe1992/strapi:<tag>)",
+        "AWS deployment implied by CI and docs: ECS Service/Task Definition, Application Load Balancer, IAM roles, CloudWatch Logs/Alarms, S3 bucket for Terraform state (README_TF.md, Makefile, tf-plan-apply workflow)",
+        "Secrets/config management for Strapi (APP_KEYS, JWT secrets, API token salts via env vars; .env.example, config/admin.js, config/server.js)"
+      ]
+    }
+  ]
+}

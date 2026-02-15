@@ -1,0 +1,226 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "events": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_event_rule",
+            "aws_cloudwatch_event_target"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "sagemaker": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_sagemaker_endpoint",
+            "aws_sagemaker_endpoint_configuration",
+            "aws_sagemaker_model"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "ecr",
+          "events",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region",
+          "sagemaker"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"eu-west-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"hello-world\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "ecr_repository_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"test_sage_maker\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "image_tag": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "sagemaker_endpoint_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"hello-world-endpoint\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ml.t2.medium\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "initial_instance_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "lambda_schedule_expression": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rate(5 minutes)\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "lambda_timeout_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_event_rule",
+        "aws_cloudwatch_event_target",
+        "aws_cloudwatch_log_group",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_region",
+        "aws_sagemaker_endpoint",
+        "aws_sagemaker_endpoint_configuration",
+        "aws_sagemaker_model"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_iam_policy_document": 3,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 4,
+        "aws_iam_policy": 1,
+        "aws_lambda_function": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_lambda_permission": 1,
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_sagemaker_model": 1,
+        "aws_sagemaker_endpoint_configuration": 1,
+        "aws_sagemaker_endpoint": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.4"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/793168590/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

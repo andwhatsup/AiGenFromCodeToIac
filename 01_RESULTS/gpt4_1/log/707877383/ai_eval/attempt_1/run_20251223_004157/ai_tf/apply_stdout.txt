@@ -1,0 +1,843 @@
+data.aws_iam_policy_document.ec2_assume_role_policy: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_ami.nodejs: Reading...
+data.aws_iam_policy_document.ec2_assume_role_policy: Read complete after 0s [id=2851119427]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+data.aws_ami.nodejs: Read complete after 2s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.ec2_ssm_read will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "ec2_ssm_read" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "ssm:GetParameter",
+              + "ssm:GetParameters",
+              + "ssm:GetParametersByPath",
+            ]
+          + resources = [
+              + (known after apply),
+            ]
+        }
+    }
+
+  # aws_autoscaling_group.app will be created
+  + resource "aws_autoscaling_group" "app" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 2
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 60
+      + health_check_type                = "EC2"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 4
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "nodejs-webapp-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + region                           = "us-east-1"
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = "$Latest"
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Environment"
+          + propagate_at_launch = true
+          + value               = "dev"
+        }
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "nodejs-webapp-ec2"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_iam_instance_profile.ec2 will be created
+  + resource "aws_iam_instance_profile" "ec2" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "nodejs-webapp-ec2-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "nodejs-webapp-ec2-role"
+      + tags_all    = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_role.ec2 will be created
+  + resource "aws_iam_role" "ec2" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "nodejs-webapp-ec2-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-ec2-role"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-ec2-role"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy.ec2_ssm_read will be created
+  + resource "aws_iam_role_policy" "ec2_ssm_read" {
+      + id          = (known after apply)
+      + name        = "nodejs-webapp-ec2-ssm-read"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ec2_ssm will be created
+  + resource "aws_iam_role_policy_attachment" "ec2_ssm" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      + role       = "nodejs-webapp-ec2-role"
+    }
+
+  # aws_internet_gateway.gw will be created
+  + resource "aws_internet_gateway" "gw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-igw"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_launch_template.app will be created
+  + resource "aws_launch_template" "app" {
+      + arn                    = (known after apply)
+      + default_version        = (known after apply)
+      + id                     = (known after apply)
+      + image_id               = "ami-04681a1dbd79675a5"
+      + instance_type          = "t3.micro"
+      + latest_version         = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "nodejs-webapp-lt-"
+      + region                 = "us-east-1"
+      + tags_all               = (known after apply)
+      + user_data              = "IyEvYmluL2Jhc2gKIyBJbnN0YWxsIE5vZGUuanMsIG5wbSwgYW5kIHN0YXJ0IHRoZSBhcHAgKHBsYWNlaG9sZGVyKQojIFJlcGxhY2Ugd2l0aCB5b3VyIGFjdHVhbCBkZXBsb3ltZW50IHN0ZXBzCmN1cmwgLXNMIGh0dHBzOi8vcnBtLm5vZGVzb3VyY2UuY29tL3NldHVwXzE4LnggfCBiYXNoIC0KeXVtIGluc3RhbGwgLXkgbm9kZWpzIGdpdApjZCAvaG9tZS9lYzItdXNlci9hcHAgfHwgbWtkaXIgLXAgL2hvbWUvZWMyLXVzZXIvYXBwICYmIGNkIC9ob21lL2VjMi11c2VyL2FwcApnaXQgY2xvbmUgPFlPVVJfUkVQT19VUkw+IC4KbnBtIGluc3RhbGwKbnBtIHJ1biBzdGFydAo="
+      + vpc_security_group_ids = (known after apply)
+
+      + iam_instance_profile {
+          + name = "nodejs-webapp-ec2-profile"
+        }
+
+      + metadata_options (known after apply)
+
+      + tag_specifications {
+          + resource_type = "instance"
+          + tags          = {
+              + "Environment" = "dev"
+              + "Name"        = "nodejs-webapp-ec2"
+            }
+        }
+    }
+
+  # aws_lb.app_lb will be created
+  + resource "aws_lb" "app_lb" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "nodejs-webapp-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-alb"
+        }
+      + tags_all                                                     = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-alb"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app_tg will be created
+  + resource "aws_lb_target_group" "app_tg" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "nodejs-webapp-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags                               = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-tg"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-tg"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_nat_gateway.nat will be created
+  + resource "aws_nat_gateway" "nat" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-nat"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-nat"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_nat_gateway will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet_access will be created
+  + resource "aws_route" "public_internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP/HTTPS inbound traffic to ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "nodejs-webapp-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-alb-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-alb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.app will be created
+  + resource "aws_security_group" "app" {
+      + arn                    = (known after apply)
+      + description            = "Allow traffic from ALB to app EC2 instances"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "nodejs-webapp-app-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-app-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-app-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_ssm_parameter.app_env will be created
+  + resource "aws_ssm_parameter" "app_env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Environment variables for the Node.js app"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/nodejs-webapp/dev/.env"
+      + overwrite      = true
+      + region         = "us-east-1"
+      + tags           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-env"
+        }
+      + tags_all       = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-env"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-1"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.102.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-2"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-private-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-1"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-2"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-public-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-vpc"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "Name"        = "nodejs-webapp-vpc"
+        }
+    }
+
+Plan: 28 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name       = (known after apply)
+  + private_subnet_ids = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + public_subnet_ids  = [
+      + (known after apply),
+      + (known after apply),
+    ]
+  + vpc_id             = (known after apply)
+aws_eip.nat: Creating...
+aws_ssm_parameter.app_env: Creating...
+aws_iam_role.ec2: Creating...
+aws_vpc.main: Creating...
+aws_eip.nat: Creation complete after 0s [id=eipalloc-8c66127901629abce]
+aws_iam_role.ec2: Creation complete after 0s [id=nodejs-webapp-ec2-role]
+aws_iam_role_policy_attachment.ec2_ssm: Creating...
+aws_iam_instance_profile.ec2: Creating...
+aws_iam_role_policy_attachment.ec2_ssm: Creation complete after 0s [id=nodejs-webapp-ec2-role/arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore]
+aws_ssm_parameter.app_env: Creation complete after 0s [id=/nodejs-webapp/dev/.env]
+data.aws_iam_policy_document.ec2_ssm_read: Reading...
+data.aws_iam_policy_document.ec2_ssm_read: Read complete after 0s [id=4052203203]
+aws_iam_role_policy.ec2_ssm_read: Creating...
+aws_iam_role_policy.ec2_ssm_read: Creation complete after 0s [id=nodejs-webapp-ec2-role:nodejs-webapp-ec2-ssm-read]
+aws_iam_instance_profile.ec2: Creation complete after 5s [id=nodejs-webapp-ec2-profile]
+aws_vpc.main: Still creating... [00m10s elapsed]
+aws_vpc.main: Creation complete after 10s [id=vpc-6e92a09bdfd126e85]
+aws_subnet.public[0]: Creating...
+aws_route_table.public: Creating...
+aws_internet_gateway.gw: Creating...
+aws_subnet.private[0]: Creating...
+aws_route_table.private: Creating...
+aws_subnet.public[1]: Creating...
+aws_subnet.private[1]: Creating...
+aws_security_group.alb: Creating...
+aws_lb_target_group.app_tg: Creating...
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-3514d6886a6563b19]
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-15361bb1f3155848b]
+aws_internet_gateway.gw: Creation complete after 0s [id=igw-61fe8e8f176f00ea6]
+aws_route_table.public: Creation complete after 1s [id=rtb-012e5ba37b229da11]
+aws_route_table.private: Creation complete after 1s [id=rtb-0c6eba4db37501e5a]
+aws_route_table_association.private[0]: Creating...
+aws_route_table_association.private[1]: Creating...
+aws_route.public_internet_access: Creating...
+aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-05c67e6f734290f15]
+aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-05e50fa21614323ea]
+aws_security_group.alb: Creation complete after 1s [id=sg-433d23ba575235a36]
+aws_security_group.app: Creating...
+aws_lb_target_group.app_tg: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/nodejs-webapp-tg/610cb4db253753dc]
+aws_route.public_internet_access: Creation complete after 0s [id=r-rtb-012e5ba37b229da111080289494]
+aws_security_group.app: Creation complete after 0s [id=sg-0dd6f02e5e703df2d]
+aws_launch_template.app: Creating...
+aws_launch_template.app: Creation complete after 5s [id=lt-baa58ea3f20f9e13f]
+aws_autoscaling_group.app: Creating...
+aws_autoscaling_group.app: Creation complete after 1s [id=nodejs-webapp-asg]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 10s [id=subnet-7a193d37ed904b983]
+aws_subnet.public[1]: Creation complete after 10s [id=subnet-6cf371424ec96db92]
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creating...
+aws_nat_gateway.nat: Creating...
+aws_lb.app_lb: Creating...
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-81df13d555be44bd8]
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-c3be6defff54d9481]
+aws_nat_gateway.nat: Creation complete after 0s [id=nat-5bfcce99e9ebb8e4b]
+aws_route.private_nat_gateway: Creating...
+aws_route.private_nat_gateway: Creation complete after 0s [id=r-rtb-0c6eba4db37501e5a1080289494]
+aws_lb.app_lb: Still creating... [00m10s elapsed]
+aws_lb.app_lb: Still creating... [00m20s elapsed]
+aws_lb.app_lb: Still creating... [00m30s elapsed]

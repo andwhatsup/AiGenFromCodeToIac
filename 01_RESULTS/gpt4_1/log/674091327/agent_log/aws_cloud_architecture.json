@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system consists of a Python Flask web application (containerized with Docker) and an ActiveMQ message queue, originally deployed via Kubernetes. To deploy this architecture on AWS in a secure, scalable, and cost-effective manner, the following approach is recommended:\n\n1. **Networking**: Deploy all resources within a dedicated VPC with public and private subnets across at least two Availability Zones for high availability. Use security groups and NACLs to restrict access.\n\n2. **Container Orchestration**: Use Amazon Elastic Kubernetes Service (EKS) to manage both the Flask application and the ActiveMQ broker, as the original system uses Kubernetes manifests. EKS provides managed Kubernetes clusters, simplifying deployment and scaling.\n\n3. **Container Registry**: Store Docker images in Amazon Elastic Container Registry (ECR) for secure and scalable image storage.\n\n4. **Flask Web Application**: Deploy as a Kubernetes Deployment in EKS, using the existing Dockerfile. Expose the application via a Kubernetes Service of type LoadBalancer, which provisions an AWS Network Load Balancer (NLB) or Application Load Balancer (ALB).\n\n5. **ActiveMQ Message Queue**: Deploy as a StatefulSet or Deployment in EKS using the provided Kubernetes manifests. Expose it via a Kubernetes Service (ClusterIP or LoadBalancer, depending on access requirements). Use Amazon Elastic Block Store (EBS) for persistent storage if needed.\n\n6. **IAM & Security**: Use IAM roles for service accounts (IRSA) to grant least-privilege access to AWS resources from within EKS. Create IAM roles and policies for EKS nodes and pods as needed.\n\n7. **Monitoring & Logging**: Use Amazon CloudWatch for centralized logging and monitoring of EKS workloads. Enable VPC flow logs for network monitoring.\n\n8. **Optional Enhancements**: Use AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., ActiveMQ credentials). Use AWS Certificate Manager (ACM) for SSL/TLS certificates if exposing services over HTTPS.\n\nThis architecture leverages AWS managed services for scalability, security, and operational efficiency, while closely mapping to the original Kubernetes-based design.",
+  "aws_resources": [
+    "VPC (with public and private subnets, route tables, and NACLs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Security Groups (for EKS nodes, Flask app, ActiveMQ)",
+    "Elastic Kubernetes Service (EKS) Cluster",
+    "EKS Node Groups (EC2 instances or Fargate profiles)",
+    "Elastic Container Registry (ECR) Repository",
+    "IAM Roles and Policies (for EKS nodes, service accounts, and pod access)",
+    "Kubernetes Deployments (Flask app, ActiveMQ)",
+    "Kubernetes Services (LoadBalancer for Flask, ClusterIP/LoadBalancer for ActiveMQ)",
+    "Elastic Block Store (EBS) Volumes (for ActiveMQ persistence, if required)",
+    "CloudWatch Log Groups and Metrics",
+    "VPC Flow Logs",
+    "AWS Secrets Manager or Parameter Store (for secrets/configuration)",
+    "AWS Certificate Manager (ACM) (if HTTPS is required)"
+  ]
+}

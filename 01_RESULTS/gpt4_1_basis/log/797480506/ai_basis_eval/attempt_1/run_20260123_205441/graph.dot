@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_policy.rekognition_policy" [label="aws_iam_policy.rekognition_policy"];
+  "aws_iam_role.step_function_role" [label="aws_iam_role.step_function_role"];
+  "aws_iam_role_policy_attachment.step_function_attach" [label="aws_iam_role_policy_attachment.step_function_attach"];
+  "aws_s3_bucket.artifact_bucket" [label="aws_s3_bucket.artifact_bucket"];
+  "aws_sfn_state_machine.rekognition_state_machine" [label="aws_sfn_state_machine.rekognition_state_machine"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_role_policy_attachment.step_function_attach" -> "aws_iam_policy.rekognition_policy";
+  "aws_iam_role_policy_attachment.step_function_attach" -> "aws_iam_role.step_function_role";
+  "aws_s3_bucket.artifact_bucket" -> "random_id.suffix";
+  "aws_sfn_state_machine.rekognition_state_machine" -> "aws_iam_role.step_function_role";
+}

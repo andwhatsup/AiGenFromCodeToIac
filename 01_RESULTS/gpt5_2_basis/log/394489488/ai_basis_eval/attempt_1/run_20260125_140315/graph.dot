@@ -1,0 +1,31 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.apprunner_assume" [label="data.aws_iam_policy_document.apprunner_assume"];
+  "data.aws_iam_policy_document.s3_access" [label="data.aws_iam_policy_document.s3_access"];
+  "aws_apprunner_service.mlflow" [label="aws_apprunner_service.mlflow"];
+  "aws_ecr_repository.app" [label="aws_ecr_repository.app"];
+  "aws_iam_policy.s3_access" [label="aws_iam_policy.s3_access"];
+  "aws_iam_role.apprunner" [label="aws_iam_role.apprunner"];
+  "aws_iam_role_policy_attachment.apprunner_s3" [label="aws_iam_role_policy_attachment.apprunner_s3"];
+  "aws_rds_cluster.mlflow" [label="aws_rds_cluster.mlflow"];
+  "aws_rds_cluster_instance.mlflow" [label="aws_rds_cluster_instance.mlflow"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.s3_access" -> "aws_s3_bucket.artifacts";
+  "aws_apprunner_service.mlflow" -> "aws_ecr_repository.app";
+  "aws_apprunner_service.mlflow" -> "aws_iam_role.apprunner";
+  "aws_apprunner_service.mlflow" -> "aws_rds_cluster.mlflow";
+  "aws_apprunner_service.mlflow" -> "aws_s3_bucket.artifacts";
+  "aws_ecr_repository.app" -> "random_id.suffix";
+  "aws_iam_policy.s3_access" -> "data.aws_iam_policy_document.s3_access";
+  "aws_iam_role.apprunner" -> "data.aws_iam_policy_document.apprunner_assume";
+  "aws_iam_role.apprunner" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.apprunner_s3" -> "aws_iam_policy.s3_access";
+  "aws_iam_role_policy_attachment.apprunner_s3" -> "aws_iam_role.apprunner";
+  "aws_rds_cluster.mlflow" -> "random_id.suffix";
+  "aws_rds_cluster_instance.mlflow" -> "aws_rds_cluster.mlflow";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+}

@@ -1,0 +1,39 @@
+
+Error: failed checking for existing remote state: Unable to access object "tfstates" in S3 bucket "terraform-resources-test": operation error S3: HeadObject, exceeded maximum number of attempts, 5, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Head "http://terraform-resources-test.localhost:4566/tfstates": dial tcp [::1]:4566: connect: connection refused
+
+
+Error: Failed to save state
+
+Error saving state: failed checking for existing remote state: Unable to
+access object "tfstates" in S3 bucket "terraform-resources-test": operation
+error S3: HeadObject, exceeded maximum number of attempts, 5, https response
+error StatusCode: 0, RequestID: , HostID: , request send failed, Head
+"http://terraform-resources-test.localhost:4566/tfstates": dial tcp
+[::1]:4566: connect: connection refused
+
+Error: Failed to persist state to backend
+
+The error shown above has prevented Terraform from writing the updated state
+to the configured backend. To allow for recovery, the state has been written
+to the file "errored.tfstate" in the current working directory.
+
+Running "terraform apply" again at this point will create a forked state,
+making it harder to recover.
+
+To retry writing this state, use the following command:
+    terraform state push errored.tfstate
+
+
+Error: creating Auto Scaling Launch Configuration (placeholder-demo-lc): couldn't find resource
+
+  with aws_launch_configuration.demo_configuration,
+  on main.tf line 138, in resource "aws_launch_configuration" "demo_configuration":
+ 138: resource "aws_launch_configuration" "demo_configuration" {
+
+
+Error: creating S3 Bucket (terraform-resources-test): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://terraform-resources-test.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.s3Bucket,
+  on main.tf line 176, in resource "aws_s3_bucket" "s3Bucket":
+ 176: resource "aws_s3_bucket" "s3Bucket" {
+

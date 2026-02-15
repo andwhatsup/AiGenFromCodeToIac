@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a Python Flask web application, containerized with Docker, and deployed to AWS using Elastic Container Service (ECS). The architecture follows modern best practices for containerized web applications on AWS, ensuring scalability, security, and maintainability.\n\n**High-Level AWS Architecture:**\n\n1. **Networking Layer:**\n   - A dedicated Virtual Private Cloud (VPC) is created to isolate and secure all resources. The VPC contains both public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway is attached to the VPC to allow internet access for public subnets.\n   - NAT Gateway is provisioned to allow ECS tasks in private subnets to access the internet (for updates, etc.) without exposing them directly.\n   - Route tables are configured for proper routing between subnets and gateways.\n\n2. **Container Orchestration:**\n   - AWS ECS (Fargate launch type recommended for serverless containers) is used to run and manage the Dockerized Flask application.\n   - ECS Cluster is created to host the service.\n   - ECS Task Definition specifies the Docker image, resource requirements, and environment variables.\n   - ECS Service manages the desired number of running tasks and handles deployment and scaling.\n\n3. **Image Storage:**\n   - Amazon Elastic Container Registry (ECR) is used as the Docker registry to store and manage container images securely.\n\n4. **Load Balancing & Networking:**\n   - An Application Load Balancer (ALB) is provisioned to distribute incoming HTTP(S) traffic to ECS tasks, providing high availability and SSL termination.\n   - Security Groups are configured to restrict access to only necessary ports (e.g., 80/443 for ALB, 8080 or app port for ECS tasks).\n\n5. **IAM & Security:**\n   - IAM Roles and Policies are created for ECS tasks and services, granting least-privilege access to AWS resources (e.g., pulling images from ECR, logging to CloudWatch).\n   - Secrets Manager or SSM Parameter Store can be used for managing sensitive configuration (if needed).\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch is used for collecting logs and metrics from ECS tasks and the ALB, enabling monitoring and alerting.\n\n**Optional/Recommended Additions:**\n- AWS Certificate Manager (ACM) for managing SSL/TLS certificates for the ALB.\n- Auto Scaling policies for ECS service to handle variable load.\n\nThis architecture is secure, scalable, and cost-effective, leveraging AWS managed services to minimize operational overhead and maximize reliability.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "AWS ECS Cluster",
+    "ECS Task Definition",
+    "ECS Service",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS tasks)",
+    "Amazon ECR Repository",
+    "IAM Roles and Policies (for ECS tasks and services)",
+    "CloudWatch Log Group (for ECS task/app logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Certificate Manager (ACM) Certificate (optional, for HTTPS)",
+    "Secrets Manager or SSM Parameter Store (optional, for secrets management)"
+  ]
+}

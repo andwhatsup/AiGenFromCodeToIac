@@ -1,0 +1,1297 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    12,
+                    31
+                ],
+                "resource": "aws_security_group.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "name_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allowed_cidr_blocks",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    12,
+                    31
+                ],
+                "resource": "aws_security_group.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "name_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allowed_cidr_blocks",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_161",
+                "bc_check_id": "BC_AWS_IAM_65",
+                "check_name": "Ensure RDS database has IAM authentication enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "iam_database_authentication_enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSIAMAuthentication",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-rds-database-has-iam-authentication-enabled",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_293",
+                "bc_check_id": "BC_AWS_GENERAL_208",
+                "check_name": "Ensure that AWS database instances have deletion protection enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "deletion_protection"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSInstanceDeletionProtection",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-293",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_353",
+                "bc_check_id": "BC_AWS_LOGGING_47",
+                "check_name": "Ensure that RDS instances have performance insights enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "performance_insights_enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSInstancePerformanceInsights",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-353",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_157",
+                "bc_check_id": "BC_AWS_GENERAL_73",
+                "check_name": "Ensure that RDS instances have Multi-AZ enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "multi_az"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSMultiAZEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-73",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_129",
+                "bc_check_id": "BC_AWS_IAM_60",
+                "check_name": "Ensure that respective logs of Amazon Relational Database Service (Amazon RDS) are enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "enabled_cloudwatch_logs_exports/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DBInstanceLogging",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/ensure-that-respective-logs-of-amazon-relational-database-service-amazon-rds-are-enabled",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_226",
+                "bc_check_id": "BC_AWS_GENERAL_121",
+                "check_name": "Ensure DB instance gets all minor upgrades automatically",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "auto_minor_version_upgrade"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.DBInstanceMinorUpgrade",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-aws-db-instance-gets-all-minor-upgrades-automatically",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_17",
+                "bc_check_id": "BC_AWS_PUBLIC_2",
+                "check_name": "Ensure all data stored in RDS is not publicly accessible",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "publicly_accessible"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSPubliclyAccessible",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-2",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_118",
+                "bc_check_id": "BC_AWS_LOGGING_28",
+                "check_name": "Ensure that enhanced monitoring is enabled for Amazon RDS instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring_interval"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSEnhancedMonitorEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-enhanced-monitoring-is-enabled-for-amazon-rds-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_16",
+                "bc_check_id": "BC_AWS_GENERAL_4",
+                "check_name": "Ensure all data stored in the RDS is securely encrypted at rest",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "storage_encrypted"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    42,
+                    70
+                ],
+                "resource": "aws_db_instance.postgres",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.RDSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "infrafy-postgres"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-4",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "identifier_prefix": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "db_name": [
+                        {
+                            "type": "variable",
+                            "name": "db_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "username": [
+                        {
+                            "type": "variable",
+                            "name": "db_username",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "port": [
+                        {
+                            "type": "variable",
+                            "name": "db_port",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_db_instance.postgres",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "allocated_storage": [
+                        {
+                            "type": "variable",
+                            "name": "db_allocated_storage",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "instance_class": [
+                        {
+                            "type": "variable",
+                            "name": "db_instance_class",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "publicly_accessible": [
+                        {
+                            "type": "variable",
+                            "name": "db_publicly_accessible",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "password": [
+                        {
+                            "type": "tfvar",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "db_password",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/781215001/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 10,
+        "failed": 11,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 3,
+        "checkov_version": "3.2.490"
+    }
+}

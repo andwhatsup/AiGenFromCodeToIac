@@ -1,0 +1,85 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_49",
+                "bc_check_id": "BC_AWS_IAM_43",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/s3.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                "repo_file_path": "/s3.tf",
+                "file_line_range": [
+                    78,
+                    114
+                ],
+                "resource": "aws_iam_policy_document.s3_bucket_policy",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.data.aws.StarActionPolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-iam-43",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                "breadcrumbs": {
+                    "statement.0.principals.identifiers.0": [
+                        {
+                            "type": "locals",
+                            "name": "aws_account_id",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "statement.0.principals.identifiers": [
+                        {
+                            "type": "locals",
+                            "name": "aws_account_id",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "statement.0.principals": [
+                        {
+                            "type": "locals",
+                            "name": "aws_account_id",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "statement.0": [
+                        {
+                            "type": "locals",
+                            "name": "aws_account_id",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/782556535/infra/s3.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 16,
+        "failed": 1,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 9,
+        "checkov_version": "3.2.490"
+    }
+}

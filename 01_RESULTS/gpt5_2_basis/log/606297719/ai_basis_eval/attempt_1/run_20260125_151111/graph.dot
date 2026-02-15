@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.prefect_storage" [label="aws_s3_bucket.prefect_storage"];
+  "aws_s3_bucket_public_access_block.prefect_storage" [label="aws_s3_bucket_public_access_block.prefect_storage"];
+  "aws_s3_bucket_server_side_encryption_configuration.prefect_storage" [label="aws_s3_bucket_server_side_encryption_configuration.prefect_storage"];
+  "aws_s3_bucket_versioning.prefect_storage" [label="aws_s3_bucket_versioning.prefect_storage"];
+  "aws_s3_bucket_public_access_block.prefect_storage" -> "aws_s3_bucket.prefect_storage";
+  "aws_s3_bucket_server_side_encryption_configuration.prefect_storage" -> "aws_s3_bucket.prefect_storage";
+  "aws_s3_bucket_versioning.prefect_storage" -> "aws_s3_bucket.prefect_storage";
+}

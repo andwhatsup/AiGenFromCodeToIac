@@ -1,0 +1,21 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_event_rule.schedule" [label="aws_cloudwatch_event_rule.schedule"];
+  "aws_cloudwatch_event_target.lambda" [label="aws_cloudwatch_event_target.lambda"];
+  "aws_ecr_repository.app" [label="aws_ecr_repository.app"];
+  "aws_iam_role.lambda" [label="aws_iam_role.lambda"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.collector" [label="aws_lambda_function.collector"];
+  "aws_lambda_permission.allow_events" [label="aws_lambda_permission.allow_events"];
+  "aws_cloudwatch_event_target.lambda" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_cloudwatch_event_target.lambda" -> "aws_lambda_function.collector";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda";
+  "aws_lambda_function.collector" -> "aws_ecr_repository.app";
+  "aws_lambda_function.collector" -> "aws_iam_role_policy_attachment.lambda_basic";
+  "aws_lambda_permission.allow_events" -> "aws_cloudwatch_event_rule.schedule";
+  "aws_lambda_permission.allow_events" -> "aws_lambda_function.collector";
+}

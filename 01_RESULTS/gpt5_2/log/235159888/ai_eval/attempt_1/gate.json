@@ -1,0 +1,320 @@
+{
+  "roots_scanned": [
+    "ai_tf",
+    "ai_tf/modules/security_groups"
+  ],
+  "recommended_roots": [
+    "ai_tf/modules/security_groups"
+  ],
+  "varfiles_created": {
+    "ai_tf": true,
+    "ai_tf/modules/security_groups": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_instance"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_health_check",
+            "aws_route53_record"
+          ]
+        },
+        "ssm": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ssm_parameter"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "cloudwatch",
+          "ec2",
+          "iam",
+          "route53",
+          "ssm"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "ai_tf/modules/security_groups": {
+      "by_service": {
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group",
+            "aws_security_group_rule"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [],
+        "unknown": [
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "non_leaf"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "name_prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"freeipa\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "private_subnet_ids": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "trusted_cidr_blocks": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "cool_domain": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"cool.cyber.dhs.gov\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "hosted_zone_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "ttl": {
+          "type": "number",
+          "has_default": true,
+          "default": "60",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "ami_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3.medium\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "root_disk_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "8",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "key_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "crowdstrike_falcon_sensor_customer_id_key": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/cdm/falcon/customer_id\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "crowdstrike_falcon_sensor_tags_key": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/cdm/falcon/tags\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "nessus_hostname_key": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/cdm/nessus_hostname\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "nessus_key_key": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/cdm/nessus_key\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        },
+        "nessus_port_key": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/cdm/nessus_port\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "ami_id",
+        "hosted_zone_id",
+        "private_subnet_ids",
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_instance_profile",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_instance",
+        "aws_region",
+        "aws_route53_health_check",
+        "aws_route53_record",
+        "aws_ssm_parameter"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_ssm_parameter": 5,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_iam_role_policy": 1,
+        "aws_iam_instance_profile": 1,
+        "aws_instance": 1,
+        "aws_route53_record": 5,
+        "aws_cloudwatch_metric_alarm": 1,
+        "aws_route53_health_check": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 6.28"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    },
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups",
+      "variables": {
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups/variables.tf"
+        },
+        "trusted_cidr_blocks": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups/variables.tf"
+        },
+        "name_prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"freeipa\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups/variables.tf"
+        }
+      },
+      "required_missing": [
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_security_group",
+        "aws_security_group_rule"
+      ],
+      "resource_type_counts": {
+        "aws_security_group": 2,
+        "aws_security_group_rule": 7
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/235159888/ai_tf/modules/security_groups/versions.tf"
+          ],
+          "versions": [
+            "~> 6.28"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_dynamodb_table.tf_locks" [label="aws_dynamodb_table.tf_locks"];
+  "aws_s3_bucket.tf_state" [label="aws_s3_bucket.tf_state"];
+  "aws_s3_bucket_public_access_block.tf_state" [label="aws_s3_bucket_public_access_block.tf_state"];
+  "aws_s3_bucket_server_side_encryption_configuration.tf_state" [label="aws_s3_bucket_server_side_encryption_configuration.tf_state"];
+  "aws_s3_bucket_versioning.tf_state" [label="aws_s3_bucket_versioning.tf_state"];
+  "aws_s3_bucket.tf_state" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket_public_access_block.tf_state" -> "aws_s3_bucket.tf_state";
+  "aws_s3_bucket_server_side_encryption_configuration.tf_state" -> "aws_s3_bucket.tf_state";
+  "aws_s3_bucket_versioning.tf_state" -> "aws_s3_bucket.tf_state";
+}

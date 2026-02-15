@@ -1,0 +1,19 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "consul_acl_policy.dns" [label="consul_acl_policy.dns"];
+  "consul_acl_policy.node" [label="consul_acl_policy.node"];
+  "consul_acl_policy.nomad_client" [label="consul_acl_policy.nomad_client"];
+  "consul_acl_policy.nomad_server" [label="consul_acl_policy.nomad_server"];
+  "consul_acl_policy.traefik" [label="consul_acl_policy.traefik"];
+  "consul_acl_token.node" [label="consul_acl_token.node"];
+  "consul_acl_token.nomad_client" [label="consul_acl_token.nomad_client"];
+  "consul_acl_token.nomad_server" [label="consul_acl_token.nomad_server"];
+  "consul_acl_token.traefik" [label="consul_acl_token.traefik"];
+  "consul_acl_token_policy_attachment.anonymous_dns" [label="consul_acl_token_policy_attachment.anonymous_dns"];
+  "consul_acl_token.node" -> "consul_acl_policy.node";
+  "consul_acl_token.nomad_client" -> "consul_acl_policy.nomad_client";
+  "consul_acl_token.nomad_server" -> "consul_acl_policy.nomad_server";
+  "consul_acl_token.traefik" -> "consul_acl_policy.traefik";
+  "consul_acl_token_policy_attachment.anonymous_dns" -> "consul_acl_policy.dns";
+}

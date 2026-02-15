@@ -1,0 +1,359 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.website_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "website_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+            ]
+          + resources = [
+              + "arn:aws:s3:::terraform/*",
+            ]
+
+          + principals {
+              + identifiers = [
+                  + (known after apply),
+                ]
+              + type        = "AWS"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "s3:ListBucket",
+            ]
+          + resources = [
+              + "arn:aws:s3:::terraform",
+            ]
+
+          + principals {
+              + identifiers = [
+                  + (known after apply),
+                ]
+              + type        = "AWS"
+            }
+        }
+    }
+
+  # aws_acm_certificate.cert will be created
+  + resource "aws_acm_certificate" "cert" {
+      + arn                       = (known after apply)
+      + domain_name               = "terraform"
+      + domain_validation_options = [
+          + {
+              + domain_name           = "terraform"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+          + {
+              + domain_name           = "www.terraform"
+              + resource_record_name  = (known after apply)
+              + resource_record_type  = (known after apply)
+              + resource_record_value = (known after apply)
+            },
+        ]
+      + id                        = (known after apply)
+      + key_algorithm             = (known after apply)
+      + not_after                 = (known after apply)
+      + not_before                = (known after apply)
+      + pending_renewal           = (known after apply)
+      + region                    = "us-east-1"
+      + renewal_eligibility       = (known after apply)
+      + renewal_summary           = (known after apply)
+      + status                    = (known after apply)
+      + subject_alternative_names = [
+          + "terraform",
+          + "www.terraform",
+        ]
+      + tags_all                  = (known after apply)
+      + type                      = (known after apply)
+      + validation_emails         = (known after apply)
+      + validation_method         = "DNS"
+
+      + options (known after apply)
+    }
+
+  # aws_acm_certificate_validation.main will be created
+  + resource "aws_acm_certificate_validation" "main" {
+      + certificate_arn         = (known after apply)
+      + id                      = (known after apply)
+      + region                  = "us-east-1"
+      + validation_record_fqdns = (known after apply)
+    }
+
+  # aws_cloudfront_distribution.prod_distribution will be created
+  + resource "aws_cloudfront_distribution" "prod_distribution" {
+      + aliases                         = [
+          + "terraform",
+          + "www.terraform",
+        ]
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + continuous_deployment_policy_id = (known after apply)
+      + default_root_object             = "index.html"
+      + domain_name                     = (known after apply)
+      + enabled                         = true
+      + etag                            = (known after apply)
+      + hosted_zone_id                  = (known after apply)
+      + http_version                    = "http2"
+      + id                              = (known after apply)
+      + in_progress_validation_batches  = (known after apply)
+      + is_ipv6_enabled                 = true
+      + last_modified_time              = (known after apply)
+      + logging_v1_enabled              = (known after apply)
+      + price_class                     = "PriceClass_100"
+      + retain_on_delete                = false
+      + staging                         = false
+      + status                          = (known after apply)
+      + tags_all                        = (known after apply)
+      + trusted_key_groups              = (known after apply)
+      + trusted_signers                 = (known after apply)
+      + wait_for_deployment             = true
+
+      + custom_error_response {
+          + error_caching_min_ttl = 3000
+          + error_code            = 404
+          + response_code         = 200
+          + response_page_path    = "/index.html"
+        }
+
+      + default_cache_behavior {
+          + allowed_methods        = [
+              + "DELETE",
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+              + "PATCH",
+              + "POST",
+              + "PUT",
+            ]
+          + cached_methods         = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress               = false
+          + default_ttl            = 3600
+          + max_ttl                = 86400
+          + min_ttl                = 0
+          + target_origin_id       = "S3-terraform"
+          + trusted_key_groups     = (known after apply)
+          + trusted_signers        = (known after apply)
+          + viewer_protocol_policy = "redirect-to-https"
+
+          + forwarded_values {
+              + headers                 = (known after apply)
+              + query_string            = true
+              + query_string_cache_keys = (known after apply)
+
+              + cookies {
+                  + forward           = "none"
+                  + whitelisted_names = (known after apply)
+                }
+            }
+
+          + grpc_config (known after apply)
+        }
+
+      + origin {
+          + connection_attempts         = 3
+          + connection_timeout          = 10
+          + domain_name                 = (known after apply)
+          + origin_id                   = "S3-terraform"
+          + response_completion_timeout = (known after apply)
+            # (2 unchanged attributes hidden)
+
+          + s3_origin_config {
+              + origin_access_identity = (known after apply)
+            }
+        }
+
+      + restrictions {
+          + geo_restriction {
+              + locations        = (known after apply)
+              + restriction_type = "none"
+            }
+        }
+
+      + viewer_certificate {
+          + acm_certificate_arn      = (known after apply)
+          + minimum_protocol_version = "TLSv1"
+          + ssl_support_method       = "sni-only"
+        }
+    }
+
+  # aws_cloudfront_origin_access_identity.origin_access_identity will be created
+  + resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + cloudfront_access_identity_path = (known after apply)
+      + etag                            = (known after apply)
+      + iam_arn                         = (known after apply)
+      + id                              = (known after apply)
+      + s3_canonical_user_id            = (known after apply)
+    }
+
+  # aws_route53_record.cert_validation["terraform"] will be created
+  + resource "aws_route53_record" "cert_validation" {
+      + allow_overwrite = true
+      + fqdn            = (known after apply)
+      + id              = (known after apply)
+      + name            = (known after apply)
+      + records         = (known after apply)
+      + ttl             = 60
+      + type            = (known after apply)
+      + zone_id         = (known after apply)
+    }
+
+  # aws_route53_record.cert_validation["www.terraform"] will be created
+  + resource "aws_route53_record" "cert_validation" {
+      + allow_overwrite = true
+      + fqdn            = (known after apply)
+      + id              = (known after apply)
+      + name            = (known after apply)
+      + records         = (known after apply)
+      + ttl             = 60
+      + type            = (known after apply)
+      + zone_id         = (known after apply)
+    }
+
+  # aws_route53_record.main will be created
+  + resource "aws_route53_record" "main" {
+      + allow_overwrite = (known after apply)
+      + fqdn            = (known after apply)
+      + id              = (known after apply)
+      + name            = "www"
+      + records         = [
+          + "terraform",
+        ]
+      + ttl             = 86400
+      + type            = "CNAME"
+      + zone_id         = (known after apply)
+    }
+
+  # aws_route53_record.www will be created
+  + resource "aws_route53_record" "www" {
+      + allow_overwrite = (known after apply)
+      + fqdn            = (known after apply)
+      + id              = (known after apply)
+      + name            = "terraform"
+      + type            = "A"
+      + zone_id         = (known after apply)
+
+      + alias {
+          + evaluate_target_health = false
+          + name                   = (known after apply)
+          + zone_id                = (known after apply)
+        }
+    }
+
+  # aws_route53_zone.primary will be created
+  + resource "aws_route53_zone" "primary" {
+      + arn                         = (known after apply)
+      + comment                     = "Managed by Terraform"
+      + enable_accelerated_recovery = (known after apply)
+      + force_destroy               = false
+      + id                          = (known after apply)
+      + name                        = "terraform"
+      + name_servers                = (known after apply)
+      + primary_name_server         = (known after apply)
+      + tags_all                    = (known after apply)
+      + zone_id                     = (known after apply)
+    }
+
+  # aws_s3_bucket.website_bucket will be created
+  + resource "aws_s3_bucket" "website_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "terraform"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.example will be created
+  + resource "aws_s3_bucket_acl" "example" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_ownership_controls.ownership will be created
+  + resource "aws_s3_bucket_ownership_controls" "ownership" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + object_ownership = "ObjectWriter"
+        }
+    }
+
+  # aws_s3_bucket_policy.policy will be created
+  + resource "aws_s3_bucket_policy" "policy" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_website_configuration.website will be created
+  + resource "aws_s3_bucket_website_configuration" "website" {
+      + bucket           = (known after apply)
+      + id               = (known after apply)
+      + region           = "us-east-1"
+      + routing_rules    = (known after apply)
+      + website_domain   = (known after apply)
+      + website_endpoint = (known after apply)
+
+      + index_document {
+          + suffix = "index.html"
+        }
+
+      + routing_rule (known after apply)
+    }
+
+Plan: 14 to add, 0 to change, 0 to destroy.

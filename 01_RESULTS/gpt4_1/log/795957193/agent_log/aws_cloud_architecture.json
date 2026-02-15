@@ -1,0 +1,18 @@
+{
+  "aws_architecture_description": "This system is a simple Express-based web application with no external dependencies or databases. The primary goal is to securely and reliably deploy the Node.js/Express server so it can handle HTTP requests from users. The recommended AWS architecture is as follows:\n\n1. **Networking**: Deploy the application within a Virtual Private Cloud (VPC) for network isolation and security. Use public subnets to allow internet access to the web server.\n2. **Compute**: Use AWS Elastic Beanstalk (Node.js platform) for managed deployment, scaling, and health monitoring of the Express application. Elastic Beanstalk abstracts away EC2 management and provides easy deployment and rollback.\n3. **Load Balancing & Scaling**: Elastic Beanstalk can automatically provision an Application Load Balancer (ALB) and auto scaling group to distribute incoming HTTP requests and scale the application based on demand.\n4. **Storage**: Use Amazon S3 for storing application logs and static assets (if needed in the future).\n5. **IAM**: Create IAM roles and policies for Elastic Beanstalk and EC2 instances to securely access AWS resources (e.g., S3 for logs).\n6. **Security**: Use security groups to restrict inbound traffic to HTTP/HTTPS ports (80/443) and limit outbound traffic as needed.\n7. **Monitoring**: Enable AWS CloudWatch for application and infrastructure monitoring, log aggregation, and alerting.\n\nThis architecture is secure, scalable, and follows AWS best practices for deploying a stateless web application.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets",
+    "Internet Gateway",
+    "Route Table (for public subnets)",
+    "Elastic Beanstalk Environment (Node.js platform)",
+    "EC2 Instances (managed by Elastic Beanstalk)",
+    "Application Load Balancer (managed by Elastic Beanstalk)",
+    "Auto Scaling Group (managed by Elastic Beanstalk)",
+    "S3 Bucket (for logs and static assets)",
+    "IAM Role for Elastic Beanstalk",
+    "IAM Instance Profile for EC2",
+    "Security Groups (for ALB and EC2)",
+    "CloudWatch Log Group (for application and environment logs)"
+  ]
+}

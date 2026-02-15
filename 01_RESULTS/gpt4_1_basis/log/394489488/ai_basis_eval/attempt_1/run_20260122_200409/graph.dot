@@ -1,0 +1,35 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.ecs_task_assume_role_policy" [label="data.aws_iam_policy_document.ecs_task_assume_role_policy"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_ecr_repository.mlflow" [label="aws_ecr_repository.mlflow"];
+  "aws_ecs_cluster.mlflow" [label="aws_ecs_cluster.mlflow"];
+  "aws_ecs_service.mlflow" [label="aws_ecs_service.mlflow"];
+  "aws_ecs_task_definition.mlflow" [label="aws_ecs_task_definition.mlflow"];
+  "aws_iam_role.ecs_task_execution" [label="aws_iam_role.ecs_task_execution"];
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" [label="aws_iam_role_policy_attachment.ecs_task_execution_policy"];
+  "aws_lb.mlflow" [label="aws_lb.mlflow"];
+  "aws_lb_listener.mlflow" [label="aws_lb_listener.mlflow"];
+  "aws_lb_target_group.mlflow" [label="aws_lb_target_group.mlflow"];
+  "aws_s3_bucket.mlflow_artifacts" [label="aws_s3_bucket.mlflow_artifacts"];
+  "aws_security_group.mlflow" [label="aws_security_group.mlflow"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_ecs_service.mlflow" -> "aws_ecs_cluster.mlflow";
+  "aws_ecs_service.mlflow" -> "aws_ecs_task_definition.mlflow";
+  "aws_ecs_service.mlflow" -> "aws_lb_listener.mlflow";
+  "aws_ecs_task_definition.mlflow" -> "aws_ecr_repository.mlflow";
+  "aws_ecs_task_definition.mlflow" -> "aws_iam_role.ecs_task_execution";
+  "aws_ecs_task_definition.mlflow" -> "aws_s3_bucket.mlflow_artifacts";
+  "aws_iam_role.ecs_task_execution" -> "data.aws_iam_policy_document.ecs_task_assume_role_policy";
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" -> "aws_iam_role.ecs_task_execution";
+  "aws_lb.mlflow" -> "data.aws_subnets.default";
+  "aws_lb.mlflow" -> "aws_security_group.mlflow";
+  "aws_lb_listener.mlflow" -> "aws_lb.mlflow";
+  "aws_lb_listener.mlflow" -> "aws_lb_target_group.mlflow";
+  "aws_lb_target_group.mlflow" -> "data.aws_vpc.default";
+  "aws_s3_bucket.mlflow_artifacts" -> "random_id.suffix";
+  "aws_security_group.mlflow" -> "data.aws_vpc.default";
+}

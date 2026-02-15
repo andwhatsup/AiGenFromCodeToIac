@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system is a workflow orchestration and automation platform on AWS, primarily using Python, Apache Airflow, and AWS Lambda. The architecture is designed for flexibility, scalability, and event-driven automation, leveraging managed AWS services and following best practices for security and reliability.\n\n**Architecture Overview:**\n\n1. **Networking/Foundation:**\n   - All resources are deployed within a dedicated VPC for network isolation and security. The VPC contains public and private subnets across multiple Availability Zones for high availability.\n   - Security Groups and NACLs are configured to restrict access to only necessary ports and resources.\n\n2. **Apache Airflow:**\n   - Airflow is deployed using Amazon Managed Workflows for Apache Airflow (MWAA) for a fully managed, scalable, and secure orchestration environment.\n   - Airflow DAGs (Python scripts) are stored in an S3 bucket, which MWAA uses as its DAGs folder.\n   - MWAA is configured to access Lambda and S3 via appropriate IAM roles.\n\n3. **AWS Lambda:**\n   - Lambda functions are written in Python and use boto3 to interact with AWS services.\n   - Lambda functions are triggered by Airflow (via boto3) or can themselves trigger Airflow DAGs (using the MWAA API or boto3).\n   - Lambda functions interact with S3 for reading/writing data.\n   - Lambda functions are deployed in private subnets with appropriate IAM roles and security groups.\n\n4. **Amazon S3:**\n   - S3 is used for data storage and as the source for Airflow DAGs.\n   - S3 buckets are configured with least-privilege access policies and encryption at rest.\n\n5. **IAM:**\n   - IAM roles and policies are created for MWAA, Lambda, and any other components to ensure least-privilege access to S3, Lambda, and other AWS resources.\n\n6. **Monitoring & Logging:**\n   - CloudWatch is used for logging and monitoring Lambda functions, MWAA, and other AWS resources.\n   - CloudTrail is enabled for auditing API calls.\n\n**Deployment Strategy:**\n- Infrastructure is provisioned using infrastructure-as-code (e.g., AWS CloudFormation, Terraform, or AWS CDK).\n- Airflow DAGs and Lambda code are deployed via CI/CD pipelines, with artifacts stored in S3.\n- All resources are deployed in a single AWS account and region, unless multi-region is required for DR.\n\nThis architecture ensures secure, scalable, and maintainable workflow automation, leveraging AWS managed services and best practices.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for MWAA, Lambda, etc.)",
+    "Network ACLs",
+    "Amazon Managed Workflows for Apache Airflow (MWAA) Environment",
+    "S3 Bucket (for Airflow DAGs)",
+    "S3 Bucket(s) (for data storage)",
+    "AWS Lambda Functions (Python, with appropriate IAM roles)",
+    "IAM Roles and Policies (for MWAA, Lambda, S3 access)",
+    "CloudWatch Log Groups (for Lambda, MWAA)",
+    "CloudTrail (for auditing)",
+    "VPC Endpoints (for S3, if private access is required)"
+  ]
+}

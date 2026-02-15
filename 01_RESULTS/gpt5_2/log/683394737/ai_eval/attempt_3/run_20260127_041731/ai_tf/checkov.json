@@ -1,0 +1,1346 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    29,
+                    59
+                ],
+                "resource": "aws_security_group.alb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.content.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress.content": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    29,
+                    59
+                ],
+                "resource": "aws_security_group.alb",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.content.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress.content": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "alb_ingress_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": "BC_AWS_NETWORKING_1",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ingress/[0]/from_port",
+                        "ingress/[0]/to_port",
+                        "ingress/[0]/cidr_blocks",
+                        "ingress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    61,
+                    91
+                ],
+                "resource": "aws_security_group.ec2",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.content.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress.content": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    61,
+                    91
+                ],
+                "resource": "aws_security_group.ec2",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.content.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress.content": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    61,
+                    91
+                ],
+                "resource": "aws_security_group.ec2",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "dynamic.ingress.content.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress.content": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "dynamic.ingress": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "allow_ssh_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.from_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.to_port": [
+                        {
+                            "type": "variable",
+                            "name": "container_port",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    115,
+                    122
+                ],
+                "resource": "aws_ecr_repository.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "ecr_repository_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_51",
+                "bc_check_id": "BC_AWS_GENERAL_24",
+                "check_name": "Ensure ECR Image Tags are immutable",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "image_tag_mutability"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    115,
+                    122
+                ],
+                "resource": "aws_ecr_repository.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRImmutableTags",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-24",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "ecr_repository_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_341",
+                "bc_check_id": "BC_AWS_GENERAL_244",
+                "check_name": "Ensure Launch template should not have a metadata response hop limit greater than 1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_put_response_hop_limit"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    271,
+                    309
+                ],
+                "resource": "aws_launch_template.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchTemplateMetadataHop",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-341",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "instance_type",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tag_specifications.tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tag_specifications.tags": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name_prefix": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile.name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_150",
+                "bc_check_id": "BC_AWS_NETWORKING_62",
+                "check_name": "Ensure that Load Balancer has deletion protection enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "enable_deletion_protection"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    311,
+                    317
+                ],
+                "resource": "aws_lb.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LBDeletionProtection",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-150",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_91",
+                "bc_check_id": "BC_AWS_LOGGING_22",
+                "check_name": "Ensure the ELBv2 (Application/Network) has access logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "access_logs/0/enabled/0"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    311,
+                    317
+                ],
+                "resource": "aws_lb.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ELBv2AccessLogs",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-logging-22",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_131",
+                "bc_check_id": "BC_AWS_NETWORKING_41",
+                "check_name": "Ensure that ALB drops HTTP headers",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "drop_invalid_header_fields"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    311,
+                    317
+                ],
+                "resource": "aws_lb.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ALBDropHttpHeaders",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-that-alb-drops-http-headers",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_2",
+                "bc_check_id": "BC_AWS_NETWORKING_29",
+                "check_name": "Ensure ALB protocol is HTTPS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "protocol"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    337,
+                    346
+                ],
+                "resource": "aws_lb_listener.http",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ALBListenerHTTPS",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-29",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf"
+            },
+            {
+                "check_id": "CKV_TF_1",
+                "bc_check_id": "BC_CROSS_1",
+                "check_name": "Ensure Terraform module sources use a commit hash",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    11,
+                    27
+                ],
+                "resource": "vpc",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.module.generic.RevisionHash",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/supply-chain-policies/terraform-policies/ensure-terraform-module-sources-use-git-url-with-commit-hash-revision",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                "breadcrumbs": {
+                    "cidr": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "public_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "public_subnet_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "private_subnets": [
+                        {
+                            "type": "variable",
+                            "name": "private_subnet_cidrs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "enable_nat_gateway": [
+                        {
+                            "type": "variable",
+                            "name": "enable_nat_gateway",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "single_nat_gateway": [
+                        {
+                            "type": "variable",
+                            "name": "single_nat_gateway",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "azs": [
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "project_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2",
+                            "path": "/ai-gen-from-code-to-iac/workspace/683394737/ai_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 34,
+        "failed": 13,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 17,
+        "checkov_version": "3.2.490"
+    }
+}

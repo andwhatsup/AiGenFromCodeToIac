@@ -1,0 +1,75 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_availability_zones.available: Reading...
+aws_secretsmanager_secret.vault_token: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:fastapi-vault-dev-vault-token-DTLfND]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/fastapi-vault-dev]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/fastapi-vault-dev]
+aws_ssm_parameter.vault_addr: Refreshing state... [id=/fastapi-vault-dev/vault/addr]
+module.vpc.aws_vpc.this[0]: Refreshing state... [id=vpc-e117b2506c4f59706]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.task: Refreshing state... [id=fastapi-vault-dev-task]
+aws_iam_role.task_execution: Refreshing state... [id=fastapi-vault-dev-task-exec]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_secretsmanager_secret_version.vault_token: Refreshing state... [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:fastapi-vault-dev-vault-token-DTLfND|terraform-20260127155135181800000002]
+data.aws_iam_policy_document.task_access: Reading...
+data.aws_iam_policy_document.task_access: Read complete after 0s [id=2216846762]
+aws_iam_policy.task_access: Refreshing state... [id=arn:aws:iam::000000000000:policy/fastapi-vault-dev-task-access]
+aws_iam_role_policy_attachment.task_execution_managed: Refreshing state... [id=fastapi-vault-dev-task-exec-20260127155135439500000003]
+aws_ecs_task_definition.app: Refreshing state... [id=fastapi-vault-dev]
+aws_iam_role_policy_attachment.task_access: Refreshing state... [id=fastapi-vault-dev-task-20260127155135955100000004]
+module.vpc.aws_default_security_group.this[0]: Refreshing state... [id=sg-3a1b6ca1c322494cb]
+module.vpc.aws_default_route_table.default[0]: Refreshing state... [id=rtb-af8181089ef4fd7b1]
+module.vpc.aws_internet_gateway.this[0]: Refreshing state... [id=igw-0dc09caef9c1bfba6]
+module.vpc.aws_default_network_acl.this[0]: Refreshing state... [id=acl-9398c129d257327be]
+module.vpc.aws_subnet.public[0]: Refreshing state... [id=subnet-485eb1c11347b7ccb]
+aws_security_group.alb: Refreshing state... [id=sg-14a99fb44d975d04b]
+module.vpc.aws_subnet.public[1]: Refreshing state... [id=subnet-c0d58f66e808db3c2]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/fastapi-vault-dev-tg/d4b5505457477b3f]
+module.vpc.aws_route_table.private[0]: Refreshing state... [id=rtb-f07dc1c10b1f89390]
+module.vpc.aws_subnet.private[0]: Refreshing state... [id=subnet-dfed36ef4864ce6e4]
+module.vpc.aws_subnet.private[1]: Refreshing state... [id=subnet-e76842c546cdf8ba6]
+module.vpc.aws_route_table.public[0]: Refreshing state... [id=rtb-40088930c368f6cf8]
+module.vpc.aws_eip.nat[0]: Refreshing state... [id=eipalloc-6c4a9ed51e0ba3299]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-4ebed6600eaa9a520]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/fastapi-vault-dev-alb/058267d3f7694741]
+module.vpc.aws_route_table_association.private[0]: Refreshing state... [id=rtbassoc-133a4f1658adf85a0]
+module.vpc.aws_route_table_association.private[1]: Refreshing state... [id=rtbassoc-4a83a21cdb5d0066d]
+module.vpc.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-1f8fc28f64ec2846f]
+module.vpc.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-5f5c373f2673a090a]
+module.vpc.aws_route.public_internet_gateway[0]: Refreshing state... [id=r-rtb-40088930c368f6cf81080289494]
+module.vpc.aws_nat_gateway.this[0]: Refreshing state... [id=nat-f6dba154fd4d68576]
+aws_lb_listener.https: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/fastapi-vault-dev-alb/058267d3f7694741/aee7fc3f337109f9]
+module.vpc.aws_route.private_nat_gateway[0]: Refreshing state... [id=r-rtb-f07dc1c10b1f893901080289494]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/fastapi-vault-dev/fastapi-vault-dev]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/fastapi-vault-dev/fastapi-vault-dev"
+        name                               = "fastapi-vault-dev"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/fastapi-vault-dev:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.app must be replaced
+-/+ resource "aws_ecs_task_definition" "app" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/fastapi-vault-dev:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/fastapi-vault-dev" -> (known after apply)
+      ~ container_definitions    = (sensitive value) # forces replacement
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "fastapi-vault-dev" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+    }
+
+Plan: 1 to add, 1 to change, 1 to destroy.

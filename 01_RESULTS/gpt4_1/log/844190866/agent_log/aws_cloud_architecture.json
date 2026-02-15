@@ -1,0 +1,18 @@
+{
+  "aws_architecture_description": "This system is a modern, containerized Python Flask web application deployed on AWS using Kubernetes (Amazon EKS), with CI/CD automation and a managed load balancer for public access. Here’s the high-level AWS architecture:\n\n1. **Networking**: A dedicated VPC with public and private subnets across multiple Availability Zones for high availability. The EKS cluster and load balancer are deployed within this VPC.\n\n2. **Amazon EKS (Elastic Kubernetes Service)**: Manages the Kubernetes control plane and worker nodes. The Flask API is deployed as pods within EKS using Kubernetes manifests. EKS worker nodes (EC2 or Fargate) run in private subnets.\n\n3. **AWS Load Balancer (ALB/NLB)**: An Application Load Balancer (ALB) is provisioned via a Kubernetes Service of type LoadBalancer, exposing the Flask API to the internet. The ALB forwards HTTP(S) traffic to the EKS cluster.\n\n4. **IAM Roles and Policies**: IAM roles for EKS nodes, EKS service accounts (for Kubernetes workloads to access AWS resources securely), and CI/CD pipeline permissions.\n\n5. **Container Registry**: While DockerHub or GitHub Container Registry is used for image storage, optionally Amazon ECR (Elastic Container Registry) can be provisioned for private, AWS-native image storage.\n\n6. **CI/CD Integration**: The CI/CD pipeline (GitHub Actions, Jenkins) builds Docker images, pushes them to the registry, and deploys to EKS using Kubernetes manifests. IAM permissions are required for the pipeline to interact with EKS and ECR (if used).\n\n7. **Security Groups and Networking**: Security groups restrict access to the EKS nodes and ALB. Network ACLs and security best practices are applied.\n\n8. **Monitoring and Logging**: Amazon CloudWatch is used for monitoring EKS, ALB, and application logs. AWS CloudTrail is enabled for auditing API activity.\n\n9. **Foundational Resources**: Route 53 (optional) for DNS, AWS Certificate Manager (optional) for SSL/TLS certificates, and S3 (optional) for storing logs or artifacts.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized workloads, providing automated deployment, high availability, and robust monitoring.",
+  "aws_resources": [
+    "VPC (with public and private subnets, route tables, NAT Gateway)",
+    "Internet Gateway",
+    "Amazon EKS Cluster",
+    "EKS Node Group (EC2 or Fargate)",
+    "Security Groups (for ALB, EKS nodes, and pods)",
+    "Application Load Balancer (ALB)",
+    "IAM Roles and Policies (EKS cluster, node group, service accounts, CI/CD pipeline)",
+    "Elastic Container Registry (ECR) (optional, if not using DockerHub/GHCR)",
+    "CloudWatch (logs and metrics for EKS, ALB, and application)",
+    "CloudTrail (API activity auditing)",
+    "Route 53 (optional, for DNS)",
+    "AWS Certificate Manager (optional, for SSL/TLS)",
+    "S3 Bucket (optional, for logs/artifacts)"
+  ]
+}

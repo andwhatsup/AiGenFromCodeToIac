@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_instance_profile.url-shortener-profile" [label="aws_iam_instance_profile.url-shortener-profile"];
+  "aws_iam_policy.url-shortener-bucket-readonly" [label="aws_iam_policy.url-shortener-bucket-readonly"];
+  "aws_iam_role.url-shortener" [label="aws_iam_role.url-shortener"];
+  "aws_iam_role_policy_attachment.url-shortener-bucket-readonly" [label="aws_iam_role_policy_attachment.url-shortener-bucket-readonly"];
+  "aws_instance.flask-web" [label="aws_instance.flask-web"];
+  "aws_security_group.default" [label="aws_security_group.default"];
+  "aws_iam_instance_profile.url-shortener-profile" -> "aws_iam_role.url-shortener";
+  "aws_iam_role_policy_attachment.url-shortener-bucket-readonly" -> "aws_iam_policy.url-shortener-bucket-readonly";
+  "aws_iam_role_policy_attachment.url-shortener-bucket-readonly" -> "aws_iam_role.url-shortener";
+  "aws_instance.flask-web" -> "aws_iam_instance_profile.url-shortener-profile";
+  "aws_instance.flask-web" -> "aws_security_group.default";
+}

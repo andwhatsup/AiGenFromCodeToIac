@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture for deploying the TypeScript-based NestJS application is as follows:\n\n1. **Networking & Security:**\n   - Deploy all resources within a dedicated Virtual Private Cloud (VPC) for network isolation and security. The VPC will have both public and private subnets. The EC2 instance will reside in a public subnet (for SSH/HTTP access), while the RDS instance will be in a private subnet (not directly accessible from the internet). Security Groups will restrict access to only necessary ports (e.g., 22 for SSH, 80/443 for HTTP/HTTPS, 3306 for MySQL between EC2 and RDS).\n\n2. **Compute Layer:**\n   - The NestJS application is containerized using Docker and deployed on an EC2 instance. The EC2 instance will have an IAM role attached to allow secure access to S3 and RDS. The instance can be managed via SSH (restricted by Security Group rules) and will be the target for CI/CD deployments from GitHub Actions.\n\n3. **Database Layer:**\n   - Use Amazon RDS (MySQL) for managed, scalable, and reliable database storage. The RDS instance will be deployed in a private subnet and only accessible from the EC2 instance within the VPC.\n\n4. **Storage Layer:**\n   - Use Amazon S3 for object storage (file uploads, static assets, or backups). The EC2 instance will access S3 using its IAM role.\n\n5. **IAM & Security:**\n   - Use IAM roles and policies to grant the EC2 instance least-privilege access to S3 and RDS. No AWS credentials are hardcoded in the application.\n\n6. **CI/CD:**\n   - GitHub Actions will be configured to build, test, and deploy the Dockerized application to the EC2 instance. This may use SSH or AWS SSM for deployment.\n\n7. **Monitoring & Logging:**\n   - Use Amazon CloudWatch for monitoring EC2, RDS, and application logs/metrics. Enable VPC flow logs for network monitoring.\n\nThis architecture is secure (private networking, IAM roles), scalable (managed RDS, S3), and follows AWS best practices for deploying containerized applications on EC2 with CI/CD automation.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet (for EC2)",
+    "Private Subnet (for RDS)",
+    "Internet Gateway",
+    "NAT Gateway (for outbound access from private subnet)",
+    "Route Tables",
+    "Security Group for EC2 (allow SSH, HTTP/HTTPS)",
+    "Security Group for RDS (allow MySQL from EC2 only)",
+    "EC2 Instance (with Docker installed)",
+    "IAM Role for EC2 (access to S3, RDS)",
+    "Amazon RDS (MySQL) Instance",
+    "Amazon S3 Bucket",
+    "CloudWatch Logs",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "VPC Flow Logs (optional, for network monitoring)"
+  ]
+}

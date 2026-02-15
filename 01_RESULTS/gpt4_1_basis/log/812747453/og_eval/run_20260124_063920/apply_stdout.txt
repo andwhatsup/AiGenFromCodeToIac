@@ -1,0 +1,191 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_ecs_cluster.cluster will be created
+  + resource "aws_ecs_cluster" "cluster" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "hello-world-cluster"
+      + region   = "us-west-2"
+      + tags_all = (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.service will be created
+  + resource "aws_ecs_service" "service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = (known after apply)
+      + name                               = "hello-world-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-west-2"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.task will be created
+  + resource "aws_ecs_task_definition" "task" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + cpu          = 256
+                  + essential    = true
+                  + image        = "812747453"
+                  + memory       = 512
+                  + name         = "hello-world"
+                  + portMappings = [
+                      + {
+                          + containerPort = 3000
+                          + hostPort      = 3000
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + family                   = "hello-world-task"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-west-2"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_security_group.ecs will be created
+  + resource "aws_security_group" "ecs" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-west-2"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.subnet will be created
+  + resource "aws_subnet" "subnet" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-2"
+      + tags_all                                       = (known after apply)
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = (known after apply)
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-west-2"
+      + tags_all                             = (known after apply)
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+aws_ecs_cluster.cluster: Creating...
+aws_vpc.main: Creating...
+aws_ecs_task_definition.task: Creating...
+aws_ecs_task_definition.task: Creation complete after 1s [id=hello-world-task]
+aws_vpc.main: Creation complete after 1s [id=vpc-47c9e077780a6878d]
+aws_subnet.subnet: Creating...
+aws_security_group.ecs: Creating...
+aws_subnet.subnet: Creation complete after 0s [id=subnet-62bc7e2aeefcfa302]
+aws_security_group.ecs: Creation complete after 1s [id=sg-65cb73d3065dcd738]
+aws_ecs_cluster.cluster: Still creating... [00m10s elapsed]
+aws_ecs_cluster.cluster: Creation complete after 11s [id=arn:aws:ecs:us-west-2:000000000000:cluster/hello-world-cluster]
+aws_ecs_service.service: Creating...
+aws_ecs_service.service: Still creating... [00m10s elapsed]
+aws_ecs_service.service: Still creating... [00m20s elapsed]
+aws_ecs_service.service: Creation complete after 23s [id=arn:aws:ecs:us-west-2:000000000000:service/hello-world-cluster/hello-world-service]
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.

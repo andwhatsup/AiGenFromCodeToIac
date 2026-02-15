@@ -1,0 +1,167 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # consul_acl_policy.dns will be created
+  + resource "consul_acl_policy" "dns" {
+      + id    = (known after apply)
+      + name  = "dns"
+      + rules = <<-EOT
+            node_prefix "" {
+              policy = "read"
+            }
+            
+            service_prefix "" {
+              policy = "read"
+            }
+        EOT
+    }
+
+  # consul_acl_policy.node will be created
+  + resource "consul_acl_policy" "node" {
+      + id    = (known after apply)
+      + name  = "node-policy"
+      + rules = <<-EOT
+            agent_prefix "" {
+              policy = "write"
+            }
+            
+            node_prefix "" {
+              policy = "write"
+            }
+            
+            service_prefix "" {
+              policy = "read"
+            }
+            
+            session_prefix "" {
+              policy = "read"
+            }
+        EOT
+    }
+
+  # consul_acl_policy.nomad_client will be created
+  + resource "consul_acl_policy" "nomad_client" {
+      + description = "Nomad client policy"
+      + id          = (known after apply)
+      + name        = "nomad-client"
+      + rules       = <<-EOT
+            agent_prefix "" {
+              policy = "read"
+            }
+            
+            node_prefix "" {
+              policy = "read"
+            }
+            
+            service_prefix "" {
+              policy = "write"
+            }
+            
+            key_prefix "" {
+              policy = "read"
+            }
+        EOT
+    }
+
+  # consul_acl_policy.nomad_server will be created
+  + resource "consul_acl_policy" "nomad_server" {
+      + description = "Nomad server policy"
+      + id          = (known after apply)
+      + name        = "nomad-server"
+      + rules       = <<-EOT
+            agent_prefix "" {
+              policy = "read"
+            }
+            
+            node_prefix "" {
+              policy = "read"
+            }
+            
+            service_prefix "" {
+              policy = "write"
+            }
+            
+            acl = "write"
+            operator = "write"
+        EOT
+    }
+
+  # consul_acl_policy.traefik will be created
+  + resource "consul_acl_policy" "traefik" {
+      + description = "Token for Traefik service"
+      + id          = (known after apply)
+      + name        = "traefik"
+      + rules       = <<-EOT
+            service_prefix "" {
+              policy = "read"
+            }
+            
+            node_prefix ""{
+              policy = "read"
+            }
+        EOT
+    }
+
+  # consul_acl_token.node will be created
+  + resource "consul_acl_token" "node" {
+      + accessor_id = (known after apply)
+      + description = "node token"
+      + id          = (known after apply)
+      + policies    = [
+          + "node-policy",
+        ]
+    }
+
+  # consul_acl_token.nomad_client will be created
+  + resource "consul_acl_token" "nomad_client" {
+      + accessor_id = (known after apply)
+      + description = "Nomad client token"
+      + id          = (known after apply)
+      + policies    = [
+          + "nomad-client",
+        ]
+    }
+
+  # consul_acl_token.nomad_server will be created
+  + resource "consul_acl_token" "nomad_server" {
+      + accessor_id = (known after apply)
+      + description = "Nomad server token"
+      + id          = (known after apply)
+      + policies    = [
+          + "nomad-server",
+        ]
+    }
+
+  # consul_acl_token.traefik will be created
+  + resource "consul_acl_token" "traefik" {
+      + accessor_id = (known after apply)
+      + description = "Traefik token"
+      + id          = (known after apply)
+      + policies    = [
+          + "traefik",
+        ]
+    }
+
+  # consul_acl_token_policy_attachment.anonymous_dns will be created
+  + resource "consul_acl_token_policy_attachment" "anonymous_dns" {
+      + id       = (known after apply)
+      + policy   = "dns"
+      + token_id = "00000000-0000-0000-0000-000000000002"
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + consul_acl_token_node         = (known after apply)
+  + consul_acl_token_nomad_client = (known after apply)
+  + consul_acl_token_nomad_server = (known after apply)
+  + consul_acl_token_traefik      = (known after apply)
+consul_acl_policy.nomad_server: Creating...
+consul_acl_policy.node: Creating...
+consul_acl_policy.traefik: Creating...
+consul_acl_policy.nomad_client: Creating...
+consul_acl_policy.dns: Creating...

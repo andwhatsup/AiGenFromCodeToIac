@@ -1,0 +1,62 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "TypeScript",
+        "JavaScript (tooling/config)"
+      ],
+      "frameworks": [
+        "NestJS (@nestjs/core, @nestjs/common)",
+        "Express (via @nestjs/platform-express)",
+        "TypeORM"
+      ],
+      "dependencies": [
+        "@nestjs/common (^10.0.0) — package.json",
+        "@nestjs/core (^10.0.0) — package.json",
+        "@nestjs/platform-express (^10.0.0) — package.json",
+        "@nestjs/typeorm (^10.0.2) — package.json",
+        "typeorm (^0.3.20) — package.json",
+        "mysql2 (^3.9.0) — package.json",
+        "rxjs (^7.8.1) — package.json",
+        "reflect-metadata (^0.1.13) — package.json",
+        "Dev/test/tooling: jest, ts-jest, supertest, eslint, prettier, typescript, @nestjs/cli, semantic-release plugins — package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yaml",
+        ".dockerignore",
+        ".github/workflows/ci.yml",
+        "nest-cli.json",
+        "tsconfig.json",
+        "tsconfig.build.json",
+        "yarn.lock"
+      ],
+      "architectural_resources": [
+        "API / web application (NestJS) listening on port 3000 (src/main.ts)",
+        "Relational database: MySQL (docker-compose.yaml; mysql2 + TypeORM in package.json)",
+        "Container image build/publish pipeline (Dockerfile; .github/workflows/ci.yml)",
+        "AWS ECR container registry (ci.yml uses amazon-ecr-login and pushes image)",
+        "AWS App Runner service deployment target (ci.yml uses awslabs/amazon-app-runner-deploy)",
+        "GitHub Actions CI pipeline (ci.yml)"
+      ]
+    },
+    {
+      "project_directory": "iac",
+      "programming_languages": [
+        "Text (logs/artifacts)"
+      ],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "iac/init_validate_stdout.txt",
+        "iac/init_validate_stderr.txt",
+        "iac/validate_stdout.txt",
+        "iac/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "No IaC source detected in-repo (no *.tf / ansible playbooks found); this directory contains validation output logs only."
+      ]
+    }
+  ]
+}

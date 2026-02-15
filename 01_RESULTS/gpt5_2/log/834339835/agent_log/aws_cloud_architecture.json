@@ -1,0 +1,33 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking foundation\n- Create a dedicated **VPC** spanning **2–3 Availability Zones**.\n- Use **public subnets** for internet-facing load balancers and **private subnets** for EKS worker nodes and internal services.\n- Add **NAT Gateways** (one per AZ for HA, or one total for cost-lean) so private subnets can pull images and reach external services (Docker Hub, SonarQube/Jira/SMTP if external).\n- Use **VPC endpoints** (Interface/Gateway) where it reduces egress and improves security (ECR, S3, CloudWatch Logs, STS, etc.).\n\n### 2) Compute / Kubernetes runtime (EKS)\n- Run the application on **Amazon EKS**.\n- Use **EKS Managed Node Groups** (or **Fargate** if you want to avoid node management; for 6 replicas a managed node group is typically simplest).\n- Deploy the app as a Kubernetes **Deployment** (6 replicas) and expose it via Kubernetes **Ingress** backed by an **AWS Application Load Balancer**.\n  - Recommendation: prefer **AWS Load Balancer Controller + Ingress** rather than a Service `type: LoadBalancer` with ALB annotations. This is the current best-practice pattern for ALB on EKS and gives cleaner routing/TLS features.\n- Use **Cluster Autoscaler / Karpenter** (optional) and **Horizontal Pod Autoscaler** (optional) if you expect variable traffic.\n\n### 3) Ingress, TLS, and DNS\n- Provision an **internet-facing ALB** via the AWS Load Balancer Controller.\n- Terminate TLS at the ALB using **ACM certificates**.\n- Use **Route 53** to map a friendly domain (e.g., `loan.example.com`) to the ALB.\n- Add **AWS WAF** on the ALB for basic L7 protections (rate limiting, common rule sets) since this is a public endpoint.\n\n### 4) Container image strategy\n- Current flow pushes to **Docker Hub** (`yash5090/loan-calc:latest`). This works, but for AWS-native security and reliability:\n  - Recommended: push images to **Amazon ECR** and pull from ECR in EKS.\n- Use **IAM Roles for Service Accounts (IRSA)** so the controller and any pods that need AWS access can do so without node-wide credentials.\n\n### 5) CI/CD on AWS (keeping Jenkins, but AWS-native hosting)\n- Host Jenkins on AWS in one of two lean ways:\n  1) **EC2-based Jenkins** (simplest, most common): Jenkins on an EC2 instance (or ASG) behind an ALB, with persistent storage on EBS/EFS.\n  2) **EKS-based Jenkins**: run Jenkins in the same (or separate) EKS cluster; persistence via EFS.\n- Jenkins pipeline stages map to AWS services as follows:\n  - Build container image (Docker) -> push to **ECR** (or Docker Hub if you keep it).\n  - Deploy -> `kubectl` to EKS using an **IAM role** mapped to Kubernetes RBAC.\n  - Security scanning -> keep Trivy/OWASP DC/Docker Scout in Jenkins; optionally add **ECR image scanning**.\n  - Quality -> SonarQube can remain external or be hosted on AWS (EC2/ECS/EKS + RDS). If you don’t need to host it, don’t add AWS resources for it.\n\n### 6) Observability, logging, and security controls\n- Send EKS control plane logs to **CloudWatch Logs**.\n- Use **Container Insights** (CloudWatch) for cluster/pod metrics.\n- Enable **ALB access logs** to **S3**.\n- Use **CloudTrail** for API auditing and **AWS Config** (optional) for compliance drift.\n- Store secrets in **AWS Secrets Manager** (or SSM Parameter Store) and sync to Kubernetes (External Secrets Operator optional).\n\n### 7) IaC\n- Use **Terraform** (as intended by the repo) to provision: VPC, EKS, node groups, IAM, ECR, ALB controller prerequisites, Route 53, ACM, WAF, logging.\n\n---\n\n## Deployment flow (end-to-end)\n1. Developer pushes code -> Jenkins pipeline triggers.\n2. Jenkins runs lint/tests (if any), SonarQube scan, Trivy/OWASP DC/Docker Scout.\n3. Jenkins builds container image -> pushes to ECR (recommended).\n4. Jenkins deploys to EKS using kubectl/helm/kustomize.\n5. AWS Load Balancer Controller provisions/updates ALB + target groups.\n6. Route 53 points domain to ALB; ACM provides TLS.\n7. CloudWatch + S3 capture logs/metrics; alarms notify via SNS/email (optional).\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (public, private across 2–3 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route tables (public/private)",
+    "Security Groups (ALB, EKS nodes, Jenkins, etc.)",
+    "Network ACLs (optional)",
+    "VPC Endpoints: S3 (Gateway), ECR (api+dkr), CloudWatch Logs, STS (Interface; optional but recommended)",
+    "Amazon EKS cluster",
+    "EKS Managed Node Group(s) (EC2) or EKS Fargate profiles (choose one)",
+    "IAM roles: EKS cluster role, node instance role, IRSA roles (AWS Load Balancer Controller, external-dns, etc.)",
+    "IAM OIDC provider for EKS (for IRSA)",
+    "Amazon ECR repository (recommended)",
+    "AWS Load Balancer Controller (EKS add-on/Helm deployment prerequisite resources)",
+    "Application Load Balancer (provisioned by controller)",
+    "ALB Target Group(s) (provisioned by controller)",
+    "AWS Certificate Manager (ACM) certificate(s) for TLS",
+    "Amazon Route 53 hosted zone + DNS records (A/AAAA alias to ALB)",
+    "AWS WAFv2 Web ACL + association to ALB",
+    "Amazon CloudWatch Logs (EKS control plane logs, app logs if shipped)",
+    "CloudWatch metrics/alarms + SNS topic (optional for alerting)",
+    "Amazon S3 bucket for ALB access logs (and optionally artifact/log storage)",
+    "AWS CloudTrail (account-level)",
+    "AWS KMS key(s) (optional but recommended for encrypting EKS secrets, EBS/EFS, S3)",
+    "AWS Secrets Manager or SSM Parameter Store (for any runtime secrets)",
+    "Jenkins hosting (choose one): EC2 instance + EBS (or Auto Scaling Group) OR Jenkins on EKS + EFS",
+    "Elastic Load Balancing (ALB) for Jenkins UI (if Jenkins is hosted on AWS and needs web access)",
+    "Amazon EFS (optional; for Jenkins persistence if running on EKS, or shared storage)"
+  ]
+}

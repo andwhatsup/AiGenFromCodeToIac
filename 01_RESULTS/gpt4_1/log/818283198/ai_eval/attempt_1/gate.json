@@ -1,0 +1,162 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_repository"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "ec2",
+          "ecr",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "availability",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"playwright-lambda\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "60",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "1024",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_image_uri": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "lambda_image_uri"
+      ],
+      "aws_services": [
+        "aws_availability_zones",
+        "aws_cloudwatch_log_group",
+        "aws_ecr_repository",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_ecr_repository": 1,
+        "aws_iam_role": 1,
+        "aws_iam_policy_document": 2,
+        "aws_iam_policy": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_vpc": 1,
+        "aws_subnet": 2,
+        "aws_availability_zones": 1,
+        "aws_security_group": 1,
+        "aws_lambda_function": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 4.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

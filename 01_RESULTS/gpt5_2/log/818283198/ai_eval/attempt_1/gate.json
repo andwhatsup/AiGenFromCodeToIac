@@ -1,0 +1,202 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "apigatewayv2": {
+          "status": "full",
+          "resource_types": [
+            "aws_apigatewayv2_api",
+            "aws_apigatewayv2_integration",
+            "aws_apigatewayv2_route",
+            "aws_apigatewayv2_stage"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "apigatewayv2",
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "ecr",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"playwright-runner\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "ecr_image_tag": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_timeout": {
+          "type": "number",
+          "has_default": true,
+          "default": "60",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_memory_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "2048",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_ephemeral_storage": {
+          "type": "number",
+          "has_default": true,
+          "default": "1024",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "lambda_reserved_concurrency": {
+          "type": "number",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "create_http_api": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "http_api_stage_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"$default\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        },
+        "log_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "14",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_apigatewayv2_api",
+        "aws_apigatewayv2_integration",
+        "aws_apigatewayv2_route",
+        "aws_apigatewayv2_stage",
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_function": 1,
+        "aws_apigatewayv2_api": 1,
+        "aws_apigatewayv2_integration": 1,
+        "aws_apigatewayv2_route": 1,
+        "aws_apigatewayv2_stage": 1,
+        "aws_lambda_permission": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/818283198/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

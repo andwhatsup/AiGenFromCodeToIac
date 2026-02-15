@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_instance.example-instance" [label="aws_instance.example-instance"];
+  "aws_key_pair.generated_key" [label="aws_key_pair.generated_key"];
+  "aws_security_group.instance" [label="aws_security_group.instance"];
+  "local_file.myKey" [label="local_file.myKey"];
+  "null_resource.name" [label="null_resource.name"];
+  "tls_private_key.example" [label="tls_private_key.example"];
+  "aws_instance.example-instance" -> "aws_key_pair.generated_key";
+  "aws_instance.example-instance" -> "aws_security_group.instance";
+  "aws_key_pair.generated_key" -> "tls_private_key.example";
+  "local_file.myKey" -> "aws_key_pair.generated_key";
+  "null_resource.name" -> "aws_instance.example-instance";
+}

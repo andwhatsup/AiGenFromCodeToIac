@@ -1,0 +1,24 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.ecs_task_assume" [label="data.aws_iam_policy_document.ecs_task_assume"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_cloudwatch_log_group.app" [label="aws_cloudwatch_log_group.app"];
+  "aws_ecs_cluster.this" [label="aws_ecs_cluster.this"];
+  "aws_ecs_service.this" [label="aws_ecs_service.this"];
+  "aws_ecs_task_definition.this" [label="aws_ecs_task_definition.this"];
+  "aws_iam_role.task_execution" [label="aws_iam_role.task_execution"];
+  "aws_iam_role_policy_attachment.task_execution" [label="aws_iam_role_policy_attachment.task_execution"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_ecs_service.this" -> "data.aws_subnets.default";
+  "aws_ecs_service.this" -> "aws_ecs_cluster.this";
+  "aws_ecs_service.this" -> "aws_ecs_task_definition.this";
+  "aws_ecs_service.this" -> "aws_iam_role_policy_attachment.task_execution";
+  "aws_ecs_task_definition.this" -> "data.aws_region.current";
+  "aws_ecs_task_definition.this" -> "aws_cloudwatch_log_group.app";
+  "aws_ecs_task_definition.this" -> "aws_iam_role.task_execution";
+  "aws_iam_role.task_execution" -> "data.aws_iam_policy_document.ecs_task_assume";
+  "aws_iam_role_policy_attachment.task_execution" -> "aws_iam_role.task_execution";
+}

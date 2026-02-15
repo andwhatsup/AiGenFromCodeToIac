@@ -1,0 +1,217 @@
+data.aws_caller_identity.current: Reading...
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.s3_bucket_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "s3_bucket_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+
+          + principals {
+              + identifiers = [
+                  + "000000000000",
+                ]
+              + type        = "AWS"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "*",
+            ]
+          + effect    = "Deny"
+          + resources = [
+              + (known after apply),
+            ]
+
+          + condition {
+              + test     = "Bool"
+              + values   = [
+                  + "false",
+                ]
+              + variable = "aws:SecureTransport"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "AWS"
+            }
+        }
+    }
+
+  # aws_s3_bucket.test_bucket will be created
+  + resource "aws_s3_bucket" "test_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "000000000000-Test Bucket"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "Test"
+          + "Name"        = "Test Bucket"
+        }
+      + tags_all                    = {
+          + "Environment" = "Test"
+          + "Name"        = "Test Bucket"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket.test_bucket_logs will be created
+  + resource "aws_s3_bucket" "test_bucket_logs" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "000000000000-Test Bucket-logs"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "Test"
+          + "Name"        = "000000000000-Test Bucket-logs"
+        }
+      + tags_all                    = {
+          + "Environment" = "Test"
+          + "Name"        = "000000000000-Test Bucket-logs"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_acl.test_bucket will be created
+  + resource "aws_s3_bucket_acl" "test_bucket" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_acl.test_bucket_logs will be created
+  + resource "aws_s3_bucket_acl" "test_bucket_logs" {
+      + acl    = "log-delivery-write"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + access_control_policy (known after apply)
+    }
+
+  # aws_s3_bucket_logging.test_bucket will be created
+  + resource "aws_s3_bucket_logging" "test_bucket" {
+      + bucket        = (known after apply)
+      + id            = (known after apply)
+      + target_bucket = (known after apply)
+      + target_prefix = "TFStateLogs/"
+    }
+
+  # aws_s3_bucket_ownership_controls.test_bucket will be created
+  + resource "aws_s3_bucket_ownership_controls" "test_bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "ObjectWriter"
+        }
+    }
+
+  # aws_s3_bucket_ownership_controls.test_bucket_logs will be created
+  + resource "aws_s3_bucket_ownership_controls" "test_bucket_logs" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "ObjectWriter"
+        }
+    }
+
+  # aws_s3_bucket_versioning.test_bucket will be created
+  + resource "aws_s3_bucket_versioning" "test_bucket" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + bucket_arn            = (known after apply)
+  + bucket_id             = (known after apply)
+  + logging_target_bucket = (known after apply)
+  + logging_target_prefix = "TFStateLogs/"
+aws_s3_bucket.test_bucket_logs: Creating...
+aws_s3_bucket.test_bucket: Creating...

@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This AWS architecture translates the analyzed system into a secure, scalable, and cloud-native deployment, leveraging managed AWS services to replace or host each component:\n\n1. **Jupyter Notebook Environment (Python Notebook):**\n   - Use Amazon SageMaker Notebook Instances for interactive data analysis and visualization. SageMaker provides managed Jupyter environments with support for custom Python libraries (e.g., Folium, python-dotenv).\n   - Notebooks can access AWS data sources securely via IAM roles.\n\n2. **Clickhouse (Analytical Database):**\n   - Deploy Clickhouse on Amazon EC2 instances within a private subnet for full control, or use Amazon RDS/Aurora for PostgreSQL if Clickhouse is not a strict requirement. For this design, assume Clickhouse is self-managed on EC2.\n   - Data volumes are attached via Amazon EBS.\n   - Security Groups restrict access to only trusted sources (e.g., SageMaker, Flink, Kafka EC2s).\n\n3. **PostgreSQL (Reference Database):**\n   - Use Amazon RDS for PostgreSQL for a managed, scalable, and highly available relational database.\n   - RDS is deployed in private subnets, accessible only from within the VPC.\n\n4. **Apache Kafka (Message Queue):**\n   - Use Amazon MSK (Managed Streaming for Apache Kafka) for a fully managed Kafka cluster.\n   - MSK brokers are deployed in private subnets, accessible to Flink and Clickhouse EC2s.\n\n5. **Apache Flink (Stream Processing):**\n   - Use Amazon Kinesis Data Analytics for Apache Flink for a managed Flink environment, or deploy Flink on EC2/ECS if custom configuration is needed. Here, prefer Kinesis Data Analytics for managed operations.\n   - Flink jobs consume from MSK, enrich with RDS data, and write to Clickhouse.\n\n6. **Public Dataset (CSV):**\n   - Store the public CSV dataset in Amazon S3 for easy access by SageMaker and other components.\n   - S3 bucket access is controlled via IAM policies.\n\n7. **Networking and Security:**\n   - All resources are deployed within a dedicated Amazon VPC with public and private subnets.\n   - Security Groups and NACLs restrict traffic between components.\n   - IAM roles and policies provide least-privilege access for services (e.g., SageMaker to S3, Flink to RDS).\n\n8. **Monitoring and Logging:**\n   - Use Amazon CloudWatch for monitoring, logging, and alerting across all services.\n\n9. **Foundational Resources:**\n   - VPC, subnets, route tables, NAT Gateway (for outbound internet access from private subnets), Internet Gateway (for public subnets), and necessary IAM roles/policies.\n\nThis architecture ensures managed, scalable, and secure deployment of the analytics and stream processing platform, with clear separation of compute, storage, and networking resources, and leverages AWS managed services wherever possible.",
+  "aws_resources": [
+    "Amazon VPC",
+    "Public and Private Subnets",
+    "Route Tables",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Security Groups",
+    "Network ACLs",
+    "IAM Roles and Policies (for SageMaker, EC2, RDS, MSK, Kinesis, S3)",
+    "Amazon SageMaker Notebook Instance",
+    "Amazon EC2 Instances (for Clickhouse, if not using managed alternative)",
+    "Amazon EBS Volumes (for Clickhouse EC2 storage)",
+    "Amazon RDS for PostgreSQL",
+    "Amazon MSK (Managed Streaming for Apache Kafka)",
+    "Amazon Kinesis Data Analytics for Apache Flink (or EC2/ECS for Flink)",
+    "Amazon S3 Bucket (for public dataset and data exchange)",
+    "Amazon CloudWatch (logs, metrics, alarms)"
+  ]
+}

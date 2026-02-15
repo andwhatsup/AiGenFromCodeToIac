@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system consists of a Java application packaged as a Docker container, which connects to a MongoDB database. The recommended AWS architecture for deploying this system is as follows:\n\n1. **Networking**: Deploy all resources within a dedicated Virtual Private Cloud (VPC) to ensure network isolation and security. The VPC will have both public and private subnets across multiple Availability Zones for high availability.\n\n2. **Compute**: Use Amazon Elastic Container Service (ECS) with Fargate launch type to run the Dockerized Java application. ECS Fargate abstracts server management, allowing you to focus on deploying containers. The ECS service will be placed in private subnets for security.\n\n3. **Database**: Use Amazon DocumentDB (with MongoDB compatibility) as a managed MongoDB-compatible database service. Place the DocumentDB cluster in private subnets to restrict direct internet access.\n\n4. **Load Balancing**: Use an Application Load Balancer (ALB) in public subnets to route incoming HTTP(S) traffic to the ECS service. The ALB provides a single entry point and supports SSL termination.\n\n5. **IAM & Security**: Use IAM roles for ECS tasks to grant the application least-privilege access to AWS resources. Security groups will restrict network access: the ALB security group allows inbound traffic from the internet, the ECS service security group allows inbound traffic only from the ALB, and the DocumentDB security group allows inbound traffic only from the ECS service.\n\n6. **Monitoring & Logging**: Use Amazon CloudWatch for monitoring ECS service metrics, application logs, and DocumentDB metrics. Enable container logging to CloudWatch Logs.\n\n7. **Other foundational resources**: Use AWS Secrets Manager or AWS Systems Manager Parameter Store to securely store MongoDB connection credentials and other sensitive configuration values.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized applications with managed database backends.",
+  "aws_resources": [
+    "VPC",
+    "Public subnets (at least 2, across different AZs)",
+    "Private subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks, DocumentDB)",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Service (Fargate)",
+    "ECS Task Definition (with Docker image)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ECS service)",
+    "Amazon DocumentDB Cluster (MongoDB-compatible)",
+    "Amazon DocumentDB Subnet Group",
+    "IAM Roles (for ECS tasks, ALB, DocumentDB access)",
+    "CloudWatch Log Group (for ECS logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Secrets Manager or SSM Parameter Store (for credentials)"
+  ]
+}

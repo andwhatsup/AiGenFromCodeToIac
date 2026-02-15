@@ -1,0 +1,23 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_availability_zones.available" [label="data.aws_availability_zones.available"];
+  "data.aws_iam_policy_document.eks_assume_role_policy" [label="data.aws_iam_policy_document.eks_assume_role_policy"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_eks_cluster.main" [label="aws_eks_cluster.main"];
+  "aws_iam_role.eks_cluster" [label="aws_iam_role.eks_cluster"];
+  "aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy" [label="aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy"];
+  "aws_iam_role_policy_attachment.eks_cluster_AmazonEKSServicePolicy" [label="aws_iam_role_policy_attachment.eks_cluster_AmazonEKSServicePolicy"];
+  "aws_lb.app_lb" [label="aws_lb.app_lb"];
+  "aws_security_group.eks" [label="aws_security_group.eks"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_eks_cluster.main" -> "data.aws_subnets.default";
+  "aws_eks_cluster.main" -> "aws_iam_role.eks_cluster";
+  "aws_iam_role.eks_cluster" -> "data.aws_iam_policy_document.eks_assume_role_policy";
+  "aws_iam_role_policy_attachment.eks_cluster_AmazonEKSClusterPolicy" -> "aws_iam_role.eks_cluster";
+  "aws_iam_role_policy_attachment.eks_cluster_AmazonEKSServicePolicy" -> "aws_iam_role.eks_cluster";
+  "aws_lb.app_lb" -> "data.aws_subnets.default";
+  "aws_lb.app_lb" -> "aws_security_group.eks";
+  "aws_security_group.eks" -> "data.aws_vpc.default";
+}

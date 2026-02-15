@@ -1,0 +1,129 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_policy.app_policy will be created
+  + resource "aws_iam_policy" "app_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Allow app to access S3 bucket."
+      + id               = (known after apply)
+      + name             = "ai-basis-demo-s3-policy"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.app_role will be created
+  + resource "aws_iam_role" "app_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ai-basis-demo-app-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Environment" = "dev"
+          + "Name"        = "ai-basis-demo"
+        }
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "Name"        = "ai-basis-demo"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.app_attach will be created
+  + resource "aws_iam_role_policy_attachment" "app_attach" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "ai-basis-demo-app-role"
+    }
+
+  # aws_s3_bucket.app_bucket will be created
+  + resource "aws_s3_bucket" "app_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-basis-demo-versionedexample"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Environment" = "dev"
+          + "Name"        = "ai-basis-demo"
+        }
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "Name"        = "ai-basis-demo"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning {
+          + enabled    = true
+          + mfa_delete = false
+        }
+
+      + website (known after apply)
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + bucket_arn  = (known after apply)
+  + bucket_name = (known after apply)
+
+Warning: Argument is deprecated
+
+  with aws_s3_bucket.app_bucket,
+  on main.tf line 1, in resource "aws_s3_bucket" "app_bucket":
+   1: resource "aws_s3_bucket" "app_bucket" {
+
+versioning is deprecated. Use the aws_s3_bucket_versioning resource instead.

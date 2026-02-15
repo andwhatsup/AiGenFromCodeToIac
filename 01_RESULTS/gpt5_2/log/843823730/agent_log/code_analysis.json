@@ -1,0 +1,60 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Vanilla JS (no framework)",
+        "Nginx (static file serving in container)"
+      ],
+      "dependencies": [
+        "No application dependency manifest found (no package.json/requirements.txt/pyproject.toml/go.mod/etc.)",
+        "Runtime base image: nginx:alpine (Dockerfile: ./Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile",
+        "./deployment.yaml",
+        "./service.yaml",
+        "./manifests/app-deploy.yaml",
+        "./manifests/app-svc.yaml",
+        "./Jenkinsfile",
+        "./.github/workflows/docker-image.yml",
+        "./.github/workflows/docker-publish.yml"
+      ],
+      "architectural_resources": [
+        "Static web application (served by Nginx container)",
+        "Container image build/publish pipeline (GitHub Actions: docker-image.yml, docker-publish.yml; Jenkinsfile)",
+        "Kubernetes Deployment (replicas=6) for notes-keeper (deployment.yaml, manifests/app-deploy.yaml)",
+        "Kubernetes Service type LoadBalancer exposing port 5000 (service.yaml, manifests/app-svc.yaml)",
+        "AWS Load Balancer (implied by Service type LoadBalancer and AWS ALB annotations in service.yaml)",
+        "Kubernetes cluster (implied; Jenkinsfile uses kubectl apply)",
+        "Container registry (Docker Hub implied by Jenkinsfile push to yash5090/notes-keeper; GHCR implied by docker-publish.yml)",
+        "CI security/scanning tools (implied by Jenkinsfile): SonarQube, OWASP Dependency-Check, Trivy, Docker Scout, Jira integration"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [
+        "Terraform (inferred)"
+      ],
+      "frameworks": [
+        "Terraform AWS Provider (hashicorp/aws)"
+      ],
+      "dependencies": [
+        "hashicorp/aws provider ~> 5.0 (inferred from EKS-Terraform/init_validate_stdout.txt showing install of hashicorp/aws v5.100.0)"
+      ],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "AWS infrastructure managed by Terraform (inferred from AWS provider installation log)",
+        "Likely EKS-related resources (directory name suggests EKS, but no .tf files present in repo to confirm specific resources)"
+      ]
+    }
+  ]
+}

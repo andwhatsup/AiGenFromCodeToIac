@@ -1,0 +1,27 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.assume_role" [label="data.aws_iam_policy_document.assume_role"];
+  "data.aws_subnets.public" [label="data.aws_subnets.public"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_eks_cluster.example" [label="aws_eks_cluster.example"];
+  "aws_eks_node_group.example" [label="aws_eks_node_group.example"];
+  "aws_iam_role.example" [label="aws_iam_role.example"];
+  "aws_iam_role.example1" [label="aws_iam_role.example1"];
+  "aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly" [label="aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly"];
+  "aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy" [label="aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy"];
+  "aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy" [label="aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy"];
+  "aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy" [label="aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy"];
+  "data.aws_subnets.public" -> "data.aws_vpc.default";
+  "aws_eks_cluster.example" -> "data.aws_subnets.public";
+  "aws_eks_cluster.example" -> "aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy";
+  "aws_eks_node_group.example" -> "aws_eks_cluster.example";
+  "aws_eks_node_group.example" -> "aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly";
+  "aws_eks_node_group.example" -> "aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy";
+  "aws_eks_node_group.example" -> "aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy";
+  "aws_iam_role.example" -> "data.aws_iam_policy_document.assume_role";
+  "aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly" -> "aws_iam_role.example1";
+  "aws_iam_role_policy_attachment.example-AmazonEKSClusterPolicy" -> "aws_iam_role.example";
+  "aws_iam_role_policy_attachment.example-AmazonEKSWorkerNodePolicy" -> "aws_iam_role.example1";
+  "aws_iam_role_policy_attachment.example-AmazonEKS_CNI_Policy" -> "aws_iam_role.example1";
+}

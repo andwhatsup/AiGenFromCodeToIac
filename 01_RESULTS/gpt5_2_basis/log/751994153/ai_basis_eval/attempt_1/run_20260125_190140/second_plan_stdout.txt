@@ -1,0 +1,30 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.amazon_linux_2023: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-b17c5f997a8b31dfc]
+data.aws_subnets.default: Reading...
+aws_security_group.web: Refreshing state... [id=sg-3c07f696cee1c343d]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+data.aws_ami.amazon_linux_2023: Read complete after 3s [id=ami-07c1fa5792ef8fe27]
+aws_instance.web: Refreshing state... [id=i-119d415fb18bfd862]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.web will be updated in-place
+  ~ resource "aws_instance" "web" {
+        id                                   = "i-119d415fb18bfd862"
+        tags                                 = {
+            "Name" = "portfolio-website-ec2"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-3c07f696cee1c343d",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

@@ -1,0 +1,26 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/598622132",
+      "programming_languages": [],
+      "frameworks": [
+        "Docker Compose (container orchestration)"
+      ],
+      "dependencies": [
+        "Docker images (from docker-compose.yml): itzg/minecraft-server, itzg/rcon, itzg/bungeecord, itzg/mc-backup"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/598622132/docker-compose.yml",
+        "/ai-code-generation-from-code-to-iac/workspace/598622132/README.md"
+      ],
+      "architectural_resources": [
+        "Minecraft server application (Paper) exposed on TCP 25565 (and 25575 for RCON)",
+        "RCON web admin service exposed on 4326/4327",
+        "BungeeCord/Waterfall proxy service (Minecraft proxy)",
+        "Backup service producing periodic world backups to host-mounted storage (./mc-backups)",
+        "Persistent host-mounted volumes/directories for game data and plugins: ./data/lobby, ./plugins/lobby, ./data/proxy, ./plugins/proxy, ./data/rcon",
+        "Container networking between services (lobby as upstream for rcon/proxy/backup)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "HTML"
+      ],
+      "frameworks": [
+        "Flask"
+      ],
+      "dependencies": [
+        "flask (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml (Kubernetes Deployment)",
+        "service.yaml (Kubernetes Service)",
+        "manifests/app-deploy.yaml (Kubernetes Deployment)",
+        "manifests/app-svc.yaml (Kubernetes Service)",
+        "Jenkinsfile (CI/CD pipeline)",
+        "/.github/workflows/docker-image.yml (GitHub Actions)",
+        "/.github/workflows/docker-publish.yml (GitHub Actions)"
+      ],
+      "architectural_resources": [
+        "Flask web application (containerized)",
+        "Docker image build/push (Dockerfile, CI)",
+        "Kubernetes Deployment (replicas=6)",
+        "Kubernetes Service type LoadBalancer (exposes port 5000)",
+        "AWS Load Balancer integration implied by annotations in service.yaml (service.beta.kubernetes.io/aws-load-balancer-*)",
+        "Container registry (Docker Hub: yash5090/calculator-flask:latest; GitHub Container Registry via docker-publish workflow)",
+        "CI/CD resources: Jenkins, SonarQube, Trivy, OWASP Dependency-Check, Docker Scout (Jenkinsfile)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [
+        "Terraform AWS provider ~> 5.0 (inferred from EKS-Terraform/init_validate_stdout.txt: hashicorp/aws v5.100.0 installed)"
+      ],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stdout.txt (terraform init output)",
+        "EKS-Terraform/validate_stdout.txt (terraform validate output)",
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Terraform-based AWS infrastructure implied (AWS provider installed), but no *.tf files present in repository to determine actual resources"
+      ]
+    }
+  ]
+}

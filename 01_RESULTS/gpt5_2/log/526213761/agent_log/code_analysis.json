@@ -1,0 +1,141 @@
+{
+  "projects": [
+    {
+      "project_directory": "src",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Apache Flink (PyFlink Table/Datastream API)"
+      ],
+      "dependencies": [
+        "apache-flink==1.17.0 (installed in images/pyflink.Dockerfile via `pip install apache-flink==${FLINK_VERSION}`)",
+        "Flink SQL Kafka connector JAR (downloaded in images/pyflink.Dockerfile: flink-sql-connector-kafka-1.17.0.jar)",
+        "Flink SQL Avro Confluent Registry connector JAR (downloaded in images/pyflink.Dockerfile: flink-sql-avro-confluent-registry-1.17.0.jar)"
+      ],
+      "deployment_relevant_files": [
+        "src/main.py",
+        "src/flink-sql-connector-kafka-1.15.2.jar (present in repo; runtime uses 1.17.0 jars per images/pyflink.Dockerfile)",
+        "images/pyflink.Dockerfile",
+        "infra/k8s/flink-deployment.yml",
+        "infra/k8s/flink-session-jobs.yaml",
+        "docker-compose.yml"
+      ],
+      "architectural_resources": [
+        "Stream processing application (PyFlink job)",
+        "Apache Flink cluster (JobManager/TaskManager or Flink Kubernetes Operator session cluster)",
+        "Apache Kafka cluster (broker)",
+        "Confluent Schema Registry (for avro-confluent format)",
+        "Kubernetes Ingress (for Flink UI and Kafka Connect REST access, depending on manifests)"
+      ]
+    },
+    {
+      "project_directory": "images/kafka-connect.Dockerfile (Kafka Connect image build context at repo root)",
+      "programming_languages": [
+        "Shell (entrypoint script)"
+      ],
+      "frameworks": [
+        "Apache Kafka Connect (Confluent Platform)"
+      ],
+      "dependencies": [
+        "Base image: confluentinc/cp-server-connect-base:7.4.0 (images/kafka-connect.Dockerfile)",
+        "Confluent Hub plugin: confluentinc/kafka-connect-s3:10.4.3 (images/kafka-connect.Dockerfile)",
+        "Confluent Hub plugin: confluentinc/kafka-connect-datagen:0.6.0 (images/kafka-connect.Dockerfile)",
+        "init_connector.sh (copied and used as ENTRYPOINT in images/kafka-connect.Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "images/kafka-connect.Dockerfile",
+        "init_connector.sh",
+        "docker-compose.yml",
+        "infra/k8s/connect-deployment.yaml",
+        "infra/k8s/connect-service.yaml",
+        "infra/k8s/ingress.yaml",
+        "kowlconfig.yaml"
+      ],
+      "architectural_resources": [
+        "Kafka Connect cluster/service (REST API on 8083)",
+        "Kafka broker dependency",
+        "Schema Registry dependency (AvroConverter configured in docker-compose.yml and infra/k8s/connect-deployment.yaml)",
+        "S3-compatible object storage target implied by kafka-connect-s3 plugin (docker-compose uses localstack as S3 emulator)",
+        "Kubernetes Deployment/Service for Kafka Connect",
+        "Ingress route `/connect` to Kafka Connect REST (infra/k8s/ingress.yaml)"
+      ]
+    },
+    {
+      "project_directory": "infra/k8s",
+      "programming_languages": [
+        "YAML (Kubernetes manifests)"
+      ],
+      "frameworks": [
+        "Kubernetes",
+        "Flink Kubernetes Operator (flink.apache.org/v1beta1 CRDs)"
+      ],
+      "dependencies": [
+        "FlinkDeployment CRD (infra/k8s/flink-deployment.yml)",
+        "FlinkSessionJob CRD (infra/k8s/flink-session-jobs.yaml)",
+        "Confluent Platform images referenced by manifests (e.g., broker/zookeeper/schema-registry/connect deployments; see infra/k8s/*-deployment.yaml)",
+        "NGINX Ingress Controller annotations (infra/k8s/ingress.yaml and infra/k8s/flink-deployment.yml ingress template/annotations)"
+      ],
+      "deployment_relevant_files": [
+        "infra/k8s/broker-deployment.yaml",
+        "infra/k8s/broker-service.yaml",
+        "infra/k8s/zookeeper-deployment.yaml",
+        "infra/k8s/zookeeper-service.yaml",
+        "infra/k8s/schema-registry-deployment.yaml",
+        "infra/k8s/schema-registry-service.yaml",
+        "infra/k8s/connect-deployment.yaml",
+        "infra/k8s/connect-service.yaml",
+        "infra/k8s/ingress.yaml",
+        "infra/k8s/flink-deployment.yml",
+        "infra/k8s/flink-session-jobs.yaml",
+        "infra/k8s/kafka-external-name.yaml",
+        "infra/k8s/schema-registry-external-name.yaml"
+      ],
+      "architectural_resources": [
+        "Kubernetes cluster (kind per README, though no *.tf found in this repo snapshot)",
+        "Apache Kafka (Zookeeper + Broker)",
+        "Kafka Connect",
+        "Schema Registry",
+        "Apache Flink (operator-managed deployment + session job)",
+        "Ingress controller (nginx) and Ingress resources",
+        "Cross-namespace service discovery via ExternalName services (kafka-external-name.yaml, schema-registry-external-name.yaml)"
+      ]
+    },
+    {
+      "project_directory": ". (docker-compose stack)",
+      "programming_languages": [
+        "YAML (Docker Compose)"
+      ],
+      "frameworks": [
+        "Docker Compose"
+      ],
+      "dependencies": [
+        "confluentinc/cp-zookeeper:7.4.0 (docker-compose.yml)",
+        "confluentinc/cp-server:7.4.0 (docker-compose.yml)",
+        "confluentinc/cp-schema-registry:7.4.0 (docker-compose.yml)",
+        "quay.io/cloudhut/kowl:v1.5.0 (docker-compose.yml)",
+        "localstack/localstack:2.0.2 (docker-compose.yml)",
+        "debezium/example-postgres (docker-compose.yml)",
+        "Custom images: kafka-connect (built from images/kafka-connect.Dockerfile), pyflink (built from images/pyflink.Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "kowlconfig.yaml",
+        "images/pyflink.Dockerfile",
+        "images/kafka-connect.Dockerfile",
+        "init_connector.sh",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "Local development stack (Docker Compose)",
+        "Apache Kafka (Zookeeper + Broker)",
+        "Schema Registry",
+        "Kafka Connect (with datagen + S3 sink plugins)",
+        "Kafka UI (Kowl)",
+        "S3-compatible object storage emulator (LocalStack)",
+        "PostgreSQL database (Debezium example image; CDC use-case implied)",
+        "Apache Flink JobManager/TaskManager containers"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/793168590",
+      "programming_languages": [
+        "Python",
+        "Shell (bash)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Flask"
+      ],
+      "dependencies": [
+        "Flask==3.0.3 (requirements.txt)",
+        "boto3==1.34.93 (requirements.txt; also used in post_test.py)",
+        "awscli==1.32.93 (requirements.txt)",
+        "botocore==1.34.93 (requirements.txt)",
+        "requests==2.31.0 (requirements.txt)",
+        "PyYAML==6.0.1 (requirements.txt)",
+        "Werkzeug==3.0.2, Jinja2==3.1.3, itsdangerous==2.2.0, blinker==1.8.0 (requirements.txt; Flask transitive/related)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (/ai-code-generation-from-code-to-iac/workspace/793168590/Dockerfile)",
+        "serve (/ai-code-generation-from-code-to-iac/workspace/793168590/serve)",
+        "requirements.txt (/ai-code-generation-from-code-to-iac/workspace/793168590/requirements.txt)",
+        "README.md (/ai-code-generation-from-code-to-iac/workspace/793168590/README.md)"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Flask inference-style API exposing /ping and /invocations) (app.py, Dockerfile)",
+        "AWS SageMaker Endpoint (invoked via boto3 sagemaker-runtime) (post_test.py, README.md)",
+        "AWS ECR container registry (implied by docker tag/push commands in README.md)",
+        "IAM role/permissions for SageMaker/Lambda invocation (implied by README.md errors and boto3 usage)",
+        "CloudWatch Logs / monitoring for SageMaker endpoint health checks (implied by README.md)"
+      ]
+    },
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/793168590/lambda",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "boto3 (used in lambda/src/lambda_function.py; version pinned in repo root requirements.txt: boto3==1.34.93)"
+      ],
+      "deployment_relevant_files": [
+        "lambda/README.md (/ai-code-generation-from-code-to-iac/workspace/793168590/lambda/README.md)",
+        "lambda/src/lambda_function.py (/ai-code-generation-from-code-to-iac/workspace/793168590/lambda/src/lambda_function.py)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (lambda/src/lambda_function.py)",
+        "AWS SageMaker Endpoint (hello-world-endpoint) invoked from Lambda via sagemaker-runtime (lambda/src/lambda_function.py)",
+        "EventBridge/CloudWatch scheduled trigger (suggested in repo README.md as an architecture option)",
+        "IAM role/permissions for Lambda to invoke SageMaker endpoint (implied by boto3 usage)"
+      ]
+    }
+  ]
+}

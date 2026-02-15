@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a static web application (HTML/CSS/JS) served by Nginx, containerized and deployed on AWS using Elastic Kubernetes Service (EKS). The infrastructure is provisioned and managed via Terraform, and the application images are stored in GitHub Container Registry. The architecture is designed for scalability, security, and operational best practices:\n\n1. **Networking**: A dedicated VPC is created with public and private subnets across multiple Availability Zones for high availability. EKS control plane and worker nodes are deployed in private subnets. Public subnets are used for the AWS Load Balancer.\n\n2. **EKS Cluster**: The EKS cluster hosts the Kubernetes workloads. Worker nodes (EC2 instances or managed node groups) run the Nginx pods. The cluster is provisioned and managed by Terraform.\n\n3. **Kubernetes Deployment**: The Nginx static web server is deployed as a Kubernetes Deployment, pulling its Docker image from GitHub Container Registry.\n\n4. **Kubernetes Service (AWS Load Balancer)**: An AWS Network Load Balancer (or Application Load Balancer) is provisioned via a Kubernetes Service of type LoadBalancer, exposing the Nginx pods to the internet over HTTP/HTTPS.\n\n5. **IAM Roles and Policies**: IAM roles are created for EKS nodes and the EKS control plane, with least-privilege policies for pulling images, managing resources, and interacting with AWS services.\n\n6. **Security Groups**: Security groups restrict access to only necessary ports (80/443 for the load balancer, node-to-node communication, etc.).\n\n7. **CI/CD Integration**: The GitHub Actions workflow builds and pushes Docker images to GitHub Container Registry. Kubernetes pulls images using a Kubernetes secret configured with a GitHub token.\n\n8. **Monitoring and Logging**: CloudWatch is enabled for EKS control plane and node logging. Optionally, Container Insights and AWS ALB/NLB access logs are enabled for observability.\n\n9. **Foundational Resources**: All foundational AWS resources (VPC, subnets, route tables, NAT gateways, etc.) are provisioned as part of the infrastructure-as-code setup.\n\nThis architecture is secure (private subnets for nodes, IAM least privilege), scalable (Kubernetes auto-scaling, multi-AZ), and follows AWS best practices for containerized workloads.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, for load balancer)",
+    "Private Subnets (at least 2, for EKS nodes)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables and Route Table Associations",
+    "Elastic Kubernetes Service (EKS) Cluster",
+    "EKS Managed Node Group (or self-managed EC2 worker nodes)",
+    "IAM Role for EKS Cluster",
+    "IAM Role for EKS Node Group",
+    "IAM Policies for EKS (least privilege)",
+    "Security Group for EKS Nodes",
+    "Security Group for Load Balancer",
+    "Kubernetes Deployment (Nginx static web server)",
+    "Kubernetes Service of type LoadBalancer (provisions AWS ALB/NLB)",
+    "CloudWatch Log Group for EKS",
+    "CloudWatch Container Insights (optional)",
+    "Kubernetes Secret for GitHub Container Registry access",
+    "S3 Bucket for ALB/NLB access logs (optional)"
+  ]
+}

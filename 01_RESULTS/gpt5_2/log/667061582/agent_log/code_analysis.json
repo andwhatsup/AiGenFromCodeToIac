@@ -1,0 +1,78 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/667061582",
+      "programming_languages": [
+        "Java",
+        "JSP"
+      ],
+      "frameworks": [
+        "Java Servlet API (javax.servlet)",
+        "Apache Tomcat (deployment/runtime)"
+      ],
+      "dependencies": [
+        "Maven (pom.xml): javax.servlet:servlet-api:2.5",
+        "Maven (pom.xml): junit:junit:4.12 (test)",
+        "Maven (pom.xml): org.apache.logging.log4j:log4j-api:2.5",
+        "Maven (pom.xml): org.apache.logging.log4j:log4j-core:2.5"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/pom.xml",
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/src/main/webapp/WEB-INF/web.xml",
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/Dockerfile",
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/k8smvndeployment.yaml",
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/Jenkinsfile"
+      ],
+      "architectural_resources": [
+        "Java web application packaged as a WAR (mvn-hello-world)",
+        "Container image built from tomcat:8.0 and pushed to Docker Hub (balcha/stackfusion:latest) (Dockerfile, Jenkinsfile)",
+        "Kubernetes Deployment (apps/v1) running the container (k8smvndeployment.yaml)",
+        "Kubernetes Service of type NodePort exposing the app (k8smvndeployment.yaml)",
+        "CI/CD pipeline in Jenkins (Jenkinsfile)",
+        "GitHub webhook trigger for Jenkins (Webhook/README.md)"
+      ]
+    },
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/667061582/bin",
+      "programming_languages": [
+        "Java",
+        "JSP"
+      ],
+      "frameworks": [
+        "Java Servlet API (javax.servlet)"
+      ],
+      "dependencies": [
+        "Maven (bin/pom.xml): javax.servlet:servlet-api:2.5",
+        "Maven (bin/pom.xml): junit:junit:4.12 (test)",
+        "Maven (bin/pom.xml): org.apache.logging.log4j:log4j-api:2.5",
+        "Maven (bin/pom.xml): org.apache.logging.log4j:log4j-core:2.5"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/bin/pom.xml",
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/bin/src/main/webapp/WEB-INF/web.xml"
+      ],
+      "architectural_resources": [
+        "Duplicate/packaged copy of the same Maven WAR webapp (likely build artifact or secondary copy)"
+      ]
+    },
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/667061582/Installation & configuration files/Ansible management",
+      "programming_languages": [
+        "YAML (Ansible)"
+      ],
+      "frameworks": [
+        "Ansible"
+      ],
+      "dependencies": [
+        "Ansible playbook installs system packages via yum: git, maven, tomcat, docker, java-1.8.0-openjdk (Ansible.yaml)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-code-generation-from-code-to-iac/workspace/667061582/Installation & configuration files/Ansible management/Ansible.yaml"
+      ],
+      "architectural_resources": [
+        "Configuration management for build/deploy host(s) (Ansible)",
+        "Compute instances/VMs running: Git, Maven, Tomcat, Docker, JDK (implied by yum installs)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_security_group.client" [label="aws_security_group.client"];
+  "aws_security_group.server" [label="aws_security_group.server"];
+  "aws_security_group_rule.client_egress" [label="aws_security_group_rule.client_egress"];
+  "aws_security_group_rule.server_egress_self" [label="aws_security_group_rule.server_egress_self"];
+  "aws_security_group_rule.server_http_egress" [label="aws_security_group_rule.server_http_egress"];
+  "aws_security_group_rule.server_https_egress" [label="aws_security_group_rule.server_https_egress"];
+  "aws_security_group_rule.server_ingress_clients" [label="aws_security_group_rule.server_ingress_clients"];
+  "aws_security_group_rule.server_ingress_self" [label="aws_security_group_rule.server_ingress_self"];
+  "aws_security_group_rule.server_ingress_trusted" [label="aws_security_group_rule.server_ingress_trusted"];
+  "aws_security_group_rule.client_egress" -> "aws_security_group.client";
+  "aws_security_group_rule.client_egress" -> "aws_security_group.server";
+  "aws_security_group_rule.server_egress_self" -> "aws_security_group.server";
+  "aws_security_group_rule.server_http_egress" -> "aws_security_group.server";
+  "aws_security_group_rule.server_https_egress" -> "aws_security_group.server";
+  "aws_security_group_rule.server_ingress_clients" -> "aws_security_group.client";
+  "aws_security_group_rule.server_ingress_clients" -> "aws_security_group.server";
+  "aws_security_group_rule.server_ingress_self" -> "aws_security_group.server";
+  "aws_security_group_rule.server_ingress_trusted" -> "aws_security_group.server";
+}

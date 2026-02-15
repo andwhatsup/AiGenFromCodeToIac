@@ -1,0 +1,35 @@
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/fastapi-app-alb/50df8022b5aebdca) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: fd3e6f4b-1333-413b-824c-09bebab8f416, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app,
+  on main.tf line 161, in resource "aws_lb" "app":
+ 161: resource "aws_lb" "app" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app,
+  on main.tf line 161, in resource "aws_lb" "app":
+ 161: resource "aws_lb" "app" {
+
+
+Error: creating ECS Task Definition (fastapi-app-task): operation error ECS: RegisterTaskDefinition, https response error StatusCode: 400, RequestID: e46917a6-f585-4ecf-847b-3bd768c6eb2b, ClientException: Container.image contains invalid characters.
+
+  with aws_ecs_task_definition.app,
+  on main.tf line 233, in resource "aws_ecs_task_definition" "app":
+ 233: resource "aws_ecs_task_definition" "app" {
+
+
+Error: creating S3 Bucket (fastapi-app-assets-8ef1bd8c): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://fastapi-app-assets-8ef1bd8c.localhost:4566/": dial tcp: lookup fastapi-app-assets-8ef1bd8c.localhost: no such host
+
+  with aws_s3_bucket.app,
+  on main.tf line 303, in resource "aws_s3_bucket" "app":
+ 303: resource "aws_s3_bucket" "app" {
+
+
+Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 6647f198-61cb-43c4-bf24-ecb609285abd, api error InvalidAMIID.NotFound: The image id '[['ami-0c94855ba95c71c99']]' does not exist
+
+  with aws_instance.vault,
+  on main.tf line 320, in resource "aws_instance" "vault":
+ 320: resource "aws_instance" "vault" {
+

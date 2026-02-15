@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a containerized Go REST API (using Gorilla Mux) deployed on AWS. The architecture is designed for scalability, security, and maintainability, following AWS best practices. The main components and their relationships are as follows:\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for secure outbound internet access from private subnets.\n   - Security Groups to restrict access to ECS tasks and RDS.\n\n2. **Compute & Containerization:**\n   - AWS ECS (Elastic Container Service) Cluster (Fargate or EC2 launch type) to run the API service as containers.\n   - ECS Service and Task Definitions specifying the container image, resource requirements, and environment variables.\n\n3. **Container Image Management:**\n   - AWS ECR (Elastic Container Registry) to store and manage Docker images for the API service.\n\n4. **Database:**\n   - AWS RDS (PostgreSQL) deployed in private subnets for secure, managed relational data storage.\n   - RDS security group only allows inbound connections from ECS tasks.\n\n5. **IAM & Security:**\n   - IAM roles and policies for ECS tasks to pull images from ECR and access RDS.\n   - IAM roles for CI/CD pipeline (GitHub Actions) to push images to ECR and update ECS services.\n\n6. **Monitoring & Logging:**\n   - Amazon CloudWatch for ECS task logs, metrics, and alarms.\n   - AWS CloudTrail for auditing API calls.\n\n7. **Optional (Recommended):**\n   - Application Load Balancer (ALB) in front of ECS service for scalable, secure HTTP(S) access and health checks.\n   - AWS Secrets Manager or SSM Parameter Store for managing database credentials securely.\n\nThis setup ensures the API is highly available, secure, and easily maintainable, with clear separation of concerns and minimal public exposure.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across AZs)",
+    "Private Subnets (at least 2, across AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ECS, RDS, ALB)",
+    "AWS ECS Cluster",
+    "ECS Service",
+    "ECS Task Definition",
+    "AWS ECR Repository",
+    "AWS RDS (PostgreSQL) Instance",
+    "IAM Roles and Policies (for ECS tasks, ECR access, CI/CD)",
+    "Application Load Balancer (ALB)",
+    "CloudWatch Log Groups (for ECS tasks)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Secrets Manager or SSM Parameter Store (for DB credentials)",
+    "CloudTrail (for auditing)"
+  ]
+}

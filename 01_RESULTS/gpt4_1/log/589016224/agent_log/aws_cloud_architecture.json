@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to automate the provisioning and deployment of a Nomad/Consul cluster running Dockerized services, leveraging Ansible and cloud-init for orchestration and configuration management. The architecture is secure, scalable, and follows AWS best practices for networking, compute, and IAM.\n\n**High-Level AWS Architecture:**\n\n1. **Networking (VPC, Subnets, Security Groups):**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Security groups to restrict access to only necessary ports (e.g., SSH, Nomad, Consul, Docker, application ports).\n   - NAT Gateway for outbound internet access from private subnets.\n\n2. **Compute (EC2 Instances):**\n   - EC2 instances provisioned as Nomad servers, Nomad clients, and the Ansible controller.\n   - EC2 Launch Templates or Auto Scaling Groups for Nomad clients to enable scaling.\n   - EC2 User Data (cloud-init) for initial bootstrapping and Ansible installation.\n\n3. **Configuration Management:**\n   - Ansible controller EC2 instance manages configuration of all cluster nodes.\n   - Ansible playbooks and inventory stored in S3 or EFS for persistence and sharing.\n\n4. **Service Orchestration:**\n   - Nomad servers and clients run on EC2 instances, orchestrating Docker containers for CoreDNS, iperf3, Pi-hole, Prometheus, and Traefik.\n   - Consul servers and clients deployed on EC2 for service discovery.\n\n5. **Storage:**\n   - EBS volumes for persistent storage on EC2 instances.\n   - S3 bucket for storing Ansible playbooks, logs, and backups.\n\n6. **IAM & Security:**\n   - IAM roles for EC2 instances to allow access to S3, CloudWatch, and other AWS services as needed.\n   - IAM policies for least-privilege access.\n\n7. **Monitoring & Logging:**\n   - CloudWatch for monitoring EC2 instances, logs, and custom metrics from Nomad/Consul/Ansible.\n   - CloudTrail for auditing API calls.\n\n8. **Optional Enhancements:**\n   - AWS Systems Manager for remote management and patching.\n   - Elastic Load Balancer (if exposing services externally, e.g., Traefik as ingress).\n\n**Deployment Flow:**\n- EC2 instances are provisioned using cloud-init for base configuration.\n- Ansible controller configures Nomad, Consul, and Docker on all nodes.\n- Nomad orchestrates Dockerized jobs, with Consul providing service discovery.\n- All configuration and job definitions are managed centrally and can be updated via Ansible.\n\nThis architecture ensures a repeatable, automated, and scalable deployment of a Nomad/Consul cluster with Dockerized services on AWS.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for SSH, Nomad, Consul, Docker, application ports)",
+    "EC2 Instances (Nomad servers, Nomad clients, Ansible controller)",
+    "EC2 Launch Templates or Auto Scaling Groups (for Nomad clients)",
+    "EBS Volumes (for EC2 storage)",
+    "S3 Bucket (for Ansible playbooks, logs, backups)",
+    "IAM Roles for EC2 (with policies for S3, CloudWatch, etc.)",
+    "CloudWatch (logs, metrics, alarms)",
+    "CloudTrail (audit logging)",
+    "Elastic Load Balancer (optional, for external service exposure)",
+    "AWS Systems Manager (optional, for remote management)"
+  ]
+}

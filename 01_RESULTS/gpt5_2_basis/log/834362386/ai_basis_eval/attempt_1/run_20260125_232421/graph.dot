@@ -1,0 +1,18 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket.site" [label="aws_s3_bucket.site"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_public_access_block.site" [label="aws_s3_bucket_public_access_block.site"];
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" [label="aws_s3_bucket_server_side_encryption_configuration.artifacts"];
+  "aws_s3_bucket_server_side_encryption_configuration.site" [label="aws_s3_bucket_server_side_encryption_configuration.site"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "aws_s3_bucket_versioning.site" [label="aws_s3_bucket_versioning.site"];
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_public_access_block.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_server_side_encryption_configuration.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_server_side_encryption_configuration.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.site" -> "aws_s3_bucket.site";
+}

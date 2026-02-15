@@ -1,0 +1,457 @@
+{
+  "roots_scanned": [
+    "terraform",
+    "terraform/modules/iam"
+  ],
+  "recommended_roots": [
+    "terraform/modules/iam"
+  ],
+  "varfiles_created": {
+    "terraform": true,
+    "terraform/modules/iam": true
+  },
+  "services_report": {
+    "terraform": {
+      "by_service": {
+        "appautoscaling": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_appautoscaling_policy",
+            "aws_appautoscaling_target"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ecs",
+          "elbv2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "appautoscaling",
+          "caller",
+          "partition",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "terraform/modules/iam": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "partition",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "terraform": [
+      "non_leaf"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "aws_profile": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"default\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "nickname": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "internal": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "security_groups": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "alb_subnet_ids": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "image": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "128",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "128",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "8080",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "health_check": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"/health\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "ecs_cluster_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "health_check_grace_period_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "60",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "min_capacity": {
+          "type": "number",
+          "has_default": true,
+          "default": "0",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "max_capacity": {
+          "type": "number",
+          "has_default": true,
+          "default": "10",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "cpu_utilization_target_value": {
+          "type": "number",
+          "has_default": true,
+          "default": "75",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "app_keys": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "api_token_salt": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "admin_jwt_secret": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "transfer_token_salt": {
+          "type": null,
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "database_client": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"mysql\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "jwt_secret": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "database_host": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "database_username": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        },
+        "database_password": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_variables.tf"
+        }
+      },
+      "required_missing": [
+        "admin_jwt_secret",
+        "alb_subnet_ids",
+        "api_token_salt",
+        "app_keys",
+        "aws_region",
+        "database_host",
+        "database_password",
+        "database_username",
+        "ecs_cluster_name",
+        "environment",
+        "image",
+        "jwt_secret",
+        "nickname",
+        "security_groups",
+        "tags",
+        "transfer_token_salt",
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_appautoscaling_policy",
+        "aws_appautoscaling_target",
+        "aws_caller_identity",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_policy_document",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_partition",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_region": 1,
+        "aws_partition": 1,
+        "aws_caller_identity": 1,
+        "aws_iam_policy_document": 2,
+        "aws_lb": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 1,
+        "aws_ecs_service": 1,
+        "aws_appautoscaling_target": 1,
+        "aws_appautoscaling_policy": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_providers.tf"
+          ],
+          "versions": [
+            "~> 5.25.0"
+          ]
+        }
+      },
+      "backend": {
+        "type": "s3",
+        "decl_files": [
+          "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/01_providers.tf"
+        ]
+      },
+      "existing_varfiles": []
+    },
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam",
+      "variables": {
+        "environment": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "role_name": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "role_description": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "assume_role_policy_identifiers": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"ecs-tasks.amazonaws.com\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "aws_managed_policy_arns": {
+          "type": "set(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "customized_policies": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        },
+        "has_iam_instance_profile": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/715903457/terraform/modules/iam/01_variables.tf"
+        }
+      },
+      "required_missing": [
+        "environment",
+        "role_description",
+        "role_name"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_iam_instance_profile",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_partition",
+        "aws_region"
+      ],
+      "resource_type_counts": {
+        "aws_region": 1,
+        "aws_partition": 1,
+        "aws_caller_identity": 1,
+        "aws_iam_policy_document": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_iam_policy": 1,
+        "aws_iam_instance_profile": 1
+      },
+      "providers": {},
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

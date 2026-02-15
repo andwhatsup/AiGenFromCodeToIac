@@ -1,0 +1,695 @@
+data.aws_ami.al2023: Reading...
+data.aws_iam_policy_document.ec2_assume: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ec2_assume: Read complete after 0s [id=2851119427]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+data.aws_ami.al2023: Read complete after 4s [id=ami-07c1fa5792ef8fe27]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.s3_backup will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "s3_backup" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetBucketLocation",
+              + "s3:ListBucket",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "ListBucket"
+        }
+      + statement {
+          + actions   = [
+              + "s3:AbortMultipartUpload",
+              + "s3:DeleteObject",
+              + "s3:GetObject",
+              + "s3:ListBucketMultipartUploads",
+              + "s3:ListMultipartUploadParts",
+              + "s3:PutObject",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "ObjectRW"
+        }
+    }
+
+  # aws_ebs_volume.data will be created
+  + resource "aws_ebs_volume" "data" {
+      + arn               = (known after apply)
+      + availability_zone = (known after apply)
+      + create_time       = (known after apply)
+      + encrypted         = true
+      + final_snapshot    = false
+      + id                = (known after apply)
+      + iops              = (known after apply)
+      + kms_key_id        = (known after apply)
+      + size              = 50
+      + snapshot_id       = (known after apply)
+      + tags              = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-data"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-data"
+          + "Project" = "phantosio-minecraft"
+        }
+      + throughput        = (known after apply)
+      + type              = "gp3"
+    }
+
+  # aws_eip.this will be created
+  + resource "aws_eip" "this" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-eip"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-eip"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # aws_eip_association.this will be created
+  + resource "aws_eip_association" "this" {
+      + allocation_id        = (known after apply)
+      + id                   = (known after apply)
+      + instance_id          = (known after apply)
+      + network_interface_id = (known after apply)
+      + private_ip_address   = (known after apply)
+      + public_ip            = (known after apply)
+    }
+
+  # aws_iam_instance_profile.ec2 will be created
+  + resource "aws_iam_instance_profile" "ec2" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "phantosio-minecraft-ec2-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "phantosio-minecraft-ec2-role"
+      + tags        = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all    = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_policy.s3_backup will be created
+  + resource "aws_iam_policy" "s3_backup" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "phantosio-minecraft-s3-backup"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+    }
+
+  # aws_iam_role.ec2 will be created
+  + resource "aws_iam_role" "ec2" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "phantosio-minecraft-ec2-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "phantosio-minecraft"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.cw_agent will be created
+  + resource "aws_iam_role_policy_attachment" "cw_agent" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+      + role       = "phantosio-minecraft-ec2-role"
+    }
+
+  # aws_iam_role_policy_attachment.s3_backup will be created
+  + resource "aws_iam_role_policy_attachment" "s3_backup" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "phantosio-minecraft-ec2-role"
+    }
+
+  # aws_iam_role_policy_attachment.ssm will be created
+  + resource "aws_iam_role_policy_attachment" "ssm" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      + role       = "phantosio-minecraft-ec2-role"
+    }
+
+  # aws_instance.this will be created
+  + resource "aws_instance" "this" {
+      + ami                                  = "ami-07c1fa5792ef8fe27"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = (known after apply)
+      + cpu_threads_per_core                 = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = "phantosio-minecraft-ec2-profile"
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3a.medium"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-ec2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-ec2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = (sensitive value)
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = "disabled"
+          + http_put_response_hop_limit = 2
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = true
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags_all              = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 20
+          + volume_type           = "gp3"
+        }
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-igw"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-igw"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-rt"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all         = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-rt"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.backups will be created
+  + resource "aws_s3_bucket" "backups" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "phantosio-minecraft-backups-"
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-backups"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-backups"
+          + "Project" = "phantosio-minecraft"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_lifecycle_configuration.backups will be created
+  + resource "aws_s3_bucket_lifecycle_configuration" "backups" {
+      + bucket                                 = (known after apply)
+      + expected_bucket_owner                  = (known after apply)
+      + id                                     = (known after apply)
+      + transition_default_minimum_object_size = "all_storage_classes_128K"
+
+      + rule {
+          + id     = "transition-to-glacier"
+          + status = "Enabled"
+            # (1 unchanged attribute hidden)
+
+          + expiration {
+              + days                         = 365
+              + expired_object_delete_marker = false
+            }
+
+          + filter {
+                # (1 unchanged attribute hidden)
+            }
+
+          + noncurrent_version_expiration {
+              + noncurrent_days = 30
+            }
+
+          + transition {
+              + days          = 30
+              + storage_class = "GLACIER"
+            }
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.backups will be created
+  + resource "aws_s3_bucket_public_access_block" "backups" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.backups will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "backups" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.backups will be created
+  + resource "aws_s3_bucket_versioning" "backups" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_security_group.ec2 will be created
+  + resource "aws_security_group" "ec2" {
+      + arn                    = (known after apply)
+      + description            = "Security group for Minecraft EC2 host"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "All outbound"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Minecraft (proxy)"
+              + from_port        = 25565
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 25565
+            },
+        ]
+      + name                   = "phantosio-minecraft-ec2"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-ec2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-ec2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-1"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-1"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.20.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all                                       = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-public-2"
+          + "Project" = "phantosio-minecraft"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_volume_attachment.data will be created
+  + resource "aws_volume_attachment" "data" {
+      + device_name = "/dev/xvdf"
+      + id          = (known after apply)
+      + instance_id = (known after apply)
+      + volume_id   = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.20.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-vpc"
+          + "Project" = "phantosio-minecraft"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "phantosio-minecraft-vpc"
+          + "Project" = "phantosio-minecraft"
+        }
+    }
+
+Plan: 25 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + backup_bucket_name = (known after apply)
+  + instance_id        = (known after apply)
+  + minecraft_address  = (known after apply)
+  + public_ip          = (known after apply)
+  + rcon_web_url       = (known after apply)
+aws_iam_role.ec2: Creating...
+aws_vpc.this: Creating...
+aws_eip.this: Creating...
+aws_s3_bucket.backups: Creating...
+aws_eip.this: Creation complete after 0s [id=eipalloc-376b2cdec7b68b6f8]
+aws_iam_role.ec2: Creation complete after 0s [id=phantosio-minecraft-ec2-role]
+aws_iam_role_policy_attachment.cw_agent: Creating...
+aws_iam_role_policy_attachment.ssm: Creating...
+aws_iam_instance_profile.ec2: Creating...
+aws_iam_role_policy_attachment.cw_agent: Creation complete after 1s [id=phantosio-minecraft-ec2-role-20260126231126504400000002]
+aws_iam_role_policy_attachment.ssm: Creation complete after 1s [id=phantosio-minecraft-ec2-role-20260126231126504400000003]
+aws_iam_instance_profile.ec2: Creation complete after 6s [id=phantosio-minecraft-ec2-profile]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_s3_bucket.backups: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-b3a41ee903be2416a]
+aws_route_table.public: Creating...
+aws_subnet.public[0]: Creating...
+aws_subnet.public[1]: Creating...
+aws_internet_gateway.this: Creating...
+aws_security_group.ec2: Creating...
+aws_internet_gateway.this: Creation complete after 0s [id=igw-e72af566040487488]
+aws_route_table.public: Creation complete after 1s [id=rtb-7ef3ffdf23f28ffa0]
+aws_route.public_internet: Creating...
+aws_route.public_internet: Creation complete after 0s [id=r-rtb-7ef3ffdf23f28ffa01080289494]
+aws_security_group.ec2: Creation complete after 1s [id=sg-1d17b653a3d9bab75]
+aws_s3_bucket.backups: Still creating... [00m20s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 11s [id=subnet-c9afbccd5a8ba4699]
+aws_subnet.public[1]: Creation complete after 11s [id=subnet-64355a93474452cbe]
+aws_route_table_association.public[0]: Creating...
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-356b7cb81daea9850]
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-9e67332df2790175e]
+aws_s3_bucket.backups: Still creating... [00m30s elapsed]
+aws_s3_bucket.backups: Still creating... [00m40s elapsed]
+aws_s3_bucket.backups: Still creating... [00m50s elapsed]
+aws_s3_bucket.backups: Still creating... [01m00s elapsed]
+aws_s3_bucket.backups: Still creating... [01m10s elapsed]
+aws_s3_bucket.backups: Still creating... [01m20s elapsed]
+aws_s3_bucket.backups: Still creating... [01m30s elapsed]
+aws_s3_bucket.backups: Still creating... [01m40s elapsed]
+aws_s3_bucket.backups: Still creating... [01m50s elapsed]
+aws_s3_bucket.backups: Still creating... [02m00s elapsed]
+aws_s3_bucket.backups: Still creating... [02m10s elapsed]
+aws_s3_bucket.backups: Still creating... [02m20s elapsed]
+aws_s3_bucket.backups: Still creating... [02m30s elapsed]
+aws_s3_bucket.backups: Still creating... [02m40s elapsed]
+aws_s3_bucket.backups: Still creating... [02m50s elapsed]

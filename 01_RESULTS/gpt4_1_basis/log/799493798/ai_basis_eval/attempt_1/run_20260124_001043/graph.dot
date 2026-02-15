@@ -1,0 +1,31 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_apigatewayv2_api.lambda" [label="aws_apigatewayv2_api.lambda"];
+  "aws_apigatewayv2_integration.lambda" [label="aws_apigatewayv2_integration.lambda"];
+  "aws_apigatewayv2_route.list_bucket_content" [label="aws_apigatewayv2_route.list_bucket_content"];
+  "aws_apigatewayv2_route.list_bucket_content_root" [label="aws_apigatewayv2_route.list_bucket_content_root"];
+  "aws_apigatewayv2_stage.lambda" [label="aws_apigatewayv2_stage.lambda"];
+  "aws_iam_policy.lambda_s3_policy" [label="aws_iam_policy.lambda_s3_policy"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic_attach" [label="aws_iam_role_policy_attachment.lambda_basic_attach"];
+  "aws_iam_role_policy_attachment.lambda_s3_attach" [label="aws_iam_role_policy_attachment.lambda_s3_attach"];
+  "aws_lambda_function.lambda" [label="aws_lambda_function.lambda"];
+  "aws_lambda_permission.apigw" [label="aws_lambda_permission.apigw"];
+  "aws_s3_bucket.app_bucket" [label="aws_s3_bucket.app_bucket"];
+  "aws_apigatewayv2_integration.lambda" -> "aws_apigatewayv2_api.lambda";
+  "aws_apigatewayv2_integration.lambda" -> "aws_lambda_function.lambda";
+  "aws_apigatewayv2_route.list_bucket_content" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_route.list_bucket_content_root" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_stage.lambda" -> "aws_apigatewayv2_api.lambda";
+  "aws_iam_policy.lambda_s3_policy" -> "aws_s3_bucket.app_bucket";
+  "aws_iam_role_policy_attachment.lambda_basic_attach" -> "aws_iam_role.lambda_exec";
+  "aws_iam_role_policy_attachment.lambda_s3_attach" -> "aws_iam_policy.lambda_s3_policy";
+  "aws_iam_role_policy_attachment.lambda_s3_attach" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.lambda" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.lambda" -> "aws_iam_role_policy_attachment.lambda_basic_attach";
+  "aws_lambda_function.lambda" -> "aws_iam_role_policy_attachment.lambda_s3_attach";
+  "aws_lambda_permission.apigw" -> "aws_apigatewayv2_api.lambda";
+  "aws_lambda_permission.apigw" -> "aws_lambda_function.lambda";
+}

@@ -1,0 +1,227 @@
+{
+  "roots_scanned": [
+    "tfs"
+  ],
+  "recommended_roots": [
+    "tfs"
+  ],
+  "varfiles_created": {
+    "tfs": true
+  },
+  "services_report": {
+    "tfs": {
+      "by_service": {
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_cluster_capacity_providers",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group",
+            "aws_security_group_rule"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs",
+          "s3"
+        ],
+        "partial": [
+          "ecs",
+          "iam",
+          "secretsmanager"
+        ],
+        "none": [],
+        "unknown": [
+          "region",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs",
+      "variables": {
+        "agent_cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "1024",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_extra_pip_packages": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"prefect-aws s3fs\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"prefecthq/prefect:2-python3.10\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_log_retention_in_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "2048",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_queue_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"test-queue\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_subnets": {
+          "type": "list(string)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "agent_task_role_arn": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"deployment-agent-test\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "prefect_account_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "prefect_workspace_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "prefect_api_key": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        },
+        "vpc_id": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/variables.tf"
+        }
+      },
+      "required_missing": [
+        "agent_subnets",
+        "prefect_account_id",
+        "prefect_api_key",
+        "prefect_workspace_id",
+        "vpc_id"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_log_group",
+        "aws_ecs_cluster",
+        "aws_ecs_cluster_capacity_providers",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_role",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_security_group",
+        "aws_security_group_rule"
+      ],
+      "resource_type_counts": {
+        "aws_ecs_cluster": 1,
+        "aws_ecs_cluster_capacity_providers": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_region": 1,
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1,
+        "aws_iam_role": 2,
+        "aws_cloudwatch_log_group": 1,
+        "aws_security_group": 1,
+        "aws_security_group_rule": 1,
+        "aws_s3_bucket": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/main.tf"
+          ],
+          "versions": [
+            "~> 4.0"
+          ]
+        },
+        "Principal": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/606297719/tfs/main.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

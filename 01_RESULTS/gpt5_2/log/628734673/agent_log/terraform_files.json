@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "name": "provider.tf",
+      "content": "terraform {\n  required_version = \">= 1.6.0\"\n\n  required_providers {\n    aws = {\n      source  = \"hashicorp/aws\"\n      version = \"~> 5.0\"\n    }\n  }\n}\n\nprovider \"aws\" {\n  region = var.aws_region\n\n  default_tags {\n    tags = var.tags\n  }\n}\n"
+    },
+    {
+      "name": "versions.tf",
+      "content": "terraform {\n  backend \"local\" {}\n}\n"
+    },
+    {
+      "name": "variables.tf",
+      "content": "variable \"aws_region\" {\n  description = \"AWS region to deploy into.\"\n  type        = string\n  default     = \"us-east-1\"\n}\n\nvariable \"name\" {\n  description = \"Base name/prefix for resources.\"\n  type        = string\n  default     = \"python-webapp\"\n}\n\nvariable \"tags\" {\n  description = \"Tags applied to all supported resources.\"\n  type        = map(string)\n  default = {\n    Project = \"python-webapp\"\n    Managed = \"terraform\"\n  }\n}\n\nvariable \"ecr_repository_name\" {\n  description = \"ECR repository name for the application image.\"\n  type        = string\n  default     = \"python-webapp\"\n}\n"
+    },
+    {
+      "name": "main.tf",
+      "content": "resource \"aws_ecr_repository\" \"app\" {\n  name                 = var.ecr_repository_name\n  image_tag_mutability = \"MUTABLE\"\n\n  image_scanning_configuration {\n    scan_on_push = true\n  }\n\n  encryption_configuration {\n    encryption_type = \"AES256\"\n  }\n}\n\nresource \"aws_ecr_lifecycle_policy\" \"app\" {\n  repository = aws_ecr_repository.app.name\n\n  policy = jsonencode({\n    rules = [\n      {\n        rulePriority = 1\n        description  = \"Keep last 30 images\"\n        selection = {\n          tagStatus   = \"any\"\n          countType   = \"imageCountMoreThan\"\n          countNumber = 30\n        }\n        action = {\n          type = \"expire\"\n        }\n      }\n    ]\n  })\n}\n"
+    },
+    {
+      "name": "outputs.tf",
+      "content": "output \"ecr_repository_url\" {\n  description = \"ECR repository URL to push the application image to.\"\n  value       = aws_ecr_repository.app.repository_url\n}\n\noutput \"ecr_repository_arn\" {\n  description = \"ECR repository ARN.\"\n  value       = aws_ecr_repository.app.arn\n}\n"
+    },
+    {
+      "name": "terraform.tfvars",
+      "content": "aws_region = \"us-east-1\"\nname       = \"python-webapp\"\n\ntags = {\n  Project = \"python-webapp\"\n  Managed = \"terraform\"\n}\n"
+    }
+  ]
+}

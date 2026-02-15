@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "local_file.inventory" [label="local_file.inventory"];
+  "yandex_compute_instance.vm-1" [label="yandex_compute_instance.vm-1"];
+  "yandex_compute_instance.vm-2" [label="yandex_compute_instance.vm-2"];
+  "yandex_vpc_network.network-1" [label="yandex_vpc_network.network-1"];
+  "yandex_vpc_subnet.subnet-1" [label="yandex_vpc_subnet.subnet-1"];
+  "local_file.inventory" -> "yandex_compute_instance.vm-2";
+  "yandex_compute_instance.vm-1" -> "yandex_vpc_subnet.subnet-1";
+  "yandex_compute_instance.vm-2" -> "yandex_compute_instance.vm-1";
+  "yandex_vpc_subnet.subnet-1" -> "yandex_vpc_network.network-1";
+}

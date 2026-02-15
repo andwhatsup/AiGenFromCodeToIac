@@ -1,0 +1,33 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/607872658",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS Lambda (Python runtime)",
+        "boto3 (AWS SDK for Python)"
+      ],
+      "dependencies": [
+        "boto3 (from /ai-gen-from-code-to-iac/workspace/607872658/requirements.txt)",
+        "botocore (imported in /ai-gen-from-code-to-iac/workspace/607872658/function/ssm_backup.py; likely bundled in deployment package)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/607872658/README.md (describes Terraform module and AWS resources)",
+        "/ai-gen-from-code-to-iac/workspace/607872658/requirements.txt",
+        "/ai-gen-from-code-to-iac/workspace/607872658/function/ssm_backup.py",
+        "/ai-gen-from-code-to-iac/workspace/607872658/ssm_backup.zip (packaged artifact)",
+        "/ai-gen-from-code-to-iac/workspace/607872658/.dummy/lambda.zip (packaged artifact)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (runs ssm_backup.lambda_handler)",
+        "AWS Systems Manager Parameter Store (reads parameters via SSM API: describe_parameters/get_parameters)",
+        "Amazon S3 bucket (writes JSON backups to s3://<S3_BUCKET>/backups/parameters-<timestamp>.json)",
+        "AWS KMS key (used for S3 server-side encryption via KMS key ARN env var KMS_KEY_ARN)",
+        "EventBridge/CloudWatch scheduled trigger (implied by README: daily execution)",
+        "IAM role/policy for Lambda (implied: needs ssm:DescribeParameters, ssm:GetParameters, s3:PutObject, kms:Encrypt permissions)"
+      ]
+    }
+  ]
+}

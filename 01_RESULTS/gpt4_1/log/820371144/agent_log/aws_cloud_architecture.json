@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This system is a containerized React web application, designed for scalable, cloud-native deployment. The application is packaged as a Docker container and orchestrated using Kubernetes, with a public endpoint for user access. On AWS, the most suitable managed service for running Kubernetes workloads is Amazon Elastic Kubernetes Service (EKS). The architecture will leverage AWS managed services for networking, security, and scalability, following best practices for high availability and security.\n\n**Proposed AWS Architecture:**\n\n1. **Amazon EKS Cluster**: The core of the deployment, providing a managed Kubernetes control plane. The React app's Docker image will be deployed as a Pod within this cluster.\n2. **Amazon Elastic Container Registry (ECR)**: Used to store and manage Docker images for the application, enabling secure and efficient image pulls by the EKS cluster.\n3. **VPC (Virtual Private Cloud)**: Provides isolated networking for the EKS cluster, including public and private subnets across multiple Availability Zones for high availability.\n4. **Subnets (Public and Private)**: Public subnets for load balancer endpoints, private subnets for worker nodes and internal communication.\n5. **Internet Gateway**: Allows internet access for resources in public subnets (e.g., the load balancer).\n6. **NAT Gateway**: Enables instances in private subnets (e.g., EKS worker nodes) to access the internet for updates and image pulls, without exposing them directly.\n7. **Security Groups**: Control inbound and outbound traffic to the EKS nodes and the load balancer, restricting access to only necessary ports (e.g., 80/443 for HTTP/HTTPS).\n8. **IAM Roles and Policies**: For EKS cluster management, worker node access, and ECR image pulls, following the principle of least privilege.\n9. **Elastic Load Balancer (ELB/ALB)**: Provisioned by the Kubernetes Service of type LoadBalancer, providing a public endpoint for user access to the React app.\n10. **Route 53 (optional)**: For custom domain management and DNS routing to the load balancer endpoint.\n11. **CloudWatch**: For logging, monitoring, and alerting on cluster and application health.\n\n**Deployment Flow:**\n- Developers build and push the Docker image to ECR.\n- EKS pulls the image from ECR and deploys it as a Pod.\n- The Pod is exposed via a Kubernetes Service of type LoadBalancer, which provisions an AWS ELB/ALB.\n- Users access the application via the public endpoint of the load balancer.\n\nThis architecture is secure, scalable, and leverages AWS managed services to minimize operational overhead while following best practices for containerized workloads.",
+  "aws_resources": [
+    "Amazon EKS Cluster",
+    "Amazon Elastic Container Registry (ECR) Repository",
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables (for public and private subnets)",
+    "Security Groups (for EKS nodes and Load Balancer)",
+    "IAM Roles and Policies (EKS cluster, worker nodes, ECR access)",
+    "Elastic Load Balancer (provisioned by Kubernetes Service of type LoadBalancer)",
+    "EKS Worker Node Group (EC2 or Fargate)",
+    "CloudWatch Log Group and Metrics",
+    "(Optional) Route 53 Hosted Zone and DNS Record"
+  ]
+}

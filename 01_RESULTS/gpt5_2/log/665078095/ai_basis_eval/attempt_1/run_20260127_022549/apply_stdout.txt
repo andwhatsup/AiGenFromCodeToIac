@@ -1,0 +1,195 @@
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-f634a1a4ff14bb91a]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.mysql will be created
+  + resource "aws_db_instance" "mysql" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = true
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = (known after apply)
+      + backup_target                         = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + database_insights_mode                = (known after apply)
+      + db_name                               = "app"
+      + db_subnet_group_name                  = (known after apply)
+      + dedicated_log_volume                  = false
+      + delete_automated_backups              = true
+      + deletion_protection                   = false
+      + domain_fqdn                           = (known after apply)
+      + endpoint                              = (known after apply)
+      + engine                                = "mysql"
+      + engine_lifecycle_support              = (known after apply)
+      + engine_version                        = "8.0"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = (known after apply)
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = (known after apply)
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password                              = (sensitive value)
+      + password_wo                           = (write-only attribute)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = true
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = (known after apply)
+      + tags                                  = {
+          + "Name" = "atlas-template-mysql"
+        }
+      + tags_all                              = {
+          + "Managed" = "terraform"
+          + "Name"    = "atlas-template-mysql"
+          + "Project" = "atlas-template"
+        }
+      + timezone                              = (known after apply)
+      + username                              = "appuser"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_subnet_group.this will be created
+  + resource "aws_db_subnet_group" "this" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = (known after apply)
+      + name_prefix             = (known after apply)
+      + subnet_ids              = [
+          + "subnet-2ce69e83ddc4a5e4a",
+          + "subnet-62636f6aefd0eb785",
+          + "subnet-7b0e26aaf6212c3a2",
+          + "subnet-7cacec525168a8732",
+          + "subnet-ce0742d90dc6c537d",
+          + "subnet-d4630d098cc0fce67",
+        ]
+      + supported_network_types = (known after apply)
+      + tags                    = {
+          + "Name" = "atlas-template-db-subnets"
+        }
+      + tags_all                = {
+          + "Managed" = "terraform"
+          + "Name"    = "atlas-template-db-subnets"
+          + "Project" = "atlas-template"
+        }
+      + vpc_id                  = (known after apply)
+    }
+
+  # aws_security_group.db will be created
+  + resource "aws_security_group" "db" {
+      + arn                    = (known after apply)
+      + description            = "Security group for atlas-template RDS MySQL"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "MySQL"
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3306
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "atlas-template-db-sg"
+        }
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Name"    = "atlas-template-db-sg"
+          + "Project" = "atlas-template"
+        }
+      + vpc_id                 = "vpc-f634a1a4ff14bb91a"
+    }
+
+  # random_id.suffix will be created
+  + resource "random_id" "suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 3
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + db_address  = (known after apply)
+  + db_endpoint = (known after apply)
+  + db_name     = "app"
+  + db_port     = (known after apply)
+random_id.suffix: Creating...
+random_id.suffix: Creation complete after 0s [id=URYw]
+aws_db_subnet_group.this: Creating...
+aws_security_group.db: Creating...
+aws_security_group.db: Creation complete after 1s [id=sg-a126ef999d42bf8e1]
+aws_db_subnet_group.this: Creation complete after 1s [id=atlas-template-db-subnets-511630]
+aws_db_instance.mysql: Creating...
+aws_db_instance.mysql: Still creating... [00m10s elapsed]
+aws_db_instance.mysql: Still creating... [00m20s elapsed]
+aws_db_instance.mysql: Still creating... [00m30s elapsed]
+aws_db_instance.mysql: Still creating... [00m40s elapsed]
+aws_db_instance.mysql: Still creating... [00m50s elapsed]
+aws_db_instance.mysql: Still creating... [01m00s elapsed]
+aws_db_instance.mysql: Still creating... [01m10s elapsed]
+aws_db_instance.mysql: Still creating... [01m20s elapsed]
+aws_db_instance.mysql: Still creating... [01m30s elapsed]

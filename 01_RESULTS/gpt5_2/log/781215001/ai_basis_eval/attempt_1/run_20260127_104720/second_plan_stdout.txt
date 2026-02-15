@@ -1,0 +1,28 @@
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-324a6635501a7216d]
+data.aws_subnets.default: Reading...
+aws_security_group.postgres: Refreshing state... [id=sg-21e34e2a17ac86a42]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+aws_db_subnet_group.this: Refreshing state... [id=infrafy-db-20260127094750460900000001]
+aws_db_instance.postgres: Refreshing state... [id=db-568C4B4F]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_db_instance.postgres will be updated in-place
+  ~ resource "aws_db_instance" "postgres" {
+        id                                    = "db-568C4B4F"
+      ~ port                                  = 4510 -> 5432
+        tags                                  = {
+            "Name" = "infrafy-postgres"
+        }
+        # (73 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Changes to Outputs:
+  ~ database_url = (sensitive value)

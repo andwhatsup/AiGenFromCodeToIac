@@ -1,0 +1,19 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.ec2_assume_role" [label="data.aws_iam_policy_document.ec2_assume_role"];
+  "aws_iam_instance_profile.eb_ec2" [label="aws_iam_instance_profile.eb_ec2"];
+  "aws_iam_role.eb_ec2_role" [label="aws_iam_role.eb_ec2_role"];
+  "aws_iam_role_policy_attachment.eb_web_tier" [label="aws_iam_role_policy_attachment.eb_web_tier"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_instance_profile.eb_ec2" -> "aws_iam_role.eb_ec2_role";
+  "aws_iam_role.eb_ec2_role" -> "data.aws_iam_policy_document.ec2_assume_role";
+  "aws_iam_role.eb_ec2_role" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.eb_web_tier" -> "aws_iam_role.eb_ec2_role";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+}

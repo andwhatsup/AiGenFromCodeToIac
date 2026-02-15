@@ -1,0 +1,43 @@
+${replace(
+  replace(
+    replace(
+      replace(
+        replace(
+          replace(
+            replace(
+              replace(
+                replace(
+                  replace(
+                    replace(
+                      replace(
+                        replace(
+                          replace(
+                            file("${path.module}/../state_machine/S3ObjectCreatedComprehend.json"),
+                            "$${aws_s3_object_key_entity}", aws_s3_object_key_entity
+                          ),
+                          "$${aws_s3_object_key_key_phrase}", aws_s3_object_key_key_phrase
+                        ),
+                        "$${aws_s3_object_key_pii_entity}", aws_s3_object_key_pii_entity
+                      ),
+                      "$${aws_s3_object_key_sentiment}", aws_s3_object_key_sentiment
+                    ),
+                    "$${aws_s3_object_key_sentiment_score}", aws_s3_object_key_sentiment_score
+                  ),
+                  "$${aws_s3_object_key_syntax_token}", aws_s3_object_key_syntax_token
+                ),
+                "$${aws_s3_object_key_syntax_token_part_of_speech}", aws_s3_object_key_syntax_token_part_of_speech
+              ),
+              "$${aws_s3_object_key_targeted_sentiment}", aws_s3_object_key_targeted_sentiment
+            ),
+            "$${aws_s3_object_key_targeted_sentiment_descriptive_mention}", aws_s3_object_key_targeted_sentiment_descriptive_mention
+          ),
+          "$${aws_s3_object_key_targeted_sentiment_mention}", aws_s3_object_key_targeted_sentiment_mention
+        ),
+        "$${aws_s3_object_key_targeted_sentiment_mention_sentiment}", aws_s3_object_key_targeted_sentiment_mention_sentiment
+      ),
+      "$${aws_s3_object_key_targeted_sentiment_mention_sentiment_score}", aws_s3_object_key_targeted_sentiment_mention_sentiment_score
+    ),
+    "$${aws_s3_object_key_toxic_content}", aws_s3_object_key_toxic_content
+  ),
+  "$${aws_s3_object_key_toxic_content_label}", aws_s3_object_key_toxic_content_label
+)}

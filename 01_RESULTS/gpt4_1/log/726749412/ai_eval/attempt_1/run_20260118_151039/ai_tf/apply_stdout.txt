@@ -1,0 +1,1226 @@
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.codebuild_assume_role_policy: Reading...
+data.aws_iam_policy_document.ecs_task_execution_assume_role_policy: Reading...
+data.aws_iam_policy_document.codepipeline_assume_role_policy: Reading...
+data.aws_iam_policy_document.codebuild_assume_role_policy: Read complete after 0s [id=1229436035]
+data.aws_iam_policy_document.ecs_task_execution_assume_role_policy: Read complete after 0s [id=1077804475]
+data.aws_iam_policy_document.codepipeline_assume_role_policy: Read complete after 0s [id=2245101310]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.ecs will be created
+  + resource "aws_cloudwatch_log_group" "ecs" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/express-app"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 7
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_codebuild_project.app_build will be created
+  + resource "aws_codebuild_project" "app_build" {
+      + arn                  = (known after apply)
+      + auto_retry_limit     = (known after apply)
+      + badge_enabled        = false
+      + badge_url            = (known after apply)
+      + build_timeout        = 60
+      + description          = "Build and test Express app, scan with SonarQube and Trivy, build/push Docker image."
+      + encryption_key       = (known after apply)
+      + id                   = (known after apply)
+      + name                 = "express-app-build"
+      + project_visibility   = "PRIVATE"
+      + public_project_alias = (known after apply)
+      + queued_timeout       = 480
+      + region               = "us-east-1"
+      + service_role         = (known after apply)
+      + tags_all             = (known after apply)
+
+      + artifacts {
+          + encryption_disabled    = false
+          + override_artifact_name = false
+          + type                   = "CODEPIPELINE"
+        }
+
+      + cache {
+          + type = "NO_CACHE"
+        }
+
+      + environment {
+          + compute_type                = "BUILD_GENERAL1_SMALL"
+          + image                       = "aws/codebuild/standard:7.0"
+          + image_pull_credentials_type = "CODEBUILD"
+          + privileged_mode             = true
+          + type                        = "LINUX_CONTAINER"
+
+          + environment_variable {
+              + name  = "REPOSITORY_URI"
+              + type  = "PLAINTEXT"
+              + value = (known after apply)
+            }
+          + environment_variable {
+              + name  = "AWS_DEFAULT_REGION"
+              + type  = "PLAINTEXT"
+              + value = "us-east-1"
+            }
+        }
+
+      + source {
+          + buildspec = <<-EOT
+                version: 0.2
+                
+                phases:
+                  install:
+                    runtime-versions:
+                      nodejs: 16
+                    commands:
+                      - echo Installing dependencies...
+                      - npm install
+                      - npm install -g sonar-scanner
+                      - curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+                  pre_build:
+                    commands:
+                      - echo Logging in to Amazon ECR...
+                      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REPOSITORY_URI
+                      - echo Running SonarQube scan...
+                      - sonar-scanner -Dsonar.projectKey=$CODEBUILD_SOURCE_REPO_URL -Dsonar.sources=.
+                      - echo Running Trivy scan...
+                      - trivy fs .
+                  build:
+                    commands:
+                      - echo Building the Docker image...
+                      - docker build -t $REPOSITORY_URI:latest .
+                      - docker push $REPOSITORY_URI:latest
+                      - printf '[{"name":"%s","imageUri":"%s"}]' "${APP_NAME}" "$REPOSITORY_URI:latest" > imagedefinitions.json
+                  post_build:
+                    commands:
+                      - echo Build completed on `date`
+                artifacts:
+                  files:
+                    - imagedefinitions.json
+            EOT
+          + type      = "CODEPIPELINE"
+        }
+    }
+
+  # aws_codepipeline.app_pipeline will be created
+  + resource "aws_codepipeline" "app_pipeline" {
+      + arn            = (known after apply)
+      + execution_mode = "SUPERSEDED"
+      + id             = (known after apply)
+      + name           = "express-app-pipeline"
+      + pipeline_type  = "V1"
+      + region         = "us-east-1"
+      + role_arn       = (known after apply)
+      + tags_all       = (known after apply)
+      + trigger_all    = (known after apply)
+
+      + artifact_store {
+          + location = (known after apply)
+          + type     = "S3"
+            # (1 unchanged attribute hidden)
+        }
+
+      + stage {
+          + name = "Source"
+
+          + action {
+              + category         = "Source"
+              + configuration    = {
+                  + "Branch"     = "main"
+                  + "OAuthToken" = (sensitive value)
+                  + "Owner"      = "<GITHUB_OWNER>"
+                  + "Repo"       = "<GITHUB_REPO>"
+                }
+              + name             = "Source"
+              + output_artifacts = [
+                  + "source_output",
+                ]
+              + owner            = "ThirdParty"
+              + provider         = "GitHub"
+              + region           = (known after apply)
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+      + stage {
+          + name = "Build"
+
+          + action {
+              + category         = "Build"
+              + configuration    = {
+                  + "ProjectName" = "express-app-build"
+                }
+              + input_artifacts  = [
+                  + "source_output",
+                ]
+              + name             = "Build"
+              + output_artifacts = [
+                  + "build_output",
+                ]
+              + owner            = "AWS"
+              + provider         = "CodeBuild"
+              + region           = (known after apply)
+              + run_order        = (known after apply)
+              + version          = "1"
+            }
+        }
+      + stage {
+          + name = "Deploy"
+
+          + action {
+              + category        = "Deploy"
+              + configuration   = {
+                  + "ClusterName" = "express-app-cluster"
+                  + "FileName"    = "imagedefinitions.json"
+                  + "ServiceName" = "express-app-service"
+                }
+              + input_artifacts = [
+                  + "build_output",
+                ]
+              + name            = "Deploy"
+              + owner           = "AWS"
+              + provider        = "ECS"
+              + region          = (known after apply)
+              + run_order       = (known after apply)
+              + version         = "1"
+            }
+        }
+    }
+
+  # aws_ecr_repository.app_repo will be created
+  + resource "aws_ecr_repository" "app_repo" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "express-app"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Name" = "express-app-ecr"
+        }
+      + tags_all             = {
+          + "Name" = "express-app-ecr"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.main will be created
+  + resource "aws_ecs_cluster" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "express-app-cluster"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.app_service will be created
+  + resource "aws_ecs_service" "app_service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "express-app-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + load_balancer {
+          + container_name   = "express-app"
+          + container_port   = 3000
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.app will be created
+  + resource "aws_ecs_task_definition" "app" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "express-app"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + track_latest             = false
+    }
+
+  # aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + region               = "us-east-1"
+      + tags_all             = (known after apply)
+    }
+
+  # aws_iam_role.codebuild will be created
+  + resource "aws_iam_role" "codebuild" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codebuild.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "express-app-codebuild-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.codepipeline will be created
+  + resource "aws_iam_role" "codepipeline" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codepipeline.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "express-app-codepipeline-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "express-app-ecs-task-execution"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.codebuild_policy will be created
+  + resource "aws_iam_role_policy_attachment" "codebuild_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+      + role       = "express-app-codebuild-role"
+    }
+
+  # aws_iam_role_policy_attachment.codepipeline_policy will be created
+  + resource "aws_iam_role_policy_attachment" "codepipeline_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AWSCodePipelineFullAccess"
+      + role       = "express-app-codepipeline-role"
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution_policy will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "express-app-ecs-task-execution"
+    }
+
+  # aws_internet_gateway.igw will be created
+  + resource "aws_internet_gateway" "igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "express-app-igw"
+        }
+      + tags_all = {
+          + "Name" = "express-app-igw"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lb.app_lb will be created
+  + resource "aws_lb" "app_lb" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "express-app-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "express-app-alb"
+        }
+      + tags_all                                                     = {
+          + "Name" = "express-app-alb"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.app_tg will be created
+  + resource "aws_lb_target_group" "app_tg" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "express-app-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "express-app-tg"
+        }
+      + tags_all                           = {
+          + "Name" = "express-app-tg"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_nat_gateway.nat will be created
+  + resource "aws_nat_gateway" "nat" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + auto_provision_zones               = (known after apply)
+      + auto_scaling_ips                   = (known after apply)
+      + availability_mode                  = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + region                             = "us-east-1"
+      + regional_nat_gateway_address       = (known after apply)
+      + regional_nat_gateway_auto_mode     = (known after apply)
+      + route_table_id                     = (known after apply)
+      + secondary_allocation_ids           = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "express-app-nat"
+        }
+      + tags_all                           = {
+          + "Name" = "express-app-nat"
+        }
+      + vpc_id                             = (known after apply)
+    }
+
+  # aws_route.private_nat_gateway will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet_access will be created
+  + resource "aws_route" "public_internet_access" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + region                 = "us-east-1"
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "express-app-private-rt"
+        }
+      + tags_all         = {
+          + "Name" = "express-app-private-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "us-east-1"
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "express-app-public-rt"
+        }
+      + tags_all         = {
+          + "Name" = "express-app-public-rt"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_s3_bucket.codepipeline_artifacts will be created
+  + resource "aws_s3_bucket" "codepipeline_artifacts" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_security_group.alb_sg will be created
+  + resource "aws_security_group" "alb_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP/HTTPS inbound traffic to ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "express-app-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "express-app-alb-sg"
+        }
+      + tags_all               = {
+          + "Name" = "express-app-alb-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.ecs_sg will be created
+  + resource "aws_security_group" "ecs_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow traffic from ALB to ECS"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 3000
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "express-app-ecs-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "express-app-ecs-sg"
+        }
+      + tags_all               = {
+          + "Name" = "express-app-ecs-sg"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_ssm_parameter.github_oauth_token will be created
+  + resource "aws_ssm_parameter" "github_oauth_token" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/express-app/github_oauth_token"
+      + region         = "us-east-1"
+      + tags_all       = (known after apply)
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "express-app-private-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "express-app-private-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.102.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "express-app-private-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "express-app-private-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "express-app-public-1"
+        }
+      + tags_all                                       = {
+          + "Name" = "express-app-public-1"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-east-1"
+      + tags                                           = {
+          + "Name" = "express-app-public-2"
+        }
+      + tags_all                                       = {
+          + "Name" = "express-app-public-2"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-east-1"
+      + tags                                 = {
+          + "Name" = "express-app-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "express-app-vpc"
+        }
+    }
+
+  # random_id.suffix will be created
+  + resource "random_id" "suffix" {
+      + b64_std     = (known after apply)
+      + b64_url     = (known after apply)
+      + byte_length = 4
+      + dec         = (known after apply)
+      + hex         = (known after apply)
+      + id          = (known after apply)
+    }
+
+Plan: 37 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name       = (known after apply)
+  + ecr_repository_url = (known after apply)
+  + ecs_service_name   = "express-app-service"
+  + vpc_id             = (known after apply)
+random_id.suffix: Creating...
+random_id.suffix: Creation complete after 0s [id=6KZ1tg]
+aws_ecs_cluster.main: Creating...
+aws_ssm_parameter.github_oauth_token: Creating...
+aws_ecr_repository.app_repo: Creating...
+aws_eip.nat: Creating...
+aws_cloudwatch_log_group.ecs: Creating...
+aws_iam_role.codepipeline: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_iam_role.codebuild: Creating...
+aws_vpc.main: Creating...
+aws_s3_bucket.codepipeline_artifacts: Creating...
+aws_eip.nat: Creation complete after 0s [id=eipalloc-09da3d221c642836c]
+aws_iam_role.ecs_task_execution: Creation complete after 4s [id=express-app-ecs-task-execution]
+aws_iam_role.codepipeline: Creation complete after 4s [id=express-app-codepipeline-role]
+aws_iam_role.codebuild: Creation complete after 4s [id=express-app-codebuild-role]
+aws_iam_role_policy_attachment.codebuild_policy: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution_policy: Creating...
+aws_iam_role_policy_attachment.codepipeline_policy: Creating...
+aws_iam_role_policy_attachment.codebuild_policy: Creation complete after 0s [id=express-app-codebuild-role/arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess]
+aws_iam_role_policy_attachment.ecs_task_execution_policy: Creation complete after 0s [id=express-app-ecs-task-execution/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_cloudwatch_log_group.ecs: Creation complete after 5s [id=/ecs/express-app]
+aws_ssm_parameter.github_oauth_token: Creation complete after 5s [id=/express-app/github_oauth_token]
+aws_ecr_repository.app_repo: Creation complete after 7s [id=express-app]
+aws_ecs_task_definition.app: Creating...
+aws_codebuild_project.app_build: Creating...
+aws_ecs_task_definition.app: Creation complete after 0s [id=express-app]
+aws_codebuild_project.app_build: Creation complete after 0s [id=arn:aws:codebuild:us-east-1:000000000000:project/express-app-build]
+aws_ecs_cluster.main: Still creating... [00m10s elapsed]
+aws_vpc.main: Still creating... [00m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [00m10s elapsed]
+aws_vpc.main: Creation complete after 10s [id=vpc-a77c2ae92325b751a]
+aws_internet_gateway.igw: Creating...
+aws_subnet.public[1]: Creating...
+aws_route_table.public: Creating...
+aws_route_table.private: Creating...
+aws_subnet.public[0]: Creating...
+aws_subnet.private[1]: Creating...
+aws_security_group.alb_sg: Creating...
+aws_lb_target_group.app_tg: Creating...
+aws_subnet.private[1]: Creation complete after 0s [id=subnet-49b91083f0a4dbd3d]
+aws_subnet.private[0]: Creating...
+aws_internet_gateway.igw: Creation complete after 0s [id=igw-9196a28c62d937fec]
+aws_subnet.private[0]: Creation complete after 0s [id=subnet-7eeb7e2c3b6b6297c]
+aws_route_table.public: Creation complete after 1s [id=rtb-bfff04f73880397fd]
+aws_route_table.private: Creation complete after 1s [id=rtb-e92c30a392fd1c1d6]
+aws_route_table_association.private[1]: Creating...
+aws_route_table_association.private[0]: Creating...
+aws_route.public_internet_access: Creating...
+aws_route_table_association.private[0]: Creation complete after 0s [id=rtbassoc-1c8830f1dc99725da]
+aws_route_table_association.private[1]: Creation complete after 0s [id=rtbassoc-f4afaf2b83cad6f42]
+aws_security_group.alb_sg: Creation complete after 1s [id=sg-ab5b5d6d6eb10b7d5]
+aws_security_group.ecs_sg: Creating...
+aws_route.public_internet_access: Creation complete after 0s [id=r-rtb-bfff04f73880397fd1080289494]
+aws_lb_target_group.app_tg: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/express-app-tg/14efda60118fa966]
+aws_security_group.ecs_sg: Creation complete after 0s [id=sg-49fdb3674a9202916]
+aws_ecs_cluster.main: Creation complete after 11s [id=arn:aws:ecs:us-east-1:000000000000:cluster/express-app-cluster]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [00m20s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[0]: Creation complete after 11s [id=subnet-f892eb6d9ac7e4250]
+aws_subnet.public[1]: Creation complete after 11s [id=subnet-62b0ef1b9e896d1f8]
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creating...
+aws_nat_gateway.nat: Creating...
+aws_lb.app_lb: Creating...
+aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-52b9deab4db74619c]
+aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-bab6927338a85376c]
+aws_nat_gateway.nat: Creation complete after 0s [id=nat-3b39f495519d1e484]
+aws_route.private_nat_gateway: Creating...
+aws_route.private_nat_gateway: Creation complete after 0s [id=r-rtb-e92c30a392fd1c1d61080289494]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [00m30s elapsed]
+aws_lb.app_lb: Still creating... [00m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [00m40s elapsed]
+aws_lb.app_lb: Still creating... [00m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [00m50s elapsed]
+aws_lb.app_lb: Still creating... [00m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [01m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [02m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [03m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [04m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [05m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [06m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [07m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [08m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [09m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [10m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [11m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [12m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [13m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [14m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [15m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [16m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [17m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [18m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [19m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [20m50s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m00s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m10s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m20s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m30s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m40s elapsed]
+aws_s3_bucket.codepipeline_artifacts: Still creating... [21m50s elapsed]
+
+Warning: The CodePipeline GitHub version 1 action provider is no longer recommended.
+
+  with aws_codepipeline.app_pipeline,
+  on codepipeline.tf line 16, in resource "aws_codepipeline" "app_pipeline":
+  16:       provider         = "GitHub"
+
+Use a GitHub version 2 action (with a CodeStar Connection
+`aws_codestarconnections_connection`) as recommended instead. See
+https://docs.aws.amazon.com/codepipeline/latest/userguide/update-github-action-connections.html

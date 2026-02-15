@@ -1,0 +1,314 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "acm": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_acm_certificate",
+            "aws_acm_certificate_validation"
+          ]
+        },
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_cluster",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "msk": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_msk_cluster"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "route53": {
+          "status": "partial",
+          "resource_types": [
+            "aws_route53_record"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "logs"
+        ],
+        "partial": [
+          "ec2",
+          "ecs",
+          "elbv2",
+          "iam",
+          "route53"
+        ],
+        "none": [],
+        "unknown": [
+          "acm",
+          "availability",
+          "caller",
+          "internet",
+          "msk",
+          "nat",
+          "region",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"kafka-stack\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.0.0/24\", \"10.0.1.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.10.0/24\", \"10.0.11.0/24\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "allowed_ingress_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"0.0.0.0/0\"]",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "kafka_ui_domain_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "route53_zone_id": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "msk_kafka_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"3.5.1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "msk_broker_instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"kafka.t3.small\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "msk_broker_ebs_volume_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "100",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "msk_number_of_broker_nodes": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "ecs_task_cpu": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "ecs_task_memory": {
+          "type": "number",
+          "has_default": true,
+          "default": "512",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "kafka_ui_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"provectuslabs/kafka-ui:latest\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        },
+        "kafka_ui_container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "8080",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_acm_certificate",
+        "aws_acm_certificate_validation",
+        "aws_availability_zones",
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_ecs_cluster",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_eip",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_msk_cluster",
+        "aws_nat_gateway",
+        "aws_region",
+        "aws_route53_record",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 2,
+        "aws_acm_certificate": 1,
+        "aws_route53_record": 2,
+        "aws_acm_certificate_validation": 1,
+        "aws_availability_zones": 1,
+        "aws_region": 1,
+        "aws_caller_identity": 1,
+        "aws_ecs_cluster": 1,
+        "aws_cloudwatch_log_group": 2,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_msk_cluster": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 2,
+        "aws_route_table": 2,
+        "aws_route_table_association": 2,
+        "aws_eip": 1,
+        "aws_nat_gateway": 1,
+        "aws_security_group": 3
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 6.28"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-gen-from-code-to-iac/workspace/603603590/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

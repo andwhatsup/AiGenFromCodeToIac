@@ -1,0 +1,36 @@
+
+Error: Invalid index
+
+  on main.tf line 223, in resource "aws_route53_record" "cert_validation":
+ 223:   name    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_name
+    ├────────────────
+    │ aws_acm_certificate.cert.domain_validation_options is set of object with 1 element
+    │ count.index is 0
+
+Elements of a set are identified only by their value and don't have any
+separate index or key to select with, so it's only possible to perform
+operations across all elements of the set.
+
+Error: Invalid index
+
+  on main.tf line 224, in resource "aws_route53_record" "cert_validation":
+ 224:   type    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_type
+    ├────────────────
+    │ aws_acm_certificate.cert.domain_validation_options is set of object with 1 element
+    │ count.index is 0
+
+Elements of a set are identified only by their value and don't have any
+separate index or key to select with, so it's only possible to perform
+operations across all elements of the set.
+
+Error: Invalid index
+
+  on main.tf line 225, in resource "aws_route53_record" "cert_validation":
+ 225:   records = [aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_value]
+    ├────────────────
+    │ aws_acm_certificate.cert.domain_validation_options is set of object with 1 element
+    │ count.index is 0
+
+Elements of a set are identified only by their value and don't have any
+separate index or key to select with, so it's only possible to perform
+operations across all elements of the set.

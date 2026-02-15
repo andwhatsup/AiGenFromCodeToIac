@@ -1,0 +1,129 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_273",
+                "bc_check_id": "BC_AWS_IAM_77",
+                "check_name": "Ensure access is controlled through SSO and not AWS IAM defined users",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    25,
+                    27
+                ],
+                "resource": "aws_iam_user.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMUserNotUsedForAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-273",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_40",
+                "bc_check_id": "BC_AWS_IAM_16",
+                "check_name": "Ensure IAM policies are attached only to groups or roles (Reducing access management complexity may in-turn reduce opportunity for a principal to inadvertently receive or retain excessive privileges.)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "user"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/main.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                "repo_file_path": "/main.tf",
+                "file_line_range": [
+                    50,
+                    54
+                ],
+                "resource": "aws_iam_user_policy.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMPolicyAttachedToGroupOrRoles",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/iam-16-iam-policy-privileges-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user": [
+                        {
+                            "type": "variable",
+                            "name": "app_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_user.app",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/828024292/ai_basis_tf/main.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 19,
+        "failed": 2,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 6,
+        "checkov_version": "3.2.490"
+    }
+}

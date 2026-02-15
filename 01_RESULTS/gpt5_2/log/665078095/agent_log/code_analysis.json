@@ -1,0 +1,33 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/665078095",
+      "programming_languages": [
+        "SQL (MySQL dialect)",
+        "HCL (Atlas schema/config)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Atlas (ariga.io) database schema & migrations tool"
+      ],
+      "dependencies": [
+        "arigaio/atlas:latest Docker image (Dockerfile: /Dockerfile)",
+        "MySQL 8 dev database via Docker driver (Atlas env dev URL: /atlas.hcl -> dev = \"docker://mysql/8/dev\")"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile (packages migrations into an Atlas container image)",
+        "/atlas.hcl (Atlas environment config; points to schema and migrations dir; MySQL dev via Docker)",
+        "/schema.hcl (desired DB schema in Atlas HCL)",
+        "/migrations/*.sql (versioned SQL migrations)",
+        "/migrations/atlas.sum (migration checksums)",
+        "/plan.md (notes referencing provisioning e.g., RDS)"
+      ],
+      "architectural_resources": [
+        "Database schema management/migrations pipeline (Atlas)",
+        "Relational database: MySQL (local dev via Docker; production implied e.g., AWS RDS per plan.md)",
+        "Container image for migrations (Dockerfile builds an image based on arigaio/atlas)",
+        "Application database schema resources: tables users, posts; foreign key posts.user_id -> users.id (schema.hcl and migrations/*.sql)"
+      ]
+    }
+  ]
+}

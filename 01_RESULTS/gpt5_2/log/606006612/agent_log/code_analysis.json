@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/606006612",
+      "programming_languages": [
+        "Java"
+      ],
+      "frameworks": [
+        "MongoDB Java Driver (Sync)"
+      ],
+      "dependencies": [
+        "Maven build (pom.xml)",
+        "org.mongodb:mongodb-driver-sync:4.8.1 (pom.xml)",
+        "junit:junit:4.13.1 (test scope) (pom.xml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (containerizes shaded JAR; uses openjdk:19; runs App.jar)",
+        "pom.xml (maven-shade-plugin builds bin/App.jar; mainClass com.example.App)",
+        "README.md (describes running on AWS ECS and pushing to ECR; references terraform but no terraform files present in repo)"
+      ],
+      "architectural_resources": [
+        "Java console application (containerized)",
+        "Container image (intended for AWS ECR)",
+        "Container runtime/orchestrator (intended AWS ECS per README)",
+        "Logging (intended AWS CloudWatch Logs per README)",
+        "MongoDB Atlas cluster/database (external managed MongoDB; uses MONGODB_URI env var; authMechanism=MONGODB-AWS per README)",
+        "AWS IAM role for task execution / MongoDB AWS auth integration (execution_role_arn referenced in README)",
+        "Networking: VPC subnets and security groups (referenced in README terraform.tfvars example)"
+      ]
+    }
+  ]
+}

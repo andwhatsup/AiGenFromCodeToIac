@@ -1,0 +1,40 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/807344116",
+      "programming_languages": [
+        "Rust",
+        "Python",
+        "Shell",
+        "YAML (Kubernetes manifests)"
+      ],
+      "frameworks": [
+        "Rust CLI application (std::net + http crate)",
+        "AWS SDK for Python (boto3)"
+      ],
+      "dependencies": [
+        "Rust (Cargo.toml): http = \"1.1\" (/Cargo.toml)",
+        "Rust (Cargo.toml): miniserde = \"0.1\" (/Cargo.toml)",
+        "Rust dev-dependency: insta = \"1.39\" (/Cargo.toml)",
+        "Python: boto3 installed in container build (pip install boto3) (/Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "/Dockerfile (multi-stage build: Rust binary + Python runtime)",
+        "/pod.yaml (Kubernetes Namespace/ServiceAccount/Pod manifest)",
+        "/build.sh (build+push to ECR, updates pod manifest image)",
+        "/aws-config (AWS CLI/SDK config using credential_process)",
+        "/.github/workflows/release.yml (CI/CD via cargo-dist + GitHub Releases)",
+        "/Cargo.toml, /Cargo.lock (Rust build metadata)"
+      ],
+      "architectural_resources": [
+        "Containerized CLI utility (epicac) used as AWS credential_process",
+        "Kubernetes resources: Namespace, ServiceAccount, Pod (EKS-targeted) (pod.yaml)",
+        "Amazon EKS Pod Identity (implied by env vars AWS_CONTAINER_CREDENTIALS_FULL_URI and AWS_CONTAINER_AUTHORIZATION_TOKEN_FILE in src/main.rs)",
+        "AWS STS AssumeRole / cross-account role chaining (described in README.md and aws-config)",
+        "Amazon ECR repository for container images (implied by build.sh docker login/push)",
+        "Amazon S3 access from example app (boto3 list_buckets in example.py)",
+        "GitHub Actions CI/CD pipeline for building/releasing Rust binaries (release.yml)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,808 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_security_group.client will be created
+  + resource "aws_security_group" "client" {
+      + arn                    = (known after apply)
+      + description            = "Security group for IPA clients"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group.server will be created
+  + resource "aws_security_group" "server" {
+      + arn                    = (known after apply)
+      + description            = "Security group for IPA servers"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group_rule.client_egress["http"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["https"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["kinit_tcp"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["kinit_udp"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["kpasswd_tcp"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["kpasswd_udp"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["ldap"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 389
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 389
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.client_egress["ldaps"] will be created
+  + resource "aws_security_group_rule" "client_egress" {
+      + from_port                = 636
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 636
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["http"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["https"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["kinit_tcp"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["kinit_udp"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["kpasswd_tcp"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["kpasswd_udp"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["ldap"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 389
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 389
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_egress_self["ldaps"] will be created
+  + resource "aws_security_group_rule" "server_egress_self" {
+      + from_port                = 636
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 636
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_http_egress will be created
+  + resource "aws_security_group_rule" "server_http_egress" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_https_egress will be created
+  + resource "aws_security_group_rule" "server_https_egress" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["http"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["https"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["kinit_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["kinit_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["kpasswd_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["kpasswd_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["ldap"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 389
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 389
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_clients["ldaps"] will be created
+  + resource "aws_security_group_rule" "server_ingress_clients" {
+      + from_port                = 636
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 636
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["http"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["https"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["kinit_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["kinit_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["kpasswd_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["kpasswd_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["ldap"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 389
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 389
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_self["ldaps"] will be created
+  + resource "aws_security_group_rule" "server_ingress_self" {
+      + from_port                = 636
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 636
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["http"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 80
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 80
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["https"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["kinit_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["kinit_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 88
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 88
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["kpasswd_tcp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["kpasswd_udp"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 464
+      + id                       = (known after apply)
+      + protocol                 = "udp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 464
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["ldap"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 389
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 389
+      + type                     = "ingress"
+    }
+
+  # aws_security_group_rule.server_ingress_trusted["ldaps"] will be created
+  + resource "aws_security_group_rule" "server_ingress_trusted" {
+      + cidr_blocks              = []
+      + from_port                = 636
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 636
+      + type                     = "ingress"
+    }
+
+Plan: 44 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + client = {
+      + arn                    = (known after apply)
+      + description            = "Security group for IPA clients"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = null
+      + tags_all               = (known after apply)
+      + timeouts               = null
+      + vpc_id                 = "vpc-00000000"
+    }
+  + server = {
+      + arn                    = (known after apply)
+      + description            = "Security group for IPA servers"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = null
+      + tags_all               = (known after apply)
+      + timeouts               = null
+      + vpc_id                 = "vpc-00000000"
+    }
+aws_security_group.client: Creating...
+aws_security_group.server: Creating...
+aws_security_group.client: Creation complete after 2s [id=sg-b7dfed2ee87196b10]
+aws_security_group.server: Creation complete after 2s [id=sg-6ae38daaa546478de]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Creating...
+aws_security_group_rule.server_https_egress: Creating...
+aws_security_group_rule.server_ingress_trusted["ldap"]: Creating...
+aws_security_group_rule.server_ingress_trusted["http"]: Creating...
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Creating...
+aws_security_group_rule.client_egress["kpasswd_tcp"]: Creating...
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Creating...
+aws_security_group_rule.server_ingress_trusted["https"]: Creating...
+aws_security_group_rule.server_http_egress: Creating...
+aws_security_group_rule.server_egress_self["kinit_udp"]: Creating...
+aws_security_group_rule.client_egress["kpasswd_tcp"]: Creation complete after 0s [id=sgrule-2352454195]
+aws_security_group_rule.client_egress["ldaps"]: Creating...
+aws_security_group_rule.client_egress["ldaps"]: Creation complete after 0s [id=sgrule-1447229014]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Creating...
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [00m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [00m20s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [00m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [00m40s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [00m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m20s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m30s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [01m50s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [02m00s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [02m10s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [02m20s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [02m30s elapsed]
+aws_security_group_rule.server_ingress_trusted["http"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_udp"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kinit_tcp"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_egress_self["kinit_udp"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_https_egress: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_http_egress: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["https"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["ldap"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_ingress_trusted["kpasswd_udp"]: Still creating... [02m40s elapsed]
+aws_security_group_rule.server_egress_self["kpasswd_udp"]: Still creating... [02m40s elapsed]

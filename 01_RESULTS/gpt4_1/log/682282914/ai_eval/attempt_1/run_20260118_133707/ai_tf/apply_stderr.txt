@@ -1,0 +1,21 @@
+
+Error: creating S3 Bucket (flask-app-bucket): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://flask-app-bucket.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.app_bucket,
+  on main.tf line 59, in resource "aws_s3_bucket" "app_bucket":
+  59: resource "aws_s3_bucket" "app_bucket" {
+
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/flask-app-alb/4428e7e5f87a441e) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: 56fc20cd-0d98-4f9f-93e1-c6a1c5bd8340, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app_alb,
+  on main.tf line 107, in resource "aws_lb" "app_alb":
+ 107: resource "aws_lb" "app_alb" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app_alb,
+  on main.tf line 107, in resource "aws_lb" "app_alb":
+ 107: resource "aws_lb" "app_alb" {
+

@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.site_bucket" [label="aws_s3_bucket.site_bucket"];
+  "aws_s3_bucket_acl.s3_bucket_acl" [label="aws_s3_bucket_acl.s3_bucket_acl"];
+  "aws_s3_bucket_policy.site_bucket_policy" [label="aws_s3_bucket_policy.site_bucket_policy"];
+  "aws_s3_bucket_server_side_encryption_configuration.site_bucket_server_side_encryption" [label="aws_s3_bucket_server_side_encryption_configuration.site_bucket_server_side_encryption"];
+  "aws_s3_bucket_versioning.site_bucket_versioning" [label="aws_s3_bucket_versioning.site_bucket_versioning"];
+  "aws_s3_bucket_website_configuration.site_bucket_website_configuration" [label="aws_s3_bucket_website_configuration.site_bucket_website_configuration"];
+  "aws_s3_bucket_acl.s3_bucket_acl" -> "aws_s3_bucket.site_bucket";
+  "aws_s3_bucket_policy.site_bucket_policy" -> "aws_s3_bucket.site_bucket";
+  "aws_s3_bucket_server_side_encryption_configuration.site_bucket_server_side_encryption" -> "aws_s3_bucket.site_bucket";
+  "aws_s3_bucket_versioning.site_bucket_versioning" -> "aws_s3_bucket.site_bucket";
+  "aws_s3_bucket_website_configuration.site_bucket_website_configuration" -> "aws_s3_bucket.site_bucket";
+}

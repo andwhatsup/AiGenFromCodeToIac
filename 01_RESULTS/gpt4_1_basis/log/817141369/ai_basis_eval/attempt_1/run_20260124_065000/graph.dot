@@ -1,0 +1,21 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.s3_policy" [label="data.aws_iam_policy_document.s3_policy"];
+  "aws_s3_bucket.static_site" [label="aws_s3_bucket.static_site"];
+  "aws_s3_bucket_object.cactus_png" [label="aws_s3_bucket_object.cactus_png"];
+  "aws_s3_bucket_object.dinosaur_png" [label="aws_s3_bucket_object.dinosaur_png"];
+  "aws_s3_bucket_object.index_html" [label="aws_s3_bucket_object.index_html"];
+  "aws_s3_bucket_object.script_js" [label="aws_s3_bucket_object.script_js"];
+  "aws_s3_bucket_object.style_css" [label="aws_s3_bucket_object.style_css"];
+  "aws_s3_bucket_policy.static_site_policy" [label="aws_s3_bucket_policy.static_site_policy"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.s3_policy" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket.static_site" -> "random_id.suffix";
+  "aws_s3_bucket_object.cactus_png" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_object.dinosaur_png" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_object.index_html" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_object.script_js" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_object.style_css" -> "aws_s3_bucket.static_site";
+  "aws_s3_bucket_policy.static_site_policy" -> "data.aws_iam_policy_document.s3_policy";
+}

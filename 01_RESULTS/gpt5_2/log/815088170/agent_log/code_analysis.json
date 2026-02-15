@@ -1,0 +1,32 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)",
+        "YAML (config)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Express.js"
+      ],
+      "dependencies": [
+        "express@^4.17.1 (from ./package.json)"
+      ],
+      "deployment_relevant_files": [
+        "./dockerfile (Docker build for Node 14; runs `node helloworld.js`)",
+        "./docker-compose.yml (references AWS ECR image; awslogs logging driver)",
+        "./.github/workflows/jekyll-gh-pages.yml (GitHub Actions workflow building/pushing Docker image to ECR and running `terraform init/apply`)",
+        "./package.json (Node app metadata and dependencies)"
+      ],
+      "architectural_resources": [
+        "Containerized web/API application (Express) listening on port 3000 (from ./app.js)",
+        "AWS ECR repository (image pushed to `${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO_NAME}:${IMAGE_TAG}` from .github/workflows/jekyll-gh-pages.yml and docker-compose.yml)",
+        "AWS ECS service/task implied by awslogs config and log group `/ecs/hello-world` (from ./docker-compose.yml)",
+        "CloudWatch Logs log group `/ecs/hello-world` (from ./docker-compose.yml)",
+        "CI/CD pipeline via GitHub Actions using AWS credentials (from .github/workflows/jekyll-gh-pages.yml)",
+        "Terraform-based infrastructure deployment is intended, but Terraform *.tf source files are not present in this repository (only Terraform init/validate output logs under ./Terraform/)"
+      ]
+    }
+  ]
+}

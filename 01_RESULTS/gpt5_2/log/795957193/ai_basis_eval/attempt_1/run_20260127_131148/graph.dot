@@ -1,0 +1,14 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.al2023" [label="data.aws_ami.al2023"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_instance.app" [label="aws_instance.app"];
+  "aws_security_group.app" [label="aws_security_group.app"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_instance.app" -> "data.aws_ami.al2023";
+  "aws_instance.app" -> "data.aws_subnets.default";
+  "aws_instance.app" -> "aws_security_group.app";
+  "aws_security_group.app" -> "data.aws_vpc.default";
+}

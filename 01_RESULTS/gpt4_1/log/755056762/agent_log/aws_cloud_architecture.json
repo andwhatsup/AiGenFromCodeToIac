@@ -1,0 +1,13 @@
+{
+  "aws_architecture_description": "This system is a simple, serverless ETL pipeline implemented in Python, which reads from and writes to an AWS S3 bucket using the awswrangler library. The architecture is designed for simplicity, scalability, and cost-effectiveness, leveraging AWS managed services and best practices for security and networking.\n\n1. **ETL Pipeline Execution**: The ETL logic (main.py) can be deployed as an AWS Lambda function, allowing for event-driven or scheduled execution (e.g., via Amazon EventBridge or CloudWatch Events). This removes the need for server management and provides automatic scaling.\n\n2. **Data Storage**: An Amazon S3 bucket is used for all data storage, both as input and output for the ETL process. S3 provides durability, scalability, and integration with other AWS services.\n\n3. **Networking & Security**: The Lambda function will run inside a VPC for enhanced security, with appropriate subnets and security groups. IAM roles and policies will be created to grant the Lambda function least-privilege access to the S3 bucket.\n\n4. **Monitoring & Logging**: AWS CloudWatch will be used for logging Lambda execution and monitoring metrics (invocations, errors, duration, etc.).\n\n5. **CI/CD (Optional)**: If desired, the GitHub Actions workflow can be integrated with AWS CodePipeline or AWS CodeBuild for automated deployment of the Lambda function.\n\nThis architecture is lean, serverless, and follows AWS best practices for security, scalability, and cost control.",
+  "aws_resources": [
+    "Amazon S3 Bucket",
+    "AWS Lambda Function (for ETL pipeline)",
+    "IAM Role for Lambda (with S3 access policy)",
+    "VPC (Virtual Private Cloud)",
+    "Private Subnets (for Lambda execution)",
+    "Security Group (for Lambda)",
+    "CloudWatch Log Group (for Lambda logs)",
+    "CloudWatch Events or EventBridge Rule (for scheduling ETL runs)"
+  ]
+}

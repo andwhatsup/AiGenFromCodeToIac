@@ -1,0 +1,41 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/787701450",
+      "programming_languages": [
+        "JSON (AWS Step Functions ASL)",
+        "Makefile",
+        "Python (tooling only)"
+      ],
+      "frameworks": [
+        "AWS Step Functions (Amazon States Language)",
+        "AWS SDK integrations for Step Functions (service integration ARNs)"
+      ],
+      "dependencies": [
+        "Python dev tooling (from /requirements.txt): pre-commit==3.8.0, PyYAML==6.0.2, virtualenv==20.26.3, cfgv==3.4.0, distlib==0.3.8, filelock==3.15.4, identify==2.6.0, nodeenv==1.9.1, platformdirs==4.2.2"
+      ],
+      "deployment_relevant_files": [
+        "/Makefile (terraform fmt target; venv/requirements helpers)",
+        "/state_machine/S3ObjectCreatedText.json (Step Functions state machine definition)",
+        "/state_machine/S3ObjectCreatedComprehend.json (Step Functions state machine definition)",
+        "/.devcontainer (devcontainer configuration directory)",
+        "/.github/workflows/pull_request.yml (CI)",
+        "/.github/workflows/stale.yml (repo automation)",
+        "/.pre-commit-config.yaml (pre-commit hooks)",
+        "/README.md (architecture + deployment instructions)",
+        "/AWS_S3_NOTIFICATIONS.md (docs)",
+        "/DATALAKE.md (docs)"
+      ],
+      "architectural_resources": [
+        "Serverless data-processing application (event-driven NLP pipeline)",
+        "Amazon S3 bucket(s) for input (/text/), intermediate (/comprehend/), and datalake outputs (/datalake/...) (described in /README.md; referenced by Step Functions s3:getObject/s3:putObject tasks)",
+        "Amazon S3 event notifications (described in /README.md)",
+        "Amazon SQS queues (2 queues; described in /README.md)",
+        "AWS Step Functions state machines (2: S3ObjectCreatedText and S3ObjectCreatedComprehend; in /state_machine/*.json)",
+        "AWS Comprehend API calls via Step Functions service integrations (detectDominantLanguage, detectEntities, detectKeyPhrases, detectPiiEntities, detectSentiment, detectSyntax, detectTargetedSentiment, detectToxicContent) (in /state_machine/S3ObjectCreatedText.json)",
+        "Amazon EventBridge (routing S3->SQS->Step Functions; described in /README.md)",
+        "AWS Glue (ETL/catalog; described in /README.md)"
+      ]
+    }
+  ]
+}

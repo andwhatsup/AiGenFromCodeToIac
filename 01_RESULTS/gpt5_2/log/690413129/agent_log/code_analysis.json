@@ -1,0 +1,54 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell",
+        "Nginx config",
+        "YAML"
+      ],
+      "frameworks": [
+        "MLflow Tracking Server (mlflow server)",
+        "Gunicorn (via MLflow)",
+        "gevent",
+        "nginx",
+        "supervisord"
+      ],
+      "dependencies": [
+        "mlflow==2.4.1 (requirements.txt)",
+        "pymysql==1.0.3 (requirements.txt)",
+        "psycopg2-binary==2.9.6 (requirements.txt)",
+        "protobuf==4.23.3 (requirements.txt)",
+        "gevent==22.10.2 (requirements.txt)",
+        "boto3==1.26.155 (requirements.txt)",
+        "OS packages installed in container: supervisor, gettext-base, nginx, apache2-utils (Dockerfile)",
+        "PostgreSQL container image postgres:15.3-alpine3.18 (docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yml",
+        "heroku.yml",
+        "app.json",
+        "nginx.conf",
+        "supervisord.conf",
+        "scripts/mlflow.sh",
+        "scripts/nginx.sh",
+        ".dockerignore",
+        ".github/workflows/build_branch.yml",
+        ".github/workflows/build_tag.yml",
+        ".github/workflows/terraform_validate.yml"
+      ],
+      "architectural_resources": [
+        "Containerized web application (MLflow tracking server behind nginx basic auth)",
+        "Reverse proxy / web server (nginx)",
+        "Process supervisor (supervisord)",
+        "Relational database for MLflow backend store (PostgreSQL via docker-compose; also supports MySQL via pymysql and Postgres via psycopg2)",
+        "Object storage for artifacts (S3 implied by boto3 and MLFLOW_ARTIFACT_URI examples in README/app.json)",
+        "Container registry for CI publishing (Amazon ECR Public referenced in .github/workflows/build_*.yml)",
+        "Heroku deployment target (heroku.yml, app.json)",
+        "AWS credentials/region usage in CI (aws-actions/configure-aws-credentials in workflows)"
+      ]
+    }
+  ]
+}

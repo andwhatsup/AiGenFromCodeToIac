@@ -1,0 +1,216 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "eks": {
+          "status": "none",
+          "resource_types": [
+            "aws_eks_cluster",
+            "aws_eks_cluster_auth",
+            "aws_eks_node_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2",
+          "iam"
+        ],
+        "none": [
+          "eks"
+        ],
+        "unknown": [
+          "availability",
+          "internet",
+          "nat"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_eks_cluster",
+        "aws_eks_cluster_auth",
+        "aws_eks_node_group"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-west-2\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.1.0/24\", \"10.0.2.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.101.0/24\", \"10.0.102.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "eks_cluster_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"energi-eks-cluster\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "node_instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3.large\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "desired_capacity": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "max_capacity": {
+          "type": "number",
+          "has_default": true,
+          "default": "3",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "min_capacity": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "docker_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"energi/energi:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        },
+        "ebs_volume_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "100",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_availability_zones",
+        "aws_eip",
+        "aws_eks_cluster",
+        "aws_eks_cluster_auth",
+        "aws_eks_node_group",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_nat_gateway",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1,
+        "aws_iam_role": 2,
+        "aws_iam_policy_document": 2,
+        "aws_iam_role_policy_attachment": 5,
+        "aws_eks_cluster": 2,
+        "aws_eks_cluster_auth": 1,
+        "aws_eks_node_group": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 2,
+        "aws_nat_gateway": 1,
+        "aws_eip": 1,
+        "aws_route_table": 2,
+        "aws_route": 2,
+        "aws_route_table_association": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 5.0"
+          ]
+        },
+        "kubernetes": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 2.20"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/781285603/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

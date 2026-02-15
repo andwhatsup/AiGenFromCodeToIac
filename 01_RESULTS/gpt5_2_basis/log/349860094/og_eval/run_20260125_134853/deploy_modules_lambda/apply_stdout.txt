@@ -1,0 +1,158 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.default_role: Reading...
+data.aws_iam_policy_document.default_role: Read complete after 0s [id=1558494397]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.default_policy will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "default_policy" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "logs:CreateLogStream",
+              + "logs:PutLogEvents",
+            ]
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "Logging"
+        }
+    }
+
+  # aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/lambda-lambda"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 14
+      + skip_destroy                = false
+      + tags_all                    = (known after apply)
+    }
+
+  # aws_iam_policy.this will be created
+  + resource "aws_iam_policy" "this" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "AWSLambdaLogging-lambda-lambda"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.this will be created
+  + resource "aws_iam_role" "this" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                      + Sid       = "AssumeRole"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + description           = "IAM role for the lambda function: lambda-lambda"
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "AWSLambda-lambda-lambda"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.this will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "AWSLambda-lambda-lambda"
+    }
+
+  # aws_lambda_function.this will be created
+  + resource "aws_lambda_function" "this" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + description                    = "lambda"
+      + filename                       = "./.dummy/lambda.zip"
+      + function_name                  = "lambda-lambda"
+      + handler                        = "main"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "go1.x"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "wmbalFzzY/wG3ivChKElOZB3+B4gptmQyIat05p+fU4="
+      + source_code_size               = (known after apply)
+      + tags_all                       = (known after apply)
+      + timeout                        = 5
+      + version                        = (known after apply)
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + arn = (known after apply)
+aws_iam_role.this: Creating...
+aws_cloudwatch_log_group.this: Creating...
+aws_iam_role.this: Creation complete after 1s [id=AWSLambda-lambda-lambda]
+aws_lambda_function.this: Creating...
+aws_cloudwatch_log_group.this: Creation complete after 1s [id=/aws/lambda/lambda-lambda]
+data.aws_iam_policy_document.default_policy: Reading...
+data.aws_iam_policy_document.default_policy: Read complete after 0s [id=291656174]
+aws_iam_policy.this: Creating...
+aws_iam_policy.this: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/AWSLambdaLogging-lambda-lambda]
+aws_iam_role_policy_attachment.this: Creating...
+aws_iam_role_policy_attachment.this: Creation complete after 0s [id=AWSLambda-lambda-lambda/arn:aws:iam::000000000000:policy/AWSLambdaLogging-lambda-lambda]
+aws_lambda_function.this: Creation complete after 5s [id=lambda-lambda]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+arn = "arn:aws:lambda:us-east-1:000000000000:function:lambda-lambda"

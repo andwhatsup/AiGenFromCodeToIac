@@ -1,0 +1,9 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.mlflow_artifacts" [label="aws_s3_bucket.mlflow_artifacts"];
+  "aws_s3_bucket_public_access_block.mlflow_artifacts" [label="aws_s3_bucket_public_access_block.mlflow_artifacts"];
+  "random_pet.mlflow_artifacts" [label="random_pet.mlflow_artifacts"];
+  "aws_s3_bucket.mlflow_artifacts" -> "random_pet.mlflow_artifacts";
+  "aws_s3_bucket_public_access_block.mlflow_artifacts" -> "aws_s3_bucket.mlflow_artifacts";
+}

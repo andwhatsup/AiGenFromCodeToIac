@@ -1,0 +1,27 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_ecs_cluster.vat_calc" [label="aws_ecs_cluster.vat_calc"];
+  "aws_ecs_service.vat_calc" [label="aws_ecs_service.vat_calc"];
+  "aws_ecs_task_definition.vat_calc" [label="aws_ecs_task_definition.vat_calc"];
+  "aws_iam_role.ecs_task_execution_role" [label="aws_iam_role.ecs_task_execution_role"];
+  "aws_iam_role_policy_attachment.ecs_task_execution_role_policy" [label="aws_iam_role_policy_attachment.ecs_task_execution_role_policy"];
+  "aws_lb.vat_calc" [label="aws_lb.vat_calc"];
+  "aws_lb_listener.vat_calc" [label="aws_lb_listener.vat_calc"];
+  "aws_lb_target_group.vat_calc" [label="aws_lb_target_group.vat_calc"];
+  "aws_security_group.vat_calc" [label="aws_security_group.vat_calc"];
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_ecs_service.vat_calc" -> "aws_ecs_cluster.vat_calc";
+  "aws_ecs_service.vat_calc" -> "aws_ecs_task_definition.vat_calc";
+  "aws_ecs_service.vat_calc" -> "aws_lb_listener.vat_calc";
+  "aws_ecs_task_definition.vat_calc" -> "aws_iam_role.ecs_task_execution_role";
+  "aws_iam_role_policy_attachment.ecs_task_execution_role_policy" -> "aws_iam_role.ecs_task_execution_role";
+  "aws_lb.vat_calc" -> "data.aws_subnets.default";
+  "aws_lb.vat_calc" -> "aws_security_group.vat_calc";
+  "aws_lb_listener.vat_calc" -> "aws_lb.vat_calc";
+  "aws_lb_listener.vat_calc" -> "aws_lb_target_group.vat_calc";
+  "aws_lb_target_group.vat_calc" -> "data.aws_vpc.default";
+  "aws_security_group.vat_calc" -> "data.aws_vpc.default";
+}

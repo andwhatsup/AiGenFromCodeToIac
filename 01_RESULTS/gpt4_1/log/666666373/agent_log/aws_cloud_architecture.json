@@ -1,0 +1,27 @@
+{
+  "aws_architecture_description": "This system is a Java web application (WAR) running in a containerized Tomcat environment, orchestrated by Kubernetes, with CI/CD automation via Jenkins and Ansible. To deploy this on AWS in a secure, scalable, and maintainable way, the following high-level architecture is proposed:\n\n1. **Networking/Foundation**:\n   - Deploy all resources within a dedicated VPC with public and private subnets across at least two Availability Zones for high availability.\n   - Use NAT Gateways for secure outbound internet access from private subnets.\n   - Security Groups and NACLs to tightly control traffic between components.\n\n2. **Kubernetes Cluster (EKS)**:\n   - Use Amazon EKS (Elastic Kubernetes Service) to manage the Kubernetes cluster, providing managed control plane and worker nodes (EC2 or Fargate).\n   - Deploy the Tomcat container as a Kubernetes Deployment in EKS.\n   - Use a Kubernetes Service of type LoadBalancer (AWS NLB/ALB) instead of NodePort for production-grade, scalable, and secure external access.\n\n3. **Container Registry**:\n   - Store Docker images in Amazon ECR (Elastic Container Registry) for secure, scalable image storage and retrieval by EKS.\n\n4. **CI/CD Pipeline**:\n   - Deploy Jenkins (master and slave agents) on EC2 instances in private subnets, or use Jenkins on EKS for better scalability and management.\n   - Use IAM roles for Jenkins to interact with ECR, EKS, and other AWS services.\n   - Store build artifacts and logs in S3 for durability and auditability.\n\n5. **Automation**:\n   - Store and manage Ansible playbooks in S3 or CodeCommit.\n   - Jenkins triggers Ansible playbooks for infrastructure automation, using EC2 or Lambda as the execution environment.\n\n6. **Monitoring & Logging**:\n   - Use Amazon CloudWatch for monitoring EKS, EC2, and application logs (integrate Log4j output with CloudWatch Logs).\n   - Enable AWS CloudTrail for auditing API calls.\n\n7. **IAM & Security**:\n   - Use IAM roles and policies for least-privilege access for EKS nodes, Jenkins, and automation tools.\n   - Use AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., DB credentials, API keys).\n\n8. **Optional (if needed):**\n   - If a database is required, use Amazon RDS (MySQL/PostgreSQL) in private subnets.\n   - Use AWS WAF and Shield for additional security on the load balancer.\n\nThis architecture leverages AWS managed services for scalability, security, and operational efficiency, while closely mapping to the original system's containerized, automated, and orchestrated design.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2)",
+    "Private Subnets (at least 2)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups",
+    "Network ACLs",
+    "Amazon EKS Cluster",
+    "EKS Node Groups (EC2 or Fargate)",
+    "Amazon ECR Repository",
+    "Application Load Balancer (ALB) or Network Load Balancer (NLB)",
+    "EC2 Instances for Jenkins Master/Slaves (or Jenkins on EKS)",
+    "IAM Roles and Policies (for EKS nodes, Jenkins, CI/CD, automation)",
+    "Amazon S3 Buckets (for build artifacts, logs, Ansible playbooks)",
+    "AWS Secrets Manager or Systems Manager Parameter Store",
+    "Amazon CloudWatch (metrics, logs, alarms)",
+    "AWS CloudTrail",
+    "AWS CodeCommit (optional, for source/Ansible playbooks)",
+    "AWS Lambda (optional, for automation tasks)",
+    "Amazon RDS (optional, if a database is needed)",
+    "AWS WAF and AWS Shield (optional, for ALB/NLB protection)"
+  ]
+}

@@ -1,0 +1,21 @@
+
+Error: creating ELBv2 application Load Balancer (franklin-alb): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: 6ea5e072-9d11-413f-a628-0ae36cde8dbb, SubnetNotFound: The specified subnet does not exist.
+
+  with aws_lb.hello_alb,
+  on alb.tf line 1, in resource "aws_lb" "hello_alb":
+   1: resource "aws_lb" "hello_alb" {
+
+
+Error: creating ELBv2 Target Group (franklin-alb-tg): operation error Elastic Load Balancing v2: CreateTargetGroup, https response error StatusCode: 400, RequestID: c8db18d0-207d-446e-8161-ca52a31acea3, api error ValidationError: The VPC ID 'compute' is not found
+
+  with aws_lb_target_group.hello_alb_tg,
+  on alb.tf line 13, in resource "aws_lb_target_group" "hello_alb_tg":
+  13: resource "aws_lb_target_group" "hello_alb_tg" {
+
+
+Error: creating Auto Scaling Group (terraform-20260127011333746500000003): operation error Auto Scaling: CreateAutoScalingGroup, https response error StatusCode: 400, RequestID: 6c6b74bc-34a0-43d8-8de6-6bee8a2787d0, api error ValidationError: At least one Availability Zone or VPC Subnet is required.
+
+  with aws_autoscaling_group.asg,
+  on asg.tf line 31, in resource "aws_autoscaling_group" "asg":
+  31: resource "aws_autoscaling_group" "asg" {
+

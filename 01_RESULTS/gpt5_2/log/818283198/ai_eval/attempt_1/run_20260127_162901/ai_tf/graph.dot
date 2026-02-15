@@ -1,0 +1,29 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_apigatewayv2_api.http" [label="aws_apigatewayv2_api.http"];
+  "aws_apigatewayv2_integration.lambda" [label="aws_apigatewayv2_integration.lambda"];
+  "aws_apigatewayv2_route.invoke" [label="aws_apigatewayv2_route.invoke"];
+  "aws_apigatewayv2_stage.default" [label="aws_apigatewayv2_stage.default"];
+  "aws_cloudwatch_log_group.lambda" [label="aws_cloudwatch_log_group.lambda"];
+  "aws_ecr_lifecycle_policy.this" [label="aws_ecr_lifecycle_policy.this"];
+  "aws_ecr_repository.this" [label="aws_ecr_repository.this"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_lambda_permission.apigw" [label="aws_lambda_permission.apigw"];
+  "aws_apigatewayv2_integration.lambda" -> "aws_apigatewayv2_api.http";
+  "aws_apigatewayv2_integration.lambda" -> "aws_lambda_function.this";
+  "aws_apigatewayv2_route.invoke" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_stage.default" -> "aws_apigatewayv2_api.http";
+  "aws_ecr_lifecycle_policy.this" -> "aws_ecr_repository.this";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.this" -> "aws_cloudwatch_log_group.lambda";
+  "aws_lambda_function.this" -> "aws_ecr_repository.this";
+  "aws_lambda_function.this" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_permission.apigw" -> "aws_apigatewayv2_api.http";
+  "aws_lambda_permission.apigw" -> "aws_lambda_function.this";
+}

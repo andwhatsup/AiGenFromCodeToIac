@@ -1,0 +1,68 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/672189910",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Streamlit",
+        "LangChain (library)",
+        "Hugging Face Transformers (library)"
+      ],
+      "dependencies": [
+        "transformers (requirements.txt)",
+        "accelerate (requirements.txt)",
+        "torch (requirements.txt)",
+        "xformers (requirements.txt)",
+        "pandas (requirements.txt)",
+        "openai (requirements.txt)",
+        "tiktoken (requirements.txt)",
+        "faiss-cpu (requirements.txt)",
+        "langchain (requirements.txt)",
+        "beautifulsoup4 (requirements.txt)",
+        "streamlit (requirements.txt)",
+        "streamlit_chat (requirements.txt)",
+        "black (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/672189910/Dockerfile",
+        "/ai-gen-from-code-to-iac/workspace/672189910/requirements.txt",
+        "/ai-gen-from-code-to-iac/workspace/672189910/README.md"
+      ],
+      "architectural_resources": [
+        "Web application (Streamlit UI)",
+        "LLM provider API (OpenAI; implied by openai+tiktoken dependencies)",
+        "Vector store / similarity search index (FAISS; implied by faiss-cpu dependency)"
+      ]
+    },
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/672189910/deploy",
+      "programming_languages": [
+        "HCL (Terraform)",
+        "YAML (Docker Compose)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Terraform (HashiCorp)",
+        "AWS CLI (in container image)"
+      ],
+      "dependencies": [
+        "hashicorp/terraform:1.5 base image (deploy/Dockerfile)",
+        "awscli (pip install in deploy/Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/Dockerfile",
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/docker-compose.yml",
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/init_validate_stdout.txt",
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/init_validate_stderr.txt",
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/validate_stdout.txt",
+        "/ai-gen-from-code-to-iac/workspace/672189910/deploy/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Infrastructure-as-Code execution environment (Terraform container)",
+        "AWS account/credentials usage (docker-compose.yml passes AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY/AWS_SESSION_TOKEN and region)"
+      ]
+    }
+  ]
+}

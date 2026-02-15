@@ -1,0 +1,31 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [],
+      "dependencies": [
+        "Go standard library (net/http, context, etc.) [main.go, handlers.go]"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "Makefile",
+        ".github/workflows/build.yml",
+        ".github/workflows/buildandpush.yml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/main.yml",
+        ".release/ci.hcl",
+        ".release/release.metadata.hcl",
+        ".release/security-scan.hcl"
+      ],
+      "architectural_resources": [
+        "Web application (http-echo)",
+        "Docker container registry (DockerHub, as per .release/release.metadata.hcl)",
+        "GitHub repository (as per .release/release.metadata.hcl)",
+        "AWS ECS (referenced in buildandpush.yml for deployment)"
+      ]
+    }
+  ]
+}

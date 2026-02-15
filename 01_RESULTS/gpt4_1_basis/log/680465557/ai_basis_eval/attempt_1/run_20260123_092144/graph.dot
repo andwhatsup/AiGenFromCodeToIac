@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "aws_ecr_repository.gitops_ecr" [label="aws_ecr_repository.gitops_ecr"];
+  "aws_iam_policy.lambda_policy" [label="aws_iam_policy.lambda_policy"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_policy_attach" [label="aws_iam_role_policy_attachment.lambda_policy_attach"];
+  "aws_lambda_function.gitops_lambda" [label="aws_lambda_function.gitops_lambda"];
+  "aws_iam_role_policy_attachment.lambda_policy_attach" -> "aws_iam_policy.lambda_policy";
+  "aws_iam_role_policy_attachment.lambda_policy_attach" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.gitops_lambda" -> "data.aws_caller_identity.current";
+  "aws_lambda_function.gitops_lambda" -> "aws_iam_role_policy_attachment.lambda_policy_attach";
+}

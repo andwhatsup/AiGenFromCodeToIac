@@ -1,0 +1,33 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/603603590",
+      "programming_languages": [
+        "YAML (Docker Compose)"
+      ],
+      "frameworks": [
+        "Docker Compose"
+      ],
+      "dependencies": [
+        "confluentinc/cp-zookeeper:7.3.0 (docker-compose.yml)",
+        "confluentinc/cp-kafka:7.3.0 (docker-compose.yml)",
+        "provectuslabs/kafka-ui (docker-compose.yml)",
+        "jc21/nginx-proxy-manager:latest (docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "ssh/test-kafka-do.pub (SSH public key; referenced by .gitignore patterns)",
+        "init_validate_stdout.txt (Terraform init log; indicates IaC usage but no .tf files present in this repo snapshot)",
+        "validate_stdout.txt (Terraform validate log)"
+      ],
+      "architectural_resources": [
+        "Kafka cluster (broker)",
+        "Zookeeper",
+        "Kafka UI (web application)",
+        "Reverse proxy / TLS termination (Nginx Proxy Manager)",
+        "Docker network (kafka-network bridge)",
+        "(Inferred from init_validate_stdout.txt) Terraform-managed infrastructure using AWS and DigitalOcean providers, but Terraform configuration files (*.tf) are not present in the repository snapshot"
+      ]
+    }
+  ]
+}

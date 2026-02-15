@@ -1,0 +1,123 @@
+{
+  "roots_scanned": [
+    "."
+  ],
+  "recommended_roots": [
+    "."
+  ],
+  "varfiles_created": {
+    ".": false
+  },
+  "services_report": {
+    ".": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [
+          "ecr"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ai-basis\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/variables.tf"
+        },
+        "ecr_repository_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ai-basis-nginx\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/variables.tf"
+        },
+        "artifact_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_s3_bucket": 1,
+        "aws_s3_bucket_versioning": 1,
+        "aws_s3_bucket_server_side_encryption_configuration": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/798573779/ai_basis_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

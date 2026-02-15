@@ -1,0 +1,43 @@
+# to check defaults
+# helm repo add grafana https://grafana.github.io/helm-charts
+# helm repo update
+# helm show values grafana/grafana --version 7.3.7
+adminUser: admin
+adminPassword: devops123
+
+grafana.ini:
+  server:
+    root_url: http://localhost:30080/grafana # this host can be localhost
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+
+    datasources:
+      - name: victoria-metrics
+        type: prometheus
+        access: proxy
+        orgId: 1
+        url: http://vm-victoria-metrics-single-victoria-server:8428
+        basicAuth: false
+        isDefault: true
+        version: 1
+        editable: true
+        apiVersion: 1
+        uid: victoria-metrics
+      - name: Tempo
+        type: tempo
+        access: proxy
+        orgId: 1
+        url: http://tempo-query-frontend:3100
+        basicAuth: false
+        isDefault: false
+        version: 1
+        editable: true
+        apiVersion: 1
+        uid: tempo
+        jsonData:
+          serviceMap:
+            datasourceUid: victoria-metrics
+service:
+  appProtocol: http

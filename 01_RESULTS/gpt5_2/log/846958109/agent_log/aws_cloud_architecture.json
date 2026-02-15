@@ -1,0 +1,33 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking foundation\n- **VPC across 2–3 Availability Zones** for high availability.\n- **Public subnets** host the internet-facing load balancer.\n- **Private subnets** host EKS worker nodes (or Fargate) and internal components.\n- **NAT Gateways** (one per AZ, or a single NAT for cost-lean dev) allow private workloads to pull images and reach AWS APIs without being publicly reachable.\n- **VPC endpoints** (Interface/Gateway) reduce NAT egress and improve security for AWS service access (ECR, S3, CloudWatch Logs, STS, etc.).\n\n### 2) Compute / orchestration: Amazon EKS\n- **Amazon EKS cluster** runs the application as a Kubernetes Deployment.\n- **Node group strategy (lean default):**\n  - Use **EKS Managed Node Groups** (EC2) in private subnets.\n  - Enable **Cluster Autoscaler** (or Karpenter if you prefer) to scale nodes.\n- **Workload scaling:**\n  - Keep the app as a **Kubernetes Deployment** (replicas start at 6 as in your manifests).\n  - Add **Horizontal Pod Autoscaler (HPA)** based on CPU/Memory (and optionally ALB request metrics).\n\n### 3) Ingress / load balancing\n- Use the **AWS Load Balancer Controller** in the cluster.\n- Prefer **Kubernetes Ingress** (recommended) to provision an **Application Load Balancer (ALB)** with:\n  - **HTTPS termination** using an **ACM certificate**.\n  - Listener rules routing to a Kubernetes **Service** (ClusterIP) that targets pods.\n- If you keep **Service type=LoadBalancer**, it can still work, but Ingress is typically cleaner for ALB features (host/path routing, WAF association, etc.).\n\n### 4) DNS and TLS\n- **Route 53 hosted zone** for your domain.\n- **Route 53 A/AAAA alias** points to the ALB.\n- **ACM certificate** for TLS on the ALB.\n\n### 5) Container image registry (recommended change)\n- Today you push to DockerHub/GHCR. For AWS-native ops and IAM-based auth, use **Amazon ECR** as the primary registry.\n- CI (GitHub Actions/Jenkins) pushes images to ECR; EKS pulls from ECR using node role permissions.\n\n### 6) Observability and logging\n- **CloudWatch Container Insights** (or ADOT) for cluster/pod/node metrics.\n- **Fluent Bit** (or AWS for Fluent Bit) to ship container logs to **CloudWatch Logs**.\n- **ALB access logs** to **S3** (optional but useful).\n- **CloudWatch alarms** for key SLOs (5xx, latency, target health, node/pod capacity).\n\n### 7) Security hardening (practical defaults)\n- **IAM Roles for Service Accounts (IRSA)** for any pod that needs AWS API access.\n- **AWS WAF** on the ALB (optional but recommended for internet-facing apps).\n- **Security Groups**:\n  - ALB SG: allow inbound 443 from the internet; outbound to node SG on app port.\n  - Node SG: allow inbound from ALB SG to NodePort/target port; restrict other inbound.\n- **Secrets**:\n  - If you add secrets later, store in **AWS Secrets Manager** (or SSM Parameter Store) and mount via External Secrets Operator.\n\n### 8) CI/CD integration (fits your current pipelines)\n- **GitHub Actions / Jenkins**:\n  - Build container image.\n  - Push to **ECR**.\n  - Deploy to EKS using `kubectl apply` (as you do now) or Helm.\n- **Access control**:\n  - Use an **IAM role for GitHub OIDC** (recommended) or a locked-down IAM user (less preferred) to push to ECR and update EKS.\n\n### 9) Note on the Dockerfile mismatch\n- Your Dockerfile uses **nginx:alpine** to serve static content, while manifests expose **port 3000** and analysis references **Node/Express**.\n- On AWS/EKS, either approach works, but you should standardize:\n  - If it’s truly static: run Nginx on port 80 and expose 80.\n  - If it’s Node/Express: use a Node base image and expose 3000.\n  - The ALB target port and health checks must match the container.\n\n---\n\n## Request flow\n1. User → Route 53 (DNS) → ALB (HTTPS 443, ACM cert)\n2. ALB → Kubernetes Ingress/Service → Pods (Deployment replicas)\n3. Pods run in private subnets; scale via HPA; nodes scale via Cluster Autoscaler\n\n## Build/deploy flow\n1. GitHub Actions/Jenkins builds image\n2. Push image to Amazon ECR\n3. Pipeline applies Kubernetes manifests to EKS (Deployment/Service/Ingress)\n\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC Subnets (Public, Private across 2–3 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables (public/private)",
+    "Security Groups (ALB SG, EKS node SG)",
+    "Network ACLs (optional)",
+    "VPC Endpoints: S3 (Gateway), ECR API (Interface), ECR DKR (Interface), CloudWatch Logs (Interface), STS (Interface) (as needed)",
+    "Amazon EKS Cluster",
+    "EKS Managed Node Group(s) (EC2) OR EKS Fargate Profiles (choose one)",
+    "IAM Roles: EKS Cluster Role, Node Instance Role, IRSA roles for controllers/workloads",
+    "IAM OIDC Provider for EKS (for IRSA)",
+    "Amazon ECR Repository (for tribute image)",
+    "AWS Load Balancer Controller (EKS add-on/Helm deployment)",
+    "Application Load Balancer (provisioned by controller)",
+    "Target Groups (created with ALB)",
+    "AWS Certificate Manager (ACM) Certificate",
+    "Amazon Route 53 Hosted Zone (optional if you own a domain)",
+    "Route 53 Record (A/AAAA Alias to ALB)",
+    "Amazon CloudWatch Log Groups (EKS control plane logs, application logs)",
+    "CloudWatch Container Insights (or ADOT Collector)",
+    "CloudWatch Alarms (ALB 5xx/latency, target health, node capacity)",
+    "Amazon S3 Bucket for ALB access logs (optional)",
+    "AWS WAFv2 Web ACL (optional, associated to ALB)",
+    "AWS KMS Key(s) (optional; for encrypting logs/S3/Secrets)",
+    "AWS Secrets Manager (optional; for future app secrets)",
+    "AWS Systems Manager Parameter Store (optional alternative to Secrets Manager)",
+    "IAM Role for GitHub Actions OIDC (recommended) OR IAM User for CI (less preferred)"
+  ]
+}

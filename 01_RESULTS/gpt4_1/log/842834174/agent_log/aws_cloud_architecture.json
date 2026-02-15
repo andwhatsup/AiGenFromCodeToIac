@@ -1,0 +1,16 @@
+{
+  "aws_architecture_description": "This system is a static web application (HTML/CSS/JS) served by Nginx in a Docker container, deployed on AWS using Amazon EKS (Elastic Kubernetes Service). The infrastructure is managed via Terraform, and CI/CD is handled by GitHub Actions and Jenkins. The application is exposed to the internet via a Kubernetes Service of type LoadBalancer, which provisions an AWS Application Load Balancer (ALB).\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability and fault tolerance.\n   - Internet Gateway for public access.\n   - NAT Gateway for outbound internet access from private subnets (if needed for updates or CI/CD agents).\n   - Route tables to manage traffic flow.\n\n2. **EKS Cluster:**\n   - An EKS cluster provisioned and managed by Terraform, deployed into the VPC.\n   - Worker nodes (EC2 instances or managed node groups) in private subnets for running application pods.\n   - EKS control plane managed by AWS.\n\n3. **Kubernetes Resources:**\n   - Kubernetes Deployment for the Nginx container serving the static site.\n   - Kubernetes Service of type LoadBalancer, annotated for AWS ALB integration, to expose the application to the internet.\n\n4. **Load Balancing & Security:**\n   - AWS Application Load Balancer (ALB) automatically provisioned by the Kubernetes Service.\n   - Security Groups to restrict access to only necessary ports (e.g., 80/443 for HTTP/HTTPS).\n\n5. **IAM & Access Control:**\n   - IAM roles for EKS cluster and worker nodes, with least-privilege permissions.\n   - IAM roles for service accounts (IRSA) if Kubernetes workloads need AWS API access.\n\n6. **CI/CD Integration:**\n   - GitHub Actions and Jenkins pipelines build and push Docker images to a container registry (Amazon ECR recommended).\n   - Pipelines deploy to EKS using kubectl and manifests.\n\n7. **Container Registry:**\n   - Amazon ECR (Elastic Container Registry) for storing Docker images built by CI/CD.\n\n8. **Monitoring & Logging:**\n   - Amazon CloudWatch for EKS cluster and application logs/metrics.\n   - AWS ALB access logs enabled to S3 (optional, for audit/troubleshooting).\n\nThis architecture is secure, scalable, and follows AWS best practices for deploying containerized static web applications on EKS with automated CI/CD.",
+  "aws_resources": [
+    "VPC (with public and private subnets, route tables, NAT Gateway, Internet Gateway)",
+    "EKS Cluster (Terraform managed)",
+    "EKS Node Groups (EC2 instances or managed node groups)",
+    "Security Groups (for EKS nodes, ALB, and control plane)",
+    "IAM Roles (for EKS cluster, nodes, and service accounts)",
+    "Amazon ECR (Elastic Container Registry)",
+    "Kubernetes Deployment (nginx serving static files)",
+    "Kubernetes Service (type LoadBalancer, annotated for AWS ALB)",
+    "AWS Application Load Balancer (ALB, provisioned by Kubernetes)",
+    "CloudWatch (for logs and metrics)",
+    "S3 Bucket (optional, for ALB access logs)"
+  ]
+}

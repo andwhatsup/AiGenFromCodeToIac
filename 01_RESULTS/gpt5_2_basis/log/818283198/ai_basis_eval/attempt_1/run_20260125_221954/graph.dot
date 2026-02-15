@@ -1,0 +1,17 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_ecr_repository.playwright_lambda" [label="aws_ecr_repository.playwright_lambda"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.playwright" [label="aws_lambda_function.playwright"];
+  "aws_lambda_permission.allow_account_invoke" [label="aws_lambda_permission.allow_account_invoke"];
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.playwright" -> "aws_ecr_repository.playwright_lambda";
+  "aws_lambda_function.playwright" -> "aws_iam_role_policy_attachment.lambda_basic";
+  "aws_lambda_permission.allow_account_invoke" -> "data.aws_caller_identity.current";
+  "aws_lambda_permission.allow_account_invoke" -> "aws_lambda_function.playwright";
+}

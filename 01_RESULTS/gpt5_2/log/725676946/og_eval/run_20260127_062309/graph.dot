@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_instance.Kubernetes_Master" [label="aws_instance.Kubernetes_Master"];
+  "aws_instance.Kubernetes_Workernode1" [label="aws_instance.Kubernetes_Workernode1"];
+  "aws_instance.Kubernetes_Workernode2" [label="aws_instance.Kubernetes_Workernode2"];
+  "aws_security_group.Kubernetes" [label="aws_security_group.Kubernetes"];
+  "aws_instance.Kubernetes_Master" -> "aws_security_group.Kubernetes";
+  "aws_instance.Kubernetes_Workernode1" -> "aws_security_group.Kubernetes";
+  "aws_instance.Kubernetes_Workernode2" -> "aws_security_group.Kubernetes";
+}

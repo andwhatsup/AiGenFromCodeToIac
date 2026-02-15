@@ -1,0 +1,51 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Nginx (for static file serving)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/docker-publish.yml",
+        ".github/workflows/jekyll-docker.yml",
+        "Jenkinsfile"
+      ],
+      "architectural_resources": [
+        "Web application (static site)",
+        "Kubernetes Deployment (range-slider-deployment)",
+        "Kubernetes Service (range-slider-service, LoadBalancer type, AWS ALB annotations)",
+        "Docker container (nginx serving static files)",
+        "CI/CD pipelines (GitHub Actions, Jenkins)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "Terraform logs/output (potentially related to EKS infrastructure)"
+      ]
+    }
+  ]
+}

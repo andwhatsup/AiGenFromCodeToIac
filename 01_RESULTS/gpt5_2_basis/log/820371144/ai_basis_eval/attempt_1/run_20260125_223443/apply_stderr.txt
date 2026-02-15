@@ -1,0 +1,14 @@
+
+Error: "name" cannot end with a hyphen: "react-aws-github-actions-0608d1-"
+
+  with aws_lb.this,
+  on main.tf line 109, in resource "aws_lb" "this":
+ 109:   name               = substr("${local.name}-alb", 0, 32)
+
+
+Error: "name" cannot end with a hyphen
+
+  with aws_lb_target_group.app,
+  on main.tf line 117, in resource "aws_lb_target_group" "app":
+ 117:   name        = substr("${local.name}-tg", 0, 32)
+

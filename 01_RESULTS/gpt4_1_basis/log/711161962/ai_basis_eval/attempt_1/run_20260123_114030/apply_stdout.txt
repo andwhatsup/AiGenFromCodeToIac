@@ -1,0 +1,777 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "ai-basis-lambda-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "ai-basis-lambda-exec"
+    }
+
+  # aws_lambda_event_source_mapping.sqs_event will be created
+  + resource "aws_lambda_event_source_mapping" "sqs_event" {
+      + arn                           = (known after apply)
+      + enabled                       = true
+      + event_source_arn              = (known after apply)
+      + function_arn                  = (known after apply)
+      + function_name                 = (known after apply)
+      + id                            = (known after apply)
+      + last_modified                 = (known after apply)
+      + last_processing_result        = (known after apply)
+      + maximum_record_age_in_seconds = (known after apply)
+      + maximum_retry_attempts        = (known after apply)
+      + parallelization_factor        = (known after apply)
+      + region                        = "us-east-1"
+      + state                         = (known after apply)
+      + state_transition_reason       = (known after apply)
+      + tags_all                      = (known after apply)
+      + uuid                          = (known after apply)
+
+      + amazon_managed_kafka_event_source_config (known after apply)
+
+      + self_managed_kafka_event_source_config (known after apply)
+    }
+
+  # aws_lambda_function.app_lambda will be created
+  + resource "aws_lambda_function" "app_lambda" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "dummy_lambda.zip"
+      + function_name                  = "ai-basis-lambda"
+      + handler                        = "handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "go1.x"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "dummyhash"
+      + source_code_size               = (known after apply)
+      + tags                           = {
+          + "Name" = "ai-basis-lambda"
+        }
+      + tags_all                       = {
+          + "Name" = "ai-basis-lambda"
+        }
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_s3_bucket.app_bucket will be created
+  + resource "aws_s3_bucket" "app_bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "ai-basis-bucket"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Name" = "ai-basis-bucket"
+        }
+      + tags_all                    = {
+          + "Name" = "ai-basis-bucket"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_notification.bucket_notification will be created
+  + resource "aws_s3_bucket_notification" "bucket_notification" {
+      + bucket      = (known after apply)
+      + eventbridge = false
+      + id          = (known after apply)
+      + region      = "us-east-1"
+
+      + queue {
+          + events    = [
+              + "s3:ObjectCreated:*",
+            ]
+          + id        = (known after apply)
+          + queue_arn = (known after apply)
+        }
+    }
+
+  # aws_sqs_queue.app_queue will be created
+  + resource "aws_sqs_queue" "app_queue" {
+      + arn                               = (known after apply)
+      + content_based_deduplication       = false
+      + deduplication_scope               = (known after apply)
+      + delay_seconds                     = 0
+      + fifo_queue                        = false
+      + fifo_throughput_limit             = (known after apply)
+      + id                                = (known after apply)
+      + kms_data_key_reuse_period_seconds = (known after apply)
+      + max_message_size                  = 262144
+      + message_retention_seconds         = 345600
+      + name                              = "ai-basis-queue"
+      + name_prefix                       = (known after apply)
+      + policy                            = (known after apply)
+      + receive_wait_time_seconds         = 0
+      + redrive_allow_policy              = (known after apply)
+      + redrive_policy                    = (known after apply)
+      + region                            = "us-east-1"
+      + sqs_managed_sse_enabled           = (known after apply)
+      + tags                              = {
+          + "Name" = "ai-basis-queue"
+        }
+      + tags_all                          = {
+          + "Name" = "ai-basis-queue"
+        }
+      + url                               = (known after apply)
+      + visibility_timeout_seconds        = 30
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_name = "ai-basis-lambda"
+  + s3_bucket_name       = (known after apply)
+  + sqs_queue_url        = (known after apply)
+aws_iam_role.lambda_exec: Creating...
+aws_sqs_queue.app_queue: Creating...
+aws_s3_bucket.app_bucket: Creating...
+aws_iam_role.lambda_exec: Creation complete after 1s [id=ai-basis-lambda-exec]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=ai-basis-lambda-exec/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_sqs_queue.app_queue: Still creating... [00m10s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [00m10s elapsed]
+aws_sqs_queue.app_queue: Still creating... [00m20s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [00m20s elapsed]
+aws_sqs_queue.app_queue: Creation complete after 26s [id=http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/ai-basis-queue]
+aws_lambda_function.app_lambda: Creating...
+aws_s3_bucket.app_bucket: Still creating... [00m30s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [00m40s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [00m50s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m00s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m10s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m20s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m30s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m40s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [01m50s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m00s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m10s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m20s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m30s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m40s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [02m50s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m00s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m10s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m20s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m30s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m40s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [03m50s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [04m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [05m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [06m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [07m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [08m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [09m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [10m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [11m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [12m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [13m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [14m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [15m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [16m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [17m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [18m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [19m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [20m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [21m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [22m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [23m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [24m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [25m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [26m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [27m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [28m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [29m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [30m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [31m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [32m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [33m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [34m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [35m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [36m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [37m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [38m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [39m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [40m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [41m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [42m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [43m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [44m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [45m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [46m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [47m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [48m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [49m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [50m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [51m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [52m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [53m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [54m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [55m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [56m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [57m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [58m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [59m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [60m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [61m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [62m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [63m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [64m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [65m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [66m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [67m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [68m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [69m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [70m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [71m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [72m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [73m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [74m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [75m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [76m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [77m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [78m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [79m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [80m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [81m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [82m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [83m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m41s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [84m51s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m01s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m11s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m21s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m31s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [85m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [86m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [87m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [88m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [89m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [90m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m12s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m22s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m32s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m42s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [91m52s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [92m02s elapsed]
+aws_s3_bucket.app_bucket: Still creating... [92m12s elapsed]

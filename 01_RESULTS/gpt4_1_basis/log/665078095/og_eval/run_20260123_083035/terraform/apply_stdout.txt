@@ -1,0 +1,511 @@
+data.atlas_schema.app: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+data.atlas_schema.app: Read complete after 4s [id=1v5DvQqFzs9CisNgF9Fjtg]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # atlas_schema.hello will be created
+  + resource "atlas_schema" "hello" {
+      + hcl = <<-EOT
+            table "posts" {
+              schema = schema.app
+              column "id" {
+                null = false
+                type = int
+              }
+              column "user_id" {
+                null = false
+                type = int
+              }
+              column "title" {
+                null = false
+                type = varchar(255)
+              }
+              column "body" {
+                null = false
+                type = text
+              }
+              primary_key {
+                columns = [column.id]
+              }
+              foreign_key "posts_ibfk_1" {
+                columns     = [column.user_id]
+                ref_columns = [table.users.column.id]
+                on_update   = NO_ACTION
+                on_delete   = CASCADE
+              }
+              index "user_id" {
+                columns = [column.user_id]
+              }
+            }
+            table "users" {
+              schema = schema.app
+              column "id" {
+                null = false
+                type = int
+              }
+              column "user_name" {
+                null = false
+                type = varchar(255)
+              }
+              column "email" {
+                null = false
+                type = varchar(255)
+              }
+              primary_key {
+                columns = [column.id]
+              }
+            }
+            schema "app" {
+              charset = "utf8mb4"
+              collate = "utf8mb4_0900_ai_ci"
+            }
+        EOT
+      + id  = (known after apply)
+      + url = (sensitive value)
+    }
+
+  # aws_db_instance.atlas-demo will be created
+  + resource "aws_db_instance" "atlas-demo" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 5
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + db_name                               = (known after apply)
+      + db_subnet_group_name                  = "atlas-rds-demo"
+      + delete_automated_backups              = true
+      + endpoint                              = (known after apply)
+      + engine                                = "mysql"
+      + engine_version                        = "8.0.28"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "atlas-demo"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = (known after apply)
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = "default.mysql8.0"
+      + password                              = (sensitive value)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = (known after apply)
+      + publicly_accessible                   = true
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = (known after apply)
+      + tags_all                              = (known after apply)
+      + timezone                              = (known after apply)
+      + username                              = "atlas"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # aws_db_subnet_group.atlas will be created
+  + resource "aws_db_subnet_group" "atlas" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "atlas-rds-demo"
+      + name_prefix             = (known after apply)
+      + subnet_ids              = (known after apply)
+      + supported_network_types = (known after apply)
+      + tags                    = {
+          + "Name" = "Demo"
+        }
+      + tags_all                = {
+          + "Name" = "Demo"
+        }
+      + vpc_id                  = (known after apply)
+    }
+
+  # aws_security_group.rds will be created
+  + resource "aws_security_group" "rds" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3306
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3306
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "atlas-demo"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "atlas"
+        }
+      + tags_all               = {
+          + "Name" = "atlas"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # random_password.password will be created
+  + resource "random_password" "password" {
+      + bcrypt_hash = (sensitive value)
+      + id          = (known after apply)
+      + length      = 16
+      + lower       = true
+      + min_lower   = 0
+      + min_numeric = 0
+      + min_special = 0
+      + min_upper   = 0
+      + number      = true
+      + numeric     = true
+      + result      = (sensitive value)
+      + special     = true
+      + upper       = true
+    }
+
+  # module.vpc.aws_default_network_acl.this[0] will be created
+  + resource "aws_default_network_acl" "this" {
+      + arn                    = (known after apply)
+      + default_network_acl_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + tags                   = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + tags_all               = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + vpc_id                 = (known after apply)
+
+      + egress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + egress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+
+      + ingress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + ingress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.vpc.aws_default_route_table.default[0] will be created
+  + resource "aws_default_route_table" "default" {
+      + arn                    = (known after apply)
+      + default_route_table_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + route                  = (known after apply)
+      + tags                   = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + tags_all               = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + vpc_id                 = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+          + update = "5m"
+        }
+    }
+
+  # module.vpc.aws_default_security_group.this[0] will be created
+  + resource "aws_default_security_group" "this" {
+      + arn                    = (known after apply)
+      + description            = (known after apply)
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + tags_all               = {
+          + "Name" = "atlas-rds-demo-default"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpc.aws_internet_gateway.this[0] will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "atlas-rds-demo"
+        }
+      + tags_all = {
+          + "Name" = "atlas-rds-demo"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.vpc.aws_route.public_internet_gateway[0] will be created
+  + resource "aws_route" "public_internet_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route_table.public[0] will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "atlas-rds-demo-public"
+        }
+      + tags_all         = {
+          + "Name" = "atlas-rds-demo-public"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[2] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.4.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "atlas-rds-demo-public-us-east-1a"
+        }
+      + tags_all                                       = {
+          + "Name" = "atlas-rds-demo-public-us-east-1a"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.5.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "atlas-rds-demo-public-us-east-1b"
+        }
+      + tags_all                                       = {
+          + "Name" = "atlas-rds-demo-public-us-east-1b"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[2] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.6.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "atlas-rds-demo-public-us-east-1c"
+        }
+      + tags_all                                       = {
+          + "Name" = "atlas-rds-demo-public-us-east-1c"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_vpc.this[0] will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "atlas-rds-demo"
+        }
+      + tags_all                             = {
+          + "Name" = "atlas-rds-demo"
+        }
+    }
+
+Plan: 18 to add, 0 to change, 0 to destroy.
+random_password.password: Creating...
+random_password.password: Creation complete after 0s [id=none]
+module.vpc.aws_vpc.this[0]: Creating...
+module.vpc.aws_vpc.this[0]: Still creating... [00m10s elapsed]
+module.vpc.aws_vpc.this[0]: Creation complete after 10s [id=vpc-2e33587e2aca53266]
+module.vpc.aws_internet_gateway.this[0]: Creating...
+module.vpc.aws_default_route_table.default[0]: Creating...
+module.vpc.aws_default_security_group.this[0]: Creating...
+module.vpc.aws_route_table.public[0]: Creating...
+module.vpc.aws_subnet.public[2]: Creating...
+module.vpc.aws_subnet.public[0]: Creating...
+module.vpc.aws_subnet.public[1]: Creating...
+aws_security_group.rds: Creating...
+module.vpc.aws_default_network_acl.this[0]: Creating...
+module.vpc.aws_subnet.public[2]: Creation complete after 0s [id=subnet-91cee8d03085a28dc]
+module.vpc.aws_default_route_table.default[0]: Creation complete after 0s [id=rtb-2e17b88f17989d347]
+module.vpc.aws_subnet.public[0]: Creation complete after 0s [id=subnet-c9d0bb0fb586eafb8]
+module.vpc.aws_internet_gateway.this[0]: Creation complete after 0s [id=igw-060ac753a15a036d5]
+module.vpc.aws_subnet.public[1]: Creation complete after 0s [id=subnet-f7966c502ff05cb65]
+module.vpc.aws_default_security_group.this[0]: Creation complete after 0s [id=sg-2cb226d5023163305]
+aws_db_subnet_group.atlas: Creating...
+module.vpc.aws_default_network_acl.this[0]: Creation complete after 0s [id=acl-4fcbabcd1a88cd192]
+module.vpc.aws_route_table.public[0]: Creation complete after 0s [id=rtb-1e1df18b4df4e9e99]
+module.vpc.aws_route_table_association.public[2]: Creating...
+module.vpc.aws_route_table_association.public[1]: Creating...
+module.vpc.aws_route_table_association.public[0]: Creating...
+module.vpc.aws_route.public_internet_gateway[0]: Creating...
+module.vpc.aws_route_table_association.public[2]: Creation complete after 0s [id=rtbassoc-15f39828d8b13d2f6]
+module.vpc.aws_route_table_association.public[1]: Creation complete after 0s [id=rtbassoc-8087ad47aae128b4b]
+module.vpc.aws_route_table_association.public[0]: Creation complete after 0s [id=rtbassoc-717c3a508cdad79cd]
+aws_security_group.rds: Creation complete after 0s [id=sg-7c20a23f63d86d7b0]
+module.vpc.aws_route.public_internet_gateway[0]: Creation complete after 0s [id=r-rtb-1e1df18b4df4e9e991080289494]

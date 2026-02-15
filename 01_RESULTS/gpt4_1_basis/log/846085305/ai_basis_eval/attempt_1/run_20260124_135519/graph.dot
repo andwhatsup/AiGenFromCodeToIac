@@ -1,0 +1,12 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_ecr_repository.lambda_repo" [label="aws_ecr_repository.lambda_repo"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.app_lambda" [label="aws_lambda_function.app_lambda"];
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.app_lambda" -> "aws_ecr_repository.lambda_repo";
+  "aws_lambda_function.app_lambda" -> "aws_iam_role_policy_attachment.lambda_basic";
+}

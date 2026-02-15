@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript (Node.js)"
+      ],
+      "frameworks": [
+        "AWS Lambda (Node.js runtime)",
+        "Playwright (browser automation/testing)"
+      ],
+      "dependencies": [
+        "@playwright/browser-chromium (^1.44.1) — package.json",
+        "@playwright/test (^1.44.1) — package.json",
+        "playwright (^1.44.1) — package.json",
+        "playwright-aws-lambda (^0.10.0) — package.json",
+        "playwright-chromium (^1.44.1) — package.json",
+        "playwright-core (^1.44.1) — package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (Lambda container image) — ./Dockerfile",
+        "Makefile (ECR build/push + Terraform targets) — ./Makefile",
+        ".devcontainer/devcontainer.json (dev env: aws-cli, terraform, docker) — ./.devcontainer/devcontainer.json",
+        ".tool-versions (terraform version pin) — ./.tool-versions",
+        "package.json / package-lock.json — ./package.json, ./package-lock.json"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (container image) — implied by Dockerfile base image public.ecr.aws/lambda/nodejs and index.handler",
+        "Amazon ECR repository + image push — implied by Makefile docker target (dkr.ecr.<region>.amazonaws.com)",
+        "Terraform-managed AWS infrastructure (expected) — implied by Makefile TF_DIR=./terraform and terraform init/plan/apply targets, though no *.tf files are present in this repository snapshot",
+        "Outbound HTTP access to a target URL provided via event.url — index.js uses page.goto(event.url)",
+        "Headless Chromium runtime dependencies inside container — Dockerfile installs system libs and runs `npx playwright install chromium`"
+      ]
+    }
+  ]
+}

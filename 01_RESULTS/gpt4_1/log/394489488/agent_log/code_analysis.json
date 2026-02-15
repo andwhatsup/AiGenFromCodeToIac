@@ -1,0 +1,44 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell"
+      ],
+      "frameworks": [
+        "MLflow"
+      ],
+      "dependencies": [
+        "mlflow==2.4.1 (requirements.txt)",
+        "pymysql==1.0.3 (requirements.txt)",
+        "psycopg2-binary==2.9.6 (requirements.txt)",
+        "protobuf==4.23.3 (requirements.txt)",
+        "gevent==22.10.2 (requirements.txt)",
+        "boto3==1.26.155 (requirements.txt)",
+        "supervisor (Dockerfile)",
+        "nginx (Dockerfile)",
+        "apache2-utils (Dockerfile)",
+        "postgres:15.3-alpine3.18 (docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yml",
+        "heroku.yml",
+        "requirements.txt",
+        "supervisord.conf",
+        "nginx.conf",
+        "app.json"
+      ],
+      "architectural_resources": [
+        "MLflow Tracking Server (API/web app)",
+        "PostgreSQL database (docker-compose, Heroku addon)",
+        "AWS S3 bucket (artifact storage, optional, via env vars and README)",
+        "AWS IAM role/policy (for S3 access, optional)",
+        "AWS App Runner (optional, for container deployment)",
+        "Heroku (container deployment, Postgres addon)",
+        "Nginx (reverse proxy, basic auth)"
+      ]
+    }
+  ]
+}

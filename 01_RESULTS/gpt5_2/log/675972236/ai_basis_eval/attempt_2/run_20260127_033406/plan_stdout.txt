@@ -1,0 +1,151 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rigitbot-lambda-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Application" = "rigitbot"
+          + "ManagedBy"   = "terraform"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "rigitbot-lambda-exec"
+    }
+
+  # aws_lambda_function.app will be created
+  + resource "aws_lambda_function" "app" {
+      + architectures                  = [
+          + "arm64",
+        ]
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "./.dummy/lambda.zip"
+      + function_name                  = "rigitbot"
+      + handler                        = "bootstrap"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2023"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "wmbalFzzY/wG3ivChKElOZB3+B4gptmQyIat05p+fU4="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Application" = "rigitbot"
+          + "ManagedBy"   = "terraform"
+        }
+      + timeout                        = 10
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "RUST_LOG" = "info"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_function_url.app[0] will be created
+  + resource "aws_lambda_function_url" "app" {
+      + authorization_type = "NONE"
+      + function_arn       = (known after apply)
+      + function_name      = "rigitbot"
+      + function_url       = (known after apply)
+      + id                 = (known after apply)
+      + invoke_mode        = "BUFFERED"
+      + region             = "us-east-1"
+      + url_id             = (known after apply)
+
+      + cors {
+          + allow_credentials = false
+          + allow_headers     = [
+              + "*",
+            ]
+          + allow_methods     = [
+              + "*",
+            ]
+          + allow_origins     = [
+              + "*",
+            ]
+          + expose_headers    = [
+              + "*",
+            ]
+          + max_age           = 0
+        }
+    }
+
+  # aws_lambda_permission.function_url_public[0] will be created
+  + resource "aws_lambda_permission" "function_url_public" {
+      + action                 = "lambda:InvokeFunctionUrl"
+      + function_name          = "rigitbot"
+      + function_url_auth_type = "NONE"
+      + id                     = (known after apply)
+      + principal              = "*"
+      + region                 = "us-east-1"
+      + statement_id           = "AllowPublicInvokeFunctionUrl"
+      + statement_id_prefix    = (known after apply)
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + lambda_function_arn  = (known after apply)
+  + lambda_function_name = "rigitbot"
+  + lambda_function_url  = (known after apply)

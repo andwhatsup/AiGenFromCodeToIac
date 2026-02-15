@@ -1,0 +1,306 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_iam_instance_profile.url-shortener-profile will be created
+  + resource "aws_iam_instance_profile" "url-shortener-profile" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "terraform"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "terraform"
+      + tags_all    = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_policy.url-shortener-bucket-readonly will be created
+  + resource "aws_iam_policy" "url-shortener-bucket-readonly" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "terraform-url-shortener-bucket-readonly"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "s3:List*",
+                          + "s3:Get*",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = [
+                          + "arn:aws:s3:::terraform-bucket",
+                          + "arn:aws:s3:::terraform-bucket/*",
+                        ]
+                      + Sid      = "Stmt1425916919000"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_iam_role.url-shortener will be created
+  + resource "aws_iam_role" "url-shortener" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + description           = "terraform instance role"
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "terraform"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.url-shortener-bucket-readonly will be created
+  + resource "aws_iam_role_policy_attachment" "url-shortener-bucket-readonly" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "terraform"
+    }
+
+  # aws_instance.flask-web will be created
+  + resource "aws_instance" "flask-web" {
+      + ami                                  = "terraform"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = "terraform"
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = "infra-key"
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "us-east-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = [
+          + "terraform-sg",
+        ]
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "terraform"
+        }
+      + tags_all                             = {
+          + "Name" = "terraform"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/usr/bin/env bash
+            export EC2_HOME=/opt/aws/apitools/ec2
+            export PATH=$PATH:$EC2_HOME/bin
+            echo "export FLASK_APP=routes" >> /etc/bashrc
+            echo "export FLASK_ENVIRONMENT=production" >> /etc/bashrc
+            yum update -y
+            yum -y install jq pip3
+            ec2_reg=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -c -r .region)
+            mkdir -p /opt/url-shortener/app
+            aws --region $ec2_reg s3 cp s3://terraform-bucket/main.py /opt/url-shortener/
+            aws --region $ec2_reg s3 cp s3://terraform-bucket/app/ /opt/url-shortener/app/ --recursive
+            aws --region $ec2_reg s3 cp s3://terraform-bucket/app/templates/ /opt/url-shortener/app/templates/ --recursive
+            aws --region $ec2_reg s3 cp s3://terraform-bucket/flask.service /usr/lib/systemd/system/
+            pip3 install flask click Flask-Migrate Flask-SQLAlchemy hashids config
+            source /etc/bashrc
+            cd /opt/url-shortener/app
+            chmod 755 *.py *.sh
+            flask db init
+            flask db migrate
+            flask db upgrade
+            ln -s /usr/lib/systemd/system/flask.service /etc/systemd/system/multi-user.target.wants/
+            systemctl daemon-reload
+            systemctl enable flask.service
+            systemctl start flask
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags_all              = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 16
+          + volume_type           = "gp3"
+        }
+    }
+
+  # aws_security_group.default will be created
+  + resource "aws_security_group" "default" {
+      + arn                    = (known after apply)
+      + description            = "Allow http traffic"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "73.235.100.197/32",
+                ]
+              + from_port        = -1
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "icmp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = -1
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "73.235.100.197/32",
+                ]
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "73.235.100.197/32",
+                ]
+              + from_port        = 5000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 5000
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "73.235.100.197/32",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "terraform-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "terraform-sg"
+        }
+      + tags_all               = {
+          + "Name" = "terraform-sg"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+aws_iam_policy.url-shortener-bucket-readonly: Creating...
+aws_iam_role.url-shortener: Creating...
+aws_security_group.default: Creating...
+aws_iam_policy.url-shortener-bucket-readonly: Creation complete after 0s [id=arn:aws:iam::000000000000:policy/terraform-url-shortener-bucket-readonly]
+aws_iam_role.url-shortener: Creation complete after 0s [id=terraform]
+aws_iam_role_policy_attachment.url-shortener-bucket-readonly: Creating...
+aws_iam_instance_profile.url-shortener-profile: Creating...
+aws_iam_role_policy_attachment.url-shortener-bucket-readonly: Creation complete after 0s [id=terraform/arn:aws:iam::000000000000:policy/terraform-url-shortener-bucket-readonly]
+aws_security_group.default: Creation complete after 1s [id=sg-9052193f641c3cf1d]
+aws_iam_instance_profile.url-shortener-profile: Creation complete after 5s [id=terraform]
+aws_instance.flask-web: Creating...

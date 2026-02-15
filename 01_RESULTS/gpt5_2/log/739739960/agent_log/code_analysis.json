@@ -1,0 +1,41 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/739739960",
+      "programming_languages": [
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "frameworks": [
+        "Parcel (bundler/dev server)",
+        "Tailwind CSS",
+        "PostCSS"
+      ],
+      "dependencies": [
+        "parcel@^2.12.0 (package.json dependencies)",
+        "postcss@^8.4.44 (package.json devDependencies)",
+        "tailwindcss@^3.4.10 (package.json devDependencies; .postcssrc; tailwind.config.js)",
+        "prettier@^3.3.3 (package.json devDependencies)",
+        "prettier-plugin-tailwindcss@^0.6.6 (package.json devDependencies)",
+        "sharp@^0.33.5 (package.json devDependencies)"
+      ],
+      "deployment_relevant_files": [
+        "package.json (build/dev scripts)",
+        "package-lock.json (pinned npm dependency tree)",
+        "src/index.html (Parcel entrypoint via package.json \"source\")",
+        ".github/workflows/deploy-static-page.yaml (CI/CD deploy pipeline)",
+        ".github/workflows/pull-request-static-page.yaml (CI checks)",
+        "tailwind.config.js (Tailwind build config)",
+        ".postcssrc (PostCSS plugins config)"
+      ],
+      "architectural_resources": [
+        "Static web application (built with Parcel from src/index.html)",
+        "CI/CD pipeline via GitHub Actions",
+        "AWS IAM role assumed via GitHub OIDC (aws-actions/configure-aws-credentials)",
+        "AWS S3 bucket for static site hosting (aws s3 sync to $AWS_S3_BUCKET_URL)",
+        "AWS CloudFront distribution for CDN (cloudfront invalidation using $AWS_ClOUDFRONT_DISTRIBUTION_ID)"
+      ]
+    }
+  ]
+}

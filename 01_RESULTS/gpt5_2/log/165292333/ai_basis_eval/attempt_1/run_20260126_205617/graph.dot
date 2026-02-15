@@ -1,0 +1,32 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.archive_file.lambda_zip" [label="data.archive_file.lambda_zip"];
+  "aws_apigatewayv2_api.http_api" [label="aws_apigatewayv2_api.http_api"];
+  "aws_apigatewayv2_integration.lambda" [label="aws_apigatewayv2_integration.lambda"];
+  "aws_apigatewayv2_route.proxy_get" [label="aws_apigatewayv2_route.proxy_get"];
+  "aws_apigatewayv2_route.store" [label="aws_apigatewayv2_route.store"];
+  "aws_apigatewayv2_stage.default" [label="aws_apigatewayv2_stage.default"];
+  "aws_dynamodb_table.urldb" [label="aws_dynamodb_table.urldb"];
+  "aws_iam_policy.dynamodb_access" [label="aws_iam_policy.dynamodb_access"];
+  "aws_iam_role.lambda_role" [label="aws_iam_role.lambda_role"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_iam_role_policy_attachment.lambda_dynamodb" [label="aws_iam_role_policy_attachment.lambda_dynamodb"];
+  "aws_lambda_function.app" [label="aws_lambda_function.app"];
+  "aws_lambda_permission.allow_apigw" [label="aws_lambda_permission.allow_apigw"];
+  "aws_apigatewayv2_integration.lambda" -> "aws_apigatewayv2_api.http_api";
+  "aws_apigatewayv2_integration.lambda" -> "aws_lambda_function.app";
+  "aws_apigatewayv2_route.proxy_get" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_route.store" -> "aws_apigatewayv2_integration.lambda";
+  "aws_apigatewayv2_stage.default" -> "aws_apigatewayv2_api.http_api";
+  "aws_iam_policy.dynamodb_access" -> "aws_dynamodb_table.urldb";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_role";
+  "aws_iam_role_policy_attachment.lambda_dynamodb" -> "aws_iam_policy.dynamodb_access";
+  "aws_iam_role_policy_attachment.lambda_dynamodb" -> "aws_iam_role.lambda_role";
+  "aws_lambda_function.app" -> "data.archive_file.lambda_zip";
+  "aws_lambda_function.app" -> "aws_iam_role_policy_attachment.lambda_basic";
+  "aws_lambda_function.app" -> "aws_iam_role_policy_attachment.lambda_dynamodb";
+  "aws_lambda_permission.allow_apigw" -> "aws_apigatewayv2_api.http_api";
+  "aws_lambda_permission.allow_apigw" -> "aws_lambda_function.app";
+}

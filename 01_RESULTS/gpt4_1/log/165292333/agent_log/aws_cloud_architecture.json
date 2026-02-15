@@ -1,0 +1,16 @@
+{
+  "aws_architecture_description": "This system is a serverless web application leveraging AWS managed services for scalability, security, and cost-effectiveness. The architecture consists of three main components:\n\n1. **Web Frontend**: The static web assets (HTML, Bootstrap, Font Awesome) are hosted on Amazon S3. To serve the frontend securely and efficiently, Amazon CloudFront is used as a CDN, providing HTTPS access and caching. An Amazon Route 53 DNS record can be used for a custom domain if needed.\n\n2. **API Backend**: The backend logic is implemented as an AWS Lambda function (Python), which is exposed to the frontend via Amazon API Gateway. API Gateway provides a secure HTTPS endpoint, request validation, throttling, and integration with Lambda. The Lambda function uses the aws_lambda_powertools library for observability and best practices, and boto3 for AWS SDK interactions.\n\n3. **Database**: AWS DynamoDB is used as the persistent NoSQL data store. The Lambda function interacts with DynamoDB for all data operations.\n\n**Security and Networking:**\n- IAM roles and policies are used to grant the Lambda function least-privilege access to DynamoDB and other AWS resources.\n- S3 bucket policies and CloudFront OAI (Origin Access Identity) restrict direct access to the S3 bucket, enforcing access only via CloudFront.\n- API Gateway can be configured with CORS, throttling, and (optionally) authentication (e.g., Cognito or API keys).\n\n**Monitoring and Logging:**\n- AWS CloudWatch is used for Lambda logs, metrics, and alarms.\n\n**Foundational Resources:**\n- All resources are deployed in a secure AWS environment, with IAM roles, policies, and (optionally) a VPC for Lambda if needed for further security.\n\nThis architecture is highly scalable, cost-effective, and follows AWS best practices for serverless web applications.",
+  "aws_resources": [
+    "Amazon S3 bucket (for static web frontend hosting)",
+    "Amazon CloudFront distribution (for CDN and HTTPS access to frontend)",
+    "AWS Lambda function (Python backend)",
+    "Amazon API Gateway (to expose Lambda as HTTPS API)",
+    "AWS DynamoDB table (NoSQL database)",
+    "IAM roles and policies (for Lambda execution and DynamoDB access)",
+    "S3 bucket policy (restrict direct access, allow CloudFront OAI)",
+    "CloudFront Origin Access Identity (OAI)",
+    "AWS CloudWatch (logs, metrics, alarms for Lambda and API Gateway)",
+    "(Optional) Amazon Route 53 DNS record (for custom domain)",
+    "(Optional) VPC and subnets (if Lambda needs to access VPC resources)"
+  ]
+}

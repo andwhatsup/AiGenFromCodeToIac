@@ -1,0 +1,1211 @@
+data.aws_iam_policy_document.codedeploy_assume: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+data.aws_iam_policy_document.codedeploy_assume: Read complete after 0s [id=4250039221]
+data.aws_availability_zones.available: Read complete after 0s [id=ap-northeast-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.ecs will be created
+  + resource "aws_cloudwatch_log_group" "ecs" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/axum-service"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 14
+      + skip_destroy      = false
+      + tags              = {
+          + "Name" = "axum-dev-ecs-logs"
+        }
+      + tags_all          = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-ecs-logs"
+          + "Project"     = "axum"
+        }
+    }
+
+  # aws_codedeploy_app.this will be created
+  + resource "aws_codedeploy_app" "this" {
+      + application_id      = (known after apply)
+      + arn                 = (known after apply)
+      + compute_platform    = "ECS"
+      + github_account_name = (known after apply)
+      + id                  = (known after apply)
+      + linked_to_github    = (known after apply)
+      + name                = "axum-dev-app"
+      + tags_all            = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+    }
+
+  # aws_codedeploy_deployment_group.this will be created
+  + resource "aws_codedeploy_deployment_group" "this" {
+      + app_name                    = "axum-dev-app"
+      + arn                         = (known after apply)
+      + compute_platform            = (known after apply)
+      + deployment_config_name      = "CodeDeployDefault.ECSAllAtOnce"
+      + deployment_group_id         = (known after apply)
+      + deployment_group_name       = "axum-dev-dg"
+      + id                          = (known after apply)
+      + outdated_instances_strategy = "UPDATE"
+      + service_role_arn            = (known after apply)
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + termination_hook_enabled    = false
+
+      + auto_rollback_configuration {
+          + enabled = true
+          + events  = [
+              + "DEPLOYMENT_FAILURE",
+              + "DEPLOYMENT_STOP_ON_ALARM",
+              + "DEPLOYMENT_STOP_ON_REQUEST",
+            ]
+        }
+
+      + blue_green_deployment_config {
+          + deployment_ready_option {
+              + action_on_timeout    = "CONTINUE_DEPLOYMENT"
+              + wait_time_in_minutes = 0
+            }
+          + green_fleet_provisioning_option (known after apply)
+          + terminate_blue_instances_on_deployment_success {
+              + action                           = "TERMINATE"
+              + termination_wait_time_in_minutes = 5
+            }
+        }
+
+      + ecs_service {
+          + cluster_name = "axum-dev-cluster"
+          + service_name = "axum-dev-service"
+        }
+
+      + load_balancer_info {
+          + target_group_pair_info {
+              + prod_traffic_route {
+                  + listener_arns = (known after apply)
+                }
+              + target_group {
+                  + name = "axum-dev-blue"
+                }
+              + target_group {
+                  + name = "axum-dev-green"
+                }
+            }
+        }
+    }
+
+  # aws_ecr_lifecycle_policy.this will be created
+  + resource "aws_ecr_lifecycle_policy" "this" {
+      + id          = (known after apply)
+      + policy      = jsonencode(
+            {
+              + rules = [
+                  + {
+                      + action       = {
+                          + type = "expire"
+                        }
+                      + description  = "Keep last 30 images"
+                      + rulePriority = 1
+                      + selection    = {
+                          + countNumber = 30
+                          + countType   = "imageCountMoreThan"
+                          + tagStatus   = "any"
+                        }
+                    },
+                ]
+            }
+        )
+      + registry_id = (known after apply)
+      + repository  = "axum-app"
+    }
+
+  # aws_ecr_repository.this will be created
+  + resource "aws_ecr_repository" "this" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "axum-app"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Name" = "axum-dev-ecr"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-ecr"
+          + "Project"     = "axum"
+        }
+
+      + encryption_configuration {
+          + encryption_type = "AES256"
+          + kms_key         = (known after apply)
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "axum-dev-cluster"
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+
+      + setting {
+          + name  = "containerInsights"
+          + value = "enabled"
+        }
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 2
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + health_check_grace_period_seconds  = 60
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "axum-dev-service"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_controller {
+          + type = "CODE_DEPLOY"
+        }
+
+      + load_balancer {
+          + container_name   = "axum-app"
+          + container_port   = 80
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = (known after apply)
+          + subnets          = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "axum-dev-task"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + task_role_arn            = (known after apply)
+      + track_latest             = false
+
+      + runtime_platform {
+          + cpu_architecture        = "X86_64"
+          + operating_system_family = "LINUX"
+        }
+    }
+
+  # aws_eip.nat["ap-northeast-1a"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "axum-dev-nat-eip-ap-northeast-1a"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-nat-eip-ap-northeast-1a"
+          + "Project"     = "axum"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # aws_eip.nat["ap-northeast-1c"] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "axum-dev-nat-eip-ap-northeast-1c"
+        }
+      + tags_all             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-nat-eip-ap-northeast-1c"
+          + "Project"     = "axum"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # aws_iam_role.codedeploy will be created
+  + resource "aws_iam_role" "codedeploy" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "codedeploy.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "axum-dev-codedeploy"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_task will be created
+  + resource "aws_iam_role" "ecs_task" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "axum-dev-ecs-task"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "axum-dev-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.codedeploy will be created
+  + resource "aws_iam_role_policy_attachment" "codedeploy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSCodeDeployRoleForECS"
+      + role       = "axum-dev-codedeploy"
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "axum-dev-ecs-task-exec"
+    }
+
+  # aws_internet_gateway.this will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "axum-dev-igw"
+        }
+      + tags_all = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-igw"
+          + "Project"     = "axum"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "axum-dev-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "axum-dev-alb"
+        }
+      + tags_all                                                     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-alb"
+          + "Project"     = "axum"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order = (known after apply)
+          + type  = "redirect"
+
+          + redirect {
+              + host        = "#{host}"
+              + path        = "/#{path}"
+              + port        = "80"
+              + protocol    = "HTTP"
+              + query       = "#{query}"
+              + status_code = "HTTP_301"
+            }
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_listener_rule.http_forward_all[0] will be created
+  + resource "aws_lb_listener_rule" "http_forward_all" {
+      + arn          = (known after apply)
+      + id           = (known after apply)
+      + listener_arn = (known after apply)
+      + priority     = 1
+      + tags_all     = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "axum"
+        }
+
+      + action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + condition {
+          + path_pattern {
+              + values = [
+                  + "/*",
+                ]
+            }
+        }
+    }
+
+  # aws_lb_target_group.blue will be created
+  + resource "aws_lb_target_group" "blue" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "axum-dev-blue"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "axum-dev-tg-blue"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-tg-blue"
+          + "Project"     = "axum"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 3
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_lb_target_group.green will be created
+  + resource "aws_lb_target_group" "green" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "axum-dev-green"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "axum-dev-tg-green"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-tg-green"
+          + "Project"     = "axum"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 3
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_nat_gateway.this["ap-northeast-1a"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "axum-dev-nat-ap-northeast-1a"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-nat-ap-northeast-1a"
+          + "Project"     = "axum"
+        }
+    }
+
+  # aws_nat_gateway.this["ap-northeast-1c"] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "axum-dev-nat-ap-northeast-1c"
+        }
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-nat-ap-northeast-1c"
+          + "Project"     = "axum"
+        }
+    }
+
+  # aws_route.private_nat["ap-northeast-1a"] will be created
+  + resource "aws_route" "private_nat" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.private_nat["ap-northeast-1c"] will be created
+  + resource "aws_route" "private_nat" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route.public_internet will be created
+  + resource "aws_route" "public_internet" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+    }
+
+  # aws_route_table.private["ap-northeast-1a"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "axum-dev-private-rt-ap-northeast-1a"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-private-rt-ap-northeast-1a"
+          + "Project"     = "axum"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.private["ap-northeast-1c"] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "axum-dev-private-rt-ap-northeast-1c"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-private-rt-ap-northeast-1c"
+          + "Project"     = "axum"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "axum-dev-public-rt"
+        }
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-public-rt"
+          + "Project"     = "axum"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # aws_route_table_association.private["ap-northeast-1a"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.private["ap-northeast-1c"] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["ap-northeast-1a"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_route_table_association.public["ap-northeast-1c"] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "All egress"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "axum-dev-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "axum-dev-alb-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-alb-sg"
+          + "Project"     = "axum"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.ecs_tasks will be created
+  + resource "aws_security_group" "ecs_tasks" {
+      + arn                    = (known after apply)
+      + description            = "ECS tasks security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "All egress (consider restricting / adding VPC endpoints)"
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "App from ALB"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = "axum-dev-ecs-tasks-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "axum-dev-ecs-tasks-sg"
+        }
+      + tags_all               = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-ecs-tasks-sg"
+          + "Project"     = "axum"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private["ap-northeast-1a"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.100.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "axum-dev-private-ap-northeast-1a"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-private-ap-northeast-1a"
+          + "Project"     = "axum"
+          + "Tier"        = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private["ap-northeast-1c"] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.101.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "axum-dev-private-ap-northeast-1c"
+          + "Tier" = "private"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-private-ap-northeast-1c"
+          + "Project"     = "axum"
+          + "Tier"        = "private"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["ap-northeast-1a"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "axum-dev-public-ap-northeast-1a"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-public-ap-northeast-1a"
+          + "Project"     = "axum"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public["ap-northeast-1c"] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-northeast-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "axum-dev-public-ap-northeast-1c"
+          + "Tier" = "public"
+        }
+      + tags_all                                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-public-ap-northeast-1c"
+          + "Project"     = "axum"
+          + "Tier"        = "public"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.this will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "axum-dev-vpc"
+        }
+      + tags_all                             = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Name"        = "axum-dev-vpc"
+          + "Project"     = "axum"
+        }
+    }
+
+Plan: 40 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name                     = (known after apply)
+  + codedeploy_app_name              = "axum-dev-app"
+  + codedeploy_deployment_group_name = "axum-dev-dg"
+  + ecr_repository_url               = (known after apply)
+  + ecs_cluster_name                 = "axum-dev-cluster"
+  + ecs_service_name                 = "axum-dev-service"
+aws_ecs_cluster.this: Creating...
+aws_codedeploy_app.this: Creating...
+aws_iam_role.codedeploy: Creating...
+aws_vpc.this: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_cloudwatch_log_group.ecs: Creating...
+aws_ecr_repository.this: Creating...
+aws_iam_role.ecs_task: Creating...
+aws_codedeploy_app.this: Creation complete after 1s [id=bb951db7-7579-44dd-bfb2-92dffe8fd70f:axum-dev-app]
+aws_iam_role.ecs_task_execution: Creation complete after 2s [id=axum-dev-ecs-task-exec]
+aws_iam_role.codedeploy: Creation complete after 2s [id=axum-dev-codedeploy]
+aws_iam_role.ecs_task: Creation complete after 2s [id=axum-dev-ecs-task]
+aws_iam_role_policy_attachment.ecs_task_execution: Creating...
+aws_iam_role_policy_attachment.codedeploy: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution: Creation complete after 0s [id=axum-dev-ecs-task-exec-20260127115100558400000001]
+aws_cloudwatch_log_group.ecs: Creation complete after 2s [id=/ecs/axum-service]
+aws_ecr_repository.this: Creation complete after 3s [id=axum-app]
+aws_ecr_lifecycle_policy.this: Creating...
+aws_ecs_task_definition.this: Creating...
+aws_ecr_lifecycle_policy.this: Creation complete after 0s [id=axum-app]
+aws_ecs_task_definition.this: Creation complete after 0s [id=axum-dev-task]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_vpc.this: Still creating... [00m10s elapsed]
+aws_vpc.this: Creation complete after 10s [id=vpc-e729d355cdd5702fb]
+aws_internet_gateway.this: Creating...
+aws_subnet.public["ap-northeast-1a"]: Creating...
+aws_subnet.public["ap-northeast-1c"]: Creating...
+aws_subnet.private["ap-northeast-1c"]: Creating...
+aws_route_table.public: Creating...
+aws_subnet.private["ap-northeast-1a"]: Creating...
+aws_lb_target_group.blue: Creating...
+aws_lb_target_group.green: Creating...
+aws_security_group.alb: Creating...
+aws_subnet.private["ap-northeast-1c"]: Creation complete after 1s [id=subnet-da7b692f37f7f084b]
+aws_subnet.private["ap-northeast-1a"]: Creation complete after 1s [id=subnet-0b4d2453c2e178c77]
+aws_internet_gateway.this: Creation complete after 1s [id=igw-8a66998d0608c77e5]
+aws_route_table.private["ap-northeast-1c"]: Creating...
+aws_route_table.private["ap-northeast-1a"]: Creating...
+aws_route_table.public: Creation complete after 1s [id=rtb-1b464a1156e0e447e]
+aws_route.public_internet: Creating...
+aws_route_table.private["ap-northeast-1a"]: Creation complete after 0s [id=rtb-1759c3e94f0e6b359]
+aws_route_table.private["ap-northeast-1c"]: Creation complete after 0s [id=rtb-891304deaeff7c671]
+aws_route_table_association.private["ap-northeast-1c"]: Creating...
+aws_route_table_association.private["ap-northeast-1a"]: Creating...
+aws_route_table_association.private["ap-northeast-1a"]: Creation complete after 0s [id=rtbassoc-6732b96f499ce800e]
+aws_route_table_association.private["ap-northeast-1c"]: Creation complete after 0s [id=rtbassoc-36254b52a3142253d]
+aws_security_group.alb: Creation complete after 1s [id=sg-63a29d71f8b1c2e61]
+aws_lb_target_group.blue: Creation complete after 1s [id=arn:aws:elasticloadbalancing:ap-northeast-1:000000000000:targetgroup/axum-dev-blue/4f33bd3e10bcf827]
+aws_security_group.ecs_tasks: Creating...
+aws_route.public_internet: Creation complete after 0s [id=r-rtb-1b464a1156e0e447e1080289494]
+aws_security_group.ecs_tasks: Creation complete after 0s [id=sg-f0217a16f953ebf5d]
+aws_lb_target_group.green: Creation complete after 1s [id=arn:aws:elasticloadbalancing:ap-northeast-1:000000000000:targetgroup/axum-dev-green/5beac3cc72a26341]
+aws_ecs_cluster.this: Creation complete after 11s [id=arn:aws:ecs:ap-northeast-1:000000000000:cluster/axum-dev-cluster]
+aws_subnet.public["ap-northeast-1a"]: Still creating... [00m10s elapsed]
+aws_subnet.public["ap-northeast-1c"]: Still creating... [00m10s elapsed]
+aws_subnet.public["ap-northeast-1a"]: Creation complete after 11s [id=subnet-e75e7fe5ad6f421a9]
+aws_subnet.public["ap-northeast-1c"]: Creation complete after 11s [id=subnet-5e72481e1d3937af8]
+aws_route_table_association.public["ap-northeast-1c"]: Creating...
+aws_route_table_association.public["ap-northeast-1a"]: Creating...
+aws_eip.nat["ap-northeast-1c"]: Creating...
+aws_eip.nat["ap-northeast-1a"]: Creating...
+aws_lb.this: Creating...
+aws_route_table_association.public["ap-northeast-1a"]: Creation complete after 0s [id=rtbassoc-512a686fbb4e69a58]
+aws_route_table_association.public["ap-northeast-1c"]: Creation complete after 0s [id=rtbassoc-d1ba3698bc7d1cfab]
+aws_eip.nat["ap-northeast-1a"]: Creation complete after 0s [id=eipalloc-56fab9f02e04b403a]
+aws_eip.nat["ap-northeast-1c"]: Creation complete after 0s [id=eipalloc-621747049ab43dd8d]
+aws_nat_gateway.this["ap-northeast-1c"]: Creating...
+aws_nat_gateway.this["ap-northeast-1a"]: Creating...
+aws_nat_gateway.this["ap-northeast-1c"]: Creation complete after 0s [id=nat-b3eb22471afe6fa83]
+aws_nat_gateway.this["ap-northeast-1a"]: Creation complete after 0s [id=nat-de71989eb16201203]
+aws_route.private_nat["ap-northeast-1a"]: Creating...
+aws_route.private_nat["ap-northeast-1c"]: Creating...
+aws_route.private_nat["ap-northeast-1a"]: Creation complete after 0s [id=r-rtb-1759c3e94f0e6b3591080289494]
+aws_route.private_nat["ap-northeast-1c"]: Creation complete after 0s [id=r-rtb-891304deaeff7c6711080289494]
+aws_lb.this: Still creating... [00m10s elapsed]
+aws_lb.this: Still creating... [00m20s elapsed]
+aws_lb.this: Still creating... [00m30s elapsed]
+aws_lb.this: Still creating... [00m40s elapsed]
+aws_lb.this: Still creating... [00m50s elapsed]
+aws_lb.this: Still creating... [01m00s elapsed]
+aws_lb.this: Creation complete after 1m0s [id=arn:aws:elasticloadbalancing:ap-northeast-1:000000000000:loadbalancer/app/axum-dev-alb/983b88a29e618ed7]
+aws_lb_listener.http: Creating...
+aws_lb_listener.http: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-northeast-1:000000000000:listener/app/axum-dev-alb/983b88a29e618ed7/d0903466011b5ad9]
+aws_lb_listener_rule.http_forward_all[0]: Creating...
+aws_ecs_service.this: Creating...
+aws_lb_listener_rule.http_forward_all[0]: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-northeast-1:000000000000:listener-rule/app/axum-dev-alb/983b88a29e618ed7/d0903466011b5ad9/390700bf8596aabc]
+aws_ecs_service.this: Still creating... [00m10s elapsed]
+aws_ecs_service.this: Still creating... [00m20s elapsed]
+aws_ecs_service.this: Still creating... [00m30s elapsed]
+aws_ecs_service.this: Still creating... [00m40s elapsed]
+aws_ecs_service.this: Creation complete after 42s [id=arn:aws:ecs:ap-northeast-1:000000000000:service/axum-dev-cluster/axum-dev-service]
+aws_codedeploy_deployment_group.this: Creating...
+aws_codedeploy_deployment_group.this: Creation complete after 0s [id=816ef1e8-2a04-4fdb-b106-0b3666937dc6]

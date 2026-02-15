@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This architecture is designed to deploy a containerized Node.js (Express) web application using AWS managed services for scalability, security, and operational efficiency. The deployment pipeline and runtime environment leverage AWS ECR for container image storage and AWS ECS for orchestrating and running the application containers. Networking, security, and monitoring best practices are incorporated to ensure a production-ready environment.\n\n**High-Level AWS Architecture:**\n\n1. **VPC (Virtual Private Cloud):**\n   - Provides an isolated network environment for all AWS resources. Includes public and private subnets for secure and scalable deployment.\n\n2. **Subnets:**\n   - At least two public subnets (for load balancer) and two private subnets (for ECS tasks) across different Availability Zones for high availability.\n\n3. **Internet Gateway:**\n   - Allows internet access for resources in public subnets (e.g., load balancer).\n\n4. **NAT Gateway:**\n   - Enables ECS tasks in private subnets to access the internet (for updates, etc.) without exposing them directly.\n\n5. **Route Tables:**\n   - Configured to route traffic appropriately between subnets, NAT, and the internet.\n\n6. **Security Groups:**\n   - Control inbound and outbound traffic for ECS tasks and the load balancer.\n\n7. **Elastic Container Registry (ECR):**\n   - Stores the Docker images built from the application code.\n\n8. **Elastic Container Service (ECS) Cluster:**\n   - Manages the deployment and scaling of the application containers. Fargate launch type is recommended for serverless container management.\n\n9. **ECS Task Definition:**\n   - Defines how to run the container (image, CPU/memory, ports, environment variables, etc.).\n\n10. **ECS Service:**\n    - Ensures the desired number of container instances are running and manages rolling updates.\n\n11. **Application Load Balancer (ALB):**\n    - Distributes incoming HTTP(S) traffic to ECS tasks, provides health checks, and enables secure (TLS) access.\n\n12. **IAM Roles and Policies:**\n    - Grant ECS tasks and services the necessary permissions to pull images from ECR, write logs, and interact with other AWS services.\n\n13. **CloudWatch Logs and Metrics:**\n    - Collects and monitors application and infrastructure logs and metrics for observability and alerting.\n\n**Optional/Recommended Additions:**\n- **AWS Certificate Manager (ACM):** For managing SSL/TLS certificates if HTTPS is required.\n- **AWS Secrets Manager or SSM Parameter Store:** For managing sensitive configuration (e.g., API keys, DB credentials) if needed.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized web applications.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "Elastic Container Registry (ECR) Repository",
+    "ECS Cluster (Fargate recommended)",
+    "ECS Task Definition",
+    "ECS Service",
+    "Application Load Balancer (ALB)",
+    "IAM Roles and Policies (for ECS tasks, ECR access, logging)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Certificate Manager (ACM) certificate (optional, for HTTPS)",
+    "Secrets Manager or SSM Parameter Store (optional, for secrets management)"
+  ]
+}

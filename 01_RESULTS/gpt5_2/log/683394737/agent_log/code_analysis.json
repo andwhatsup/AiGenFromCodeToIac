@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Dockerfile",
+        "YAML (GitHub Actions, Ansible)",
+        "Shell (bash)",
+        "HTML",
+        "Apache httpd config"
+      ],
+      "frameworks": [
+        "Apache httpd (web server)",
+        "Ansible (configuration management)",
+        "GitHub Actions (CI/CD)"
+      ],
+      "dependencies": [
+        "Base image: httpd:latest (Dockerfile)",
+        "OS packages installed in image: git, ansible (Dockerfile)",
+        "Ansible playbook provisions: openjdk-17-jdk-headless, dotnet-sdk-7.0, aspnetcore-runtime-7.0, dotnet-runtime-7.0, lynx, maven, postgresql, vscode (Infrastructure/conf_mgmt_ansible/playbooks/01-image-build-and-push.yml)",
+        "Ansible playbook provisions: docker-ce, awscli v2 (Infrastructure/conf_mgmt_ansible/playbooks/02-image-pull-and-deploy.yml)",
+        "GitHub Actions uses: actions/checkout@v3, vitr/actions-build-and-upload-to-ecs@master, aws-actions/configure-aws-credentials@v1, aws-actions/amazon-ecr-login@v1, hashicorp/setup-terraform@v2, jakejarvis/s3-sync-action@master, unfor19/install-aws-cli-action@v1 (.github/workflows/*.yml)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "Frontend/index.apache-debian.html",
+        "Frontend/000-default.conf",
+        ".github/workflows/cicd.yml",
+        ".github/workflows/terraform-destroy.yml",
+        "Infrastructure/conf_mgmt_ansible/playbooks/01-image-build-and-push.yml",
+        "Infrastructure/conf_mgmt_ansible/playbooks/02-image-pull-and-deploy.yml",
+        "Infrastructure/scripts/getAsgMachinesIps.sh",
+        "Infrastructure/scripts/runDockerContainers.sh",
+        "Infrastructure/scripts/ansibleLaunchConfiguration.sh",
+        "Infrastructure/scripts/javaCompilationTest.sh",
+        "Infrastructure/scripts/netCoreCompilationTest.sh",
+        "Infrastructure/conf_terraform/FILE (appears to be a binary zip containing tfplan/tfstate/.terraform.lock.hcl; not editable .tf sources)"
+      ],
+      "architectural_resources": [
+        "Web application: static site served by Apache httpd in a Docker container",
+        "Container image registry: Amazon ECR (repo main-applications-registry referenced in .github/workflows/cicd.yml and scripts)",
+        "CI/CD: GitHub Actions pipelines for build/push, test-run, and infra deploy/destroy (.github/workflows/*.yml)",
+        "Compute: AWS EC2 instances in an Auto Scaling Group (scripts reference ASG name demo-asg-instance-1; README describes ASG of 2 instances)",
+        "Networking: VPC, subnet, internet gateway, route table, security groups, load balancer (described in README.md)",
+        "Database: AWS RDS MySQL (described in README.md; security group ingress example for port 3306)",
+        "Object storage: AWS S3 bucket for Terraform state (README.md and workflows reference terraform-resources-test)",
+        "Provisioning/config management: Ansible playbooks executed during image build and deployment",
+        "Secrets/credentials: GitHub Actions secrets for AWS keys and PEM key; SSH used to run remote scripts on EC2 (Infrastructure/scripts/getAsgMachinesIps.sh)"
+      ]
+    }
+  ]
+}

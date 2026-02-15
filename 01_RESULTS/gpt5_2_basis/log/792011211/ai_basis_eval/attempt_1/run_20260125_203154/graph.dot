@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_secretsmanager_secret.api_key" [label="data.aws_secretsmanager_secret.api_key"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "aws_s3_bucket_public_access_block.artifacts" [label="aws_s3_bucket_public_access_block.artifacts"];
+  "aws_s3_bucket_versioning.artifacts" [label="aws_s3_bucket_versioning.artifacts"];
+  "aws_secretsmanager_secret.api_key" [label="aws_secretsmanager_secret.api_key"];
+  "aws_secretsmanager_secret_version.api_key" [label="aws_secretsmanager_secret_version.api_key"];
+  "aws_s3_bucket_public_access_block.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_s3_bucket_versioning.artifacts" -> "aws_s3_bucket.artifacts";
+  "aws_secretsmanager_secret_version.api_key" -> "aws_secretsmanager_secret.api_key";
+}

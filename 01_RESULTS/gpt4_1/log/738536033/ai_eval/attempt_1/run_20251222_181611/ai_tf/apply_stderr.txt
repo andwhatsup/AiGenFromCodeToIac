@@ -1,0 +1,21 @@
+
+Error: listing tags for Elastic Beanstalk Application (arn:aws:elasticbeanstalk:us-east-1:000000000000:application/ai-dash-app): operation error Elastic Beanstalk: ListTagsForResource, https response error StatusCode: 501, RequestID: ceaffe79-8c9a-4761-b152-bcdef328eba6, api error InternalFailure: The API action 'ListTagsForResource' for service 'elasticbeanstalk' is either not available in your current license plan or has not yet been emulated by LocalStack. Please refer to https://docs.localstack.cloud/references/coverage/coverage_elasticbeanstalk for more information.
+
+  with aws_elastic_beanstalk_application.app,
+  on beanstalk.tf line 1, in resource "aws_elastic_beanstalk_application" "app":
+   1: resource "aws_elastic_beanstalk_application" "app" {
+
+
+Error: attaching IAM Policy (arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy) to IAM Role (ai-dash-beanstalk-service-role): operation error IAM: AttachRolePolicy, https response error StatusCode: 404, RequestID: edde6deb-ba10-4d75-a48d-ddeef306247e, NoSuchEntity: Policy arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy does not exist or is not attachable.
+
+  with aws_iam_role_policy_attachment.beanstalk_service_managed,
+  on iam.tf line 54, in resource "aws_iam_role_policy_attachment" "beanstalk_service_managed":
+  54: resource "aws_iam_role_policy_attachment" "beanstalk_service_managed" {
+
+
+Error: creating S3 Bucket (ai-dash-app-bucket): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://ai-dash-app-bucket.localhost:4566/": dial tcp: lookup ai-dash-app-bucket.localhost: no such host
+
+  with aws_s3_bucket.app,
+  on s3.tf line 1, in resource "aws_s3_bucket" "app":
+   1: resource "aws_s3_bucket" "app" {
+

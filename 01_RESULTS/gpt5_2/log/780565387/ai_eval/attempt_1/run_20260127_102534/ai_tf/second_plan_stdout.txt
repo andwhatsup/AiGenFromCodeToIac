@@ -1,0 +1,105 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_availability_zones.available: Reading...
+data.aws_partition.current: Reading...
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/http-echo-dev-cluster]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/http-echo-dev]
+aws_ecr_repository.this: Refreshing state... [id=http-echo]
+aws_vpc.this: Refreshing state... [id=vpc-74788114ad4daa57b]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=http-echo-dev-ecs-task-exec]
+aws_iam_role.ecs_task: Refreshing state... [id=http-echo-dev-ecs-task]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.this: Refreshing state... [id=http-echo]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=http-echo-dev-ecs-task-exec-20260127092601136100000001]
+aws_ecs_task_definition.this: Refreshing state... [id=http-echo-dev]
+aws_route_table.public: Refreshing state... [id=rtb-759003c4b20213618]
+aws_security_group.vpce: Refreshing state... [id=sg-c1db0ffe99aba3957]
+aws_internet_gateway.this: Refreshing state... [id=igw-b31863444ced4f957]
+aws_subnet.public["us-east-1a"]: Refreshing state... [id=subnet-b58c69f6ef490e3f8]
+aws_subnet.private["us-east-1a"]: Refreshing state... [id=subnet-17dd02de4fa58bf69]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/http-echo-dev-tg/bebbfa6b07b7ca30]
+aws_subnet.public["us-east-1b"]: Refreshing state... [id=subnet-ee2b7ba93d7dd2ff1]
+aws_security_group.alb: Refreshing state... [id=sg-fc3026647207ec52d]
+aws_subnet.private["us-east-1b"]: Refreshing state... [id=subnet-941daa2dc5a01016f]
+aws_route.public_inet: Refreshing state... [id=r-rtb-759003c4b202136181080289494]
+aws_route_table.private["us-east-1b"]: Refreshing state... [id=rtb-f597dce6d0c8c5322]
+aws_route_table.private["us-east-1a"]: Refreshing state... [id=rtb-92eaa930975de57bd]
+aws_vpc_endpoint.ecr_dkr: Refreshing state... [id=vpce-04ea8b29d5e942e37]
+aws_vpc_endpoint.ecr_api: Refreshing state... [id=vpce-29ad78a60c1c401fb]
+aws_vpc_endpoint.logs: Refreshing state... [id=vpce-0ba954c5f3de1c6b8]
+aws_eip.nat["us-east-1b"]: Refreshing state... [id=eipalloc-0bd1b0cc53c1efed8]
+aws_eip.nat["us-east-1a"]: Refreshing state... [id=eipalloc-02566a51ece39f535]
+aws_route_table_association.public["us-east-1a"]: Refreshing state... [id=rtbassoc-20a5d90d6eb7a15ca]
+aws_route_table_association.public["us-east-1b"]: Refreshing state... [id=rtbassoc-10f487e4206fb1ed6]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/http-echo-dev-alb/b87450caadb25832]
+aws_security_group.ecs_tasks: Refreshing state... [id=sg-a45a44c3a8a5e6d8d]
+aws_route_table_association.private["us-east-1b"]: Refreshing state... [id=rtbassoc-bf8eb87d1271cbd50]
+aws_vpc_endpoint.s3: Refreshing state... [id=vpce-2b00dc123d2ee4d9f]
+aws_route_table_association.private["us-east-1a"]: Refreshing state... [id=rtbassoc-f360c4b058f0ad2f0]
+aws_nat_gateway.this["us-east-1b"]: Refreshing state... [id=nat-5f534abf8611e3912]
+aws_nat_gateway.this["us-east-1a"]: Refreshing state... [id=nat-6d8a0aadf6bef8303]
+aws_route.private_default["us-east-1a"]: Refreshing state... [id=r-rtb-92eaa930975de57bd1080289494]
+aws_route.private_default["us-east-1b"]: Refreshing state... [id=r-rtb-f597dce6d0c8c53221080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/http-echo-dev-alb/b87450caadb25832/38e3c1528cb89092]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/http-echo-dev-cluster/http-echo-dev-service]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/http-echo-dev-cluster/http-echo-dev-service"
+        name                               = "http-echo-dev-service"
+        tags                               = {}
+      ~ task_definition                    = "arn:aws:ecs:us-east-1:000000000000:task-definition/http-echo-dev:1" -> (known after apply)
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_ecs_task_definition.this must be replaced
+-/+ resource "aws_ecs_task_definition" "this" {
+      ~ arn                      = "arn:aws:ecs:us-east-1:000000000000:task-definition/http-echo-dev:1" -> (known after apply)
+      ~ arn_without_revision     = "arn:aws:ecs:us-east-1:000000000000:task-definition/http-echo-dev" -> (known after apply)
+      ~ container_definitions    = jsonencode(
+          ~ [
+              ~ {
+                  - mountPoints      = []
+                    name             = "app"
+                  ~ portMappings     = [
+                      ~ {
+                          - hostPort      = 9087
+                            # (2 unchanged attributes hidden)
+                        },
+                    ]
+                  - volumesFrom      = []
+                    # (5 unchanged attributes hidden)
+                },
+            ] # forces replacement
+        )
+      ~ enable_fault_injection   = false -> (known after apply)
+      ~ id                       = "http-echo-dev" -> (known after apply)
+      ~ revision                 = 1 -> (known after apply)
+      - tags                     = {} -> null
+        # (12 unchanged attributes hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/http-echo-dev-alb/b87450caadb25832/38e3c1528cb89092"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 1 to add, 2 to change, 1 to destroy.

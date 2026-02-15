@@ -1,0 +1,3265 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ansible_controller.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "repo_file_path": "/ansible_controller.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "aws_instance.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "ansible_controller_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_88",
+                "bc_check_id": "BC_AWS_PUBLIC_12",
+                "check_name": "EC2 instance should not have public IP.",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "associate_public_ip_address"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ansible_controller.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "repo_file_path": "/ansible_controller.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "aws_instance.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2PublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/public-policies/public-12",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "ansible_controller_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ansible_controller.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "repo_file_path": "/ansible_controller.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "aws_instance.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "ansible_controller_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ansible_controller.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "repo_file_path": "/ansible_controller.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "aws_instance.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "ansible_controller_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ansible_controller.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "repo_file_path": "/ansible_controller.tf",
+                "file_line_range": [
+                    1,
+                    23
+                ],
+                "resource": "aws_instance.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/ansible_controller.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "ansible_controller_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${0 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${0 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${0 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${0 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${0 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${0 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${0 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${0 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${1 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${1 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${1 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${1 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${2 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${2 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${2 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    1,
+                    25
+                ],
+                "resource": "aws_instance.nomad_server[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-server-${2 + 1}",
+                    "Role": "nomad-server"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${1 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${1 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${1 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${1 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_79",
+                "bc_check_id": "BC_AWS_GENERAL_31",
+                "check_name": "Ensure Instance Metadata Service Version 1 is not enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "metadata_options/[0]/http_tokens"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IMDSv1Disabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${2 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_126",
+                "bc_check_id": "BC_AWS_LOGGING_26",
+                "check_name": "Ensure that detailed monitoring is enabled for EC2 instances",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "monitoring"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2DetailedMonitoringEnabled",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${2 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/ensure-that-detailed-monitoring-is-enabled-for-ec2-instances",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_135",
+                "bc_check_id": "BC_AWS_GENERAL_68",
+                "check_name": "Ensure that EC2 is EBS optimized",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ebs_optimized"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EC2EBSOptimized",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${2 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ec2-is-ebs-optimized",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_8",
+                "bc_check_id": "BC_AWS_GENERAL_13",
+                "check_name": "Ensure all data stored in the Launch configuration or instance Elastic Blocks Store is securely encrypted",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "root_block_device"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/nomad_cluster.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "repo_file_path": "/nomad_cluster.tf",
+                "file_line_range": [
+                    27,
+                    51
+                ],
+                "resource": "aws_instance.nomad_client[2]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.LaunchConfigurationEBSEncryption",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-client-${2 + 1}",
+                    "Role": "nomad-client"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-13",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/nomad_cluster.tf",
+                "breadcrumbs": {
+                    "instance_type": [
+                        {
+                            "type": "variable",
+                            "name": "nomad_instance_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "user_data": [
+                        {
+                            "type": "tfvar",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "tailscale_auth_key",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "key_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/localstack.auto.tfvars.json",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "key_name",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/key_pair.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "iam_instance_profile": [
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_instance_profile.ec2_instance_profile",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/iam.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_31",
+                "bc_check_id": "BC_AWS_GENERAL_11",
+                "check_name": "Ensure all data stored in the ElastiCache Replication Group is securely encrypted at transit and has auth token",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "transit_encryption_enabled",
+                        "auth_token"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/redis.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                "repo_file_path": "/redis.tf",
+                "file_line_range": [
+                    6,
+                    22
+                ],
+                "resource": "aws_elasticache_replication_group.redis",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ElasticacheReplicationGroupEncryptionAtTransitAuthToken",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-redis"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/general-11",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                "breadcrumbs": {
+                    "subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_elasticache_subnet_group.redis",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_191",
+                "bc_check_id": "BC_AWS_GENERAL_111",
+                "check_name": "Ensure ElastiCache replication group is encrypted by KMS using a customer managed Key (CMK)",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/redis.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                "repo_file_path": "/redis.tf",
+                "file_line_range": [
+                    6,
+                    22
+                ],
+                "resource": "aws_elasticache_replication_group.redis",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ElasticacheReplicationGroupEncryptedWithCMK",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-redis"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-general-111",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                "breadcrumbs": {
+                    "subnet_group_name": [
+                        {
+                            "type": "resource",
+                            "name": "aws_elasticache_subnet_group.redis",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/redis.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_24",
+                "bc_check_id": "BC_AWS_NETWORKING_1",
+                "check_name": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "ingress/[0]/from_port",
+                        "ingress/[0]/to_port",
+                        "ingress/[0]/cidr_blocks",
+                        "ingress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    1,
+                    32
+                ],
+                "resource": "aws_security_group.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedIngress22",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-1-port-security",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    1,
+                    32
+                ],
+                "resource": "aws_security_group.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    1,
+                    32
+                ],
+                "resource": "aws_security_group.ansible_controller",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "ansible-controller-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf"
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    34,
+                    89
+                ],
+                "resource": "aws_security_group.nomad",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "breadcrumbs": {
+                    "ingress.0.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/security_groups.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "repo_file_path": "/security_groups.tf",
+                "file_line_range": [
+                    34,
+                    89
+                ],
+                "resource": "aws_security_group.nomad",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "nomad-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/security_groups.tf",
+                "breadcrumbs": {
+                    "ingress.0.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.1": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.3": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.2": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.main",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/vpc.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                "repo_file_path": "/vpc.tf",
+                "file_line_range": [
+                    17,
+                    26
+                ],
+                "resource": "aws_subnet.public[0]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "public-subnet-${0 + 1}"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf"
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/vpc.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf",
+                "repo_file_path": "/vpc.tf",
+                "file_line_range": [
+                    17,
+                    26
+                ],
+                "resource": "aws_subnet.public[1]",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "public-subnet-${1 + 1}"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/833148624/ai_tf/vpc.tf"
+            }
+        ]
+    },
+    "summary": {
+        "passed": 41,
+        "failed": 38,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 34,
+        "checkov_version": "3.2.490"
+    }
+}

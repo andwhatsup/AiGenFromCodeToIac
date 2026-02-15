@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Dockerfile",
+        "YAML (Kubernetes manifests)",
+        "Groovy (Jenkins Pipeline DSL)",
+        "Ruby (Vagrantfile DSL)"
+      ],
+      "frameworks": [
+        "Flask (Python web framework)",
+        "Kubernetes (Deployment manifest)",
+        "Jenkins Pipeline",
+        "Docker",
+        "Vagrant/VirtualBox"
+      ],
+      "dependencies": [
+        "Flask==2.1.1 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (./Dockerfile)",
+        "Kubernetes Deployment manifest (./k8s-deployment.yaml)",
+        "Jenkins pipeline (./Jenkinsfile)",
+        "Vagrant VM provisioning (./Vagrantfile)"
+      ],
+      "architectural_resources": [
+        "Python/Flask web application (containerized)",
+        "Container image registry (Docker Hub) implied by Jenkinsfile and k8s image reference",
+        "Kubernetes cluster (e.g., Minikube) implied by Jenkinsfile kubeconfig credential and kubectl apply",
+        "CI/CD system (Jenkins) building and pushing images",
+        "Compute resources for running the container (Kubernetes nodes/VMs)",
+        "Networking: service exposure on TCP/8080 (containerPort 8080; Docker EXPOSE 8080)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "JavaScript",
+        "CSS"
+      ],
+      "frameworks": [
+        "Nginx (for static file serving)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        ".github/workflows/docker-publish.yml"
+      ],
+      "architectural_resources": [
+        "Web application (static site)",
+        "Kubernetes Deployment (notes-keeper)",
+        "Kubernetes Service (LoadBalancer, AWS ALB)",
+        "Docker container registry (GitHub Container Registry or Docker Hub)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "EKS-Terraform/init_validate_stderr.txt",
+        "EKS-Terraform/init_validate_stdout.txt",
+        "EKS-Terraform/validate_stderr.txt",
+        "EKS-Terraform/validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "Potential Terraform/IaC resources (file names suggest validation logs, but no .tf files found)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "aws_architecture_description": "This architecture is designed to deploy a Squid proxy on AWS using Terraform, orchestrated from a DevOps workstation. The deployment process is containerized using Docker to ensure consistency and reproducibility. The main components and their relationships are as follows:\n\n1. **DevOps Workstation**: The deployment is initiated from a local or CI/CD environment, where shell scripts are used to run Terraform inside a Docker container. This container includes the required Terraform version and dependencies.\n\n2. **AWS Cloud Environment**:\n   - **VPC (Virtual Private Cloud)**: Provides an isolated network for the Squid proxy EC2 instance. The VPC includes at least one public subnet for the EC2 instance, and associated networking resources (route table, internet gateway, etc.).\n   - **EC2 Instance (Squid Proxy)**: A single EC2 instance is provisioned to run the Squid proxy. The instance is configured using a user data script or post-provisioning via SSH, using the provided SSH keypair.\n   - **Security Group**: Controls inbound and outbound traffic to the EC2 instance, allowing only necessary ports (e.g., 22 for SSH, 3128 for Squid proxy).\n   - **IAM Role/Policy**: Grants Terraform the necessary permissions to provision and manage AWS resources. The EC2 instance may also have an IAM role if it needs to interact with other AWS services.\n   - **SSH Keypair**: Used for secure SSH access to the EC2 instance. The private key is managed securely on the DevOps workstation.\n\n3. **Networking and Security**:\n   - The VPC and subnet(s) are configured for public access to the Squid proxy, with security groups tightly controlling access.\n   - The architecture follows AWS best practices for least privilege and secure key management.\n\nThis setup enables infrastructure-as-code deployments, secure and auditable provisioning, and easy management of the Squid proxy lifecycle on AWS.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet",
+    "Internet Gateway",
+    "Route Table and Route Table Association",
+    "Security Group (for EC2/Squid)",
+    "EC2 Instance (Amazon Linux or Ubuntu, running Squid)",
+    "Elastic IP (optional, for static public IP)",
+    "IAM Role and IAM Policy (for Terraform provisioning)",
+    "IAM Instance Profile (optional, for EC2 if needed)",
+    "SSH Keypair (for EC2 access)",
+    "Network ACL (optional, for additional subnet security)",
+    "CloudWatch Logs/Alarms (optional, for monitoring EC2)"
+  ]
+}

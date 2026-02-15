@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a React-based web application deployed using Docker containers and Kubernetes, with CI/CD automation via GitHub Actions and Jenkins. The AWS architecture will leverage managed services to ensure scalability, security, and operational efficiency, following AWS best practices.\n\n**Proposed AWS Architecture:**\n\n1. **Networking & Security:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Security Groups and Network ACLs to control inbound/outbound traffic.\n   - An Internet Gateway for public access and a NAT Gateway for secure outbound internet access from private subnets.\n\n2. **Kubernetes Cluster:**\n   - **Amazon EKS (Elastic Kubernetes Service):** Managed Kubernetes cluster to orchestrate Docker containers. Worker nodes (EC2 or Fargate) run in private subnets for security.\n   - **EKS Node Group:** EC2 instances or AWS Fargate profiles for running application pods.\n\n3. **Container Registry:**\n   - **Amazon ECR (Elastic Container Registry):** Stores Docker images built by CI/CD pipelines.\n\n4. **Load Balancing & Public Access:**\n   - **AWS Load Balancer Controller:** Integrates with EKS to provision an **Application Load Balancer (ALB)** for the Kubernetes Service of type LoadBalancer, exposing the React app to the internet over HTTP/HTTPS.\n   - **Route 53 (optional):** For custom domain management and DNS routing.\n\n5. **CI/CD Pipeline:**\n   - **AWS CodeBuild/CodePipeline (optional):** For AWS-native CI/CD, but GitHub Actions and Jenkins can run externally or on EC2/EKS.\n   - **IAM Roles and Policies:** For secure access between CI/CD, ECR, and EKS.\n\n6. **Monitoring & Logging:**\n   - **Amazon CloudWatch:** For monitoring EKS, application logs, and metrics.\n   - **AWS CloudTrail:** For auditing API activity.\n\n7. **IAM & Security:**\n   - **IAM Roles/Policies:** For EKS nodes, CI/CD, and service accounts.\n   - **AWS Secrets Manager or Parameter Store:** For managing sensitive configuration (if needed).\n\n**Deployment Flow:**\n- Developers push code to GitHub.\n- GitHub Actions/Jenkins build Docker images and push to ECR.\n- CI/CD pipeline updates the EKS deployment using the new image.\n- EKS runs the React app in containers, exposed via ALB.\n- Users access the app via the ALB DNS or a custom domain in Route 53.\n\nThis architecture is secure, scalable, and leverages AWS managed services to minimize operational overhead.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across AZs)",
+    "Private Subnets (at least 2, across AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "Network ACLs",
+    "Amazon EKS Cluster",
+    "EKS Node Group (EC2 or Fargate)",
+    "Amazon ECR Repository",
+    "IAM Roles and Policies (for EKS, ECR, CI/CD)",
+    "AWS Load Balancer Controller (EKS add-on)",
+    "Application Load Balancer (ALB)",
+    "Route 53 Hosted Zone (optional, for custom domain)",
+    "CloudWatch Log Group",
+    "CloudWatch Alarms (optional)",
+    "CloudTrail Trail",
+    "AWS Secrets Manager or SSM Parameter Store (optional, for secrets)"
+  ]
+}

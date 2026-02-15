@@ -1,0 +1,30 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_ami.amazon-linux-image" [label="data.aws_ami.amazon-linux-image"];
+  "data.http.ifconfig" [label="data.http.ifconfig"];
+  "aws_instance.my_net_ec2" [label="aws_instance.my_net_ec2"];
+  "aws_internet_gateway.my_net_igw" [label="aws_internet_gateway.my_net_igw"];
+  "aws_key_pair.my_net_keypair" [label="aws_key_pair.my_net_keypair"];
+  "aws_route_table.my_net_public_rt" [label="aws_route_table.my_net_public_rt"];
+  "aws_route_table_association.my_net_public_rt_associate" [label="aws_route_table_association.my_net_public_rt_associate"];
+  "aws_security_group.my_net_ec2_sg" [label="aws_security_group.my_net_ec2_sg"];
+  "aws_subnet.my_net_public_subnet" [label="aws_subnet.my_net_public_subnet"];
+  "aws_vpc.my_net_vpc" [label="aws_vpc.my_net_vpc"];
+  "local_file.my_net_private_key_pem" [label="local_file.my_net_private_key_pem"];
+  "null_resource.remote-exec" [label="null_resource.remote-exec"];
+  "tls_private_key.my_net_private_key" [label="tls_private_key.my_net_private_key"];
+  "aws_instance.my_net_ec2" -> "data.aws_ami.amazon-linux-image";
+  "aws_instance.my_net_ec2" -> "aws_security_group.my_net_ec2_sg";
+  "aws_instance.my_net_ec2" -> "aws_subnet.my_net_public_subnet";
+  "aws_internet_gateway.my_net_igw" -> "aws_vpc.my_net_vpc";
+  "aws_key_pair.my_net_keypair" -> "tls_private_key.my_net_private_key";
+  "aws_route_table.my_net_public_rt" -> "aws_internet_gateway.my_net_igw";
+  "aws_route_table_association.my_net_public_rt_associate" -> "aws_route_table.my_net_public_rt";
+  "aws_route_table_association.my_net_public_rt_associate" -> "aws_subnet.my_net_public_subnet";
+  "aws_security_group.my_net_ec2_sg" -> "data.http.ifconfig";
+  "aws_security_group.my_net_ec2_sg" -> "aws_vpc.my_net_vpc";
+  "aws_subnet.my_net_public_subnet" -> "aws_vpc.my_net_vpc";
+  "local_file.my_net_private_key_pem" -> "tls_private_key.my_net_private_key";
+  "null_resource.remote-exec" -> "aws_instance.my_net_ec2";
+}

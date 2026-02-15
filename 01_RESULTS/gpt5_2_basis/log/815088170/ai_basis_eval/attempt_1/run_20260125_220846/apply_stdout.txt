@@ -1,0 +1,443 @@
+data.aws_vpc.default: Reading...
+data.aws_partition.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_vpc.default: Read complete after 0s [id=vpc-f0e19dbe8a7b606ec]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/hello-world"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 7
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+    }
+
+  # aws_ecr_repository.app will be created
+  + resource "aws_ecr_repository" "app" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "hello-world"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "hello-world-cluster"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "hello-world-service"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + load_balancer {
+          + container_name   = "hello-world"
+          + container_port   = 3000
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-24f35068ec9df35f6",
+              + "subnet-4964f50d3982fc8fb",
+              + "subnet-582775784d8af2993",
+              + "subnet-82575a6190c70b5eb",
+              + "subnet-84b15cc31059d289b",
+              + "subnet-ddb3fb97a95e3d379",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "hello-world"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "hello-world-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "hello-world-ecs-task-exec"
+    }
+
+  # aws_lb.this will be created
+  + resource "aws_lb" "this" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = false
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "hello-world-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = [
+          + "subnet-24f35068ec9df35f6",
+          + "subnet-4964f50d3982fc8fb",
+          + "subnet-582775784d8af2993",
+          + "subnet-82575a6190c70b5eb",
+          + "subnet-84b15cc31059d289b",
+          + "subnet-ddb3fb97a95e3d379",
+        ]
+      + tags_all                                                     = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.http will be created
+  + resource "aws_lb_listener" "http" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.this will be created
+  + resource "aws_lb_target_group" "this" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "hello-world-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 3000
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + target_type                        = "ip"
+      + vpc_id                             = "vpc-f0e19dbe8a7b606ec"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.alb will be created
+  + resource "aws_security_group" "alb" {
+      + arn                    = (known after apply)
+      + description            = "ALB security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = "hello-world-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + vpc_id                 = "vpc-f0e19dbe8a7b606ec"
+    }
+
+  # aws_security_group.service will be created
+  + resource "aws_security_group" "service" {
+      + arn                    = (known after apply)
+      + description            = "ECS service security group"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "From ALB"
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 3000
+            },
+        ]
+      + name                   = "hello-world-svc-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world"
+        }
+      + vpc_id                 = "vpc-f0e19dbe8a7b606ec"
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name       = (known after apply)
+  + ecr_repository_url = (known after apply)
+  + ecs_cluster_name   = "hello-world-cluster"
+  + ecs_service_name   = "hello-world-service"
+aws_cloudwatch_log_group.app: Creating...
+aws_ecr_repository.app: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_ecs_cluster.this: Creating...
+aws_security_group.alb: Creating...
+aws_lb_target_group.this: Creating...
+aws_security_group.alb: Creation complete after 1s [id=sg-753831a7f7017822f]
+aws_security_group.service: Creating...
+aws_lb.this: Creating...
+aws_iam_role.ecs_task_execution: Creation complete after 1s [id=hello-world-ecs-task-exec]
+aws_iam_role_policy_attachment.ecs_task_execution: Creating...
+aws_security_group.service: Creation complete after 0s [id=sg-e3058376af8834676]
+aws_iam_role_policy_attachment.ecs_task_execution: Creation complete after 0s [id=hello-world-ecs-task-exec-20260125210910025100000001]
+aws_lb_target_group.this: Creation complete after 1s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/hello-world-tg/210d306b56177c6e]
+aws_cloudwatch_log_group.app: Creation complete after 1s [id=/ecs/hello-world]
+aws_ecr_repository.app: Creation complete after 3s [id=hello-world]
+aws_ecs_task_definition.this: Creating...
+aws_ecs_task_definition.this: Creation complete after 0s [id=hello-world]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_lb.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Creation complete after 11s [id=arn:aws:ecs:us-east-1:000000000000:cluster/hello-world-cluster]
+aws_lb.this: Still creating... [00m20s elapsed]
+aws_lb.this: Still creating... [00m30s elapsed]
+aws_lb.this: Still creating... [00m40s elapsed]
+aws_lb.this: Still creating... [00m50s elapsed]
+aws_lb.this: Still creating... [01m00s elapsed]
+aws_lb.this: Creation complete after 1m0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/hello-world-alb/e6985c37603e0955]
+aws_lb_listener.http: Creating...
+aws_lb_listener.http: Creation complete after 0s [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/hello-world-alb/e6985c37603e0955/3c35833740469cba]
+aws_ecs_service.this: Creating...
+aws_ecs_service.this: Still creating... [00m10s elapsed]
+aws_ecs_service.this: Still creating... [00m20s elapsed]
+aws_ecs_service.this: Creation complete after 21s [id=arn:aws:ecs:us-east-1:000000000000:service/hello-world-cluster/hello-world-service]
+
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+alb_dns_name = "hello-world-alb.elb.localhost.localstack.cloud"
+ecr_repository_url = "000000000000.dkr.ecr.us-east-1.localhost.localstack.cloud:4566/hello-world"
+ecs_cluster_name = "hello-world-cluster"
+ecs_service_name = "hello-world-service"

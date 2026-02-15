@@ -1,0 +1,48 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Nginx (as web server, via Docker)"
+      ],
+      "dependencies": [
+        "nginx:alpine (Dockerfile)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "deployment.yaml",
+        "service.yaml",
+        "manifests/app-deploy.yaml",
+        "manifests/app-svc.yaml",
+        ".github/workflows/docker-image.yml",
+        "Jenkinsfile"
+      ],
+      "architectural_resources": [
+        "Kubernetes Deployment (vat-calc-deployment)",
+        "Kubernetes Service (vat-calc-service, LoadBalancer with AWS ALB annotations)",
+        "Docker container (nginx serving static site)",
+        "CI/CD pipeline (GitHub Actions, Jenkins)"
+      ]
+    },
+    {
+      "project_directory": "EKS-Terraform",
+      "programming_languages": [],
+      "frameworks": [],
+      "dependencies": [
+        "hashicorp/aws ~> 5.0 (from terraform init output)"
+      ],
+      "deployment_relevant_files": [
+        "init_validate_stdout.txt",
+        "validate_stdout.txt"
+      ],
+      "architectural_resources": [
+        "AWS (implied by Terraform provider and Kubernetes service annotations)"
+      ]
+    }
+  ]
+}

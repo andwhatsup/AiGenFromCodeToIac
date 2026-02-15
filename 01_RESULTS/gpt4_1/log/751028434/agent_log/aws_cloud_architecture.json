@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a Python-based plugin for the Nebari platform, designed to be deployed and managed within a Kubernetes cluster. The architecture leverages AWS managed services to provide a secure, scalable, and maintainable environment for both the Nebari platform and its plugins.\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability and isolation.\n   - NAT Gateway for secure outbound internet access from private subnets.\n   - Internet Gateway for public access where needed (e.g., for load balancers).\n\n2. **Kubernetes Cluster (EKS):**\n   - AWS Elastic Kubernetes Service (EKS) is used to manage the Kubernetes cluster, providing scalability, security, and integration with AWS services.\n   - The cluster will have a dedicated namespace (metrics-server) for the plugin resources.\n   - Worker nodes (EC2 or Fargate) are provisioned in private subnets for security.\n\n3. **Nebari Platform Deployment:**\n   - The Nebari platform and its plugin system are deployed as Kubernetes workloads (Deployments, Services, etc.) within the EKS cluster.\n   - The plugin system is integrated as a containerized application, managed via Kubernetes manifests or Helm charts.\n\n4. **IAM and Security:**\n   - IAM roles for EKS nodes and service accounts for fine-grained access control to AWS resources.\n   - Security Groups to restrict network access to the EKS cluster and its workloads.\n   - Kubernetes RBAC for namespace and resource isolation.\n\n5. **Monitoring and Logging:**\n   - Amazon CloudWatch for centralized logging and monitoring of EKS cluster and application workloads.\n   - AWS CloudTrail for auditing API activity.\n\n6. **Optional Storage and Artifacts:**\n   - Amazon S3 for storing build artifacts, logs, or plugin data if required by the plugin system.\n\n**Deployment Strategy:**\n- Infrastructure as Code (e.g., Terraform, AWS CloudFormation, or Nebari's IaC tools) to provision and manage AWS resources.\n- CI/CD pipeline (e.g., GitHub Actions, AWS CodePipeline) to automate build, test, and deployment of the plugin and platform code to EKS.\n\nThis architecture ensures modularity, security, and scalability, leveraging AWS managed services and best practices for Kubernetes-based workloads.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Elastic Kubernetes Service (EKS) Cluster",
+    "EKS Node Groups (EC2 or Fargate)",
+    "EKS Cluster IAM Role",
+    "EKS Node IAM Role",
+    "EKS Service Account IAM Roles (for Kubernetes workloads)",
+    "Security Groups (for EKS control plane, nodes, and load balancers)",
+    "Kubernetes Namespace (metrics-server)",
+    "Kubernetes Deployments/Services (for Nebari platform and plugin)",
+    "Amazon S3 Bucket (optional, for artifacts/logs)",
+    "Amazon CloudWatch Log Group",
+    "CloudWatch Metrics and Alarms",
+    "AWS CloudTrail (for auditing)"
+  ]
+}

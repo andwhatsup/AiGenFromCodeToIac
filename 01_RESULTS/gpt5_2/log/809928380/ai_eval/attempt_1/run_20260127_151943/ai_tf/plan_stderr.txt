@@ -1,0 +1,11 @@
+
+Error: Error in function call
+
+  on main.tf line 108, in resource "aws_lambda_function" "this":
+ 108:   source_code_hash = filebase64sha256(var.lambda_package_path)
+    ├────────────────
+    │ while calling filebase64sha256(path)
+    │ var.lambda_package_path is "./build/lambda.zip"
+
+Call to function "filebase64sha256" failed: open build/lambda.zip: no such
+file or directory.

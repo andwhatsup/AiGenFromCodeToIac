@@ -1,0 +1,190 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "db": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_db_instance",
+            "aws_db_subnet_group"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "msk": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_msk_cluster"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "s3"
+        ],
+        "partial": [
+          "ec2"
+        ],
+        "none": [],
+        "unknown": [
+          "db",
+          "internet",
+          "msk",
+          "nat",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.1.0/24\", \"10.0.2.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.0.101.0/24\", \"10.0.102.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "azs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"us-east-1a\", \"us-east-1b\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "s3_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"flink-output-bucket\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "rds_db_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"flinkcdc\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "rds_username": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"flinkuser\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        },
+        "rds_password": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "rds_password"
+      ],
+      "aws_services": [
+        "aws_db_instance",
+        "aws_db_subnet_group",
+        "aws_eip",
+        "aws_internet_gateway",
+        "aws_msk_cluster",
+        "aws_nat_gateway",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_s3_bucket",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 2,
+        "aws_route_table": 2,
+        "aws_route": 2,
+        "aws_route_table_association": 2,
+        "aws_nat_gateway": 1,
+        "aws_eip": 1,
+        "aws_security_group": 1,
+        "aws_s3_bucket": 1,
+        "aws_db_subnet_group": 1,
+        "aws_db_instance": 1,
+        "aws_msk_cluster": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/526213761/ai_tf/provider.tf"
+          ],
+          "versions": [
+            ">= 5.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a containerized Python Flask web application, deployed on Kubernetes and managed by a Jenkins-based CI/CD pipeline. The recommended AWS architecture leverages managed services for scalability, security, and operational efficiency:\n\n1. **Amazon EKS (Elastic Kubernetes Service):** The Kubernetes cluster is provisioned using EKS, which manages the control plane and simplifies cluster operations. The Flask Docker container is deployed as a Kubernetes Deployment, and exposed via a Kubernetes Service (typically a LoadBalancer type for external access).\n\n2. **Amazon ECR (Elastic Container Registry):** Docker images built by Jenkins are stored in ECR, providing a secure and scalable container image registry integrated with AWS IAM.\n\n3. **Amazon EC2 (for Jenkins):** Jenkins is deployed on an EC2 instance (or as an EKS workload if preferred), responsible for building Docker images and triggering deployments to EKS.\n\n4. **Networking:**\n   - A dedicated VPC with public and private subnets for secure, isolated networking.\n   - Internet Gateway for public access to the application.\n   - NAT Gateway for private subnet resources to access the internet (e.g., for updates).\n   - Security Groups and Network ACLs to control traffic to EKS nodes, Jenkins, and the application.\n\n5. **IAM Roles and Policies:**\n   - EKS node IAM roles for cluster operations.\n   - Jenkins EC2 instance role for ECR and EKS access.\n   - Fine-grained IAM policies for least-privilege access.\n\n6. **Elastic Load Balancer (ELB):** An Application Load Balancer (ALB) is provisioned by the Kubernetes Service of type LoadBalancer, exposing the Flask API to users securely over HTTP/HTTPS.\n\n7. **CloudWatch:** For logging, monitoring, and alerting on EKS, EC2, and application logs/metrics.\n\n8. **(Optional) S3:** For storing build artifacts, logs, or backups if needed by Jenkins or the application.\n\nThis architecture ensures the application is highly available, scalable, and secure, following AWS best practices for containerized workloads and CI/CD automation.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "Network ACLs",
+    "Amazon EKS Cluster",
+    "EKS Node Groups (EC2 worker nodes or Fargate profiles)",
+    "Amazon ECR Repository",
+    "EC2 Instance for Jenkins (or EKS workload)",
+    "IAM Roles for EKS nodes",
+    "IAM Role for Jenkins EC2 (ECR, EKS access)",
+    "IAM Policies (least privilege)",
+    "Application Load Balancer (ALB)",
+    "CloudWatch Log Groups and Metrics",
+    "(Optional) S3 Bucket for artifacts/logs"
+  ]
+}

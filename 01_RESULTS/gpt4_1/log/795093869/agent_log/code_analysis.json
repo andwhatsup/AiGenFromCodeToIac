@@ -1,0 +1,64 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "Shell"
+      ],
+      "frameworks": [
+        "Apache Airflow",
+        "boto3"
+      ],
+      "dependencies": [
+        "apache-airflow (requirements.txt)",
+        "boto3 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "requirements.txt",
+        "deploy.sh"
+      ],
+      "architectural_resources": [
+        "Apache Airflow (workflow orchestration)",
+        "AWS Lambda (implied by lambda directory and boto3 usage)",
+        "AWS (general, due to boto3 and deployment script)"
+      ]
+    },
+    {
+      "project_directory": "infra/src/lambda/trigger-dag",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "boto3"
+      ],
+      "dependencies": [
+        "boto3 (imported in index.py)"
+      ],
+      "deployment_relevant_files": [
+        "index.py"
+      ],
+      "architectural_resources": [
+        "AWS Lambda (implied by directory and boto3 usage)"
+      ]
+    },
+    {
+      "project_directory": "infra/src/dags",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Apache Airflow"
+      ],
+      "dependencies": [
+        "apache-airflow (requirements.txt, DAG structure in hello-world-dag.py)"
+      ],
+      "deployment_relevant_files": [
+        "hello-world-dag.py"
+      ],
+      "architectural_resources": [
+        "Apache Airflow (DAG)"
+      ]
+    }
+  ]
+}

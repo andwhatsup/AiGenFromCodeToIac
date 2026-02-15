@@ -1,0 +1,44 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/793202225",
+      "programming_languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "Axum (Rust web framework)",
+        "Tokio (async runtime)",
+        "Tower / tower-http (middleware)",
+        "Hyper (HTTP)",
+        "tracing / tracing-subscriber (observability)"
+      ],
+      "dependencies": [
+        "axum = \"0.7.5\" (Cargo.toml)",
+        "hyper = \"1.3.1\" (Cargo.toml)",
+        "tokio = { version = \"1.37.0\", features = [\"full\"] } (Cargo.toml)",
+        "tower = \"0.4.13\" (Cargo.toml)",
+        "tower-http = { version = \"0.5.2\", features = [\"full\"] } (Cargo.toml)",
+        "tracing = \"0.1.40\" (Cargo.toml)",
+        "tracing-subscriber = { version = \"0.3.18\", features = [\"env-filter\"] } (Cargo.toml)"
+      ],
+      "deployment_relevant_files": [
+        "Cargo.toml",
+        "Dockerfile",
+        "task-definitions/axum.json",
+        "README.md (contains AWS CodeDeploy create-deployment command / AppSpecContent example)",
+        "init_validate_stdout.txt",
+        "init_validate_stderr.txt",
+        "validate_stdout.txt",
+        "validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Axum HTTP server listening on 0.0.0.0:3000; src/main.rs)",
+        "Docker image build pipeline (multi-stage Dockerfile using rust:1.67 builder and debian:buster-slim runtime)",
+        "AWS ECS Task Definition (task-definitions/axum.json)",
+        "AWS CloudWatch Logs log group /ecs/axum-service (task-definitions/axum.json awslogs config)",
+        "AWS CodeDeploy deployment targeting ECS service (README.md command references CodeDeployDefault.ECSAllAtOnce and ECS TargetService)",
+        "Likely Application Load Balancer / listener rules (implied by repo name and CodeDeploy ECS + LoadBalancerInfo in README.md)"
+      ]
+    }
+  ]
+}

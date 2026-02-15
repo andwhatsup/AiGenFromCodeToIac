@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "data.archive_file.lambda_zip" [label="data.archive_file.lambda_zip"];
+  "aws_cloudwatch_metric_alarm.lambda_errors" [label="aws_cloudwatch_metric_alarm.lambda_errors"];
+  "aws_iam_role.lambda_role" [label="aws_iam_role.lambda_role"];
+  "aws_iam_role.scheduler_role" [label="aws_iam_role.scheduler_role"];
+  "aws_iam_role_policy.scheduler_invoke_lambda" [label="aws_iam_role_policy.scheduler_invoke_lambda"];
+  "aws_iam_role_policy_attachment.lambda_basic" [label="aws_iam_role_policy_attachment.lambda_basic"];
+  "aws_lambda_function.this" [label="aws_lambda_function.this"];
+  "aws_scheduler_schedule.venmo" [label="aws_scheduler_schedule.venmo"];
+  "aws_sns_topic.alarms" [label="aws_sns_topic.alarms"];
+  "aws_sns_topic_subscription.email" [label="aws_sns_topic_subscription.email"];
+  "aws_cloudwatch_metric_alarm.lambda_errors" -> "aws_lambda_function.this";
+  "aws_cloudwatch_metric_alarm.lambda_errors" -> "aws_sns_topic.alarms";
+  "aws_iam_role_policy.scheduler_invoke_lambda" -> "aws_iam_role.scheduler_role";
+  "aws_iam_role_policy.scheduler_invoke_lambda" -> "aws_lambda_function.this";
+  "aws_iam_role_policy_attachment.lambda_basic" -> "aws_iam_role.lambda_role";
+  "aws_lambda_function.this" -> "data.archive_file.lambda_zip";
+  "aws_lambda_function.this" -> "aws_iam_role.lambda_role";
+  "aws_scheduler_schedule.venmo" -> "aws_iam_role.scheduler_role";
+  "aws_scheduler_schedule.venmo" -> "aws_lambda_function.this";
+  "aws_sns_topic_subscription.email" -> "aws_sns_topic.alarms";
+}

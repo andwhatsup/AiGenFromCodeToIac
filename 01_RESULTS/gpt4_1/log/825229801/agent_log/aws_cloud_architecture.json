@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a static web application served by nginx, containerized with Docker, and deployed on AWS using Elastic Kubernetes Service (EKS). The infrastructure is managed via Terraform, and CI/CD is handled by GitHub Actions and Jenkins. The architecture is designed for scalability, security, and automation, following AWS best practices.\n\n**Architecture Overview:**\n\n1. **Networking & Security:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for outbound internet access from private subnets.\n   - Security Groups and Network ACLs to restrict traffic to only necessary ports (e.g., HTTP/HTTPS to ALB, node-to-node communication, etc.).\n\n2. **EKS Cluster:**\n   - An EKS cluster deployed in the private subnets, with managed node groups (EC2 worker nodes) or Fargate profiles for running Kubernetes pods.\n   - IAM roles for EKS control plane, worker nodes, and service accounts (for Kubernetes workloads needing AWS API access).\n\n3. **Kubernetes Workloads:**\n   - A Deployment resource for the static web app (box-game), running the nginx Docker container.\n   - A Service of type LoadBalancer, which provisions an AWS Application Load Balancer (ALB) to expose the app to the internet.\n   - Kubernetes RBAC resources for secure pod/service management.\n\n4. **Load Balancing:**\n   - An AWS ALB, automatically provisioned by the Kubernetes Service, routes external HTTP/HTTPS traffic to the nginx pods.\n\n5. **Container Registry:**\n   - Amazon Elastic Container Registry (ECR) to store Docker images built by the CI/CD pipeline.\n\n6. **CI/CD Pipeline:**\n   - GitHub Actions and Jenkins for automated build, test, and deployment.\n   - Jenkins and/or GitHub Actions configured with IAM roles for ECR push/pull and EKS deployment.\n\n7. **Infrastructure as Code:**\n   - Terraform manages all AWS resources, ensuring repeatable, version-controlled infrastructure.\n\n8. **Monitoring & Logging:**\n   - Amazon CloudWatch for EKS cluster and ALB monitoring, logging, and alerting.\n   - AWS CloudTrail for auditing API calls.\n\n9. **IAM & Security:**\n   - IAM roles and policies for least-privilege access.\n   - Optionally, AWS Secrets Manager or Parameter Store for managing sensitive configuration.\n\n**Scalability & Best Practices:**\n- Multi-AZ deployment for high availability.\n- Auto-scaling for EKS node groups and ALB target groups.\n- Secure access to the cluster and registry using IAM and security groups.\n- Logging and monitoring for operational visibility.\n\nThis architecture is lean, secure, and production-ready for a static web application on AWS EKS, with automated CI/CD and infrastructure management.",
+  "aws_resources": [
+    "VPC (with public and private subnets, multi-AZ)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables and Associations",
+    "Security Groups (for ALB, EKS nodes, etc.)",
+    "Network ACLs (optional, for extra security)",
+    "EKS Cluster",
+    "EKS Node Group(s) (EC2 or Fargate)",
+    "IAM Roles and Policies (EKS control plane, node group, service accounts, CI/CD)",
+    "Amazon ECR Repository (for Docker images)",
+    "Kubernetes Deployment (box-game)",
+    "Kubernetes Service (type LoadBalancer, integrated with AWS ALB)",
+    "AWS Application Load Balancer (ALB)",
+    "CloudWatch Log Groups (for EKS and ALB)",
+    "CloudWatch Alarms (for monitoring)",
+    "CloudTrail (for auditing)",
+    "AWS Secrets Manager or SSM Parameter Store (optional, for secrets)",
+    "Terraform state backend (e.g., S3 bucket with DynamoDB for state locking)"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/619425401",
+      "programming_languages": [
+        "Rust"
+      ],
+      "frameworks": [
+        "AWS Lambda Rust Runtime",
+        "Delta Lake (delta-rs)"
+      ],
+      "dependencies": [
+        "aws_lambda_events (Cargo.toml)",
+        "chrono (Cargo.toml)",
+        "deltalake (Cargo.toml, git: https://github.com/delta-io/delta-rs)",
+        "lambda_runtime (Cargo.toml)",
+        "log (Cargo.toml)",
+        "pretty_env_logger (Cargo.toml)",
+        "rusoto_core (Cargo.toml)",
+        "rusoto_credential (Cargo.toml)",
+        "rusoto_s3 (Cargo.toml)",
+        "serde (Cargo.toml)",
+        "serde_json (Cargo.toml)",
+        "tokio (Cargo.toml)"
+      ],
+      "deployment_relevant_files": [
+        "Cargo.toml",
+        "Cargo.lock",
+        "src/main.rs",
+        ".dummy/lambda.zip"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (implied by lambda_runtime and aws_lambda_events)",
+        "S3 (implied by rusoto_s3 and deltalake with s3 feature)",
+        "Delta Lake tables (implied by deltalake)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+
+Error: listing tags for Elastic Beanstalk Application (arn:aws:elasticbeanstalk:us-east-1:000000000000:application/flask-api): operation error Elastic Beanstalk: ListTagsForResource, https response error StatusCode: 501, RequestID: 813bfb85-6141-49a4-968b-644c9763e3c6, api error InternalFailure: The API action 'ListTagsForResource' for service 'elasticbeanstalk' is either not available in your current license plan or has not yet been emulated by LocalStack. Please refer to https://docs.localstack.cloud/references/coverage/coverage_elasticbeanstalk for more information.
+
+  with aws_elastic_beanstalk_application.app,
+  on beanstalk.tf line 26, in resource "aws_elastic_beanstalk_application" "app":
+  26: resource "aws_elastic_beanstalk_application" "app" {
+
+
+Error: creating S3 Bucket (flask-api-static-assets-c7462d8f): operation error S3: CreateBucket, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://flask-api-static-assets-c7462d8f.localhost:4566/": dial tcp: lookup flask-api-static-assets-c7462d8f.localhost: no such host
+
+  with aws_s3_bucket.static,
+  on s3.tf line 1, in resource "aws_s3_bucket" "static":
+   1: resource "aws_s3_bucket" "static" {
+

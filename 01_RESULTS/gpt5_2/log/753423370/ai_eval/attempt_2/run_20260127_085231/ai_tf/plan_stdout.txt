@@ -1,0 +1,393 @@
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_region.current: Reading...
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_region.current: Read complete after 0s [id=eu-west-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # data.aws_iam_policy_document.spa_bucket will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "spa_bucket" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:GetObject",
+            ]
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "AllowCloudFrontServicePrincipalReadOnly"
+
+          + condition {
+              + test     = "StringEquals"
+              + values   = [
+                  + (known after apply),
+                ]
+              + variable = "AWS:SourceArn"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "cloudfront.amazonaws.com",
+                ]
+              + type        = "Service"
+            }
+        }
+    }
+
+  # aws_cloudfront_cache_policy.caching_optimized will be created
+  + resource "aws_cloudfront_cache_policy" "caching_optimized" {
+      + arn         = (known after apply)
+      + comment     = "Fallback for AWS managed policy Managed-CachingOptimized"
+      + default_ttl = 86400
+      + etag        = (known after apply)
+      + id          = (known after apply)
+      + max_ttl     = 31536000
+      + min_ttl     = 0
+      + name        = "amazon-clone-dev-caching-optimized"
+
+      + parameters_in_cache_key_and_forwarded_to_origin {
+          + enable_accept_encoding_brotli = true
+          + enable_accept_encoding_gzip   = true
+
+          + cookies_config {
+              + cookie_behavior = "none"
+            }
+
+          + headers_config {
+              + header_behavior = "none"
+            }
+
+          + query_strings_config {
+              + query_string_behavior = "none"
+            }
+        }
+    }
+
+  # aws_cloudfront_distribution.spa will be created
+  + resource "aws_cloudfront_distribution" "spa" {
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + comment                         = "amazon-clone-dev SPA"
+      + continuous_deployment_policy_id = (known after apply)
+      + default_root_object             = "index.html"
+      + domain_name                     = (known after apply)
+      + enabled                         = true
+      + etag                            = (known after apply)
+      + hosted_zone_id                  = (known after apply)
+      + http_version                    = "http2"
+      + id                              = (known after apply)
+      + in_progress_validation_batches  = (known after apply)
+      + is_ipv6_enabled                 = true
+      + last_modified_time              = (known after apply)
+      + price_class                     = "PriceClass_100"
+      + retain_on_delete                = false
+      + staging                         = false
+      + status                          = (known after apply)
+      + tags_all                        = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "amazon-clone"
+        }
+      + trusted_key_groups              = (known after apply)
+      + trusted_signers                 = (known after apply)
+      + wait_for_deployment             = true
+      + web_acl_id                      = (known after apply)
+
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 403
+          + response_code         = 200
+          + response_page_path    = "/index.html"
+        }
+      + custom_error_response {
+          + error_caching_min_ttl = 0
+          + error_code            = 404
+          + response_code         = 200
+          + response_page_path    = "/index.html"
+        }
+
+      + default_cache_behavior {
+          + allowed_methods            = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id            = (known after apply)
+          + cached_methods             = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + compress                   = true
+          + default_ttl                = (known after apply)
+          + max_ttl                    = (known after apply)
+          + min_ttl                    = 0
+          + origin_request_policy_id   = (known after apply)
+          + response_headers_policy_id = (known after apply)
+          + target_origin_id           = "s3-spa-origin"
+          + trusted_key_groups         = (known after apply)
+          + trusted_signers            = (known after apply)
+          + viewer_protocol_policy     = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+
+      + origin {
+          + connection_attempts      = 3
+          + connection_timeout       = 10
+          + domain_name              = (known after apply)
+          + origin_access_control_id = (known after apply)
+          + origin_id                = "s3-spa-origin"
+            # (1 unchanged attribute hidden)
+        }
+
+      + restrictions {
+          + geo_restriction {
+              + locations        = (known after apply)
+              + restriction_type = "none"
+            }
+        }
+
+      + viewer_certificate {
+          + cloudfront_default_certificate = true
+          + minimum_protocol_version       = "TLSv1.2_2021"
+        }
+    }
+
+  # aws_cloudfront_origin_access_control.spa will be created
+  + resource "aws_cloudfront_origin_access_control" "spa" {
+      + arn                               = (known after apply)
+      + description                       = "OAC for private S3 origin"
+      + etag                              = (known after apply)
+      + id                                = (known after apply)
+      + name                              = "amazon-clone-dev-oac"
+      + origin_access_control_origin_type = "s3"
+      + signing_behavior                  = "always"
+      + signing_protocol                  = "sigv4"
+    }
+
+  # aws_cloudfront_origin_request_policy.cors_s3origin will be created
+  + resource "aws_cloudfront_origin_request_policy" "cors_s3origin" {
+      + arn     = (known after apply)
+      + comment = "Fallback for AWS managed policy Managed-CORS-S3Origin"
+      + etag    = (known after apply)
+      + id      = (known after apply)
+      + name    = "amazon-clone-dev-cors-s3origin"
+
+      + cookies_config {
+          + cookie_behavior = "none"
+        }
+
+      + headers_config {
+          + header_behavior = "whitelist"
+
+          + headers {
+              + items = [
+                  + "Access-Control-Request-Headers",
+                  + "Access-Control-Request-Method",
+                  + "Origin",
+                ]
+            }
+        }
+
+      + query_strings_config {
+          + query_string_behavior = "none"
+        }
+    }
+
+  # aws_cloudfront_response_headers_policy.security_headers will be created
+  + resource "aws_cloudfront_response_headers_policy" "security_headers" {
+      + arn  = (known after apply)
+      + etag = (known after apply)
+      + id   = (known after apply)
+      + name = "amazon-clone-dev-security-headers"
+
+      + security_headers_config {
+          + content_type_options {
+              + override = true
+            }
+          + frame_options {
+              + frame_option = "DENY"
+              + override     = true
+            }
+          + referrer_policy {
+              + override        = true
+              + referrer_policy = "strict-origin-when-cross-origin"
+            }
+          + strict_transport_security {
+              + access_control_max_age_sec = 63072000
+              + include_subdomains         = true
+              + override                   = true
+              + preload                    = true
+            }
+          + xss_protection {
+              + mode_block = true
+              + override   = true
+              + protection = true
+            }
+        }
+    }
+
+  # aws_s3_bucket.spa will be created
+  + resource "aws_s3_bucket" "spa" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "amazon-clone-dev-spa-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "amazon-clone"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_ownership_controls.spa will be created
+  + resource "aws_s3_bucket_ownership_controls" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_policy.spa will be created
+  + resource "aws_s3_bucket_policy" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # aws_s3_bucket_public_access_block.spa will be created
+  + resource "aws_s3_bucket_public_access_block" "spa" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.spa will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.spa will be created
+  + resource "aws_s3_bucket_versioning" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_wafv2_web_acl.this[0] will be created
+  + resource "aws_wafv2_web_acl" "this" {
+      + application_integration_url = (known after apply)
+      + arn                         = (known after apply)
+      + capacity                    = (known after apply)
+      + id                          = (known after apply)
+      + lock_token                  = (known after apply)
+      + name                        = "amazon-clone-dev-waf"
+      + name_prefix                 = (known after apply)
+      + scope                       = "CLOUDFRONT"
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "amazon-clone"
+        }
+
+      + default_action {
+          + allow {
+            }
+        }
+
+      + rule {
+          + name     = "AWSManagedRulesCommonRuleSet"
+          + priority = 1
+
+          + override_action {
+              + none {}
+            }
+
+          + statement {
+              + managed_rule_group_statement {
+                  + name        = "AWSManagedRulesCommonRuleSet"
+                  + vendor_name = "AWS"
+                    # (1 unchanged attribute hidden)
+                }
+            }
+
+          + visibility_config {
+              + cloudwatch_metrics_enabled = true
+              + metric_name                = "AWSManagedRulesCommonRuleSet"
+              + sampled_requests_enabled   = true
+            }
+        }
+
+      + visibility_config {
+          + cloudwatch_metrics_enabled = true
+          + metric_name                = "amazon-clone-dev-waf"
+          + sampled_requests_enabled   = true
+        }
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + cloudfront_distribution_id = (known after apply)
+  + cloudfront_domain_name     = (known after apply)
+  + s3_bucket_name             = "amazon-clone-dev-spa-000000000000"
+  + site_url                   = (known after apply)

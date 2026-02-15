@@ -1,0 +1,21 @@
+
+Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 5c6e079f-6a16-43fc-9bfc-05533106639e, api error InvalidAMIID.NotFound: The image id '[['ami-0c55b159cbfafe1f0']]' does not exist
+
+  with aws_instance.openvpn_server,
+  on main.tf line 25, in resource "aws_instance" "openvpn_server":
+  25: resource "aws_instance" "openvpn_server" {
+
+
+Error: creating EC2 Instance: operation error EC2: RunInstances, https response error StatusCode: 400, RequestID: 64f36100-0aef-4257-98f7-53e1c5383b9a, api error InvalidAMIID.NotFound: The image id '[['ami-0c55b159cbfafe1f0']]' does not exist
+
+  with aws_instance.app_server,
+  on main.tf line 36, in resource "aws_instance" "app_server":
+  36: resource "aws_instance" "app_server" {
+
+
+Error: creating S3 Bucket (my-nfs-bucket): operation error S3: CreateBucket, exceeded maximum number of attempts, 25, https response error StatusCode: 500, RequestID: fafe2d22-5211-4190-9471-2df59036384f, HostID: s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=, api error InternalError: exception while calling s3 with unknown operation: Unable to find operation for request to service s3: PUT /
+
+  with aws_s3_bucket.nfs_bucket,
+  on main.tf line 48, in resource "aws_s3_bucket" "nfs_bucket":
+  48: resource "aws_s3_bucket" "nfs_bucket" {
+

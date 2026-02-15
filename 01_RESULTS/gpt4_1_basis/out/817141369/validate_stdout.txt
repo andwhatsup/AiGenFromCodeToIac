@@ -1,0 +1,32 @@
+
+Warning: Argument is deprecated
+
+  with aws_s3_bucket.static_site,
+  on main.tf line 1, in resource "aws_s3_bucket" "static_site":
+   1: resource "aws_s3_bucket" "static_site" {
+
+website is deprecated. Use the aws_s3_bucket_website_configuration resource
+instead.
+
+(and 6 more similar warnings elsewhere)
+
+Warning: Deprecated attribute
+
+  on outputs.tf line 8, in output "s3_bucket_website_url":
+   8:   value       = aws_s3_bucket.static_site.website_endpoint
+
+The attribute "website_endpoint" is deprecated. Refer to the provider
+documentation for details.
+
+Warning: Deprecated Resource
+
+  with aws_s3_bucket_object.index_html,
+  on static_assets.tf line 1, in resource "aws_s3_bucket_object" "index_html":
+   1: resource "aws_s3_bucket_object" "index_html" {
+
+use the aws_s3_object resource instead
+
+(and 4 more similar warnings elsewhere)
+Success! The configuration is valid, but there were some validation warnings
+as shown above.
+

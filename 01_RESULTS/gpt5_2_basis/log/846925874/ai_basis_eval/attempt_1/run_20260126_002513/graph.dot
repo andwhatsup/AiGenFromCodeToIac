@@ -1,0 +1,17 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_s3_bucket.site" [label="aws_s3_bucket.site"];
+  "aws_s3_bucket_ownership_controls.site" [label="aws_s3_bucket_ownership_controls.site"];
+  "aws_s3_bucket_policy.public_read" [label="aws_s3_bucket_policy.public_read"];
+  "aws_s3_bucket_public_access_block.site" [label="aws_s3_bucket_public_access_block.site"];
+  "aws_s3_bucket_website_configuration.site" [label="aws_s3_bucket_website_configuration.site"];
+  "aws_s3_bucket.site" -> "data.aws_caller_identity.current";
+  "aws_s3_bucket.site" -> "data.aws_region.current";
+  "aws_s3_bucket_ownership_controls.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_policy.public_read" -> "aws_s3_bucket_public_access_block.site";
+  "aws_s3_bucket_public_access_block.site" -> "aws_s3_bucket.site";
+  "aws_s3_bucket_website_configuration.site" -> "aws_s3_bucket.site";
+}

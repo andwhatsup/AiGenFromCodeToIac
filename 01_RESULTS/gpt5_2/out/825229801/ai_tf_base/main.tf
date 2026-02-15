@@ -1,0 +1,47 @@
+locals {
+  common_tags = {
+    Application = var.app_name
+  }
+}
+
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
+# Minimal, conservative deployment target inferred from repo:
+# - Static HTML/JS/CSS game (index.html, script.js, style.css)
+# - Provide an S3 bucket suitable for hosting artifacts/static site.
+# (Website hosting configuration is optional; keeping minimal for broad compatibility.)
+resource "aws_s3_bucket" "site" {
+  bucket        = "${var.app_name}-${random_id.suffix.hex}"
+  force_destroy = var.force_destroy_bucket
+
+  tags = local.common_tags
+}
+
+resource "aws_s3_bucket_public_access_block" "site" {
+  bucket = aws_s3_bucket.site.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_versioning" "site" {
+  bucket = aws_s3_bucket.site.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
+  bucket = aws_s3_bucket.site.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}

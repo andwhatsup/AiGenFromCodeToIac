@@ -1,0 +1,16 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.examplebucket" [label="aws_s3_bucket.examplebucket"];
+  "aws_s3_bucket.versionedexample" [label="aws_s3_bucket.versionedexample"];
+  "aws_s3_bucket_policy.examplebucket" [label="aws_s3_bucket_policy.examplebucket"];
+  "aws_s3_bucket_versioning.versionedexample" [label="aws_s3_bucket_versioning.versionedexample"];
+  "aws_s3_bucket_website_configuration.examplebucket" [label="aws_s3_bucket_website_configuration.examplebucket"];
+  "aws_s3_object.examplebucketfiles" [label="aws_s3_object.examplebucketfiles"];
+  "aws_s3_object.versionedbucketfiles" [label="aws_s3_object.versionedbucketfiles"];
+  "aws_s3_bucket_policy.examplebucket" -> "aws_s3_bucket.examplebucket";
+  "aws_s3_bucket_versioning.versionedexample" -> "aws_s3_bucket.versionedexample";
+  "aws_s3_bucket_website_configuration.examplebucket" -> "aws_s3_bucket.examplebucket";
+  "aws_s3_object.examplebucketfiles" -> "aws_s3_bucket.examplebucket";
+  "aws_s3_object.versionedbucketfiles" -> "aws_s3_bucket.versionedexample";
+}

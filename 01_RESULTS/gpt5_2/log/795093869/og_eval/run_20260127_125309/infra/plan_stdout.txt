@@ -1,0 +1,1782 @@
+module.dag_trigger_lambda.data.external.archive_prepare[0]: Reading...
+module.dag_trigger_lambda.data.external.archive_prepare[0]: Read complete after 0s [id=-]
+data.aws_availability_zones.available: Reading...
+module.dag_trigger_lambda.data.aws_caller_identity.current: Reading...
+module.vpc.data.aws_iam_policy_document.flow_log_cloudwatch_assume_role[0]: Reading...
+module.input_bucket.data.aws_caller_identity.current: Reading...
+module.s3_lambda_notif.data.aws_partition.this: Reading...
+module.input_bucket.data.aws_region.current: Reading...
+module.vpc.data.aws_iam_policy_document.vpc_flow_log_cloudwatch[0]: Reading...
+module.dag_trigger_lambda.data.aws_region.current: Reading...
+module.s3_lambda_notif.data.aws_partition.this: Read complete after 0s [id=aws]
+module.dag_trigger_lambda.data.aws_partition.current: Reading...
+module.dag_trigger_lambda.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.input_bucket.data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.vpc.data.aws_iam_policy_document.vpc_flow_log_cloudwatch[0]: Read complete after 0s [id=2053943846]
+module.mwaa.data.aws_partition.current: Reading...
+module.vpc.data.aws_iam_policy_document.flow_log_cloudwatch_assume_role[0]: Read complete after 0s [id=1021377347]
+module.dag_trigger_lambda.data.aws_partition.current: Read complete after 0s [id=aws]
+module.mwaa_bucket.data.aws_region.current: Reading...
+module.mwaa.data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+module.mwaa_bucket.data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+module.input_bucket.data.aws_canonical_user_id.this[0]: Reading...
+module.mwaa.data.aws_iam_policy_document.mwaa_assume: Reading...
+module.input_bucket.data.aws_partition.current: Reading...
+module.mwaa_bucket.data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+module.input_bucket.data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_partition.current: Read complete after 0s [id=aws]
+module.mwaa.data.aws_iam_policy_document.mwaa_assume: Read complete after 0s [id=3602397390]
+module.dag_trigger_lambda.data.aws_iam_policy_document.assume_role[0]: Reading...
+module.mwaa_bucket.data.aws_partition.current: Reading...
+module.mwaa_bucket.data.aws_partition.current: Read complete after 0s [id=aws]
+module.mwaa_bucket.data.aws_canonical_user_id.this[0]: Reading...
+module.mwaa.data.aws_caller_identity.current: Reading...
+module.dag_trigger_lambda.data.aws_iam_policy_document.assume_role[0]: Read complete after 0s [id=2690255455]
+module.mwaa.data.aws_region.current: Reading...
+module.mwaa.data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 3s [id=000000000000]
+module.mwaa.data.aws_caller_identity.current: Read complete after 3s [id=000000000000]
+module.mwaa_bucket.data.aws_caller_identity.current: Read complete after 3s [id=000000000000]
+module.dag_trigger_lambda.data.aws_caller_identity.current: Read complete after 3s [id=000000000000]
+module.input_bucket.data.aws_caller_identity.current: Read complete after 3s [id=000000000000]
+module.input_bucket.data.aws_canonical_user_id.this[0]: Read complete after 3s [id=75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a]
+module.mwaa_bucket.data.aws_canonical_user_id.this[0]: Read complete after 3s [id=75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a]
+data.aws_availability_zones.available: Read complete after 4s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # aws_iam_policy.mwaa_policy will be created
+  + resource "aws_iam_policy" "mwaa_policy" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Custom policy for MWAA DAG workflows"
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = (known after apply)
+    }
+
+  # aws_s3_object.dags["hello-world-dag.py"] will be created
+  + resource "aws_s3_object" "dags" {
+      + acl                    = (known after apply)
+      + arn                    = (known after apply)
+      + bucket                 = (known after apply)
+      + bucket_key_enabled     = (known after apply)
+      + checksum_crc32         = (known after apply)
+      + checksum_crc32c        = (known after apply)
+      + checksum_crc64nvme     = (known after apply)
+      + checksum_sha1          = (known after apply)
+      + checksum_sha256        = (known after apply)
+      + content_type           = (known after apply)
+      + etag                   = (known after apply)
+      + force_destroy          = false
+      + id                     = (known after apply)
+      + key                    = "dags/hello-world-dag.py"
+      + kms_key_id             = (known after apply)
+      + server_side_encryption = (known after apply)
+      + source                 = "src/dags/hello-world-dag.py"
+      + storage_class          = (known after apply)
+      + tags_all               = (known after apply)
+      + version_id             = (known after apply)
+    }
+
+  # module.dag_trigger_lambda.data.aws_iam_policy_document.additional_inline[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "additional_inline" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "airflow:CreateCliToken",
+            ]
+          + effect    = "Allow"
+          + resources = (known after apply)
+          + sid       = "airflowperm"
+        }
+    }
+
+  # module.dag_trigger_lambda.data.aws_iam_policy_document.logs[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "logs" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:PutLogEvents",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+        }
+    }
+
+  # module.dag_trigger_lambda.aws_cloudwatch_log_group.lambda[0] will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/aws/lambda/dag-trigger-lambda"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 0
+      + skip_destroy      = false
+      + tags              = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all          = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.dag_trigger_lambda.aws_iam_policy.additional_inline[0] will be created
+  + resource "aws_iam_policy" "additional_inline" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "dag-trigger-lambda-inline"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.dag_trigger_lambda.aws_iam_policy.logs[0] will be created
+  + resource "aws_iam_policy" "logs" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "dag-trigger-lambda-logs"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.dag_trigger_lambda.aws_iam_role.lambda[0] will be created
+  + resource "aws_iam_role" "lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = true
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "dag-trigger-lambda"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags                  = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all              = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.dag_trigger_lambda.aws_iam_role_policy_attachment.additional_inline[0] will be created
+  + resource "aws_iam_role_policy_attachment" "additional_inline" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "dag-trigger-lambda"
+    }
+
+  # module.dag_trigger_lambda.aws_iam_role_policy_attachment.logs[0] will be created
+  + resource "aws_iam_role_policy_attachment" "logs" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = "dag-trigger-lambda"
+    }
+
+  # module.dag_trigger_lambda.aws_lambda_function.this[0] will be created
+  + resource "aws_lambda_function" "this" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + description                    = "Lambda to trigger DAG"
+      + filename                       = "builds/e9eec75a0cec7ebf92e4b02b775b3b44299ee11376c4a3b2cab9ca5a835297e4.zip"
+      + function_name                  = "dag-trigger-lambda"
+      + handler                        = "index.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "python3.12"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + timeout                        = 30
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "ACCOUNT_ID"    = "000000000000"
+              + "LOG_LEVEL"     = "DEBUG"
+              + "MWAA_ENV_NAME" = "mwaa-serverless-land"
+            }
+        }
+
+      + ephemeral_storage {
+          + size = 512
+        }
+
+      + logging_config {
+          + log_format = "Text"
+          + log_group  = (known after apply)
+        }
+
+      + tracing_config {
+          + mode = "Active"
+        }
+    }
+
+  # module.dag_trigger_lambda.local_file.archive_plan[0] will be created
+  + resource "local_file" "archive_plan" {
+      + content              = jsonencode(
+            {
+              + artifacts_dir = "builds"
+              + build_plan    = [
+                  + [
+                      + "zip",
+                      + "./src/lambda/trigger-dag/",
+                      + null,
+                    ],
+                ]
+              + filename      = "builds/e9eec75a0cec7ebf92e4b02b775b3b44299ee11376c4a3b2cab9ca5a835297e4.zip"
+              + runtime       = "python3.12"
+            }
+        )
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0755"
+      + file_permission      = "0644"
+      + filename             = "builds/e9eec75a0cec7ebf92e4b02b775b3b44299ee11376c4a3b2cab9ca5a835297e4.plan.json"
+      + id                   = (known after apply)
+    }
+
+  # module.dag_trigger_lambda.null_resource.archive[0] will be created
+  + resource "null_resource" "archive" {
+      + id       = (known after apply)
+      + triggers = {
+          + "filename"  = "builds/e9eec75a0cec7ebf92e4b02b775b3b44299ee11376c4a3b2cab9ca5a835297e4.zip"
+          + "timestamp" = "1769514819887123200"
+        }
+    }
+
+  # module.input_bucket.data.aws_iam_policy_document.combined[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "combined" {
+      + id                      = (known after apply)
+      + json                    = (known after apply)
+      + minified_json           = (known after apply)
+      + source_policy_documents = (known after apply)
+    }
+
+  # module.input_bucket.data.aws_iam_policy_document.deny_incorrect_encryption_headers[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "deny_incorrect_encryption_headers" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:PutObject",
+            ]
+          + effect    = "Deny"
+          + resources = [
+              + (known after apply),
+            ]
+          + sid       = "denyIncorrectEncryptionHeaders"
+
+          + condition {
+              + test     = "StringNotEquals"
+              + values   = [
+                  + "AES256",
+                ]
+              + variable = "s3:x-amz-server-side-encryption"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "*"
+            }
+        }
+    }
+
+  # module.input_bucket.data.aws_iam_policy_document.deny_insecure_transport[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "deny_insecure_transport" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:*",
+            ]
+          + effect    = "Deny"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "denyInsecureTransport"
+
+          + condition {
+              + test     = "Bool"
+              + values   = [
+                  + "false",
+                ]
+              + variable = "aws:SecureTransport"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "*"
+            }
+        }
+    }
+
+  # module.input_bucket.data.aws_iam_policy_document.require_latest_tls[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "require_latest_tls" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "s3:*",
+            ]
+          + effect    = "Deny"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+          + sid       = "denyOutdatedTLS"
+
+          + condition {
+              + test     = "NumericLessThan"
+              + values   = [
+                  + "1.2",
+                ]
+              + variable = "s3:TlsVersion"
+            }
+
+          + principals {
+              + identifiers = [
+                  + "*",
+                ]
+              + type        = "*"
+            }
+        }
+    }
+
+  # module.input_bucket.aws_s3_bucket.this[0] will be created
+  + resource "aws_s3_bucket" "this" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "input-us-east-1-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = false
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                    = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # module.input_bucket.aws_s3_bucket_acl.this[0] will be created
+  + resource "aws_s3_bucket_acl" "this" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + access_control_policy (known after apply)
+    }
+
+  # module.input_bucket.aws_s3_bucket_ownership_controls.this[0] will be created
+  + resource "aws_s3_bucket_ownership_controls" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerPreferred"
+        }
+    }
+
+  # module.input_bucket.aws_s3_bucket_policy.this[0] will be created
+  + resource "aws_s3_bucket_policy" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+    }
+
+  # module.input_bucket.aws_s3_bucket_public_access_block.this[0] will be created
+  + resource "aws_s3_bucket_public_access_block" "this" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # module.input_bucket.aws_s3_bucket_server_side_encryption_configuration.this[0] will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # module.input_bucket.aws_s3_bucket_versioning.this[0] will be created
+  + resource "aws_s3_bucket_versioning" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # module.mwaa.data.aws_iam_policy_document.mwaa will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_policy_document" "mwaa" {
+      + id            = (known after apply)
+      + json          = (known after apply)
+      + minified_json = (known after apply)
+
+      + statement {
+          + actions   = [
+              + "airflow:CreateWebLoginToken",
+              + "airflow:PublishMetrics",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:airflow:us-east-1:000000000000:environment/mwaa-serverless-land",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "s3:*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + (known after apply),
+              + (known after apply),
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "logs:CreateLogGroup",
+              + "logs:CreateLogStream",
+              + "logs:GetLogEvents",
+              + "logs:GetLogGroupFields",
+              + "logs:GetLogRecord",
+              + "logs:GetQueryResults",
+              + "logs:PutLogEvents",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:logs:us-east-1:000000000000:log-group:airflow-mwaa-serverless-land-*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "batch:DescribeJobs",
+              + "batch:ListJobs",
+              + "cloudwatch:PutMetricData",
+              + "eks:*",
+              + "logs:DescribeLogGroups",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "sqs:ChangeMessageVisibility",
+              + "sqs:DeleteMessage",
+              + "sqs:GetQueueAttributes",
+              + "sqs:GetQueueUrl",
+              + "sqs:ReceiveMessage",
+              + "sqs:SendMessage",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:sqs:us-east-1:*:airflow-celery-*",
+            ]
+        }
+      + statement {
+          + actions       = [
+              + "kms:Decrypt",
+              + "kms:DescribeKey",
+              + "kms:Encrypt",
+              + "kms:GenerateDataKey*",
+            ]
+          + effect        = "Allow"
+          + not_resources = [
+              + "arn:aws:kms:*:000000000000:key/*",
+            ]
+
+          + condition {
+              + test     = "StringLike"
+              + values   = [
+                  + "sqs.us-east-1.amazonaws.com",
+                ]
+              + variable = "kms:ViaService"
+            }
+        }
+      + statement {
+          + actions   = [
+              + "batch:*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:batch:*:000000000000:*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "ssm:*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:ssm:us-east-1:000000000000:parameter/*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "logs:*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:logs:us-east-1:000000000000:log-group:/aws/lambda/*",
+            ]
+        }
+      + statement {
+          + actions   = [
+              + "cloudwatch:*",
+            ]
+          + effect    = "Allow"
+          + resources = [
+              + "arn:aws:logs:us-east-1:000000000000:log-group:/aws/lambda/*",
+            ]
+        }
+    }
+
+  # module.mwaa.aws_iam_role.mwaa[0] will be created
+  + resource "aws_iam_role" "mwaa" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = [
+                              + "s3.amazonaws.com",
+                              + "airflow-env.amazonaws.com",
+                              + "ssm.amazonaws.com",
+                              + "batch.amazonaws.com",
+                              + "lambda.amazonaws.com",
+                              + "airflow.amazonaws.com",
+                            ]
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + description           = "MWAA IAM Role"
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "mwaa-executor"
+      + path                  = "/"
+      + tags                  = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all              = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.mwaa.aws_iam_role_policy.mwaa[0] will be created
+  + resource "aws_iam_role_policy" "mwaa" {
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "mwaa-executor"
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # module.mwaa.aws_iam_role_policy_attachment.mwaa["dag-policy"] will be created
+  + resource "aws_iam_role_policy_attachment" "mwaa" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
+  # module.mwaa.aws_mwaa_environment.mwaa will be created
+  + resource "aws_mwaa_environment" "mwaa" {
+      + airflow_configuration_options    = (sensitive value)
+      + airflow_version                  = "2.8.1"
+      + arn                              = (known after apply)
+      + created_at                       = (known after apply)
+      + dag_s3_path                      = "dags"
+      + database_vpc_endpoint_service    = (known after apply)
+      + endpoint_management              = (known after apply)
+      + environment_class                = "mw1.small"
+      + execution_role_arn               = (known after apply)
+      + id                               = (known after apply)
+      + last_updated                     = (known after apply)
+      + max_webservers                   = (known after apply)
+      + max_workers                      = 2
+      + min_webservers                   = (known after apply)
+      + min_workers                      = 1
+      + name                             = "mwaa-serverless-land"
+      + plugins_s3_object_version        = (known after apply)
+      + requirements_s3_object_version   = (known after apply)
+      + schedulers                       = (known after apply)
+      + service_role_arn                 = (known after apply)
+      + source_bucket_arn                = (known after apply)
+      + startup_script_s3_object_version = (known after apply)
+      + status                           = (known after apply)
+      + tags                             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + webserver_access_mode            = "PUBLIC_ONLY"
+      + webserver_url                    = (known after apply)
+      + webserver_vpc_endpoint_service   = (known after apply)
+      + weekly_maintenance_window_start  = (known after apply)
+
+      + logging_configuration {
+          + dag_processing_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + scheduler_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + task_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + webserver_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+          + worker_logs {
+              + cloud_watch_log_group_arn = (known after apply)
+              + enabled                   = true
+              + log_level                 = "INFO"
+            }
+        }
+
+      + network_configuration {
+          + security_group_ids = (known after apply)
+          + subnet_ids         = (known after apply)
+        }
+    }
+
+  # module.mwaa.aws_security_group.mwaa[0] will be created
+  + resource "aws_security_group" "mwaa" {
+      + arn                    = (known after apply)
+      + description            = "Security group for MWAA environment"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "mwaa-"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all               = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.mwaa.aws_security_group_rule.mwaa_sg_inbound[0] will be created
+  + resource "aws_security_group_rule" "mwaa_sg_inbound" {
+      + description              = "Amazon MWAA inbound access"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "ingress"
+    }
+
+  # module.mwaa.aws_security_group_rule.mwaa_sg_inbound_vpn[0] will be created
+  + resource "aws_security_group_rule" "mwaa_sg_inbound_vpn" {
+      + cidr_blocks              = [
+          + "10.0.0.0/16",
+        ]
+      + description              = "VPN Access for Airflow UI"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "ingress"
+    }
+
+  # module.mwaa.aws_security_group_rule.mwaa_sg_outbound[0] will be created
+  + resource "aws_security_group_rule" "mwaa_sg_outbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "Amazon MWAA outbound access"
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket.this[0] will be created
+  + resource "aws_s3_bucket" "this" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "mwaa-src-us-east-1-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = false
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags                        = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                    = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket_acl.this[0] will be created
+  + resource "aws_s3_bucket_acl" "this" {
+      + acl    = "private"
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + access_control_policy (known after apply)
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket_ownership_controls.this[0] will be created
+  + resource "aws_s3_bucket_ownership_controls" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerPreferred"
+        }
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket_public_access_block.this[0] will be created
+  + resource "aws_s3_bucket_public_access_block" "this" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket_server_side_encryption_configuration.this[0] will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # module.mwaa_bucket.aws_s3_bucket_versioning.this[0] will be created
+  + resource "aws_s3_bucket_versioning" "this" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # module.s3_lambda_notif.aws_lambda_permission.allow["dag_trigger_lambda"] will be created
+  + resource "aws_lambda_permission" "allow" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "dag-trigger-lambda"
+      + id                  = (known after apply)
+      + principal           = "s3.amazonaws.com"
+      + source_arn          = (known after apply)
+      + statement_id        = (known after apply)
+      + statement_id_prefix = "AllowLambdaS3BucketNotification-"
+    }
+
+  # module.s3_lambda_notif.aws_s3_bucket_notification.this[0] will be created
+  + resource "aws_s3_bucket_notification" "this" {
+      + bucket      = (known after apply)
+      + eventbridge = true
+      + id          = (known after apply)
+
+      + lambda_function {
+          + events              = [
+              + "s3:ObjectCreated:*",
+            ]
+          + filter_prefix       = "input"
+          + filter_suffix       = ".json"
+          + id                  = "dag_trigger_lambda"
+          + lambda_function_arn = (known after apply)
+        }
+    }
+
+  # module.vpc.aws_cloudwatch_log_group.flow_log[0] will be created
+  + resource "aws_cloudwatch_log_group" "flow_log" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = (known after apply)
+      + name_prefix       = (known after apply)
+      + retention_in_days = 0
+      + skip_destroy      = false
+      + tags              = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all          = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.vpc.aws_default_network_acl.this[0] will be created
+  + resource "aws_default_network_acl" "this" {
+      + arn                    = (known after apply)
+      + default_network_acl_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + tags                   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all               = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                 = (known after apply)
+
+      + egress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + egress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+
+      + ingress {
+          + action          = "allow"
+          + from_port       = 0
+          + ipv6_cidr_block = "::/0"
+          + protocol        = "-1"
+          + rule_no         = 101
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+      + ingress {
+          + action          = "allow"
+          + cidr_block      = "0.0.0.0/0"
+          + from_port       = 0
+          + protocol        = "-1"
+          + rule_no         = 100
+          + to_port         = 0
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # module.vpc.aws_default_route_table.default[0] will be created
+  + resource "aws_default_route_table" "default" {
+      + arn                    = (known after apply)
+      + default_route_table_id = (known after apply)
+      + id                     = (known after apply)
+      + owner_id               = (known after apply)
+      + route                  = (known after apply)
+      + tags                   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all               = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                 = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+          + update = "5m"
+        }
+    }
+
+  # module.vpc.aws_default_security_group.this[0] will be created
+  + resource "aws_default_security_group" "this" {
+      + arn                    = (known after apply)
+      + description            = (known after apply)
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all               = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-default"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpc.aws_eip.nat[0] will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # module.vpc.aws_flow_log.this[0] will be created
+  + resource "aws_flow_log" "this" {
+      + arn                      = (known after apply)
+      + iam_role_arn             = (known after apply)
+      + id                       = (known after apply)
+      + log_destination          = (known after apply)
+      + log_destination_type     = "cloud-watch-logs"
+      + log_format               = (known after apply)
+      + log_group_name           = (known after apply)
+      + max_aggregation_interval = 60
+      + tags                     = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                 = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + traffic_type             = "ALL"
+      + vpc_id                   = (known after apply)
+    }
+
+  # module.vpc.aws_iam_policy.vpc_flow_log_cloudwatch[0] will be created
+  + resource "aws_iam_policy" "vpc_flow_log_cloudwatch" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "vpc-flow-log-to-cloudwatch-"
+      + path             = "/"
+      + policy           = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "logs:PutLogEvents",
+                          + "logs:DescribeLogStreams",
+                          + "logs:DescribeLogGroups",
+                          + "logs:CreateLogStream",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                      + Sid      = "AWSVPCFlowLogsPushToCloudWatch"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + policy_id        = (known after apply)
+      + tags             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.vpc.aws_iam_role.vpc_flow_log_cloudwatch[0] will be created
+  + resource "aws_iam_role" "vpc_flow_log_cloudwatch" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "vpc-flow-logs.amazonaws.com"
+                        }
+                      + Sid       = "AWSVPCFlowLogsAssumeRole"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "vpc-flow-log-role-"
+      + path                  = "/"
+      + tags                  = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all              = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.vpc.aws_iam_role_policy_attachment.vpc_flow_log_cloudwatch[0] will be created
+  + resource "aws_iam_role_policy_attachment" "vpc_flow_log_cloudwatch" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
+  # module.vpc.aws_internet_gateway.this[0] will be created
+  + resource "aws_internet_gateway" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.vpc.aws_nat_gateway.this[0] will be created
+  + resource "aws_nat_gateway" "this" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+  # module.vpc.aws_network_acl.private[0] will be created
+  + resource "aws_network_acl" "private" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.vpc.aws_network_acl.public[0] will be created
+  + resource "aws_network_acl" "public" {
+      + arn        = (known after apply)
+      + egress     = (known after apply)
+      + id         = (known after apply)
+      + ingress    = (known after apply)
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all   = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.vpc.aws_network_acl_rule.private_inbound[0] will be created
+  + resource "aws_network_acl_rule" "private_inbound" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = false
+      + from_port      = 0
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "-1"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 0
+    }
+
+  # module.vpc.aws_network_acl_rule.private_outbound[0] will be created
+  + resource "aws_network_acl_rule" "private_outbound" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = true
+      + from_port      = 0
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "-1"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 0
+    }
+
+  # module.vpc.aws_network_acl_rule.public_inbound[0] will be created
+  + resource "aws_network_acl_rule" "public_inbound" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = false
+      + from_port      = 0
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "-1"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 0
+    }
+
+  # module.vpc.aws_network_acl_rule.public_outbound[0] will be created
+  + resource "aws_network_acl_rule" "public_outbound" {
+      + cidr_block     = "0.0.0.0/0"
+      + egress         = true
+      + from_port      = 0
+      + id             = (known after apply)
+      + network_acl_id = (known after apply)
+      + protocol       = "-1"
+      + rule_action    = "allow"
+      + rule_number    = 100
+      + to_port        = 0
+    }
+
+  # module.vpc.aws_route.private_nat_gateway[0] will be created
+  + resource "aws_route" "private_nat_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + nat_gateway_id         = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route.public_internet_gateway[0] will be created
+  + resource "aws_route" "public_internet_gateway" {
+      + destination_cidr_block = "0.0.0.0/0"
+      + gateway_id             = (known after apply)
+      + id                     = (known after apply)
+      + instance_id            = (known after apply)
+      + instance_owner_id      = (known after apply)
+      + network_interface_id   = (known after apply)
+      + origin                 = (known after apply)
+      + route_table_id         = (known after apply)
+      + state                  = (known after apply)
+
+      + timeouts {
+          + create = "5m"
+        }
+    }
+
+  # module.vpc.aws_route_table.private[0] will be created
+  + resource "aws_route_table" "private" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.public[0] will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all         = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[0] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private[1] will be created
+  + resource "aws_route_table_association" "private" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[0] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                                       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private[1] will be created
+  + resource "aws_subnet" "private" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private-us-east-1b"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                                       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-private-us-east-1b"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.10.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                                       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public-us-east-1a"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-east-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.11.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public-us-east-1b"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                                       = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc-public-us-east-1b"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_vpc.this[0] will be created
+  + resource "aws_vpc" "this" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+      + tags_all                             = {
+          + "Category" = "Pattern"
+          + "Domain"   = "Serverless"
+          + "Name"     = "serverless-land-vpc"
+          + "Project"  = "Trigger MWAA DAG using S3 Events"
+          + "URL"      = "https://serverlessland.com/"
+        }
+    }
+
+Plan: 64 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + input_bucket_id    = (known after apply)
+  + mwaa_webserver_url = (known after apply)

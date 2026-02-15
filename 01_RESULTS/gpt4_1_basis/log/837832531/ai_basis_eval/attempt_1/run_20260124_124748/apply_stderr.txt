@@ -1,0 +1,21 @@
+
+Error: creating S3 Bucket (btry-indi-static-assets-000000000000): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://btry-indi-static-assets-000000000000.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.static_assets,
+  on main.tf line 15, in resource "aws_s3_bucket" "static_assets":
+  15: resource "aws_s3_bucket" "static_assets" {
+
+
+Error: modifying ELBv2 Load Balancer (arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/btry-indi-alb/f395ea7ef5967eb9) attributes: operation error Elastic Load Balancing v2: ModifyLoadBalancerAttributes, https response error StatusCode: 400, RequestID: 6656079d-593f-40d6-97da-7483ac32d334, InvalidConfigurationRequest: Key health_check_logs.s3.enabled not valid
+
+  with aws_lb.app_alb,
+  on main.tf line 86, in resource "aws_lb" "app_alb":
+  86: resource "aws_lb" "app_alb" {
+
+
+Error: Missing Resource Identity After Create: The Terraform provider unexpectedly returned no resource identity after having no errors in the resource create. This is always a problem with the provider and should be reported to the provider developer
+
+  with aws_lb.app_alb,
+  on main.tf line 86, in resource "aws_lb" "app_alb":
+  86: resource "aws_lb" "app_alb" {
+

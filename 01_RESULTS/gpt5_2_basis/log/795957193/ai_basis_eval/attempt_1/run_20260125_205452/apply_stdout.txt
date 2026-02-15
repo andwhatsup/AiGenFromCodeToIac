@@ -1,0 +1,217 @@
+data.aws_ami.al2023: Reading...
+data.aws_vpc.default: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-67879c5839981ae3e]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-west-2]
+data.aws_ami.al2023: Read complete after 4s [id=ami-06a974f9b8a97ecf2]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.app will be created
+  + resource "aws_instance" "app" {
+      + ami                                  = "ami-06a974f9b8a97ecf2"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "us-west-2"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = "subnet-0d06a7f23af58a653"
+      + tags                                 = {
+          + "Name" = "terraform-deployment-app"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "terraform-deployment-app"
+          + "Project" = "terraform-deployment-app"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            set -euxo pipefail
+            
+            dnf -y update
+            dnf -y install nodejs npm
+            
+            mkdir -p /opt/app
+            cat > /opt/app/server.js <<'APP'
+            const express = require('express')
+            const app = express()
+            const port = 3000
+            
+            app.get('/', (req, res) => {
+                res.send('Hello World!')
+            })
+            
+            app.listen(port, () => {
+                console.log('Example app listening on port ' + port)
+            })
+            APP
+            
+            cat > /opt/app/package.json <<'APP'
+            {
+              "name": "zezf",
+              "version": "1.0.0",
+              "description": "",
+              "main": "server.js",
+              "scripts": {
+                "start": "node server.js"
+              },
+              "dependencies": {
+                "express": "^4.19.2"
+              }
+            }
+            APP
+            
+            cd /opt/app
+            npm install --omit=dev
+            
+            cat > /etc/systemd/system/terraform-deployment-app.service <<'UNIT'
+            [Unit]
+            Description=terraform-deployment-app
+            After=network.target
+            
+            [Service]
+            Type=simple
+            WorkingDirectory=/opt/app
+            ExecStart=/usr/bin/node /opt/app/server.js
+            Restart=always
+            RestartSec=3
+            Environment=NODE_ENV=production
+            
+            [Install]
+            WantedBy=multi-user.target
+            UNIT
+            
+            systemctl daemon-reload
+            systemctl enable --now terraform-deployment-app.service
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_security_group.app will be created
+  + resource "aws_security_group" "app" {
+      + arn                    = (known after apply)
+      + description            = "Security group for terraform-deployment-app"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP (app)"
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3000
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = "terraform-deployment-app-"
+      + owner_id               = (known after apply)
+      + region                 = "us-west-2"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "terraform-deployment-app"
+        }
+      + vpc_id                 = "vpc-67879c5839981ae3e"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + app_url     = (known after apply)
+  + instance_id = (known after apply)
+  + public_ip   = (known after apply)
+aws_security_group.app: Creating...
+aws_security_group.app: Creation complete after 0s [id=sg-db4a506de2b39294b]
+aws_instance.app: Creating...
+aws_instance.app: Still creating... [00m10s elapsed]
+aws_instance.app: Creation complete after 16s [id=i-eab3d76d620bf760c]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+app_url = "http://54.214.221.38:3000/"
+instance_id = "i-eab3d76d620bf760c"
+public_ip = "54.214.221.38"

@@ -1,0 +1,27 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "Flask (from requirements.txt)"
+      ],
+      "dependencies": [
+        "Flask (requirements.txt)",
+        "stomp.py (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "dockerfile (./dockerfile)",
+        "Kubernetes manifests for ActiveMQ (./activemq/activemq-deployment.yaml, ./activemq/activemq-service.yaml)"
+      ],
+      "architectural_resources": [
+        "Web application/API (Flask app in HelloWorldApp.py)",
+        "Message broker / queue: ActiveMQ (stomp.Connection to /queue/app-queue in HelloWorldApp.py; k8s manifests deploy rmohr/activemq:latest)",
+        "Container image build (Python 3.9 base image in ./dockerfile)",
+        "Kubernetes Service of type LoadBalancer for ActiveMQ (./activemq/activemq-service.yaml)"
+      ]
+    }
+  ]
+}

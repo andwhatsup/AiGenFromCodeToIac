@@ -1,0 +1,190 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 1s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_iam_policy_document.assume_role: Reading...
+data.aws_iam_policy_document.assume_role: Read complete after 0s [id=2690255455]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_event_rule.every_hour will be created
+  + resource "aws_cloudwatch_event_rule" "every_hour" {
+      + arn                 = (known after apply)
+      + description         = "Simple CloudWatch Event rule that triggers every hour"
+      + event_bus_name      = "default"
+      + force_destroy       = false
+      + id                  = (known after apply)
+      + name                = "execute-every-hour"
+      + name_prefix         = (known after apply)
+      + region              = "us-west-2"
+      + schedule_expression = "rate(1 hour)"
+      + tags_all            = {
+          + "ManagedBy"   = "Terraform"
+          + "environment" = "default"
+          + "workspace"   = "default"
+        }
+    }
+
+  # aws_cloudwatch_event_target.check_lambda_every_hour will be created
+  + resource "aws_cloudwatch_event_target" "check_lambda_every_hour" {
+      + arn            = (known after apply)
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-west-2"
+      + rule           = "execute-every-hour"
+      + target_id      = "delta-optimize"
+    }
+
+  # aws_dynamodb_table.delta-locking-table will be created
+  + resource "aws_dynamodb_table" "delta-locking-table" {
+      + arn              = (known after apply)
+      + billing_mode     = "PROVISIONED"
+      + hash_key         = "key"
+      + id               = (known after apply)
+      + name             = "delta_rs_lock_table"
+      + read_capacity    = 10
+      + region           = "us-west-2"
+      + stream_arn       = (known after apply)
+      + stream_label     = (known after apply)
+      + stream_view_type = (known after apply)
+      + tags_all         = {
+          + "ManagedBy"   = "Terraform"
+          + "environment" = "default"
+          + "workspace"   = "default"
+        }
+      + write_capacity   = 10
+
+      + attribute {
+          + name = "key"
+          + type = "S"
+        }
+
+      + global_table_witness (known after apply)
+
+      + point_in_time_recovery (known after apply)
+
+      + server_side_encryption (known after apply)
+
+      + ttl (known after apply)
+
+      + warm_throughput (known after apply)
+    }
+
+  # aws_iam_policy.lambda_permissions will be created
+  + resource "aws_iam_policy" "lambda_permissions" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + id               = (known after apply)
+      + name             = "lambda-optimize-permissions"
+      + name_prefix      = (known after apply)
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "ManagedBy"   = "Terraform"
+          + "environment" = "default"
+          + "workspace"   = "default"
+        }
+    }
+
+  # aws_iam_role.iam_for_lambda will be created
+  + resource "aws_iam_role" "iam_for_lambda" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "iam_for_optimize_lambda"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy"   = "Terraform"
+          + "environment" = "default"
+          + "workspace"   = "default"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_lambda_function.optimize_lambda will be created
+  + resource "aws_lambda_function" "optimize_lambda" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + description                    = "A simple lambda for optimizing a Delta table"
+      + filename                       = "./.dummy/lambda.zip"
+      + function_name                  = "delta-optimize"
+      + handler                        = "provided"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 128
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-west-2"
+      + reserved_concurrent_executions = -1
+      + role                           = (known after apply)
+      + runtime                        = "provided.al2"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "ManagedBy"   = "Terraform"
+          + "environment" = "default"
+          + "workspace"   = "default"
+        }
+      + timeout                        = 3
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "AWS_S3_LOCKING_PROVIDER" = "dynamodb"
+              + "DATALAKE_LOCATION"       = "s3://my-bucket/databases/my-table"
+              + "OPTIMIZE_DS"             = "yesterday"
+              + "RUST_LOG"                = "info"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_cloudwatch_to_call_function will be created
+  + resource "aws_lambda_permission" "allow_cloudwatch_to_call_function" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "delta-optimize"
+      + id                  = (known after apply)
+      + principal           = "events.amazonaws.com"
+      + region              = "us-west-2"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromCloudWatch"
+      + statement_id_prefix = (known after apply)
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.

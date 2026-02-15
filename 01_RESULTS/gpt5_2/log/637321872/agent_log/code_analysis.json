@@ -1,0 +1,38 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/637321872",
+      "programming_languages": [
+        "YAML (Docker Compose)",
+        "Shell (Bash)",
+        "Squid configuration"
+      ],
+      "frameworks": [
+        "Terraform (via Docker image hashicorp/terraform:1.4.5)",
+        "Squid proxy"
+      ],
+      "dependencies": [
+        "hashicorp/terraform:1.4.5 (docker-compose.yml: service image)",
+        "AWS credentials/profile usage (~/.aws mounted; AWS_PROFILE env var in docker-compose.yml)",
+        "Squid configuration file (source/config/squid.conf)"
+      ],
+      "deployment_relevant_files": [
+        "docker-compose.yml",
+        "source/install.sh",
+        "source/config/squid.conf",
+        "README.md",
+        "source/init_validate_stdout.txt",
+        "source/init_validate_stderr.txt",
+        "source/validate_stdout.txt",
+        "source/validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Terraform execution environment (containerized CLI)",
+        "AWS account/credentials (AWS_PROFILE, ~/.aws mount)",
+        "Intended AWS infrastructure (per README): VPC networking + EC2 instance running Squid proxy server",
+        "EC2 instance (Squid proxy) exposed on port 3128 with access restricted to a client public IP (squid.conf acl localnet)",
+        "SSH keypair material referenced in README under source/.security (directory present)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.mlflow_artifact_store" [label="aws_s3_bucket.mlflow_artifact_store"];
+  "aws_s3_bucket_acl.bucket_acl" [label="aws_s3_bucket_acl.bucket_acl"];
+  "aws_s3_bucket_intelligent_tiering_configuration.bucket_lifecycle" [label="aws_s3_bucket_intelligent_tiering_configuration.bucket_lifecycle"];
+  "aws_s3_bucket_server_side_encryption_configuration.bucket_encryption" [label="aws_s3_bucket_server_side_encryption_configuration.bucket_encryption"];
+  "aws_s3_bucket_versioning.versioning" [label="aws_s3_bucket_versioning.versioning"];
+  "aws_s3_bucket_acl.bucket_acl" -> "aws_s3_bucket.mlflow_artifact_store";
+  "aws_s3_bucket_intelligent_tiering_configuration.bucket_lifecycle" -> "aws_s3_bucket.mlflow_artifact_store";
+  "aws_s3_bucket_server_side_encryption_configuration.bucket_encryption" -> "aws_s3_bucket.mlflow_artifact_store";
+  "aws_s3_bucket_versioning.versioning" -> "aws_s3_bucket.mlflow_artifact_store";
+}

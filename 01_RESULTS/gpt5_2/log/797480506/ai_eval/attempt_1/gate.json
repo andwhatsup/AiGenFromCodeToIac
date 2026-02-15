@@ -1,0 +1,249 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_event_source_mapping",
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "s3": {
+          "status": "full",
+          "resource_types": [
+            "aws_s3_bucket",
+            "aws_s3_bucket_public_access_block",
+            "aws_s3_bucket_server_side_encryption_configuration",
+            "aws_s3_bucket_versioning"
+          ]
+        },
+        "sqs": {
+          "status": "full",
+          "resource_types": [
+            "aws_sqs_queue"
+          ]
+        },
+        "stepfunctions": {
+          "status": "none",
+          "resource_types": [
+            "aws_sfn_state_machine"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs",
+          "s3",
+          "sqs"
+        ],
+        "partial": [
+          "iam"
+        ],
+        "none": [
+          "stepfunctions"
+        ],
+        "unknown": [
+          "caller",
+          "partition",
+          "region"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_sfn_state_machine"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rekognition-orchestrator\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "input_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "output_bucket_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "sqs_queue_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "lambda_reserved_concurrency": {
+          "type": "number",
+          "has_default": true,
+          "default": "5",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "lambda_batch_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "10",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "lambda_maximum_batching_window_in_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "5",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "s3_results_prefix": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rekognition-results/\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "enable_sqs_sse": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        },
+        "stepfunctions_log_level": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"ALL\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_event_source_mapping",
+        "aws_lambda_function",
+        "aws_partition",
+        "aws_region",
+        "aws_s3_bucket",
+        "aws_s3_bucket_public_access_block",
+        "aws_s3_bucket_server_side_encryption_configuration",
+        "aws_s3_bucket_versioning",
+        "aws_sfn_state_machine",
+        "aws_sqs_queue"
+      ],
+      "resource_type_counts": {
+        "aws_iam_policy_document": 4,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_iam_role_policy": 2,
+        "aws_lambda_function": 1,
+        "aws_lambda_event_source_mapping": 1,
+        "aws_caller_identity": 1,
+        "aws_partition": 1,
+        "aws_region": 1,
+        "aws_cloudwatch_log_group": 2,
+        "aws_s3_bucket": 2,
+        "aws_s3_bucket_public_access_block": 2,
+        "aws_s3_bucket_versioning": 2,
+        "aws_s3_bucket_server_side_encryption_configuration": 2,
+        "aws_sqs_queue": 2,
+        "aws_sfn_state_machine": 6
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/provider.tf",
+            "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.4"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-gen-from-code-to-iac/workspace/797480506/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

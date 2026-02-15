@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/775429041",
+      "programming_languages": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "React (Create React App via react-scripts)"
+      ],
+      "dependencies": [
+        "react (^17.0.2) — /package.json",
+        "react-dom (^17.0.2) — /package.json",
+        "react-scripts (4.0.3) — /package.json",
+        "@testing-library/react (^11.2.7) — /package.json",
+        "@testing-library/jest-dom (^5.14.1) — /package.json",
+        "@testing-library/user-event (^12.8.3) — /package.json",
+        "web-vitals (^1.1.2) — /package.json"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile — /Dockerfile",
+        "Kubernetes Deployment manifest — /deployment.yaml",
+        "Kubernetes Service manifest (LoadBalancer) — /service.yaml",
+        "Jenkins pipeline — /Jenkinsfile",
+        "GitHub Actions CI — /.github/workflows/node.js.yml",
+        "GitHub Actions publish workflow — /.github/workflows/npm-publish.yml",
+        "NPM lockfile — /package-lock.json"
+      ],
+      "architectural_resources": [
+        "Web application (React SPA)",
+        "Container image build & runtime (Docker)",
+        "Kubernetes Deployment (apps/v1) running 1 replica of the container",
+        "Kubernetes Service of type LoadBalancer exposing port 3000 (implies cloud load balancer on many managed K8s platforms)",
+        "External third-party API dependency: https://official-joke-api.appspot.com/random_joke (used via fetch in /src/components/Joke.js)",
+        "CI/CD resources: Jenkins (pipeline uses SonarQube, OWASP Dependency-Check, Trivy, Docker Scout, DockerHub push) and GitHub Actions (Node CI + npm publish)",
+        "Container registry: DockerHub (image yash5090/react-jg-app:latest referenced in /deployment.yaml and pushed in /Jenkinsfile)"
+      ]
+    }
+  ]
+}

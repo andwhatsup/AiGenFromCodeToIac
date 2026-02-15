@@ -1,0 +1,31 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking & security baseline\n- **VPC across 2 Availability Zones** for high availability.\n- **Public subnets (2 AZs)**: only for internet-facing load balancer.\n- **Private application subnets (2 AZs)**: run the Flask app on compute with no public IPs.\n- **Private database subnets (2 AZs)**: host the managed database.\n- **Internet Gateway** attached to the VPC.\n- **NAT Gateway (1)** in one public subnet so private app instances can reach the internet for OS/package updates (lean option; can be 2 NAT GWs for higher AZ resilience).\n- **Security groups**:\n  - ALB SG: allow inbound 443 (and optionally 80 for redirect) from the internet; egress to app SG.\n  - App SG: allow inbound only from ALB SG on the app port (e.g., 8000/5000); egress to DB SG and required AWS endpoints.\n  - DB SG: allow inbound only from app SG on PostgreSQL port 5432.\n\n### 2) Compute layer (Flask)\n- Run the Flask application on **Amazon ECS on Fargate** (recommended) using the existing **Dockerfile**.\n  - This avoids managing systemd/Ansible on VMs and gives easier scaling/rollouts.\n  - The container runs behind an **Application Load Balancer (ALB)**.\n  - Configure health checks on a lightweight endpoint (e.g., `/health`)—if not present, add one.\n- **Auto scaling**: ECS Service Auto Scaling based on CPU/Memory (and optionally ALB request count).\n\n> Alternative (closest to current repo): EC2 + systemd + Ansible via SSM. If you want that instead, say so and I’ll provide the EC2-first design. The rest of the architecture (ALB, RDS, Secrets Manager, CloudWatch) stays similar.\n\n### 3) Data layer (replace SQLite)\n- Replace the local SQLite file with **Amazon RDS for PostgreSQL** (or MySQL) and set `SQLALCHEMY_DATABASE_URI` accordingly.\n  - **Multi-AZ** for production availability.\n  - Enable automated backups and encryption (KMS).\n- Run schema migrations (Flask-Migrate) as a one-off ECS task during deployment, or as a CI/CD step.\n\n### 4) Configuration & secrets\n- Store `SECRET_KEY` and the DB credentials in **AWS Secrets Manager**.\n- Store non-secret config (e.g., `DEBUG=false`) in **SSM Parameter Store** (or as ECS task env vars).\n- ECS task role retrieves secrets at runtime; no secrets baked into images.\n\n### 5) TLS, DNS, and edge\n- **ACM certificate** for your domain.\n- **Route 53** hosted zone + alias record to the ALB.\n- ALB listener:\n  - 443 terminates TLS.\n  - Optional 80 → 443 redirect.\n\n### 6) Observability & operations\n- **CloudWatch Logs** for container logs.\n- **CloudWatch metrics/alarms** for:\n  - ALB 5XX, target health.\n  - ECS service CPU/memory.\n  - RDS CPU, storage, connections.\n- **AWS X-Ray** optional for tracing (lean: skip unless needed).\n\n### 7) CI/CD (lean but practical)\n- Build/push container image to **Amazon ECR**.\n- Deploy to ECS using either:\n  - **CodePipeline + CodeBuild** (AWS-native), or\n  - GitHub Actions (if you already use GitHub).\n\n---\n\n## Request/traffic flow\n1. User resolves your domain in Route 53 → ALB.\n2. ALB terminates TLS (ACM) and forwards to ECS Fargate tasks in private subnets.\n3. Flask app reads secrets/config from Secrets Manager/SSM.\n4. Flask app reads/writes to RDS PostgreSQL in private DB subnets.\n5. Logs/metrics go to CloudWatch.\n\n---\n\n## Notes on “lean” choices\n- **1 NAT Gateway** is cost-lean; for higher availability, use **2 NAT Gateways** (one per AZ).\n- If you truly want minimal cost and can accept downtime risk, you could run a single ECS task and single-AZ RDS; for production, prefer Multi-AZ.\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC Subnets (2x Public, 2x Private-App, 2x Private-DB)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway (1x)",
+    "Route Tables (public + private) and Routes",
+    "Security Groups (ALB SG, App SG, DB SG)",
+    "AWS Certificate Manager (ACM) Certificate",
+    "Elastic Load Balancing v2 - Application Load Balancer (ALB)",
+    "ALB Target Group",
+    "ALB Listeners (HTTPS 443, optional HTTP 80 redirect)",
+    "Amazon ECS Cluster",
+    "Amazon ECS Service (Fargate)",
+    "Amazon ECS Task Definition",
+    "AWS IAM Roles (ECS Task Execution Role, ECS Task Role)",
+    "Amazon ECR Repository",
+    "Amazon RDS for PostgreSQL (DB Instance or Aurora PostgreSQL if desired)",
+    "RDS Subnet Group",
+    "AWS KMS Key (for encrypting RDS and Secrets, if using CMK)",
+    "AWS Secrets Manager (SECRET_KEY, DB credentials/URI)",
+    "AWS Systems Manager Parameter Store (non-secret config parameters)",
+    "Amazon CloudWatch Log Group(s)",
+    "Amazon CloudWatch Alarms (ALB/ECS/RDS)",
+    "Amazon Route 53 Hosted Zone and DNS Records (A/AAAA alias to ALB)",
+    "(Optional) AWS CodePipeline",
+    "(Optional) AWS CodeBuild",
+    "(Optional) AWS X-Ray"
+  ]
+}

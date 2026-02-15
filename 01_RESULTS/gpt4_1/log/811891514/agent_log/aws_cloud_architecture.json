@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This system is a containerized Node.js application deployed using a modern CI/CD pipeline with AWS managed services. The architecture is designed for scalability, security, and operational visibility, following AWS best practices.\n\n1. **Networking/Foundation**:\n   - The application is deployed within a dedicated Amazon VPC, providing network isolation and control. The VPC contains both public and private subnets across multiple Availability Zones for high availability. ECS tasks run in private subnets, while a NAT Gateway allows outbound internet access for updates and logging.\n\n2. **Container Image Management**:\n   - Amazon ECR (Elastic Container Registry) stores versioned Docker images built by the CI/CD pipeline. ECR provides secure, scalable storage for container images.\n\n3. **Compute/Orchestration**:\n   - Amazon ECS (Elastic Container Service) orchestrates the deployment and scaling of the Node.js application containers. ECS can run on either AWS Fargate (serverless containers) or EC2 instances, but Fargate is recommended for simplicity and reduced operational overhead. ECS Service ensures the desired number of tasks are always running and manages rolling updates.\n\n4. **CI/CD Pipeline**:\n   - GitHub Actions is used for CI/CD. It builds the Docker image, pushes it to ECR, and updates the ECS service by registering a new task definition. AWS IAM users/roles with least-privilege permissions are used for secure automation.\n\n5. **Logging and Monitoring**:\n   - AWS CloudWatch Logs collects logs from ECS tasks for monitoring, troubleshooting, and alerting. ECS task definitions are configured to stream application logs to CloudWatch.\n\n6. **Security**:\n   - IAM Roles and Policies are created for ECS tasks, granting only the necessary permissions to pull images from ECR and write logs to CloudWatch. Security Groups restrict network access to ECS tasks. The VPC and subnets provide further isolation.\n\n7. **(Optional) Load Balancing**:\n   - If the application is web-facing, an Application Load Balancer (ALB) can be provisioned to distribute traffic to ECS tasks and provide a single entry point.\n\n8. **(Optional) Secrets Management**:\n   - If the application requires secrets (API keys, DB credentials), AWS Secrets Manager or SSM Parameter Store can be used, with IAM permissions granted to ECS tasks.\n\nThis architecture is lean, secure, and highly available, leveraging managed AWS services to minimize operational burden and maximize scalability.",
+  "aws_resources": [
+    "VPC (with at least 2 public and 2 private subnets across different AZs)",
+    "Internet Gateway (for VPC)",
+    "NAT Gateway (for private subnet outbound access)",
+    "Route Tables (for public/private subnet routing)",
+    "Security Groups (for ECS tasks, ALB if used)",
+    "Amazon ECR Repository (for Docker images)",
+    "Amazon ECS Cluster",
+    "ECS Task Definition (for Node.js app container)",
+    "ECS Service (to manage running tasks)",
+    "(Optional) Application Load Balancer (ALB) and Target Group (if web-facing)",
+    "IAM Role for ECS Tasks (with trust policy for ECS)",
+    "IAM Policy for ECS Task Role (allowing ECR pull, CloudWatch Logs write)",
+    "IAM Role/Policy for GitHub Actions (for ECR push, ECS update)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "(Optional) AWS Secrets Manager or SSM Parameter Store (for secrets)"
+  ]
+}

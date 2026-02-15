@@ -1,0 +1,187 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.amazon_linux_2: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-6473e3a5b5258a4e7]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=ap-northeast-1]
+data.aws_ami.amazon_linux_2: Read complete after 3s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.web will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-04681a1dbd79675a5"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-northeast-1"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = "subnet-cfc421fac4bc6a37a"
+      + tags                                 = {
+          + "Name" = "ec2-test-server-web"
+        }
+      + tags_all                             = {
+          + "Managed" = "terraform"
+          + "Name"    = "ec2-test-server-web"
+          + "Project" = "ec2-test-server"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            set -euo pipefail
+            yum update -y
+            timedatectl set-timezone Asia/Tokyo
+            amazon-linux-extras install -y nginx1
+            amazon-linux-extras install -y php8.2
+            echo '<?php echo "Request from IP: ".$_SERVER["REMOTE_ADDR"]." at ".date(DATE_ATOM); ?>' > /usr/share/nginx/html/index.php
+            sed -i -e "s/^expose_php = On/expose_php = Off/" -e "s/^;date.timezone =/date.timezone = Asia\\/Tokyo/" /etc/php.ini
+            echo 'server_tokens off;' > /etc/nginx/conf.d/default.conf
+            systemctl start php-fpm
+            systemctl start nginx
+            systemctl enable php-fpm
+            systemctl enable nginx
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options (known after apply)
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device (known after apply)
+    }
+
+  # aws_security_group.web will be created
+  + resource "aws_security_group" "web" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP and SSH"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SSH"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = "ec2-test-server-web-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-northeast-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2-test-server"
+        }
+      + vpc_id                 = "vpc-6473e3a5b5258a4e7"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ami_id      = "ami-04681a1dbd79675a5"
+  + instance_id = (known after apply)
+  + public_dns  = (known after apply)
+  + public_ip   = (known after apply)
+aws_security_group.web: Creating...
+aws_security_group.web: Creation complete after 0s [id=sg-cd197a8f57f5ddca6]
+aws_instance.web: Creating...
+aws_instance.web: Still creating... [00m10s elapsed]
+aws_instance.web: Creation complete after 16s [id=i-c869c4caabd24bdec]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ami_id = "ami-04681a1dbd79675a5"
+instance_id = "i-c869c4caabd24bdec"
+public_dns = "ec2-54-214-145-214.ap-northeast-1.localhost.localstack.cloud"
+public_ip = "54.214.145.214"

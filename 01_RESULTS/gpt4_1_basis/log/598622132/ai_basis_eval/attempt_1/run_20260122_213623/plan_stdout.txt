@@ -1,0 +1,222 @@
+data.aws_iam_policy_document.ecs_task_assume_role_policy: Reading...
+data.aws_vpc.default: Reading...
+data.aws_iam_policy_document.ecs_task_assume_role_policy: Read complete after 0s [id=1077804475]
+data.aws_vpc.default: Read complete after 1s [id=vpc-bd89ae40e82538d1f]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_ecr_repository.minecraft will be created
+  + resource "aws_ecr_repository" "minecraft" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "phantosio-minecraft-ecr"
+      + region               = "us-east-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags                 = {
+          + "Name" = "phantosio-minecraft-ecr"
+        }
+      + tags_all             = {
+          + "Name" = "phantosio-minecraft-ecr"
+        }
+    }
+
+  # aws_ecs_cluster.minecraft will be created
+  + resource "aws_ecs_cluster" "minecraft" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "phantosio-minecraft-cluster"
+      + region   = "us-east-1"
+      + tags     = {
+          + "Name" = "phantosio-minecraft-cluster"
+        }
+      + tags_all = {
+          + "Name" = "phantosio-minecraft-cluster"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.minecraft_service will be created
+  + resource "aws_ecs_service" "minecraft_service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "phantosio-minecraft-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags                               = {
+          + "Name" = "phantosio-minecraft-service"
+        }
+      + tags_all                           = {
+          + "Name" = "phantosio-minecraft-service"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-21c8918a97733dc82",
+              + "subnet-36f8e4586673e64f6",
+              + "subnet-9562f5f7cac5818cc",
+              + "subnet-e44372f047b7e0d20",
+              + "subnet-e65b1dbcb60a8ca7f",
+              + "subnet-ed9ada406648754e9",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.minecraft will be created
+  + resource "aws_ecs_task_definition" "minecraft" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "1024"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "phantosio-minecraft-task"
+      + id                       = (known after apply)
+      + memory                   = "2048"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags                     = {
+          + "Name" = "phantosio-minecraft-task"
+        }
+      + tags_all                 = {
+          + "Name" = "phantosio-minecraft-task"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "phantosio-minecraft-ecs-task-execution"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution_policy will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "phantosio-minecraft-ecs-task-execution"
+    }
+
+  # aws_security_group.minecraft_sg will be created
+  + resource "aws_security_group" "minecraft_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow Minecraft and RCON ports"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 25565
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 25575
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 4326
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 4327
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = "phantosio-minecraft-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "phantosio-minecraft-sg"
+        }
+      + tags_all               = {
+          + "Name" = "phantosio-minecraft-sg"
+        }
+      + vpc_id                 = "vpc-bd89ae40e82538d1f"
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecr_repository_url = (known after apply)
+  + ecs_cluster_name   = "phantosio-minecraft-cluster"
+  + public_ip          = true

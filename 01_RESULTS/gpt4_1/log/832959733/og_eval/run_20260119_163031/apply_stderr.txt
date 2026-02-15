@@ -1,0 +1,21 @@
+
+Error: Failed to save state
+
+Error saving state: failed to upload state: operation error S3: PutObject,
+https response error StatusCode: 404, RequestID:
+6a401e1a-6d98-4a62-a912-933f96ef404f, HostID:
+s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=,
+api error NoSuchBucket: The specified bucket does not exist
+
+Error: Failed to persist state to backend
+
+The error shown above has prevented Terraform from writing the updated state
+to the configured backend. To allow for recovery, the state has been written
+to the file "errored.tfstate" in the current working directory.
+
+Running "terraform apply" again at this point will create a forked state,
+making it harder to recover.
+
+To retry writing this state, use the following command:
+    terraform state push errored.tfstate
+

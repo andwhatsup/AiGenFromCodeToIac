@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/751994153",
+      "programming_languages": [
+        "Dockerfile (container build instructions)",
+        "YAML (GitLab CI configuration)"
+      ],
+      "frameworks": [
+        "Nginx (static web server; Docker base image `nginx:latest`)",
+        "GitLab CI/CD (pipeline orchestration)"
+      ],
+      "dependencies": [
+        "nginx:latest (from `Dockerfile`)",
+        "docker:19.03.12 and docker:19.03.12-dind (from `.gitlab-ci.yml`)",
+        "ubuntu:latest (deploy job image in `.gitlab-ci.yml`)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "/.gitlab-ci.yml",
+        "README.md",
+        "init_validate_stdout.txt",
+        "init_validate_stderr.txt",
+        "validate_stdout.txt",
+        "validate_stderr.txt"
+      ],
+      "architectural_resources": [
+        "Static website/web application served by Nginx container",
+        "Container image registry (GitLab Container Registry; referenced in `.gitlab-ci.yml`)",
+        "CI/CD pipeline (GitLab CI stages: build_and_push, deploy)",
+        "Compute instance/VM for hosting containers (AWS EC2; referenced in README and `.gitlab-ci.yml` SSH target)",
+        "Networking: HTTP/HTTPS exposure (ports 80/443 exposed in Dockerfile and published in `docker run`)",
+        "SSH key/secret management for deployment (SSH_PRIVATE_KEY CI variable used in `.gitlab-ci.yml`)"
+      ]
+    }
+  ]
+}

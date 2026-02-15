@@ -1,0 +1,137 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=ca-central-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_ecr_repository.playwright_lambda will be created
+  + resource "aws_ecr_repository" "playwright_lambda" {
+      + arn                  = (known after apply)
+      + id                   = (known after apply)
+      + image_tag_mutability = "MUTABLE"
+      + name                 = "playwright-lambda"
+      + region               = "ca-central-1"
+      + registry_id          = (known after apply)
+      + repository_url       = (known after apply)
+      + tags_all             = {
+          + "Managed" = "terraform"
+          + "Project" = "playwright-lambda"
+        }
+
+      + image_scanning_configuration {
+          + scan_on_push = true
+        }
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "playwright-lambda-lambda-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "playwright-lambda"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = "playwright-lambda-lambda-exec"
+    }
+
+  # aws_lambda_function.playwright will be created
+  + resource "aws_lambda_function" "playwright" {
+      + architectures                  = [
+          + "x86_64",
+        ]
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + function_name                  = "playwright-lambda"
+      + id                             = (known after apply)
+      + image_uri                      = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 1024
+      + package_type                   = "Image"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "ca-central-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = (known after apply)
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Managed" = "terraform"
+          + "Project" = "playwright-lambda"
+        }
+      + timeout                        = 60
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = {
+              + "NODE_OPTIONS" = "--enable-source-maps"
+            }
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_account_invoke will be created
+  + resource "aws_lambda_permission" "allow_account_invoke" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "playwright-lambda"
+      + id                  = (known after apply)
+      + principal           = "000000000000"
+      + region              = "ca-central-1"
+      + statement_id        = "AllowAccountInvoke"
+      + statement_id_prefix = (known after apply)
+    }
+
+Plan: 5 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + aws_region           = "ca-central-1"
+  + ecr_repository_url   = (known after apply)
+  + lambda_function_arn  = (known after apply)
+  + lambda_function_name = "playwright-lambda"

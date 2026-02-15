@@ -1,0 +1,7 @@
+
+Error: expected value of source_configuration.0.image_repository.0.image_identifier to match regular expression "([0-9]{12}\\.dkr\\.ecr\\.[a-z\\-]+-[0-9]{1,2}\\.amazonaws\\.com\\/.*)|(^public\\.ecr\\.aws\\/.+\\/.+)", got 000000000000.dkr.ecr.us-east-2.localhost.localstack.cloud:4566/natanaelvich-ci:latest
+
+  with aws_apprunner_service.app,
+  on main.tf line 47, in resource "aws_apprunner_service" "app":
+  47:       image_identifier      = "${aws_ecr_repository.app.repository_url}:${var.image_tag}"
+

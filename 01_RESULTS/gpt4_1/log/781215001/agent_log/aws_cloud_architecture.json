@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This system is best deployed on AWS using managed Kubernetes (Amazon EKS) for orchestration, with a managed PostgreSQL database (Amazon RDS for PostgreSQL) for persistence. The API service, written in TypeScript using Fastify and Prisma, will be containerized and deployed to EKS. Configuration and secrets will be managed using Kubernetes ConfigMaps and Secrets, mapped to AWS-native services for security and operational best practices. Networking will be handled via a dedicated VPC with public and private subnets, and security groups will restrict access to only necessary resources. IAM roles will be used for least-privilege access to AWS resources. Logging and monitoring will be enabled using Amazon CloudWatch. The architecture is scalable, secure, and follows AWS best practices for containerized workloads.\n\n**High-Level AWS Architecture:**\n\n1. **Amazon EKS (Elastic Kubernetes Service):**\n   - Hosts the Kubernetes cluster, running the API service as a Deployment.\n   - Uses Kubernetes Service to expose the API (can be internal or via AWS Load Balancer for external access).\n   - ConfigMaps and Secrets are managed in Kubernetes, with the option to integrate with AWS Secrets Manager for sensitive data.\n\n2. **Amazon RDS for PostgreSQL:**\n   - Managed PostgreSQL database, deployed in private subnets for security.\n   - Only accessible from EKS worker nodes via security groups.\n\n3. **Networking:**\n   - Custom VPC with public and private subnets across multiple Availability Zones for high availability.\n   - NAT Gateway for outbound internet access from private subnets.\n   - Security Groups to control traffic between EKS nodes, RDS, and the internet.\n\n4. **IAM Roles and Policies:**\n   - EKS node IAM roles for cluster operations.\n   - ServiceAccount IAM roles for pod-level permissions (e.g., accessing Secrets Manager).\n\n5. **Load Balancer:**\n   - AWS Application Load Balancer (ALB) or Network Load Balancer (NLB) to expose the API service if external access is required.\n\n6. **Secrets and Configuration Management:**\n   - Kubernetes Secrets for sensitive data (optionally synced with AWS Secrets Manager).\n   - Kubernetes ConfigMaps for non-sensitive configuration.\n\n7. **Monitoring and Logging:**\n   - Amazon CloudWatch for logs and metrics from EKS and RDS.\n\n8. **Container Registry:**\n   - Amazon ECR (Elastic Container Registry) to store Docker images for the API service.\n\nThis architecture ensures secure, scalable, and maintainable deployment, leveraging AWS managed services and best practices for containerized applications.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public Subnets (for Load Balancer/EKS control plane)",
+    "Private Subnets (for EKS worker nodes and RDS)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for EKS nodes, RDS, Load Balancer)",
+    "Amazon EKS Cluster",
+    "EKS Node Groups (managed or self-managed)",
+    "Amazon RDS for PostgreSQL (Multi-AZ, encrypted)",
+    "Amazon ECR (Elastic Container Registry)",
+    "IAM Roles and Policies (EKS cluster, node group, ServiceAccount roles)",
+    "AWS Application Load Balancer (ALB) or Network Load Balancer (NLB)",
+    "CloudWatch Log Groups and Metrics",
+    "Kubernetes ConfigMaps (in EKS)",
+    "Kubernetes Secrets (in EKS, optionally integrated with AWS Secrets Manager)",
+    "AWS Secrets Manager (optional, for secret management)"
+  ]
+}

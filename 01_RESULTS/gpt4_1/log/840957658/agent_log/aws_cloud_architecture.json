@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "The proposed AWS architecture for deploying this Java Spring Boot web application with Thymeleaf, PostgreSQL, Docker, and Jenkins CI/CD is as follows:\n\n1. **Networking & Security:**\n   - Deploy all resources within a dedicated VPC for network isolation and security.\n   - Use public and private subnets across at least two Availability Zones for high availability.\n   - Security Groups will restrict access to only necessary ports (e.g., HTTP/HTTPS for the web app, PostgreSQL port for the DB, SSH for bastion/management if needed).\n\n2. **Web Application Deployment:**\n   - Use Amazon ECS (Elastic Container Service) with Fargate launch type to run the Dockerized Spring Boot application. This provides managed container orchestration without managing EC2 instances.\n   - ECS Service will be fronted by an Application Load Balancer (ALB) to distribute incoming HTTP/HTTPS traffic and enable auto-scaling.\n   - Store Docker images in Amazon ECR (Elastic Container Registry).\n\n3. **Database:**\n   - Use Amazon RDS for PostgreSQL for production, deployed in private subnets with Multi-AZ for high availability and automated backups.\n   - H2 database remains in-memory for dev/test and does not require AWS resources.\n\n4. **CI/CD Pipeline:**\n   - Use AWS CodeBuild and AWS CodePipeline for managed CI/CD, or optionally deploy Jenkins on an EC2 instance in a private subnet if self-managed Jenkins is required.\n   - The pipeline will build, test, and push Docker images to ECR, then deploy to ECS.\n\n5. **IAM & Security:**\n   - IAM roles and policies for ECS tasks, CodeBuild, CodePipeline, and Jenkins (if used) to access ECR, RDS, and other AWS resources securely.\n   - Secrets (e.g., DB credentials) managed via AWS Secrets Manager or SSM Parameter Store.\n\n6. **Monitoring & Logging:**\n   - Use Amazon CloudWatch for application and infrastructure logs, metrics, and alarms.\n   - Enable VPC Flow Logs for network monitoring.\n\n7. **Foundational Resources:**\n   - S3 bucket(s) for artifact storage, logs, or backups as needed.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized web applications with managed CI/CD and database services.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks, RDS, Jenkins/CI)",
+    "Application Load Balancer (ALB)",
+    "Amazon ECS Cluster (Fargate)",
+    "ECS Service and Task Definitions",
+    "Amazon ECR (Elastic Container Registry)",
+    "Amazon RDS for PostgreSQL (Multi-AZ)",
+    "AWS CodePipeline (or EC2 for Jenkins)",
+    "AWS CodeBuild (if using CodePipeline)",
+    "EC2 Instance (for Jenkins, if self-managed)",
+    "IAM Roles and Policies (for ECS, CodeBuild, CodePipeline, Jenkins, ECR, RDS)",
+    "AWS Secrets Manager or SSM Parameter Store (for secrets)",
+    "Amazon CloudWatch (logs, metrics, alarms)",
+    "VPC Flow Logs",
+    "S3 Bucket (for artifacts, logs, or backups)"
+  ]
+}

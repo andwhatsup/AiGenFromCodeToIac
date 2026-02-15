@@ -1,0 +1,245 @@
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_vpc.default: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_vpc.default: Read complete after 0s [id=vpc-a9f6040c68e8f7fef]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.app will be created
+  + resource "aws_cloudwatch_log_group" "app" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + log_group_class   = (known after apply)
+      + name              = "/ecs/hello-world-node"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 7
+      + skip_destroy      = false
+      + tags_all          = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "hello-world-node-cluster"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "hello-world-node-svc"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-23850784b68c056d5",
+              + "subnet-4613abf8edb374d97",
+              + "subnet-577c6e86da82738f7",
+              + "subnet-8912c5e639c6f5791",
+              + "subnet-b50b5c5e4a9fb3736",
+              + "subnet-f86107749e12a6ed9",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + essential        = true
+                  + image            = "public.ecr.aws/docker/library/node:16-alpine"
+                  + logConfiguration = {
+                      + logDriver = "awslogs"
+                      + options   = {
+                          + awslogs-group         = "/ecs/hello-world-node"
+                          + awslogs-region        = "us-east-1"
+                          + awslogs-stream-prefix = "ecs"
+                        }
+                    }
+                  + name             = "app"
+                  + portMappings     = [
+                      + {
+                          + containerPort = 3000
+                          + hostPort      = 3000
+                          + protocol      = "tcp"
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "256"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "hello-world-node"
+      + id                       = (known after apply)
+      + memory                   = "512"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.ecs_task_execution will be created
+  + resource "aws_iam_role" "ecs_task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "hello-world-node-ecs-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "hello-world-node-ecs-task-exec"
+    }
+
+  # aws_security_group.service will be created
+  + resource "aws_security_group" "service" {
+      + arn                    = (known after apply)
+      + description            = "Allow inbound traffic to the service"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP to container port"
+              + from_port        = 3000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3000
+            },
+        ]
+      + name                   = "hello-world-node-svc"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "hello-world-node"
+        }
+      + vpc_id                 = "vpc-a9f6040c68e8f7fef"
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + ecs_cluster_name    = "hello-world-node-cluster"
+  + ecs_service_name    = "hello-world-node-svc"
+  + log_group_name      = "/ecs/hello-world-node"
+  + task_definition_arn = (known after apply)
+aws_ecs_cluster.this: Creating...
+aws_cloudwatch_log_group.app: Creating...
+aws_iam_role.ecs_task_execution: Creating...
+aws_security_group.service: Creating...
+aws_security_group.service: Creation complete after 0s [id=sg-5e4d4bb402fdf58c8]
+aws_iam_role.ecs_task_execution: Creation complete after 0s [id=hello-world-node-ecs-task-exec]
+aws_iam_role_policy_attachment.ecs_task_execution: Creating...
+aws_iam_role_policy_attachment.ecs_task_execution: Creation complete after 0s [id=hello-world-node-ecs-task-exec-20260127142442218300000001]
+aws_cloudwatch_log_group.app: Creation complete after 0s [id=/ecs/hello-world-node]
+aws_ecs_task_definition.this: Creating...
+aws_ecs_task_definition.this: Creation complete after 0s [id=hello-world-node]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/hello-world-node-cluster]
+aws_ecs_service.this: Creating...
+aws_ecs_service.this: Creation complete after 2s [id=arn:aws:ecs:us-east-1:000000000000:service/hello-world-node-cluster/hello-world-node-svc]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+ecs_cluster_name = "hello-world-node-cluster"
+ecs_service_name = "hello-world-node-svc"
+log_group_name = "/ecs/hello-world-node"
+task_definition_arn = "arn:aws:ecs:us-east-1:000000000000:task-definition/hello-world-node:1"

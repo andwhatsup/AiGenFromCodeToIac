@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This Node.js web application will be deployed on AWS using a secure, scalable, and maintainable architecture. The main components and their deployment strategies are as follows:\n\n1. **VPC (Virtual Private Cloud)**: All resources will be deployed within a dedicated VPC to ensure network isolation and security.\n2. **Subnets**: Public subnets for load balancers and NAT gateways; private subnets for application servers.\n3. **Security Groups**: To control inbound and outbound traffic for EC2 instances, load balancers, and other resources.\n4. **EC2 Auto Scaling Group**: The Node.js application will run on EC2 instances managed by an Auto Scaling Group for high availability and scalability. Instances will be launched in private subnets.\n5. **Elastic Load Balancer (ALB)**: An Application Load Balancer will distribute incoming HTTP(S) traffic to the EC2 instances.\n6. **NAT Gateway**: Allows EC2 instances in private subnets to access the internet for outbound requests (e.g., to external HTTP resources via axios/proxy).\n7. **IAM Roles and Policies**: For secure access to AWS resources and to manage permissions for EC2 instances (e.g., to retrieve environment variables from AWS Secrets Manager or SSM Parameter Store).\n8. **AWS Secrets Manager or SSM Parameter Store**: To securely store and manage environment variables and sensitive configuration, replacing plaintext .env files.\n9. **CloudWatch**: For logging, monitoring, and alerting on application and infrastructure metrics.\n10. **(Optional) AWS Systems Manager Session Manager**: For secure, auditable shell access to EC2 instances without opening SSH ports.\n\n**Proxy Infrastructure**: If a dedicated proxy is required (beyond NAT Gateway), consider deploying a managed proxy (e.g., Squid on EC2 in a private subnet) or using AWS Network Firewall for advanced traffic control. Otherwise, the NAT Gateway suffices for outbound HTTP(S) proxying.\n\n**External HTTP Resources**: The application will securely access external APIs/services via the NAT Gateway or proxy.\n\nThis architecture follows AWS best practices for security (private subnets, IAM, Secrets Manager), scalability (Auto Scaling, ALB), and maintainability (CloudWatch, SSM).",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets",
+    "Private Subnets",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups",
+    "EC2 Auto Scaling Group",
+    "EC2 Launch Template or Configuration",
+    "Elastic Load Balancer (ALB)",
+    "IAM Roles and Policies (for EC2, deployment, and management)",
+    "AWS Secrets Manager or SSM Parameter Store (for environment variables)",
+    "CloudWatch (logs, metrics, alarms)",
+    "(Optional) EC2 instance(s) for Proxy Infrastructure (if a dedicated proxy is needed)",
+    "(Optional) AWS Systems Manager Session Manager"
+  ]
+}

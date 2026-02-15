@@ -1,0 +1,312 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ami",
+            "aws_instance"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "eks": {
+          "status": "none",
+          "resource_types": [
+            "aws_eks_cluster_auth"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group",
+            "aws_security_group_rule"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2",
+          "ecr",
+          "iam"
+        ],
+        "none": [
+          "eks"
+        ],
+        "unknown": [
+          "availability",
+          "caller",
+          "partition",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_eks_cluster_auth"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-west-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"react-eks\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "az_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "single_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "cluster_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"1.29\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "cluster_endpoint_public_access": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "cluster_endpoint_public_access_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"0.0.0.0/0\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "node_instance_types": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"t3.medium\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "node_min_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "node_max_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "3",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "node_desired_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "app_namespace": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"react-app\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "app_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"react-aws-eks-github-actions\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "app_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"codewithmuh/react-aws-eks-github-actions:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "app_replicas": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "create_runner": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "runner_instance_type": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"t3.medium\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "runner_key_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "null",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "runner_allowed_ssh_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "github_repo_url": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "github_runner_token": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        },
+        "sonarqube_host_url": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_ami",
+        "aws_availability_zones",
+        "aws_caller_identity",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_eks_cluster_auth",
+        "aws_iam_instance_profile",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_instance",
+        "aws_partition",
+        "aws_security_group",
+        "aws_security_group_rule"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1,
+        "aws_caller_identity": 1,
+        "aws_partition": 1,
+        "aws_eks_cluster_auth": 1,
+        "aws_ami": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_security_group": 1,
+        "aws_security_group_rule": 1,
+        "aws_iam_policy_document": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_iam_instance_profile": 1,
+        "aws_instance": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 6.28.0"
+          ]
+        },
+        "kubernetes": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 3.0.1"
+          ]
+        },
+        "helm": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/versions.tf"
+          ],
+          "versions": [
+            ">= 3.1.1"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/820371144/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

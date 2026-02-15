@@ -1,0 +1,35 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_iam_policy_document.step_function_assume_role_policy" [label="data.aws_iam_policy_document.step_function_assume_role_policy"];
+  "data.aws_iam_policy_document.step_function_policy" [label="data.aws_iam_policy_document.step_function_policy"];
+  "aws_iam_role.step_function" [label="aws_iam_role.step_function"];
+  "aws_iam_role_policy.step_function_policy" [label="aws_iam_role_policy.step_function_policy"];
+  "aws_s3_bucket.input" [label="aws_s3_bucket.input"];
+  "aws_s3_bucket.output" [label="aws_s3_bucket.output"];
+  "aws_s3_bucket_notification.input" [label="aws_s3_bucket_notification.input"];
+  "aws_s3_bucket_notification.output" [label="aws_s3_bucket_notification.output"];
+  "aws_sfn_state_machine.comprehend" [label="aws_sfn_state_machine.comprehend"];
+  "aws_sfn_state_machine.datalake" [label="aws_sfn_state_machine.datalake"];
+  "aws_sqs_queue.input" [label="aws_sqs_queue.input"];
+  "aws_sqs_queue.output" [label="aws_sqs_queue.output"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "data.aws_iam_policy_document.step_function_policy" -> "aws_s3_bucket.input";
+  "data.aws_iam_policy_document.step_function_policy" -> "aws_s3_bucket.output";
+  "data.aws_iam_policy_document.step_function_policy" -> "aws_sqs_queue.input";
+  "data.aws_iam_policy_document.step_function_policy" -> "aws_sqs_queue.output";
+  "aws_iam_role.step_function" -> "data.aws_iam_policy_document.step_function_assume_role_policy";
+  "aws_iam_role.step_function" -> "random_id.suffix";
+  "aws_iam_role_policy.step_function_policy" -> "data.aws_iam_policy_document.step_function_policy";
+  "aws_iam_role_policy.step_function_policy" -> "aws_iam_role.step_function";
+  "aws_s3_bucket.input" -> "random_id.suffix";
+  "aws_s3_bucket.output" -> "random_id.suffix";
+  "aws_s3_bucket_notification.input" -> "aws_s3_bucket.input";
+  "aws_s3_bucket_notification.input" -> "aws_sqs_queue.input";
+  "aws_s3_bucket_notification.output" -> "aws_s3_bucket.output";
+  "aws_s3_bucket_notification.output" -> "aws_sqs_queue.output";
+  "aws_sfn_state_machine.comprehend" -> "aws_iam_role.step_function";
+  "aws_sfn_state_machine.datalake" -> "aws_iam_role.step_function";
+  "aws_sqs_queue.input" -> "random_id.suffix";
+  "aws_sqs_queue.output" -> "random_id.suffix";
+}

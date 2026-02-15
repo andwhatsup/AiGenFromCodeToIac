@@ -1,0 +1,20 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_iam_policy.writer" [label="aws_iam_policy.writer"];
+  "aws_iam_role.writer" [label="aws_iam_role.writer"];
+  "aws_iam_role_policy_attachment.writer" [label="aws_iam_role_policy_attachment.writer"];
+  "aws_s3_bucket.data" [label="aws_s3_bucket.data"];
+  "aws_s3_bucket_public_access_block.data" [label="aws_s3_bucket_public_access_block.data"];
+  "aws_s3_bucket_server_side_encryption_configuration.data" [label="aws_s3_bucket_server_side_encryption_configuration.data"];
+  "aws_s3_bucket_versioning.data" [label="aws_s3_bucket_versioning.data"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_policy.writer" -> "aws_s3_bucket.data";
+  "aws_iam_role.writer" -> "random_id.suffix";
+  "aws_iam_role_policy_attachment.writer" -> "aws_iam_policy.writer";
+  "aws_iam_role_policy_attachment.writer" -> "aws_iam_role.writer";
+  "aws_s3_bucket.data" -> "random_id.suffix";
+  "aws_s3_bucket_public_access_block.data" -> "aws_s3_bucket.data";
+  "aws_s3_bucket_server_side_encryption_configuration.data" -> "aws_s3_bucket.data";
+  "aws_s3_bucket_versioning.data" -> "aws_s3_bucket.data";
+}

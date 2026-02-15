@@ -1,0 +1,30 @@
+{
+  "aws_architecture_description": "## Proposed high-level AWS architecture (lean, secure, scalable)\n\n### 1) Networking foundation\n- **One VPC across 2 Availability Zones** for high availability.\n- **Public subnets (2 AZs)** host the **Application Load Balancer (ALB)**.\n- **Private subnets (2 AZs)** host the **container runtime** (recommended: **ECS on Fargate**) so tasks are not directly reachable from the internet.\n- **NAT Gateways** (one per AZ, or one to reduce cost) allow private ECS tasks to reach the internet for outbound needs (e.g., pulling images, calling external APIs). \n- **VPC endpoints** (recommended) reduce NAT usage and keep traffic private:\n  - ECR (api + dkr), S3 (gateway), CloudWatch Logs.\n\n### 2) Container image build & registry\n- **Amazon ECR repository `pw_ecr_dsop_webapp`** stores the Docker image built from the repo’s `Dockerfile`.\n- **GitHub Actions**:\n  - Runs security checks (gitleaks, trufflehog3).\n  - Authenticates to AWS using an **IAM role via OIDC** (recommended) instead of long-lived access keys.\n  - Builds and pushes the image to ECR.\n\n### 3) Compute / runtime (recommended: ECS Fargate)\n- **ECS Cluster (Fargate)** runs the Go `net/http` container.\n- **ECS Task Definition**:\n  - Container listens on **port 8080**.\n  - Sends logs to **CloudWatch Logs**.\n  - Uses a **task execution role** to pull from ECR and write logs.\n- **ECS Service**:\n  - Runs desired count >= 2 across AZs.\n  - Uses **Service Auto Scaling** based on CPU/Memory (and optionally ALB request count).\n\n*(Alternative if you prefer EC2: ECS on EC2 or an Auto Scaling Group behind the ALB. Fargate is leaner and removes host management.)*\n\n### 4) Ingress, TLS, and routing\n- **Application Load Balancer** in public subnets.\n- **ALB listeners**:\n  - 80 → redirect to 443\n  - 443 → forward to target group\n- **Target Group** routes to ECS tasks on **8080** with health checks (e.g., `/health` if implemented; otherwise `/`).\n- **ACM certificate** for TLS.\n- Optional: **Route 53** DNS record (e.g., `app.example.com`) aliasing to the ALB.\n\n### 5) Security controls\n- **Security groups**:\n  - ALB SG: inbound 80/443 from the internet; outbound to ECS tasks.\n  - ECS SG: inbound 8080 only from ALB SG; outbound as needed.\n- **IAM**:\n  - GitHub Actions OIDC role limited to ECR push + Terraform-managed resources.\n  - ECS task execution role (ECR pull, CloudWatch logs).\n  - ECS task role (only if the app needs AWS APIs later).\n- **Secrets** (if/when needed): store in **AWS Secrets Manager** or **SSM Parameter Store**, injected into the task.\n\n### 6) Observability and operations\n- **CloudWatch Logs** for container logs.\n- **CloudWatch metrics/alarms** for:\n  - ALB 5XX, target unhealthy count\n  - ECS CPU/Memory high\n- **ALB access logs** to S3 (optional but useful).\n- **AWS WAF** on the ALB (optional; recommended for internet-facing production).\n\n### 7) Terraform integration\n- Terraform provisions: VPC, subnets, ALB, ECS, IAM, ECR, logging.\n- Terraform outputs align with your pipeline expectations:\n  - `ecr_repository_uri`\n  - `alb_hostname`\n\n---\n\n## Deployment flow (end-to-end)\n1. Developer pushes code → GitHub Actions runs scans.\n2. GitHub Actions assumes AWS IAM role (OIDC) → builds Docker image → pushes to ECR.\n3. GitHub Actions runs `terraform apply` → updates ECS task definition/service to the new image tag.\n4. ALB routes traffic (443) to ECS tasks on port 8080.\n\n",
+  "aws_resources": [
+    "Amazon VPC",
+    "VPC subnets (2x public, 2x private across 2 AZs)",
+    "Internet Gateway (IGW)",
+    "NAT Gateway(s)",
+    "Route tables (public/private) + route associations",
+    "Security Groups (ALB SG, ECS tasks SG)",
+    "VPC Endpoints (recommended): ECR (api), ECR (dkr), S3 Gateway Endpoint, CloudWatch Logs endpoint",
+    "Elastic Load Balancing: Application Load Balancer (ALB)",
+    "ALB Target Group (IP target type for Fargate)",
+    "ALB Listeners (HTTP :80 redirect, HTTPS :443 forward)",
+    "AWS Certificate Manager (ACM) certificate",
+    "Amazon Route 53 hosted zone + DNS record (optional)",
+    "Amazon ECR repository (pw_ecr_dsop_webapp)",
+    "Amazon ECS Cluster",
+    "ECS Task Definition",
+    "ECS Service (Fargate)",
+    "ECS Service Auto Scaling (target tracking policies)",
+    "IAM Role for GitHub Actions (OIDC trust) + IAM policy (ECR push + Terraform permissions)",
+    "IAM OIDC Provider for GitHub (if not already present in the account)",
+    "IAM Role: ECS Task Execution Role",
+    "IAM Role: ECS Task Role (optional, only if app calls AWS APIs)",
+    "CloudWatch Log Group(s) for ECS task logs",
+    "CloudWatch Alarms (ALB 5XX, unhealthy targets, ECS CPU/Memory)",
+    "S3 bucket for ALB access logs (optional)",
+    "AWS WAFv2 Web ACL + ALB association (optional)"
+  ]
+}

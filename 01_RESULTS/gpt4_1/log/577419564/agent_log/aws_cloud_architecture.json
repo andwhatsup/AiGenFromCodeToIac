@@ -1,0 +1,25 @@
+{
+  "aws_architecture_description": "This AWS architecture modernizes and secures the deployment of a Java web application (WAR) running on Tomcat in Docker, automating deployments with Ansible and leveraging AWS managed services for scalability, reliability, and maintainability.\n\n**Key AWS Components and Design:**\n\n1. **Networking & Security:**\n   - A dedicated VPC with public and private subnets across two Availability Zones for high availability.\n   - Security Groups to restrict access to EC2 instances and ECS services.\n   - IAM roles and policies for least-privilege access to AWS resources.\n\n2. **Compute & Containerization:**\n   - **Amazon ECS (Elastic Container Service) with Fargate**: Runs the Tomcat Docker container, removing the need to manage EC2 hosts directly. ECS pulls the application image from ECR and runs it as a service, providing auto-scaling and managed orchestration.\n   - **Amazon ECR (Elastic Container Registry):** Stores Docker images for the Tomcat server and Java web app.\n\n3. **Deployment Automation:**\n   - **AWS CodePipeline & CodeBuild:** Automate the build, test, and deployment process, replacing manual Ansible playbook execution. CodePipeline triggers on code changes, builds the Docker image, pushes to ECR, and deploys to ECS.\n   - **AWS Systems Manager (SSM):** For secure remote management and automation, if direct host access is needed.\n\n4. **Load Balancing & Access:**\n   - **Application Load Balancer (ALB):** Distributes incoming HTTP/HTTPS traffic to ECS tasks (Tomcat containers), enabling zero-downtime deployments and SSL termination.\n\n5. **Monitoring & Logging:**\n   - **Amazon CloudWatch:** Collects logs and metrics from ECS, ALB, and application containers for monitoring and alerting.\n   - **AWS CloudTrail:** Audits API activity for security and compliance.\n\n6. **Optional (if SSH/Ansible is still required):**\n   - **EC2 Bastion Host:** In a public subnet, for secure SSH access to private resources, managed via SSM.\n\n**Deployment Flow:**\n- DevOps pushes code to a repository (e.g., CodeCommit, GitHub).\n- CodePipeline builds the Docker image, pushes to ECR, and updates the ECS service.\n- ECS pulls the latest image and runs the Tomcat container with the Java WAR.\n- ALB routes user traffic to healthy ECS tasks.\n- CloudWatch and CloudTrail provide monitoring and audit trails.\n\nThis architecture is secure, scalable, and leverages AWS managed services to minimize operational overhead and maximize reliability.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (2+)",
+    "Private Subnets (2+)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks, Bastion)",
+    "IAM Roles and Policies (for ECS, CodePipeline, CodeBuild, ECR access)",
+    "Amazon ECS Cluster (Fargate)",
+    "ECS Task Definition (Tomcat + Java WAR)",
+    "ECS Service",
+    "Amazon ECR Repository",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ECS tasks)",
+    "AWS CodePipeline",
+    "AWS CodeBuild Project",
+    "AWS Systems Manager (SSM)",
+    "Amazon CloudWatch (Logs, Metrics, Alarms)",
+    "AWS CloudTrail",
+    "(Optional) EC2 Bastion Host (with SSM Agent)"
+  ]
+}

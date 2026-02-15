@@ -1,0 +1,35 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "AWS Lambda (github.com/aws/aws-lambda-go)"
+      ],
+      "dependencies": [
+        "github.com/aws/aws-lambda-go v1.41.0 (go.mod)",
+        "github.com/aws/aws-sdk-go v1.45.15 (go.mod)",
+        "github.com/jmespath/go-jmespath v0.4.0 indirect (go.mod)",
+        "golang.org/x/net v0.1.0 indirect (go.mod)"
+      ],
+      "deployment_relevant_files": [
+        "go.mod",
+        "go.sum",
+        "main.go",
+        "definition.json (AWS Step Functions state machine definition)",
+        "assume_role_policy.json (IAM trust policy for Lambda execution role)",
+        "/.circleci/config.yml (CI build + zip + upload to S3)",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (iterator/dispatcher implemented in main.go)",
+        "Target AWS Lambda function invoked asynchronously via AWS SDK (env var LAMBDA)",
+        "AWS Step Functions state machine to invoke iterator every 10 seconds (definition.json)",
+        "AWS IAM role/trust policy for Lambda (assume_role_policy.json)",
+        "AWS S3 bucket/object for build artifact distribution (CircleCI uploads iterator.zip to s3://rockset-public in .circleci/config.yml)"
+      ]
+    }
+  ]
+}

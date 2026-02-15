@@ -1,0 +1,199 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "eks": {
+          "status": "none",
+          "resource_types": [
+            "aws_eks_cluster_auth"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [
+          "eks"
+        ],
+        "unknown": [
+          "availability"
+        ]
+      },
+      "unsupported_resource_types": [
+        "aws_eks_cluster_auth"
+      ],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "ai_tf": [
+      "not_deployable_localstack"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"vat-calc\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.0.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "az_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "cluster_version": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"1.29\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "cluster_endpoint_public_access": {
+          "type": "bool",
+          "has_default": true,
+          "default": "true",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "cluster_endpoint_public_access_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"0.0.0.0/0\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "node_instance_types": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"t3.medium\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "node_desired_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "node_min_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "2",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "node_max_size": {
+          "type": "number",
+          "has_default": true,
+          "default": "4",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "app_namespace": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"vat-calc\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "app_image": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"yash5090/vat-calc:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "app_replicas": {
+          "type": "number",
+          "has_default": true,
+          "default": "6",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "app_container_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "5000",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        },
+        "tags": {
+          "type": "map(string)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_availability_zones",
+        "aws_eks_cluster_auth"
+      ],
+      "resource_type_counts": {
+        "aws_eks_cluster_auth": 1,
+        "aws_availability_zones": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "kubernetes": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.25"
+          ]
+        },
+        "helm": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 2.12"
+          ]
+        },
+        "tls": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 4.0"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/834362386/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

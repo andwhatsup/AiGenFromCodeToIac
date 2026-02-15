@@ -1,0 +1,318 @@
+data.aws_region.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.prefect_agent_log_group will be created
+  + resource "aws_cloudwatch_log_group" "prefect_agent_log_group" {
+      + arn               = (known after apply)
+      + id                = (known after apply)
+      + name              = "prefect-agent-log-group-deployment-agent-test"
+      + name_prefix       = (known after apply)
+      + retention_in_days = 30
+      + skip_destroy      = false
+      + tags_all          = (known after apply)
+    }
+
+  # aws_ecs_cluster.prefect_agent_cluster will be created
+  + resource "aws_ecs_cluster" "prefect_agent_cluster" {
+      + arn                = (known after apply)
+      + capacity_providers = (known after apply)
+      + id                 = (known after apply)
+      + name               = "prefect-agent-deployment-agent-test"
+      + tags_all           = (known after apply)
+
+      + default_capacity_provider_strategy (known after apply)
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_cluster_capacity_providers.prefect_agent_cluster_capacity_providers will be created
+  + resource "aws_ecs_cluster_capacity_providers" "prefect_agent_cluster_capacity_providers" {
+      + capacity_providers = [
+          + "FARGATE",
+        ]
+      + cluster_name       = "prefect-agent-deployment-agent-test"
+      + id                 = (known after apply)
+    }
+
+  # aws_ecs_service.prefect_agent_service will be created
+  + resource "aws_ecs_service" "prefect_agent_service" {
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "prefect-agent-deployment-agent-test"
+      + platform_version                   = (known after apply)
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+        }
+    }
+
+  # aws_ecs_task_definition.prefect_agent_task_definition will be created
+  + resource "aws_ecs_task_definition" "prefect_agent_task_definition" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = (known after apply)
+      + cpu                      = "1024"
+      + execution_role_arn       = (known after apply)
+      + family                   = "prefect-agent-deployment-agent-test"
+      + id                       = (known after apply)
+      + memory                   = "2048"
+      + network_mode             = "awsvpc"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = (known after apply)
+      + task_role_arn            = (known after apply)
+    }
+
+  # aws_iam_role.prefect_agent_execution_role will be created
+  + resource "aws_iam_role" "prefect_agent_execution_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = [
+          + "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy",
+        ]
+      + max_session_duration  = 3600
+      + name                  = "prefect-agent-execution-role-deployment-agent-test"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + role_last_used        = (known after apply)
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy {
+          + name   = "ssm-allow-read-prefect-api-key-deployment-agent-test"
+          + policy = (known after apply)
+        }
+    }
+
+  # aws_iam_role.prefect_agent_task_role[0] will be created
+  + resource "aws_iam_role" "prefect_agent_task_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "prefect-agent-task-role-deployment-agent-test"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + role_last_used        = (known after apply)
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy {
+          + name   = "prefect-agent-allow-ecs-task-deployment-agent-test"
+          + policy = jsonencode(
+                {
+                  + Statement = [
+                      + {
+                          + Action   = [
+                              + "ec2:DescribeSubnets",
+                              + "ec2:DescribeVpcs",
+                              + "ecr:BatchCheckLayerAvailability",
+                              + "ecr:BatchGetImage",
+                              + "ecr:GetAuthorizationToken",
+                              + "ecr:GetDownloadUrlForLayer",
+                              + "ecs:DeregisterTaskDefinition",
+                              + "ecs:DescribeTasks",
+                              + "ecs:RegisterTaskDefinition",
+                              + "ecs:RunTask",
+                              + "iam:PassRole",
+                              + "logs:CreateLogGroup",
+                              + "logs:CreateLogStream",
+                              + "logs:GetLogEvents",
+                              + "logs:PutLogEvents",
+                            ]
+                          + Effect   = "Allow"
+                          + Resource = "*"
+                        },
+                    ]
+                  + Version   = "2012-10-17"
+                }
+            )
+        }
+    }
+
+  # aws_s3_bucket.prefect-bucket will be created
+  + resource "aws_s3_bucket" "prefect-bucket" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "bucket-full-of-sunshine-prefect"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = (known after apply)
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_secretsmanager_secret.prefect_api_key will be created
+  + resource "aws_secretsmanager_secret" "prefect_api_key" {
+      + arn                            = (known after apply)
+      + force_overwrite_replica_secret = false
+      + id                             = (known after apply)
+      + name                           = "prefect-api-key-deployment-agent-test"
+      + name_prefix                    = (known after apply)
+      + policy                         = (known after apply)
+      + recovery_window_in_days        = 30
+      + rotation_enabled               = (known after apply)
+      + rotation_lambda_arn            = (known after apply)
+      + tags_all                       = (known after apply)
+
+      + replica (known after apply)
+
+      + rotation_rules (known after apply)
+    }
+
+  # aws_secretsmanager_secret_version.prefect_api_key_version will be created
+  + resource "aws_secretsmanager_secret_version" "prefect_api_key_version" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + secret_id      = (known after apply)
+      + secret_string  = (sensitive value)
+      + version_id     = (known after apply)
+      + version_stages = (known after apply)
+    }
+
+  # aws_security_group.prefect_agent will be created
+  + resource "aws_security_group" "prefect_agent" {
+      + arn                    = (known after apply)
+      + description            = "ECS Prefect Agent"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "prefect-agent-sg-deployment-agent-test"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_security_group_rule.https_outbound will be created
+  + resource "aws_security_group_rule" "https_outbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + description              = "HTTPS outbound"
+      + from_port                = 443
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + security_group_rule_id   = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 443
+      + type                     = "egress"
+    }
+
+Plan: 12 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + prefect_agent_cluster_name       = "prefect-agent-deployment-agent-test"
+  + prefect_agent_execution_role_arn = (known after apply)
+  + prefect_agent_security_group     = (known after apply)
+  + prefect_agent_service_id         = (known after apply)
+  + prefect_agent_task_role_arn      = (known after apply)
+aws_security_group.prefect_agent: Creating...
+aws_secretsmanager_secret.prefect_api_key: Creating...
+aws_ecs_cluster.prefect_agent_cluster: Creating...
+aws_iam_role.prefect_agent_task_role[0]: Creating...
+aws_cloudwatch_log_group.prefect_agent_log_group: Creating...
+aws_s3_bucket.prefect-bucket: Creating...
+aws_secretsmanager_secret.prefect_api_key: Creation complete after 1s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:prefect-api-key-deployment-agent-test-lyMIJo]
+aws_secretsmanager_secret_version.prefect_api_key_version: Creating...
+aws_iam_role.prefect_agent_execution_role: Creating...
+aws_secretsmanager_secret_version.prefect_api_key_version: Creation complete after 0s [id=arn:aws:secretsmanager:us-east-1:000000000000:secret:prefect-api-key-deployment-agent-test-lyMIJo|9EA86B6F-FE31-4596-8676-322F16CA2ADD]
+aws_iam_role.prefect_agent_execution_role: Creation complete after 1s [id=prefect-agent-execution-role-deployment-agent-test]
+aws_iam_role.prefect_agent_task_role[0]: Creation complete after 2s [id=prefect-agent-task-role-deployment-agent-test]
+aws_cloudwatch_log_group.prefect_agent_log_group: Creation complete after 2s [id=prefect-agent-log-group-deployment-agent-test]
+aws_ecs_task_definition.prefect_agent_task_definition: Creating...
+aws_s3_bucket.prefect-bucket: Creation complete after 3s [id=bucket-full-of-sunshine-prefect]
+aws_ecs_task_definition.prefect_agent_task_definition: Creation complete after 1s [id=prefect-agent-deployment-agent-test]
+aws_security_group.prefect_agent: Creation complete after 3s [id=sg-4d80354413b30956d]
+aws_security_group_rule.https_outbound: Creating...
+aws_security_group_rule.https_outbound: Creation complete after 0s [id=sgrule-4147943442]
+aws_ecs_cluster.prefect_agent_cluster: Still creating... [00m10s elapsed]
+aws_ecs_cluster.prefect_agent_cluster: Creation complete after 13s [id=arn:aws:ecs:us-east-1:000000000000:cluster/prefect-agent-deployment-agent-test]
+aws_ecs_cluster_capacity_providers.prefect_agent_cluster_capacity_providers: Creating...
+aws_ecs_service.prefect_agent_service: Creating...
+aws_ecs_cluster_capacity_providers.prefect_agent_cluster_capacity_providers: Still creating... [00m10s elapsed]
+aws_ecs_cluster_capacity_providers.prefect_agent_cluster_capacity_providers: Creation complete after 10s [id=prefect-agent-deployment-agent-test]

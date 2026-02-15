@@ -1,0 +1,25 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.coder_workspace.me" [label="data.coder_workspace.me"];
+  "coder_agent.main" [label="coder_agent.main"];
+  "coder_app.code-server" [label="coder_app.code-server"];
+  "coder_app.fastapi" [label="coder_app.fastapi"];
+  "coder_app.react" [label="coder_app.react"];
+  "coder_metadata.info" [label="coder_metadata.info"];
+  "docker_container.workspace" [label="docker_container.workspace"];
+  "docker_image.main" [label="docker_image.main"];
+  "docker_network.network" [label="docker_network.network"];
+  "docker_volume.home_volume" [label="docker_volume.home_volume"];
+  "coder_agent.main" -> "data.coder_workspace.me";
+  "coder_app.code-server" -> "coder_agent.main";
+  "coder_app.fastapi" -> "coder_agent.main";
+  "coder_app.react" -> "coder_agent.main";
+  "coder_metadata.info" -> "docker_container.workspace";
+  "docker_container.workspace" -> "coder_agent.main";
+  "docker_container.workspace" -> "docker_image.main";
+  "docker_container.workspace" -> "docker_volume.home_volume";
+  "docker_image.main" -> "data.coder_workspace.me";
+  "docker_network.network" -> "data.coder_workspace.me";
+  "docker_volume.home_volume" -> "data.coder_workspace.me";
+}

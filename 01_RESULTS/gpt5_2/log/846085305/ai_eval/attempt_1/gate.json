@@ -1,0 +1,263 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_function"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "region": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_region"
+          ]
+        },
+        "scheduler": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_scheduler_schedule"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs"
+        ],
+        "partial": [
+          "ecr",
+          "iam",
+          "secretsmanager"
+        ],
+        "none": [],
+        "unknown": [
+          "caller",
+          "region",
+          "scheduler"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf",
+      "variables": {
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"home-automation\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "ecr_repository_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"home_automation\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_function_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"home-automation\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_image_tag": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_timeout_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "60",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_memory_mb": {
+          "type": "number",
+          "has_default": true,
+          "default": "256",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_reserved_concurrency": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "schedule_expression": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rate(5 minutes)\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "influxdb_url": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "influxdb_org": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "influxdb_bucket": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "tuya_apisregion": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "tuya_apikey": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "tuya_apisecret": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "influxdb_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_vpc_subnet_ids": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        },
+        "lambda_vpc_security_group_ids": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "influxdb_bucket",
+        "influxdb_org",
+        "influxdb_token",
+        "influxdb_url",
+        "tuya_apikey",
+        "tuya_apisecret",
+        "tuya_apisregion"
+      ],
+      "aws_services": [
+        "aws_caller_identity",
+        "aws_cloudwatch_log_group",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_function",
+        "aws_region",
+        "aws_scheduler_schedule",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version"
+      ],
+      "resource_type_counts": {
+        "aws_caller_identity": 1,
+        "aws_region": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_secretsmanager_secret": 2,
+        "aws_secretsmanager_secret_version": 2,
+        "aws_iam_policy_document": 4,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 4,
+        "aws_iam_policy": 2,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_function": 1,
+        "aws_scheduler_schedule": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/provider.tf",
+            "/ai-code-generation-from-code-to-iac/workspace/846085305/ai_tf/versions.tf"
+          ],
+          "versions": [
+            "~> 6.31"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

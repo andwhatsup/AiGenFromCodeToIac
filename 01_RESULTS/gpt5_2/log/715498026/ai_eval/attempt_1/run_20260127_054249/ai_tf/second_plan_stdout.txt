@@ -1,0 +1,60 @@
+data.aws_iam_policy_document.ecs_task_assume: Reading...
+data.aws_availability_zones.available: Reading...
+aws_cloudwatch_log_group.ecs: Refreshing state... [id=/ecs/pw-dsop-webapp-dev]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/pw-dsop-webapp-dev-cluster]
+aws_vpc.this: Refreshing state... [id=vpc-8480b47a66cd50029]
+aws_ecr_repository.pw_ecr_dsop_webapp: Refreshing state... [id=pw_ecr_dsop_webapp]
+aws_eip.nat: Refreshing state... [id=eipalloc-dd67d465d6f022102]
+data.aws_iam_policy_document.ecs_task_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=pw-dsop-webapp-dev-ecs-task-exec]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.this: Refreshing state... [id=pw_ecr_dsop_webapp]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=pw-dsop-webapp-dev-ecs-task-exec-20260127044315260100000001]
+aws_ecs_task_definition.this: Refreshing state... [id=pw-dsop-webapp-dev-task]
+aws_subnet.private["us-east-1a"]: Refreshing state... [id=subnet-ec2451e707c98ea82]
+aws_internet_gateway.this: Refreshing state... [id=igw-43bf72a9f74e86917]
+aws_subnet.private["us-east-1b"]: Refreshing state... [id=subnet-f03498bc0d77a7f20]
+aws_subnet.public["us-east-1b"]: Refreshing state... [id=subnet-c03dff3b19dc42d0a]
+aws_subnet.public["us-east-1a"]: Refreshing state... [id=subnet-0dd6da95f5d43679f]
+aws_security_group.alb: Refreshing state... [id=sg-2296bd722c492ac30]
+aws_lb_target_group.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/pw-dsop-webapp-dev-tg/192251fd260c81ca]
+aws_route_table.public: Refreshing state... [id=rtb-9e3c137451b50d322]
+aws_nat_gateway.this: Refreshing state... [id=nat-c671903bae8048c90]
+aws_security_group.ecs: Refreshing state... [id=sg-b0c7bce4838a1d17c]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/pw-dsop-webapp-dev-alb/602e0011cd4336ba]
+aws_route_table_association.public["us-east-1a"]: Refreshing state... [id=rtbassoc-3bcac435a40fb38df]
+aws_route_table_association.public["us-east-1b"]: Refreshing state... [id=rtbassoc-51d73cefdc7a176a3]
+aws_route_table.private: Refreshing state... [id=rtb-d98b225f1ab83fffd]
+aws_route_table_association.private["us-east-1b"]: Refreshing state... [id=rtbassoc-ed23829c9bd0a85eb]
+aws_route_table_association.private["us-east-1a"]: Refreshing state... [id=rtbassoc-bb7de36c8209a7214]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/pw-dsop-webapp-dev-alb/602e0011cd4336ba/4a3399c6510ba3ee]
+aws_ecs_service.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/pw-dsop-webapp-dev-cluster/pw-dsop-webapp-dev-svc]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.this will be updated in-place
+  ~ resource "aws_ecs_service" "this" {
+      + availability_zone_rebalancing      = "DISABLED"
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/pw-dsop-webapp-dev-cluster/pw-dsop-webapp-dev-svc"
+        name                               = "pw-dsop-webapp-dev-svc"
+        tags                               = {}
+        # (15 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/pw-dsop-webapp-dev-alb/602e0011cd4336ba/4a3399c6510ba3ee"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

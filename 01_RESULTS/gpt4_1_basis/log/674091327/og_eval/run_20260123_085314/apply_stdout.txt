@@ -1,0 +1,190 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # kubernetes_deployment.app_deployment will be created
+  + resource "kubernetes_deployment" "app_deployment" {
+      + id               = (known after apply)
+      + wait_for_rollout = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "helloworld-deployment"
+          + namespace        = "helloworld"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + min_ready_seconds         = 0
+          + paused                    = false
+          + progress_deadline_seconds = 600
+          + replicas                  = "2"
+          + revision_history_limit    = 10
+
+          + selector {
+              + match_labels = {
+                  + "app" = "hello_world_app"
+                }
+            }
+
+          + strategy (known after apply)
+
+          + template {
+              + metadata {
+                  + generation       = (known after apply)
+                  + labels           = {
+                      + "app" = "hello_world_app"
+                    }
+                  + name             = (known after apply)
+                  + resource_version = (known after apply)
+                  + uid              = (known after apply)
+                }
+              + spec {
+                  + automount_service_account_token  = true
+                  + dns_policy                       = "ClusterFirst"
+                  + enable_service_links             = true
+                  + host_ipc                         = false
+                  + host_network                     = false
+                  + host_pid                         = false
+                  + hostname                         = (known after apply)
+                  + node_name                        = (known after apply)
+                  + restart_policy                   = "Always"
+                  + scheduler_name                   = (known after apply)
+                  + service_account_name             = (known after apply)
+                  + share_process_namespace          = false
+                  + termination_grace_period_seconds = 30
+
+                  + container {
+                      + image                      = "talaharon23/helloworld-app:1.1"
+                      + image_pull_policy          = (known after apply)
+                      + name                       = "helloworld-app"
+                      + restart_policy             = (known after apply)
+                      + stdin                      = false
+                      + stdin_once                 = false
+                      + termination_message_path   = "/dev/termination-log"
+                      + termination_message_policy = (known after apply)
+                      + tty                        = false
+
+                      + port {
+                          + container_port = 8080
+                          + protocol       = "TCP"
+                        }
+
+                      + resources (known after apply)
+                    }
+
+                  + image_pull_secrets (known after apply)
+
+                  + readiness_gate (known after apply)
+                }
+            }
+        }
+    }
+
+  # kubernetes_ingress_v1.app_ingress will be created
+  + resource "kubernetes_ingress_v1" "app_ingress" {
+      + id     = (known after apply)
+      + status = (known after apply)
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "helloworld-ingress"
+          + namespace        = "default"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + ingress_class_name = "nginx"
+
+          + rule {
+              + http {
+                  + path {
+                      + path      = "/*"
+                      + path_type = "ImplementationSpecific"
+
+                      + backend {
+                          + service {
+                              + name = "helloworld-service"
+
+                              + port {
+                                  + number = 80
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+  # kubernetes_namespace.app_namespace will be created
+  + resource "kubernetes_namespace" "app_namespace" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "helloworld"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_service.app_service will be created
+  + resource "kubernetes_service" "app_service" {
+      + id                     = (known after apply)
+      + status                 = (known after apply)
+      + wait_for_load_balancer = true
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "helloworld-service"
+          + namespace        = "helloworld"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+
+      + spec {
+          + allocate_load_balancer_node_ports = true
+          + cluster_ip                        = (known after apply)
+          + cluster_ips                       = (known after apply)
+          + external_traffic_policy           = (known after apply)
+          + health_check_node_port            = (known after apply)
+          + internal_traffic_policy           = (known after apply)
+          + ip_families                       = (known after apply)
+          + ip_family_policy                  = (known after apply)
+          + publish_not_ready_addresses       = false
+          + selector                          = {
+              + "app" = "hello_world_app"
+            }
+          + session_affinity                  = "None"
+          + type                              = "ClusterIP"
+
+          + port {
+              + node_port   = (known after apply)
+              + port        = 8080
+              + protocol    = "TCP"
+              + target_port = "80"
+            }
+
+          + session_affinity_config (known after apply)
+        }
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+kubernetes_namespace.app_namespace: Creating...
+
+Warning: Deprecated Resource
+
+  with kubernetes_namespace.app_namespace,
+  on main.tf line 6, in resource "kubernetes_namespace" "app_namespace":
+   6: resource "kubernetes_namespace" "app_namespace" {
+
+Deprecated; use kubernetes_namespace_v1.
+
+(and 6 more similar warnings elsewhere)

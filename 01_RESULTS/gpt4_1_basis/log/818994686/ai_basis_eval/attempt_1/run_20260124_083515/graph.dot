@@ -1,0 +1,32 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_security_group.default" [label="data.aws_security_group.default"];
+  "data.aws_subnets.default" [label="data.aws_subnets.default"];
+  "data.aws_vpc.default" [label="data.aws_vpc.default"];
+  "aws_db_instance.mysql" [label="aws_db_instance.mysql"];
+  "aws_db_subnet_group.default" [label="aws_db_subnet_group.default"];
+  "aws_ecr_repository.app" [label="aws_ecr_repository.app"];
+  "aws_ecs_cluster.app" [label="aws_ecs_cluster.app"];
+  "aws_ecs_service.app" [label="aws_ecs_service.app"];
+  "aws_ecs_task_definition.app" [label="aws_ecs_task_definition.app"];
+  "aws_iam_role.ecs_task_execution" [label="aws_iam_role.ecs_task_execution"];
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" [label="aws_iam_role_policy_attachment.ecs_task_execution_policy"];
+  "aws_security_group.app" [label="aws_security_group.app"];
+  "aws_security_group.db" [label="aws_security_group.db"];
+  "data.aws_security_group.default" -> "data.aws_vpc.default";
+  "data.aws_subnets.default" -> "data.aws_vpc.default";
+  "aws_db_instance.mysql" -> "aws_db_subnet_group.default";
+  "aws_db_instance.mysql" -> "aws_security_group.db";
+  "aws_db_subnet_group.default" -> "data.aws_subnets.default";
+  "aws_ecs_service.app" -> "aws_ecs_cluster.app";
+  "aws_ecs_service.app" -> "aws_ecs_task_definition.app";
+  "aws_ecs_service.app" -> "aws_iam_role_policy_attachment.ecs_task_execution_policy";
+  "aws_ecs_service.app" -> "aws_security_group.app";
+  "aws_ecs_task_definition.app" -> "aws_db_instance.mysql";
+  "aws_ecs_task_definition.app" -> "aws_ecr_repository.app";
+  "aws_ecs_task_definition.app" -> "aws_iam_role.ecs_task_execution";
+  "aws_iam_role_policy_attachment.ecs_task_execution_policy" -> "aws_iam_role.ecs_task_execution";
+  "aws_security_group.app" -> "data.aws_vpc.default";
+  "aws_security_group.db" -> "data.aws_vpc.default";
+}

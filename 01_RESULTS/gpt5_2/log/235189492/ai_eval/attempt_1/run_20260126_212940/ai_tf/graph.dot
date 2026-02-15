@@ -1,0 +1,32 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_partition.current" [label="data.aws_partition.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_cloudwatch_log_group.iterator" [label="aws_cloudwatch_log_group.iterator"];
+  "aws_cloudwatch_log_group.sfn" [label="aws_cloudwatch_log_group.sfn"];
+  "aws_iam_role.iterator" [label="aws_iam_role.iterator"];
+  "aws_iam_role.sfn" [label="aws_iam_role.sfn"];
+  "aws_iam_role_policy.iterator" [label="aws_iam_role_policy.iterator"];
+  "aws_iam_role_policy.sfn" [label="aws_iam_role_policy.sfn"];
+  "aws_lambda_function.iterator" [label="aws_lambda_function.iterator"];
+  "aws_lambda_function_event_invoke_config.iterator" [label="aws_lambda_function_event_invoke_config.iterator"];
+  "aws_sfn_state_machine.iterator" [label="aws_sfn_state_machine.iterator"];
+  "aws_sqs_queue.iterator_async_dlq" [label="aws_sqs_queue.iterator_async_dlq"];
+  "aws_sqs_queue_policy.iterator_async_dlq" [label="aws_sqs_queue_policy.iterator_async_dlq"];
+  "aws_iam_role_policy.iterator" -> "aws_cloudwatch_log_group.iterator";
+  "aws_iam_role_policy.iterator" -> "aws_iam_role.iterator";
+  "aws_iam_role_policy.sfn" -> "aws_iam_role.sfn";
+  "aws_iam_role_policy.sfn" -> "aws_lambda_function.iterator";
+  "aws_lambda_function.iterator" -> "aws_cloudwatch_log_group.iterator";
+  "aws_lambda_function.iterator" -> "aws_iam_role.iterator";
+  "aws_lambda_function_event_invoke_config.iterator" -> "aws_lambda_function.iterator";
+  "aws_lambda_function_event_invoke_config.iterator" -> "aws_sqs_queue.iterator_async_dlq";
+  "aws_sfn_state_machine.iterator" -> "data.aws_partition.current";
+  "aws_sfn_state_machine.iterator" -> "aws_cloudwatch_log_group.sfn";
+  "aws_sfn_state_machine.iterator" -> "aws_iam_role.sfn";
+  "aws_sfn_state_machine.iterator" -> "aws_lambda_function.iterator";
+  "aws_sqs_queue_policy.iterator_async_dlq" -> "aws_lambda_function.iterator";
+  "aws_sqs_queue_policy.iterator_async_dlq" -> "aws_sqs_queue.iterator_async_dlq";
+}

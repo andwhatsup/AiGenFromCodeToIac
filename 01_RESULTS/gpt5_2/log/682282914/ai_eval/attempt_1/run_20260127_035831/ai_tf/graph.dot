@@ -1,0 +1,11 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_s3_bucket.versioned" [label="aws_s3_bucket.versioned"];
+  "aws_s3_bucket_public_access_block.this" [label="aws_s3_bucket_public_access_block.this"];
+  "aws_s3_bucket_server_side_encryption_configuration.this" [label="aws_s3_bucket_server_side_encryption_configuration.this"];
+  "aws_s3_bucket_versioning.this" [label="aws_s3_bucket_versioning.this"];
+  "aws_s3_bucket_public_access_block.this" -> "aws_s3_bucket.versioned";
+  "aws_s3_bucket_server_side_encryption_configuration.this" -> "aws_s3_bucket.versioned";
+  "aws_s3_bucket_versioning.this" -> "aws_s3_bucket.versioned";
+}

@@ -1,0 +1,41 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "HTML",
+        "YAML"
+      ],
+      "frameworks": [
+        "Flask",
+        "Flask-SQLAlchemy",
+        "Flask-Migrate",
+        "Ansible (deployment automation)",
+        "systemd (service management)"
+      ],
+      "dependencies": [
+        "flask (imported in app/__init__.py)",
+        "flask_sqlalchemy (imported in app/__init__.py)",
+        "flask_migrate (imported in app/__init__.py)",
+        "SQLAlchemy ORM models (app/models.py)",
+        "SQLite (configured via SQLALCHEMY_DATABASE_URI in app/__init__.py and app/config.py)",
+        "Ansible (ansible/playbooks/install-app.yml)",
+        "systemd unit (flask.service)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (root)",
+        "flask.service (root)",
+        "ansible/playbooks/install-app.yml",
+        "app/flaskinit.sh",
+        "initdb.py"
+      ],
+      "architectural_resources": [
+        "Web application / HTTP API (Flask app in app/routes.py)",
+        "Relational database (SQLite file at /opt/url-shortener/test.db; could be replaced by external RDBMS via SQLALCHEMY_DATABASE_URI env var in app/config.py)",
+        "Compute instance/VM to run systemd service (implied by flask.service and Ansible playbook)",
+        "Configuration/Secrets: SECRET_KEY, SQLALCHEMY_DATABASE_URI, DEBUG (app/config.py)"
+      ]
+    }
+  ]
+}

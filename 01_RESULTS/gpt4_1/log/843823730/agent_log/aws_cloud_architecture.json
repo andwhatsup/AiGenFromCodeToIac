@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a static web application (HTML, JS, CSS) served by Nginx, containerized with Docker, and deployed on AWS using Elastic Kubernetes Service (EKS). The architecture is designed for scalability, security, and ease of management, following AWS best practices for containerized workloads.\n\n**Architecture Overview:**\n1. **Networking/Foundation:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access and NAT Gateway for outbound internet access from private subnets.\n   - Security Groups and Network ACLs to restrict traffic to only necessary ports (HTTP/HTTPS to ALB, internal communication for EKS nodes).\n\n2. **Compute/Orchestration:**\n   - An EKS Cluster deployed in the private subnets, managing the Kubernetes control plane and worker nodes (EC2 or Fargate).\n   - Worker nodes (EC2 Auto Scaling Group or Fargate profiles) to run the application pods.\n\n3. **Application Deployment:**\n   - Kubernetes Deployment for the static web app (notes-keeper), running Nginx containers.\n   - Kubernetes Service of type LoadBalancer, which provisions an AWS Application Load Balancer (ALB) to expose the app to the internet.\n   - The ALB forwards HTTP/HTTPS traffic to the Nginx pods.\n\n4. **Container Image Management:**\n   - Docker images are built and pushed to a container registry (GitHub Container Registry or Docker Hub). Optionally, AWS ECR (Elastic Container Registry) can be used for tighter AWS integration and security.\n\n5. **IAM & Security:**\n   - IAM roles for EKS cluster, worker nodes, and service accounts (for pulling images, managing ALB, etc.).\n   - Least-privilege policies for all IAM roles.\n\n6. **Monitoring & Logging:**\n   - CloudWatch for EKS cluster and application logs/metrics.\n   - AWS ALB access logs enabled and sent to S3 for auditing.\n\n**Optional Enhancements:**\n- Use AWS Certificate Manager (ACM) for SSL/TLS certificates on the ALB.\n- Use AWS WAF for web application firewall protection on the ALB.\n- Use S3 for storing static assets if decoupling from Nginx is desired in the future.\n\nThis architecture ensures the application is highly available, secure, and scalable, with managed infrastructure and best practices for containerized static web apps on AWS.",
+  "aws_resources": [
+    "VPC (with public and private subnets, multiple AZs)",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Groups (for ALB, EKS nodes, etc.)",
+    "Network ACLs (optional, for extra security)",
+    "EKS Cluster",
+    "EKS Node Group (EC2 Auto Scaling Group) or Fargate Profile",
+    "IAM Roles and Policies (EKS cluster, node group, service accounts)",
+    "Kubernetes Deployment (notes-keeper)",
+    "Kubernetes Service (type LoadBalancer, integrates with AWS ALB)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to route to EKS pods)",
+    "Elastic Container Registry (ECR) [optional, if not using GitHub/Docker Hub]",
+    "CloudWatch Log Groups (for EKS and application logs)",
+    "CloudWatch Metrics",
+    "S3 Bucket (for ALB access logs)",
+    "AWS Certificate Manager (ACM) [optional, for SSL/TLS]",
+    "AWS WAF [optional, for web application firewall]"
+  ]
+}

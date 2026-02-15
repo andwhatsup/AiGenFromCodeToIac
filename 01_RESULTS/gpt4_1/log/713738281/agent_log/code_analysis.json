@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "JavaScript"
+      ],
+      "frameworks": [
+        "Node.js"
+      ],
+      "dependencies": [
+        "mocha (package.json, devDependency)",
+        "@ungap/promise-all-settled (package-lock.json, devDependency)",
+        "ansi-colors (package-lock.json, devDependency)",
+        "ansi-regex (package-lock.json, devDependency)",
+        "ansi-styles (package-lock.json, devDependency)",
+        "anymatch (package-lock.json, devDependency)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile",
+        "docker-compose.yml",
+        ".buildkite/pipeline.yml",
+        ".buildkite/template.yml",
+        ".buildkite/run_build.sh",
+        ".buildkite/hooks/environment"
+      ],
+      "architectural_resources": [
+        "Docker container (Dockerfile, docker-compose.yml)",
+        "Buildkite CI/CD pipeline (.buildkite/pipeline.yml)",
+        "Amazon ECR (referenced in docker-compose.yml image)",
+        "S3 bucket (referenced in .buildkite/pipeline.yml via Terraform)",
+        "Terraform (referenced in .buildkite/pipeline.yml)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_iam_policy_document.assume_role" [label="data.aws_iam_policy_document.assume_role"];
+  "data.aws_iam_policy_document.assume_role_policy" [label="data.aws_iam_policy_document.assume_role_policy"];
+  "aws_iam_group.this" [label="aws_iam_group.this"];
+  "aws_iam_group_policy_attachment.this" [label="aws_iam_group_policy_attachment.this"];
+  "aws_iam_policy.this" [label="aws_iam_policy.this"];
+  "aws_iam_role.this" [label="aws_iam_role.this"];
+  "aws_iam_user.this" [label="aws_iam_user.this"];
+  "aws_iam_user_group_membership.this" [label="aws_iam_user_group_membership.this"];
+  "data.aws_iam_policy_document.assume_role" -> "data.aws_caller_identity.current";
+  "data.aws_iam_policy_document.assume_role_policy" -> "aws_iam_role.this";
+  "aws_iam_group_policy_attachment.this" -> "aws_iam_group.this";
+  "aws_iam_group_policy_attachment.this" -> "aws_iam_policy.this";
+  "aws_iam_policy.this" -> "data.aws_iam_policy_document.assume_role_policy";
+  "aws_iam_role.this" -> "data.aws_iam_policy_document.assume_role";
+  "aws_iam_user_group_membership.this" -> "aws_iam_group.this";
+  "aws_iam_user_group_membership.this" -> "aws_iam_user.this";
+}

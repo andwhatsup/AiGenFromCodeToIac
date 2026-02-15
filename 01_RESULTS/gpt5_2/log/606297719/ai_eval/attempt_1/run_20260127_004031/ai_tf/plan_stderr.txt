@@ -1,0 +1,20 @@
+
+Error: Error in function call
+
+  on main.tf line 412, in resource "aws_ecs_task_definition" "agent":
+ 412:         { name = "PREFECT_ACCOUNT_ID", value = coalesce(var.prefect_account_id, "") },
+    ├────────────────
+    │ while calling coalesce(vals...)
+    │ var.prefect_account_id is null
+
+Call to function "coalesce" failed: no non-null, non-empty-string arguments.
+
+Error: Error in function call
+
+  on main.tf line 413, in resource "aws_ecs_task_definition" "agent":
+ 413:         { name = "PREFECT_WORKSPACE_ID", value = coalesce(var.prefect_workspace_id, "") },
+    ├────────────────
+    │ while calling coalesce(vals...)
+    │ var.prefect_workspace_id is null
+
+Call to function "coalesce" failed: no non-null, non-empty-string arguments.

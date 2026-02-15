@@ -1,0 +1,68 @@
+data.aws_iam_policy_document.ecs_task_execution_assume: Reading...
+data.aws_availability_zones.available: Reading...
+aws_eip.nat: Refreshing state... [id=eipalloc-15589bcfcf70eb579]
+aws_ecs_cluster.this: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:cluster/flask-ecs-app-prod]
+aws_ecr_repository.app: Refreshing state... [id=flask-ecs-app-prod]
+aws_vpc.this: Refreshing state... [id=vpc-a8ed2dddb050c1baf]
+aws_cloudwatch_log_group.app: Refreshing state... [id=/ecs/flask-ecs-app-prod]
+data.aws_iam_policy_document.ecs_task_execution_assume: Read complete after 0s [id=1077804475]
+aws_iam_role.ecs_task_execution: Refreshing state... [id=flask-ecs-app-prod-ecs-task-exec]
+aws_iam_role.ecs_task: Refreshing state... [id=flask-ecs-app-prod-ecs-task]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_ecr_lifecycle_policy.app: Refreshing state... [id=flask-ecs-app-prod]
+aws_iam_role_policy_attachment.ecs_task_execution: Refreshing state... [id=flask-ecs-app-prod-ecs-task-exec-20260126223038664700000001]
+aws_ecs_task_definition.app: Refreshing state... [id=flask-ecs-app-prod]
+aws_route_table.public: Refreshing state... [id=rtb-6665065cf52411407]
+aws_route_table.private: Refreshing state... [id=rtb-905cb1082c0c9ab71]
+aws_security_group.alb: Refreshing state... [id=sg-a0a9378d7ab09cb97]
+aws_subnet.public["0"]: Refreshing state... [id=subnet-e31b3f5786d3805cd]
+aws_subnet.public["1"]: Refreshing state... [id=subnet-bae7ff2836cb5ba7f]
+aws_subnet.private["1"]: Refreshing state... [id=subnet-237913c4e3a97be70]
+aws_internet_gateway.this: Refreshing state... [id=igw-146dc0676a36a68c3]
+aws_subnet.private["0"]: Refreshing state... [id=subnet-18486eaa6dc01fb52]
+aws_lb_target_group.app: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:targetgroup/flask-ecs-app-prod-tg/c59108c43d5c9303]
+aws_security_group.ecs: Refreshing state... [id=sg-6e1cbc5239f925437]
+aws_route.public_internet: Refreshing state... [id=r-rtb-6665065cf524114071080289494]
+aws_route_table_association.private["1"]: Refreshing state... [id=rtbassoc-753c0d9d2272fd5fc]
+aws_route_table_association.private["0"]: Refreshing state... [id=rtbassoc-3c9e5029ec251fb46]
+aws_nat_gateway.this: Refreshing state... [id=nat-208c307f5a93334b5]
+aws_route_table_association.public["0"]: Refreshing state... [id=rtbassoc-09a9d741d3270a9bc]
+aws_route_table_association.public["1"]: Refreshing state... [id=rtbassoc-0590e9612dea35829]
+aws_lb.this: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:loadbalancer/app/flask-ecs-app-prod-alb/17e23aa0212899b2]
+aws_route.private_nat: Refreshing state... [id=r-rtb-905cb1082c0c9ab711080289494]
+aws_lb_listener.http: Refreshing state... [id=arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/flask-ecs-app-prod-alb/17e23aa0212899b2/9b7d3d5759c73d5d]
+aws_ecs_service.app: Refreshing state... [id=arn:aws:ecs:us-east-1:000000000000:service/flask-ecs-app-prod/flask-ecs-app-prod]
+aws_appautoscaling_target.ecs: Refreshing state... [id=service/flask-ecs-app-prod/flask-ecs-app-prod]
+aws_appautoscaling_policy.cpu: Refreshing state... [id=flask-ecs-app-prod-cpu]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_ecs_service.app will be updated in-place
+  ~ resource "aws_ecs_service" "app" {
+      + availability_zone_rebalancing      = "DISABLED"
+      ~ enable_ecs_managed_tags            = false -> true
+        id                                 = "arn:aws:ecs:us-east-1:000000000000:service/flask-ecs-app-prod/flask-ecs-app-prod"
+        name                               = "flask-ecs-app-prod"
+        tags                               = {
+            "Name" = "flask-ecs-app-prod"
+        }
+        # (14 unchanged attributes hidden)
+
+        # (4 unchanged blocks hidden)
+    }
+
+  # aws_lb_listener.http will be updated in-place
+  ~ resource "aws_lb_listener" "http" {
+        id                                                                  = "arn:aws:elasticloadbalancing:us-east-1:000000000000:listener/app/flask-ecs-app-prod-alb/17e23aa0212899b2/9b7d3d5759c73d5d"
+      ~ port                                                                = 4566 -> 80
+        tags                                                                = {}
+        # (16 unchanged attributes hidden)
+
+        # (1 unchanged block hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.

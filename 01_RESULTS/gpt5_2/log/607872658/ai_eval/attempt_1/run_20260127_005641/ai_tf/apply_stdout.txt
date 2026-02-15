@@ -1,0 +1,383 @@
+data.archive_file.lambda_dummy: Reading...
+data.archive_file.lambda_dummy: Read complete after 0s [id=58e93fade67637870be5af38eff8d5aa66c7da49]
+data.aws_region.current: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_partition.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_event_rule.daily will be created
+  + resource "aws_cloudwatch_event_rule" "daily" {
+      + arn                 = (known after apply)
+      + description         = "Schedule to run SSM Parameter Store backup Lambda"
+      + event_bus_name      = "default"
+      + force_destroy       = false
+      + id                  = (known after apply)
+      + name                = (known after apply)
+      + name_prefix         = "ai-tf-dev-ssm_backup-"
+      + region              = "us-east-1"
+      + schedule_expression = "rate(1 day)"
+      + tags_all            = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_cloudwatch_event_target.lambda will be created
+  + resource "aws_cloudwatch_event_target" "lambda" {
+      + arn            = (known after apply)
+      + event_bus_name = "default"
+      + force_destroy  = false
+      + id             = (known after apply)
+      + region         = "us-east-1"
+      + rule           = (known after apply)
+      + target_id      = "ssm-backup"
+    }
+
+  # aws_cloudwatch_log_group.lambda will be created
+  + resource "aws_cloudwatch_log_group" "lambda" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/aws/lambda/ssm_backup"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 30
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_iam_policy.lambda_custom will be created
+  + resource "aws_iam_policy" "lambda_custom" {
+      + arn              = (known after apply)
+      + attachment_count = (known after apply)
+      + description      = "Least-privilege policy for SSM backup Lambda"
+      + id               = (known after apply)
+      + name             = (known after apply)
+      + name_prefix      = "ai-tf-dev-ssm_backup-"
+      + path             = "/"
+      + policy           = (known after apply)
+      + policy_id        = (known after apply)
+      + tags_all         = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_iam_role.lambda_exec will be created
+  + resource "aws_iam_role" "lambda_exec" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "ai-tf-dev-ssm_backup-exec-"
+      + path                  = "/"
+      + tags_all              = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_basic" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+      + role       = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.lambda_custom will be created
+  + resource "aws_iam_role_policy_attachment" "lambda_custom" {
+      + id         = (known after apply)
+      + policy_arn = (known after apply)
+      + role       = (known after apply)
+    }
+
+  # aws_kms_alias.backup will be created
+  + resource "aws_kms_alias" "backup" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/ai-tf-dev-ssm-parameter-backup"
+      + name_prefix    = (known after apply)
+      + region         = "us-east-1"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # aws_kms_key.backup will be created
+  + resource "aws_kms_key" "backup" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 30
+      + description                        = "KMS key for SSM Parameter Store backups in S3"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = (known after apply)
+      + policy                             = (known after apply)
+      + region                             = "us-east-1"
+      + rotation_period_in_days            = (known after apply)
+      + tags_all                           = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+    }
+
+  # aws_lambda_function.ssm_backup will be created
+  + resource "aws_lambda_function" "ssm_backup" {
+      + architectures                  = (known after apply)
+      + arn                            = (known after apply)
+      + code_sha256                    = (known after apply)
+      + filename                       = "../ssm_backup.zip"
+      + function_name                  = "ssm_backup"
+      + handler                        = "ssm_backup.lambda_handler"
+      + id                             = (known after apply)
+      + invoke_arn                     = (known after apply)
+      + last_modified                  = (known after apply)
+      + memory_size                    = 256
+      + package_type                   = "Zip"
+      + publish                        = false
+      + qualified_arn                  = (known after apply)
+      + qualified_invoke_arn           = (known after apply)
+      + region                         = "us-east-1"
+      + reserved_concurrent_executions = -1
+      + response_streaming_invoke_arn  = (known after apply)
+      + role                           = (known after apply)
+      + runtime                        = "python3.11"
+      + signing_job_arn                = (known after apply)
+      + signing_profile_version_arn    = (known after apply)
+      + skip_destroy                   = false
+      + source_code_hash               = "n4A7xOd6eEQZBCcT0Ok0Pbk6dsslDSf/uucrtWNnhKg="
+      + source_code_size               = (known after apply)
+      + tags_all                       = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + timeout                        = 300
+      + version                        = (known after apply)
+
+      + environment {
+          + variables = (known after apply)
+        }
+
+      + ephemeral_storage (known after apply)
+
+      + logging_config (known after apply)
+
+      + tracing_config (known after apply)
+    }
+
+  # aws_lambda_permission.allow_eventbridge will be created
+  + resource "aws_lambda_permission" "allow_eventbridge" {
+      + action              = "lambda:InvokeFunction"
+      + function_name       = "ssm_backup"
+      + id                  = (known after apply)
+      + principal           = "events.amazonaws.com"
+      + region              = "us-east-1"
+      + source_arn          = (known after apply)
+      + statement_id        = "AllowExecutionFromEventBridge"
+      + statement_id_prefix = (known after apply)
+    }
+
+  # aws_s3_bucket.backup will be created
+  + resource "aws_s3_bucket" "backup" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "ai-tf-dev-ssm-parameter-backup-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "ai-tf"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_lifecycle_configuration.backup[0] will be created
+  + resource "aws_s3_bucket_lifecycle_configuration" "backup" {
+      + bucket                                 = (known after apply)
+      + expected_bucket_owner                  = (known after apply)
+      + id                                     = (known after apply)
+      + region                                 = "us-east-1"
+      + transition_default_minimum_object_size = "all_storage_classes_128K"
+
+      + rule {
+          + id     = "expire-backups"
+          + status = "Enabled"
+            # (1 unchanged attribute hidden)
+
+          + expiration {
+              + days                         = 365
+              + expired_object_delete_marker = false
+            }
+
+          + filter {
+              + prefix = "backups/"
+            }
+
+          + noncurrent_version_expiration {
+              + noncurrent_days = 365
+            }
+        }
+    }
+
+  # aws_s3_bucket_ownership_controls.backup will be created
+  + resource "aws_s3_bucket_ownership_controls" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_policy.backup will be created
+  + resource "aws_s3_bucket_policy" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + policy = (known after apply)
+      + region = "us-east-1"
+    }
+
+  # aws_s3_bucket_public_access_block.backup will be created
+  + resource "aws_s3_bucket_public_access_block" "backup" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "us-east-1"
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.backup will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "aws:kms"
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.backup will be created
+  + resource "aws_s3_bucket_versioning" "backup" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+Plan: 18 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + event_rule_arn      = (known after apply)
+  + kms_key_arn         = (known after apply)
+  + lambda_function_arn = (known after apply)
+  + s3_bucket_name      = (known after apply)
+aws_cloudwatch_event_rule.daily: Creating...
+aws_iam_role.lambda_exec: Creating...
+aws_cloudwatch_log_group.lambda: Creating...
+aws_s3_bucket.backup: Creating...
+aws_cloudwatch_event_rule.daily: Creation complete after 0s [id=ai-tf-dev-ssm_backup-20260126235708034900000001]
+aws_iam_role.lambda_exec: Creation complete after 0s [id=ai-tf-dev-ssm_backup-exec-20260126235708035100000002]
+aws_iam_role_policy_attachment.lambda_basic: Creating...
+aws_iam_role_policy_attachment.lambda_basic: Creation complete after 0s [id=ai-tf-dev-ssm_backup-exec-20260126235708035100000002/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole]
+aws_cloudwatch_log_group.lambda: Creation complete after 0s [id=/aws/lambda/ssm_backup]
+aws_s3_bucket.backup: Still creating... [00m10s elapsed]
+aws_s3_bucket.backup: Still creating... [00m20s elapsed]
+aws_s3_bucket.backup: Still creating... [00m30s elapsed]
+aws_s3_bucket.backup: Still creating... [00m40s elapsed]
+aws_s3_bucket.backup: Still creating... [00m50s elapsed]
+aws_s3_bucket.backup: Still creating... [01m00s elapsed]
+aws_s3_bucket.backup: Still creating... [01m10s elapsed]
+aws_s3_bucket.backup: Still creating... [01m20s elapsed]
+aws_s3_bucket.backup: Still creating... [01m30s elapsed]
+aws_s3_bucket.backup: Still creating... [01m40s elapsed]
+aws_s3_bucket.backup: Still creating... [01m50s elapsed]
+aws_s3_bucket.backup: Still creating... [02m00s elapsed]
+aws_s3_bucket.backup: Still creating... [02m10s elapsed]
+aws_s3_bucket.backup: Still creating... [02m20s elapsed]
+aws_s3_bucket.backup: Still creating... [02m30s elapsed]
+aws_s3_bucket.backup: Still creating... [02m40s elapsed]
+aws_s3_bucket.backup: Still creating... [02m50s elapsed]

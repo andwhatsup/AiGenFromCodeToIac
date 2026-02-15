@@ -1,0 +1,48 @@
+# to check defaults
+# helm repo add grafana https://grafana.github.io/helm-charts
+# helm repo update
+# helm show values grafana/tempo-distributed --version 1.9.1
+tempo:
+  fullname: tempo
+  memberlist:
+    appProtocol: tcp
+traces:
+  otlp:
+    grpc:
+      enabled: false
+    http:
+      enabled: true
+  zipkin:
+    enabled: true
+  jaeger:
+    thriftHttp:
+      enabled: false
+  opencensus:
+    enabled: false
+metricsGenerator:
+  appProtocol:
+    grpc: tcp
+  enabled: true
+  config:
+    storage:
+      remote_write_flush_deadline: 1m
+      remote_write:
+        - url: http://vm-victoria-metrics-single-victoria-server:8428/api/v1/write
+          send_exemplars: true
+# distributor:
+# if you want debug logs for distributor
+#   config:
+#     log_received_spans:
+#       enabled: true
+#       include_all_attributes: true
+ingester:
+  replicas: 1
+  config:
+    replication_factor: 1
+global_overrides:
+  metrics_generator_processors:
+    - service-graphs
+    - span-metrics
+memberlist:
+  rejoin_interval: 60s
+  dead_node_reclaim_time: 60s

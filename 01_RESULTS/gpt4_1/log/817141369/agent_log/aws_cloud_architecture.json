@@ -1,0 +1,26 @@
+{
+  "aws_architecture_description": "This system is a modern, cloud-native web application stack designed for scalability, automation, and efficient static content delivery. The architecture leverages AWS managed services, Kubernetes orchestration, and CI/CD automation for robust deployment and operations.\n\n1. **Networking & Security**:\n   - All resources are deployed within a dedicated VPC, with public and private subnets across multiple Availability Zones for high availability.\n   - Security Groups and IAM roles are tightly scoped to follow the principle of least privilege.\n\n2. **Compute & Orchestration**:\n   - An AWS Elastic Kubernetes Service (EKS) cluster orchestrates containerized workloads.\n   - The main web application is packaged as a Docker container (Nginx serving static content) and deployed via a Kubernetes Deployment (dinosaur-deployment).\n   - The application is exposed externally using a Kubernetes Service of type LoadBalancer, which provisions an AWS Application Load Balancer (ALB) for secure, scalable ingress.\n\n3. **Static Content Hosting**:\n   - The \"Jump Game\" static web application is hosted on Amazon S3 with static website hosting enabled.\n   - Amazon CloudFront is used as a CDN to accelerate content delivery and provide HTTPS for the S3-hosted site.\n\n4. **CI/CD Automation**:\n   - Jenkins and GitHub Actions pipelines are configured to automate build, test, and deployment processes.\n   - Pipelines interact with EKS using IAM roles and Kubernetes RBAC for secure, automated deployments.\n\n5. **Infrastructure as Code**:\n   - Terraform is used to provision and manage all AWS resources, ensuring repeatability and version control of infrastructure.\n\n6. **Monitoring & Logging**:\n   - Amazon CloudWatch is used for monitoring EKS, ALB, and other AWS resources.\n   - AWS CloudTrail is enabled for auditing API activity.\n\nThis architecture is secure, scalable, and cost-effective, following AWS best practices for networking, compute, storage, and automation. It supports rapid development cycles and reliable, high-performance delivery of both the main static site and the Jump Game.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for EKS nodes, ALB, etc.)",
+    "IAM Roles and Policies (for EKS, CI/CD, S3 access, etc.)",
+    "EKS Cluster",
+    "EKS Node Groups (managed or self-managed)",
+    "Kubernetes Deployments (dinosaur-deployment)",
+    "Kubernetes Services (dinosaur-service, type LoadBalancer)",
+    "AWS Application Load Balancer (ALB, provisioned by Kubernetes)",
+    "Elastic IPs (for NAT Gateway)",
+    "Amazon S3 Bucket (for Jump Game static site)",
+    "S3 Bucket Policy (for public read/static hosting)",
+    "Amazon CloudFront Distribution (for S3 static site)",
+    "Jenkins (self-hosted EC2 or managed, if required)",
+    "AWS CodeBuild/CodePipeline (optional, if CI/CD is to be AWS-native)",
+    "CloudWatch Logs (for EKS, ALB, and application logs)",
+    "CloudWatch Metrics and Alarms",
+    "AWS CloudTrail (for auditing)",
+    "Terraform state storage (S3 bucket, DynamoDB table for state locking, if using remote state)"
+  ]
+}

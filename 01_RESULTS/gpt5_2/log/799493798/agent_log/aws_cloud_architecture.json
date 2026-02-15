@@ -1,0 +1,28 @@
+{
+  "aws_architecture_description": "### Proposed high-level AWS architecture (API Gateway → Lambda → S3)\n\n#### 1) Edge / API layer\n- **Amazon API Gateway (HTTP API or REST API)** exposes a public HTTPS endpoint.\n  - Use **Lambda proxy integration** so the full request is forwarded to the Lambda handler and the handler returns the HTTP response.\n  - Enable **access logging** and **metrics**.\n  - (Optional but recommended) Configure **throttling** and **request validation** to protect the backend.\n\n#### 2) Compute layer\n- **AWS Lambda (Python 3.x)** runs `lambda_function.py` packaged as `lambda_function.zip`.\n  - Configure environment variable **`BUCKET_NAME`**.\n  - Set appropriate **timeout** and **memory** (start small; increase if listing large buckets).\n  - Use **reserved concurrency** (optional) to cap cost and protect S3 from sudden spikes.\n\n#### 3) Data / storage layer\n- **Amazon S3 bucket** stores the objects that the Lambda lists.\n  - Keep the bucket **private** (no public access).\n  - Enforce **S3 Block Public Access**.\n  - Enable **SSE** (SSE-S3 or SSE-KMS; KMS if you need tighter key control/auditing).\n\n#### 4) Security and permissions\n- **IAM execution role for Lambda** with least-privilege permissions:\n  - Allow `s3:ListBucket` (ListObjectsV2 maps to ListBucket at the IAM action level) scoped to the target bucket ARN.\n  - Allow CloudWatch Logs permissions to create log group/stream and put log events.\n- **API Gateway → Lambda permission** via a Lambda resource-based policy allowing invocation only from the specific API/stage.\n\n#### 5) Observability\n- **CloudWatch Logs** for Lambda function logs.\n- **CloudWatch metrics/alarms** for:\n  - Lambda errors, throttles, duration\n  - API Gateway 4XX/5XX and latency\n- (Optional) **AWS X-Ray** tracing enabled on Lambda and API Gateway for end-to-end tracing.\n\n#### 6) Networking (lean approach)\n- This workload can run **without a VPC** (default Lambda networking) because it only calls **public AWS services (S3, CloudWatch)**.\n  - This is simpler and avoids NAT costs.\n- If you later require private networking controls, place Lambda in a **VPC** and add an **S3 Gateway VPC Endpoint** (and CloudWatch Logs endpoint if needed) to keep traffic private.\n\n#### 7) Deployment strategy\n- Package and deploy the Lambda artifact (`lambda_function.zip`) via IaC (Terraform/CloudFormation/CDK).\n- Use **stages** (e.g., `dev`, `prod`) with separate Lambda aliases and API stages.\n- Store configuration (like bucket name) per environment.\n\n---\n\n### AWS resources to provision\n\n**Core application**\n- Amazon API Gateway (HTTP API or REST API)\n- API Gateway Stage (e.g., `dev`, `prod`)\n- API Gateway Routes/Methods + Integration (Lambda proxy)\n- AWS Lambda Function\n- Lambda Environment Variables (`BUCKET_NAME`)\n- Lambda Permission (resource policy allowing API Gateway invocation)\n- Amazon S3 Bucket (data bucket that is listed)\n\n**IAM / security**\n- IAM Role (Lambda execution role)\n- IAM Policy (least-privilege: `s3:ListBucket` on the bucket; CloudWatch Logs write permissions)\n- IAM Role Policy Attachment (attach policy to role)\n- S3 Block Public Access configuration\n- (Optional) AWS KMS Key (if using SSE-KMS) + KMS Key Policy + Alias\n\n**Logging / monitoring**\n- CloudWatch Log Group for the Lambda function (explicitly managed, with retention)\n- CloudWatch Alarms (Lambda Errors/Throttles; API Gateway 5XX/Latency)\n- (Optional) X-Ray configuration (Lambda tracing; API Gateway tracing)\n\n**Networking (optional; only if you choose VPC-enabled Lambda)**\n- VPC\n- Private Subnets (at least 2 AZs)\n- Route Tables\n- Security Group for Lambda\n- VPC Endpoint: S3 (Gateway Endpoint)\n- (Optional) VPC Interface Endpoints (CloudWatch Logs, X-Ray) if you require fully private egress\n- (Optional) NAT Gateway + Elastic IP (only if Lambda needs outbound internet access to non-AWS/private endpoints)",
+  "aws_resources": [
+    "Amazon API Gateway (HTTP API or REST API)",
+    "API Gateway Stage(s)",
+    "API Gateway Routes/Methods",
+    "API Gateway Integration (Lambda proxy)",
+    "AWS Lambda Function (Python 3.x)",
+    "Lambda function environment variables (BUCKET_NAME)",
+    "Lambda resource-based permission for API Gateway invocation",
+    "Amazon S3 Bucket (data bucket)",
+    "S3 Block Public Access configuration",
+    "IAM Role (Lambda execution role)",
+    "IAM Policy (least-privilege S3 List + CloudWatch Logs)",
+    "IAM Role Policy Attachment",
+    "Amazon CloudWatch Log Group (Lambda)",
+    "CloudWatch Metrics/Alarms (Lambda + API Gateway)",
+    "(Optional) AWS X-Ray tracing configuration",
+    "(Optional) AWS KMS Key + Alias + Key Policy (if SSE-KMS is required)",
+    "(Optional) VPC",
+    "(Optional) Private subnets in 2+ AZs",
+    "(Optional) Route tables",
+    "(Optional) Security group for Lambda",
+    "(Optional) VPC Endpoint (Gateway): S3",
+    "(Optional) VPC Interface Endpoints (CloudWatch Logs, X-Ray)",
+    "(Optional) NAT Gateway + Elastic IP (only if non-AWS internet egress is needed)"
+  ]
+}

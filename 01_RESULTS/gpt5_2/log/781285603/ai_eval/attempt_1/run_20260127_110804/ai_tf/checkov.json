@@ -1,0 +1,399 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    51,
+                    59
+                ],
+                "resource": "aws_security_group_rule.nodes_egress_all",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf"
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "from_port",
+                        "to_port",
+                        "cidr_blocks",
+                        "ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    62,
+                    70
+                ],
+                "resource": "aws_security_group_rule.cluster_egress_all",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf"
+            },
+            {
+                "check_id": "CKV_AWS_39",
+                "bc_check_id": "BC_AWS_KUBERNETES_2",
+                "check_name": "Ensure Amazon EKS public endpoint disabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "vpc_config/[0]/endpoint_public_access"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    101,
+                    123
+                ],
+                "resource": "aws_eks_cluster.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EKSPublicAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-2",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "breadcrumbs": {
+                    "version": [
+                        {
+                            "type": "variable",
+                            "name": "kubernetes_version",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_eks_cluster.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_58",
+                "bc_check_id": "BC_AWS_KUBERNETES_3",
+                "check_name": "Ensure EKS Cluster has Secrets Encryption Enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_config/[0]/resources"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    101,
+                    123
+                ],
+                "resource": "aws_eks_cluster.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EKSSecretsEncryption",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-3",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "breadcrumbs": {
+                    "version": [
+                        {
+                            "type": "variable",
+                            "name": "kubernetes_version",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_eks_cluster.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_38",
+                "bc_check_id": "BC_AWS_KUBERNETES_1",
+                "check_name": "Ensure Amazon EKS public endpoint not accessible to 0.0.0.0/0",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": []
+                },
+                "code_block": null,
+                "file_path": "/eks.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "repo_file_path": "/eks.tf",
+                "file_line_range": [
+                    101,
+                    123
+                ],
+                "resource": "aws_eks_cluster.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.EKSPublicAccessCIDR",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-kubernetes-policies/bc-aws-kubernetes-1",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                "breadcrumbs": {
+                    "version": [
+                        {
+                            "type": "variable",
+                            "name": "kubernetes_version",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "cluster_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_eks_cluster.this",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/eks.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    27,
+                    39
+                ],
+                "resource": "aws_subnet.public",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Environment": "dev",
+                    "ManagedBy": "terraform",
+                    "Project": "devops-challenge",
+                    "Name": "devops-challenge-dev-public-each.key",
+                    "kubernetes.io/role/elb": "1"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "cidr_block": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "for_each": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/network.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags": [
+                        {
+                            "type": "locals",
+                            "name": "tags",
+                            "path": "/ai-gen-from-code-to-iac/workspace/781285603/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 57,
+        "failed": 6,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 43,
+        "checkov_version": "3.2.490"
+    }
+}

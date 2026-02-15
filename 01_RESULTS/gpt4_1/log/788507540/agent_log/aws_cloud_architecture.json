@@ -1,0 +1,26 @@
+{
+  "aws_architecture_description": "This system is a Go-based API service using the Fuego framework, instrumented with OpenTelemetry, and designed for Kubernetes deployment with Istio for ingress and traffic management. To deploy this architecture on AWS, the following high-level design is proposed:\n\n1. **Amazon EKS (Elastic Kubernetes Service):**\n   - The Kubernetes cluster will be provisioned using Amazon EKS, providing managed Kubernetes control plane and worker nodes.\n\n2. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Security Groups and Network ACLs to control traffic to the EKS nodes and load balancers.\n\n3. **Ingress and Traffic Management:**\n   - AWS Application Load Balancer (ALB) as the external entry point, integrated with the EKS cluster using AWS Load Balancer Controller.\n   - Istio will be deployed within EKS for advanced traffic management, ingress, and service mesh capabilities.\n\n4. **Containerization and Deployment:**\n   - The Go API service will be built as a Docker container and deployed to EKS using Kubernetes manifests (Deployment, Service, etc.).\n   - Amazon ECR (Elastic Container Registry) will be used to store and manage Docker images.\n\n5. **Observability:**\n   - OpenTelemetry Collector will be deployed as a sidecar or separate deployment in EKS to collect and export traces.\n   - AWS X-Ray or Amazon CloudWatch can be used as the backend for trace and metrics storage/visualization.\n\n6. **IAM and Security:**\n   - IAM roles for EKS nodes, service accounts for Kubernetes workloads (using IAM Roles for Service Accounts), and least-privilege policies.\n   - Secrets management via AWS Secrets Manager or Kubernetes Secrets.\n\n7. **Monitoring and Logging:**\n   - Amazon CloudWatch for cluster, application, and infrastructure monitoring and logging.\n\n8. **Foundational Resources:**\n   - Route 53 for DNS management if custom domains are required.\n   - S3 for storing logs, artifacts, or backups if needed.\n\nThis architecture ensures a secure, scalable, and observable deployment of the Go API service, leveraging AWS managed services and best practices for cloud-native applications.",
+  "aws_resources": [
+    "VPC (with public and private subnets across multiple AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for EKS nodes, ALB, etc.)",
+    "Network ACLs",
+    "Amazon EKS Cluster",
+    "EKS Node Groups (managed or self-managed)",
+    "IAM Roles and Policies (for EKS, nodes, service accounts)",
+    "Amazon ECR (Elastic Container Registry)",
+    "AWS Application Load Balancer (ALB)",
+    "AWS Load Balancer Controller (deployed in EKS)",
+    "Istio (deployed in EKS)",
+    "Kubernetes Deployments and Services (for API, OpenTelemetry Collector, Istio components)",
+    "OpenTelemetry Collector (Kubernetes deployment)",
+    "AWS X-Ray or Amazon CloudWatch (for tracing and monitoring)",
+    "AWS Secrets Manager or Kubernetes Secrets",
+    "Amazon CloudWatch Logs",
+    "Amazon CloudWatch Metrics",
+    "Amazon S3 (optional, for logs/artifacts/backups)",
+    "Amazon Route 53 (optional, for DNS)"
+  ]
+}

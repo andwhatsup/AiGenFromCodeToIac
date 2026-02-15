@@ -1,0 +1,115 @@
+data.ignition_systemd_unit.ssh_key_agent_download: Reading...
+data.ignition_systemd_unit.ssh_key_agent_docker: Reading...
+data.ignition_systemd_unit.ssh_key_agent: Reading...
+data.ignition_file.ssh_key_agent: Reading...
+data.ignition_systemd_unit.ssh_key_agent: Read complete after 0s [id=f38ca4527f8fdc71dc237c29fdc8678d75adddae941980502afe56bf3d354e8f]
+data.ignition_systemd_unit.ssh_key_agent_download: Read complete after 0s [id=7b33cbcb9e1b2e42833cdb6b54ce62847d5cfca8319d3dcf9f0af913cc077040]
+data.ignition_systemd_unit.ssh_key_agent_docker: Read complete after 0s [id=e8abb050189d2cc168fbf19f37e13e36bc0e864e56ee516f6f9fdfc1c51cf8dd]
+data.ignition_file.ssh_key_agent: Read complete after 0s [id=6a2dfaef1ca3aa6669db499ab95431e0e576cfccb0f8d452052dcf41bd255d88]
+
+Changes to Outputs:
+  + docker_unit   = jsonencode(
+        {
+          + contents = <<-EOT
+                [Unit]
+                Description=ssh-key-agent
+                After=docker.service
+                Requires=docker.service
+                [Service]
+                Restart=on-failure
+                RestartSec=10
+                ExecStartPre=-/usr/bin/mkdir -p /home/core/.ssh
+                ExecStartPre=-/usr/bin/touch /home/core/.ssh/authorized_keys
+                ExecStartPre=-/usr/bin/chown -R "core":"core" /home/core/.ssh
+                ExecStartPre=-/usr/bin/chmod 700 /home/core/.ssh
+                ExecStartPre=-/usr/bin/chmod 644 /home/core/.ssh/authorized_keys
+                ExecStart=/bin/sh -c 'docker run --name=%p_$(uuidgen) --rm \
+                 -v /home/core/.ssh/authorized_keys:/authorized_keys \
+                 -e SKA_KEY_URI=terraform \
+                 -e SKA_GROUPS= \
+                 -e SKA_AKF_LOC=/authorized_keys \
+                 -e SKA_INTERVAL=60 \
+                 quay.io/utilitywarehouse/ssh-key-agent:v1.0.16'
+                ExecStop=/bin/sh -c 'docker stop -t 3 "$(docker ps -q --filter=name=%p_)"'
+                [Install]
+                WantedBy=multi-user.target
+            EOT
+          + enabled  = true
+          + name     = "ssh-key-agent.service"
+        }
+    )
+  + download_unit = jsonencode(
+        {
+          + contents = <<-EOT
+                [Unit]
+                Description=ssh-key-agent-download
+                Wants=network-online.target
+                After=network-online.target
+                Before=ssh-key-agent.service
+                
+                [Service]
+                Type=oneshot
+                Restart=on-failure
+                RestartSec=10
+                ExecStart=-/usr/bin/wget -N -q -O "/opt/bin/ssh-key-agent" "https://github.com/utilitywarehouse/ssh-key-agent/releases/download/v1.0.16/ssh-key-agent_1.0.16_linux_amd64"
+                ExecStart=-/usr/bin/chmod 755 /opt/bin/ssh-key-agent
+                ExecStartPost=/bin/systemctl disable ssh-key-agent-download.service
+                
+                [Install]
+                WantedBy=multi-user.target
+            EOT
+          + enabled  = true
+          + name     = "ssh-key-agent-download.service"
+        }
+    )
+  + file          = jsonencode(
+        {
+          + contents  = {
+              + source       = "https://github.com/utilitywarehouse/ssh-key-agent/releases/download/v1.0.16/ssh-key-agent_1.0.16_linux_amd64"
+              + verification = {}
+            }
+          + group     = {}
+          + mode      = 493
+          + overwrite = false
+          + path      = "/opt/bin/ssh-key-agent"
+          + user      = {}
+        }
+    )
+  + unit          = jsonencode(
+        {
+          + contents = <<-EOT
+                [Unit]
+                Description=ssh-key-agent
+                After=network-online.target
+                Wants=network-online.target
+                [Service]
+                Restart=on-failure
+                RestartSec=10
+                ExecStartPre=-/usr/bin/mkdir -p /home/core/.ssh
+                ExecStartPre=-/usr/bin/touch /home/core/.ssh/authorized_keys
+                ExecStartPre=-/usr/bin/chown -R "core":"core" /home/core/.ssh
+                ExecStartPre=-/usr/bin/chmod 700 /home/core/.ssh
+                ExecStartPre=-/usr/bin/chmod 644 /home/core/.ssh/authorized_keys
+                Environment="SKA_KEY_URI=terraform"
+                Environment="SKA_GROUPS="
+                Environment="SKA_AKF_LOC=/home/core/.ssh/authorized_keys"
+                Environment="SKA_INTERVAL=60"
+                ExecStart=/opt/bin/ssh-key-agent
+                [Install]
+                WantedBy=multi-user.target
+            EOT
+          + enabled  = true
+          + name     = "ssh-key-agent.service"
+        }
+    )
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+
+Warning: Argument is deprecated
+
+  with data.ignition_file.ssh_key_agent,
+  on main.tf line 1, in data "ignition_file" "ssh_key_agent":
+   1: data "ignition_file" "ssh_key_agent" {
+
+Use contents instead

@@ -1,0 +1,22 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to securely and efficiently deploy a Python-based AWS automation/workshop application that uses the boto3 SDK. The application is intended to automate AWS tasks and interact with S3 storage. The architecture follows AWS best practices for security, scalability, and maintainability.\n\n**Key Components:**\n\n1. **VPC (Virtual Private Cloud):** All resources are deployed within a dedicated VPC to provide network isolation and control over inbound/outbound traffic.\n2. **Subnets:** At least two subnets (public and private) are created for high availability and security. The EC2 instance is placed in a private subnet, with a NAT Gateway in a public subnet for outbound internet access if needed.\n3. **Internet Gateway & NAT Gateway:** The Internet Gateway allows public subnet access, while the NAT Gateway enables the EC2 instance in the private subnet to access the internet for updates or package downloads.\n4. **Security Groups:** Security groups are configured to restrict access to the EC2 instance (e.g., SSH only from trusted IPs) and to control traffic to/from the S3 bucket if VPC endpoints are used.\n5. **EC2 Instance:** The application is deployed on an EC2 instance, which is sized according to workload requirements. The instance profile is configured to use an IAM role for secure AWS API access.\n6. **IAM Role for EC2:** Instead of using long-lived IAM user credentials, an IAM role is attached to the EC2 instance, granting least-privilege permissions to access S3 and other required AWS services. This is more secure and recommended over embedding IAM user credentials.\n7. **S3 Bucket:** The application interacts with the pre-existing S3 bucket (s3-bucket-workshop-1001-pyday) for storage operations. Bucket policies and IAM permissions are configured for secure access.\n8. **IAM User (user1001):** If required for workshop/demo purposes, the IAM user is created with limited permissions. However, for production, prefer using IAM roles for EC2.\n9. **VPC Endpoint for S3 (optional):** For enhanced security and performance, a VPC endpoint for S3 can be created, allowing private connectivity between the EC2 instance and S3 without traversing the public internet.\n10. **CloudWatch:** Enable CloudWatch for monitoring EC2 instance metrics, application logs, and setting up alarms for operational visibility.\n11. **IAM Policies:** Custom IAM policies are created to grant the minimum required permissions to the EC2 role and IAM user.\n\n**Deployment Strategy:**\n- Deploy the application and its dependencies to the EC2 instance using a user data script or automation tool (e.g., AWS Systems Manager, CloudFormation, or Terraform).\n- Store sensitive configuration (e.g., secrets, API keys) in AWS Systems Manager Parameter Store or AWS Secrets Manager, not in code or on disk.\n- Use security groups and IAM policies to enforce least-privilege and network segmentation.\n\nThis architecture is secure, scalable, and follows AWS best practices for deploying automation and workshop applications.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet",
+    "Private Subnet",
+    "Internet Gateway",
+    "NAT Gateway",
+    "Route Tables",
+    "Security Group for EC2",
+    "EC2 Instance (with IAM Role)",
+    "IAM Role for EC2 (with S3 access policy)",
+    "IAM Policy for EC2 Role",
+    "IAM User (user1001, with limited permissions)",
+    "IAM Policy for IAM User",
+    "S3 Bucket (s3-bucket-workshop-1001-pyday)",
+    "VPC Endpoint for S3 (optional, for private connectivity)",
+    "CloudWatch Log Group",
+    "CloudWatch Alarms",
+    "Systems Manager Parameter Store or Secrets Manager (for secrets management)"
+  ]
+}

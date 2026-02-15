@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "This system is a Python Flask web API that interacts with AWS S3 for object storage. The local development environment uses Docker Compose and Localstack to simulate AWS services, but for production deployment on AWS, the architecture will leverage native AWS services for scalability, security, and reliability.\n\n**Proposed AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all resources within a dedicated Virtual Private Cloud (VPC) for network isolation and security.\n   - Use public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access to the API.\n   - NAT Gateway for secure outbound internet access from private subnets (if needed).\n\n2. **Compute:**\n   - Deploy the Flask API as a containerized application using AWS Elastic Container Service (ECS) with Fargate (serverless containers) for simplified management and scaling.\n   - Alternatively, AWS Elastic Beanstalk (with Docker support) can be used for managed deployment if preferred.\n\n3. **Storage:**\n   - Use AWS S3 for object storage, as in the local simulation, for storing and retrieving files.\n\n4. **IAM & Security:**\n   - Create IAM roles and policies to grant the ECS task (or EC2/Beanstalk instance) permission to access S3.\n   - Use Security Groups to restrict inbound/outbound traffic to only necessary ports (e.g., 80/443 for HTTP/HTTPS).\n\n5. **API Access:**\n   - Use an Application Load Balancer (ALB) to route external HTTP/HTTPS traffic to the Flask API containers.\n\n6. **Monitoring & Logging:**\n   - Enable AWS CloudWatch for application and infrastructure logging and monitoring.\n\n7. **Optional Enhancements:**\n   - Use AWS Secrets Manager or Parameter Store for managing sensitive configuration (e.g., API keys, secrets).\n   - Use AWS CodePipeline/CodeBuild for CI/CD automation.\n\n**Component Relationships:**\n- Users interact with the Flask API via the ALB.\n- The Flask API (running in ECS) uses the AWS SDK (boto3) to interact with S3.\n- IAM roles ensure secure, least-privilege access between components.\n- CloudWatch collects logs and metrics for observability.\n\nThis architecture is secure, scalable, and follows AWS best practices for containerized web applications with S3 integration.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across different AZs)",
+    "Private Subnets (at least 2, across different AZs)",
+    "Internet Gateway",
+    "NAT Gateway (optional, for private subnet egress)",
+    "Route Tables",
+    "Security Groups (for ALB and ECS tasks)",
+    "Elastic Container Service (ECS) Cluster",
+    "ECS Task Definition (with Flask API container)",
+    "ECS Service (Fargate launch type)",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS service)",
+    "IAM Role for ECS Task (with S3 access policy)",
+    "IAM Policies (least-privilege for S3 access)",
+    "S3 Bucket(s)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "AWS Secrets Manager or Parameter Store (optional, for secrets)",
+    "CodePipeline/CodeBuild (optional, for CI/CD)"
+  ]
+}

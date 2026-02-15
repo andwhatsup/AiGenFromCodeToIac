@@ -1,0 +1,52 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-code-generation-from-code-to-iac/workspace/680465557",
+      "programming_languages": [
+        "Python"
+      ],
+      "frameworks": [
+        "AWS Lambda (container image runtime)"
+      ],
+      "dependencies": [
+        "boto3==1.28.30 (requirements.txt)",
+        "botocore==1.31.30 (requirements.txt)",
+        "PyGithub==1.59.1 (requirements.txt)",
+        "requests==2.31.0 (requirements.txt)",
+        "cryptography==41.0.3 (requirements.txt)",
+        "PyJWT==2.8.0 (requirements.txt)",
+        "PyNaCl==1.5.0 (requirements.txt)",
+        "python-dateutil==2.8.2 (requirements.txt)",
+        "urllib3==1.26.16 (requirements.txt)",
+        "certifi==2023.7.22 (requirements.txt)",
+        "charset-normalizer==3.2.0 (requirements.txt)",
+        "idna==3.4 (requirements.txt)",
+        "jmespath==1.0.1 (requirements.txt)",
+        "s3transfer==0.6.2 (requirements.txt)",
+        "six==1.16.0 (requirements.txt)",
+        "cffi==1.15.1 (requirements.txt)",
+        "pycparser==2.21 (requirements.txt)",
+        "Deprecated==1.2.14 (requirements.txt)",
+        "wrapt==1.15.0 (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (Dockerfile)",
+        "Python Lambda handler (lambda_function.py)",
+        "Python dependencies lock/pin file (requirements.txt)",
+        "Prebuilt artifact (./.dummy/lambda.zip)"
+      ],
+      "architectural_resources": [
+        "AWS Lambda function (container image-based) (Dockerfile uses public.ecr.aws/lambda/python:3.11; handler in lambda_function.py)",
+        "Amazon ECR repository/image (README.md describes building/pushing to ECR; Dockerfile is a Lambda container image)",
+        "AWS IAM (lambda_function.py uses boto3 iam client: list_roles, list_policies)",
+        "AWS Organizations (lambda_function.py uses boto3 organizations client: list/describe service control policies)",
+        "GitHub repository + GitHub token/credentials (lambda_function.py clones/pushes to GitHub; README.md requires TF_VAR_GITHUB_TOKEN)",
+        "Outbound network access from Lambda to github.com (implied by git clone/push)",
+        "Ephemeral storage (/tmp) usage in Lambda (lambda_function.py clones repo into /tmp/<random>)",
+        "Event-driven scheduling likely via Amazon EventBridge (README.md references TF_VAR_EVENTBRIDGE_NAME)",
+        "S3 bucket likely for CloudTrail logs (README.md references TF_VAR_S3_BUCKET_NAME and TF_VAR_CLOUDTRAIL_NAME)",
+        "AWS CloudTrail (README.md references TF_VAR_CLOUDTRAIL_NAME)"
+      ]
+    }
+  ]
+}

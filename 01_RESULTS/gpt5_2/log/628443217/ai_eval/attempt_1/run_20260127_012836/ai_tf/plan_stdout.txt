@@ -1,0 +1,87 @@
+data.http.myip: Reading...
+data.http.myip: Read complete after 0s [id=https://checkip.amazonaws.com/]
+data.aws_ami.amazon_linux2: Reading...
+data.aws_ami.amazon_linux2: Read complete after 7s [id=ami-04681a1dbd79675a5]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # aws_security_group.web will be created
+  + resource "aws_security_group" "web" {
+      + arn                    = (known after apply)
+      + description            = "Allow SSH and web access from allowlisted CIDR"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "ec2-test-server-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-northeast-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + vpc_id                 = "vpc-00000000"
+    }
+
+  # aws_vpc_security_group_egress_rule.all will be created
+  + resource "aws_vpc_security_group_egress_rule" "all" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "All outbound"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+    }
+
+  # aws_vpc_security_group_ingress_rule.http will be created
+  + resource "aws_vpc_security_group_ingress_rule" "http" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "193.5.234.233/32"
+      + description            = "HTTP from allowlisted CIDR"
+      + from_port              = 80
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + to_port                = 80
+    }
+
+  # aws_vpc_security_group_ingress_rule.ssh will be created
+  + resource "aws_vpc_security_group_ingress_rule" "ssh" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "193.5.234.233/32"
+      + description            = "SSH from allowlisted CIDR"
+      + from_port              = 22
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "ap-northeast-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "ec2_test_server"
+        }
+      + to_port                = 22
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + allowed_cidr = "193.5.234.233/32"
+  + ami_id       = "ami-04681a1dbd79675a5"

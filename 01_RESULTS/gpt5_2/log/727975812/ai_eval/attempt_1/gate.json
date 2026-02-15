@@ -1,0 +1,218 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": true
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "cloudwatch": {
+          "status": "partial",
+          "resource_types": [
+            "aws_cloudwatch_metric_alarm"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_policy",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "lambda": {
+          "status": "full",
+          "resource_types": [
+            "aws_lambda_alias",
+            "aws_lambda_function",
+            "aws_lambda_permission"
+          ]
+        },
+        "logs": {
+          "status": "full",
+          "resource_types": [
+            "aws_cloudwatch_log_group"
+          ]
+        },
+        "scheduler": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_scheduler_schedule",
+            "aws_scheduler_schedule_group"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "sns": {
+          "status": "full",
+          "resource_types": [
+            "aws_sns_topic",
+            "aws_sns_topic_subscription"
+          ]
+        }
+      },
+      "summary": {
+        "full": [
+          "lambda",
+          "logs",
+          "sns"
+        ],
+        "partial": [
+          "cloudwatch",
+          "iam",
+          "secretsmanager"
+        ],
+        "none": [],
+        "unknown": [
+          "scheduler"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-1\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "project_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"venmo-action-automation\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"prod\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "lambda_runtime": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"python3.12\"",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "lambda_timeout_seconds": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "lambda_memory_mb": {
+          "type": "number",
+          "has_default": true,
+          "default": "128",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "log_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "30",
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "alarm_email": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "venmo_auth_token": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        },
+        "venmo_schedules": {
+          "type": null,
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [
+        "alarm_email",
+        "venmo_auth_token",
+        "venmo_schedules"
+      ],
+      "aws_services": [
+        "aws_cloudwatch_log_group",
+        "aws_cloudwatch_metric_alarm",
+        "aws_iam_policy",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_lambda_alias",
+        "aws_lambda_function",
+        "aws_lambda_permission",
+        "aws_scheduler_schedule",
+        "aws_scheduler_schedule_group",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_sns_topic",
+        "aws_sns_topic_subscription"
+      ],
+      "resource_type_counts": {
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1,
+        "aws_iam_policy_document": 4,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy_attachment": 3,
+        "aws_iam_policy": 2,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_function": 1,
+        "aws_lambda_alias": 1,
+        "aws_scheduler_schedule_group": 1,
+        "aws_lambda_permission": 1,
+        "aws_scheduler_schedule": 1,
+        "aws_sns_topic": 1,
+        "aws_sns_topic_subscription": 1,
+        "aws_cloudwatch_metric_alarm": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "archive": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 2.4"
+          ]
+        },
+        "tags": {
+          "decl_files": [
+            "/ai-gen-from-code-to-iac/workspace/727975812/ai_tf/provider.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

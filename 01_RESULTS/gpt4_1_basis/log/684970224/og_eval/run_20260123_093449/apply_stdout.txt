@@ -1,0 +1,45 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # helm_release.kube-prometheus will be created
+  + resource "helm_release" "kube-prometheus" {
+      + atomic                     = false
+      + chart                      = "kube-prometheus"
+      + cleanup_on_fail            = false
+      + create_namespace           = false
+      + dependency_update          = false
+      + disable_crd_hooks          = false
+      + disable_openapi_validation = false
+      + disable_webhooks           = false
+      + force_update               = false
+      + id                         = (known after apply)
+      + lint                       = false
+      + max_history                = 0
+      + metadata                   = (known after apply)
+      + name                       = "kube-prometheus"
+      + namespace                  = "default"
+      + pass_credentials           = false
+      + recreate_pods              = false
+      + render_subchart_notes      = true
+      + replace                    = false
+      + repository                 = "oci://registry-1.docker.io/bitnamicharts"
+      + reset_values               = false
+      + reuse_values               = false
+      + set_wo                     = (write-only attribute)
+      + skip_crds                  = false
+      + status                     = "deployed"
+      + take_ownership             = false
+      + timeout                    = 300
+      + upgrade_install            = false
+      + verify                     = false
+      + version                    = "8.17.1"
+      + wait                       = true
+      + wait_for_jobs              = false
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+helm_release.kube-prometheus: Creating...

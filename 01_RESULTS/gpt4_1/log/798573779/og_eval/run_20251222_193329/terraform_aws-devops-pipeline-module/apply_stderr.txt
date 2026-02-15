@@ -1,0 +1,28 @@
+
+Error: creating ELBv2 application Load Balancer (dev-devops-cicd-aws-alb): operation error Elastic Load Balancing v2: CreateLoadBalancer, https response error StatusCode: 400, RequestID: 950f016b-dbde-44ec-b29a-aca3e1a3a8ca, SubnetNotFound: The specified subnet does not exist.
+
+  with aws_lb.alb,
+  on alb.tf line 1, in resource "aws_lb" "alb":
+   1: resource "aws_lb" "alb" {
+
+
+Error: creating ELBv2 Target Group (dev-devops-cicd-aws-alb-tg): operation error Elastic Load Balancing v2: CreateTargetGroup, https response error StatusCode: 400, RequestID: d92ecc37-a580-40dd-af88-a6547232df8a, api error ValidationError: The VPC ID 'vpc-00000000' is not found
+
+  with aws_lb_target_group.alb_tg,
+  on alb.tf line 11, in resource "aws_lb_target_group" "alb_tg":
+  11: resource "aws_lb_target_group" "alb_tg" {
+
+
+Error: creating EventBridge Target (dev-devops-cicd-aws-codecommmit-event-rule-terraform-20251222183405684800000001): operation error EventBridge: PutTargets, exceeded maximum number of attempts, 25, https response error StatusCode: 500, RequestID: 1e486e7d-79d1-4f39-9468-37c81ef170ec, api error InternalError: exception while calling events.PutTargets: Unsupported target for Service: codepipeline
+
+  with aws_cloudwatch_event_target.codepipeline_target,
+  on cloudwatch.tf line 16, in resource "aws_cloudwatch_event_target" "codepipeline_target":
+  16: resource "aws_cloudwatch_event_target" "codepipeline_target" {
+
+
+Error: creating S3 Bucket (dev-devops-cicd-aws-codepipeline-bucket): operation error S3: CreateBucket, https response error StatusCode: 400, RequestID: e6246942-4706-43f0-95e9-99a00941656a, HostID: s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=, api error MalformedXML: The XML you provided was not well-formed or did not validate against our published schema
+
+  with aws_s3_bucket.codepipeline,
+  on s3.tf line 1, in resource "aws_s3_bucket" "codepipeline":
+   1: resource "aws_s3_bucket" "codepipeline" {
+

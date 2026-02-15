@@ -1,0 +1,277 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_s3_bucket.artifacts will be created
+  + resource "aws_s3_bucket" "artifacts" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = (known after apply)
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = "k8s-cron-nc-backup-artifacts-"
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = true
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "us-east-1"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.artifacts will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + rule {
+          + blocked_encryption_types = []
+
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.artifacts will be created
+  + resource "aws_s3_bucket_versioning" "artifacts" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "us-east-1"
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_ssm_parameter.env["DB_HOST"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var DB_HOST for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/DB_HOST"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["DB_NAME"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var DB_NAME for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/DB_NAME"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["DB_PASS"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var DB_PASS for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/DB_PASS"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["DB_USER"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var DB_USER for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/DB_USER"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["FTP_HOST"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var FTP_HOST for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/FTP_HOST"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["FTP_PASS"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var FTP_PASS for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/FTP_PASS"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+  # aws_ssm_parameter.env["FTP_USER"] will be created
+  + resource "aws_ssm_parameter" "env" {
+      + arn            = (known after apply)
+      + data_type      = (known after apply)
+      + description    = "Runtime env var FTP_USER for k8s-cron-nc-backup"
+      + has_value_wo   = (known after apply)
+      + id             = (known after apply)
+      + insecure_value = (known after apply)
+      + key_id         = (known after apply)
+      + name           = "/k8s-cron-nc-backup/FTP_USER"
+      + region         = "us-east-1"
+      + tags_all       = {
+          + "Managed" = "terraform"
+          + "Project" = "k8s-cron-nc-backup"
+        }
+      + tier           = (known after apply)
+      + type           = "SecureString"
+      + value          = (sensitive value)
+      + value_wo       = (write-only attribute)
+      + version        = (known after apply)
+    }
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + artifact_bucket_name = (known after apply)
+  + ssm_parameter_names  = [
+      + "/k8s-cron-nc-backup/DB_HOST",
+      + "/k8s-cron-nc-backup/DB_NAME",
+      + "/k8s-cron-nc-backup/DB_PASS",
+      + "/k8s-cron-nc-backup/DB_USER",
+      + "/k8s-cron-nc-backup/FTP_HOST",
+      + "/k8s-cron-nc-backup/FTP_PASS",
+      + "/k8s-cron-nc-backup/FTP_USER",
+    ]
+aws_ssm_parameter.env["DB_HOST"]: Creating...
+aws_ssm_parameter.env["DB_PASS"]: Creating...
+aws_ssm_parameter.env["FTP_HOST"]: Creating...
+aws_ssm_parameter.env["FTP_PASS"]: Creating...
+aws_ssm_parameter.env["DB_USER"]: Creating...
+aws_ssm_parameter.env["FTP_USER"]: Creating...
+aws_ssm_parameter.env["DB_NAME"]: Creating...
+aws_s3_bucket.artifacts: Creating...
+aws_ssm_parameter.env["DB_NAME"]: Creation complete after 0s [id=/k8s-cron-nc-backup/DB_NAME]
+aws_ssm_parameter.env["DB_USER"]: Creation complete after 1s [id=/k8s-cron-nc-backup/DB_USER]
+aws_ssm_parameter.env["FTP_PASS"]: Creation complete after 1s [id=/k8s-cron-nc-backup/FTP_PASS]
+aws_ssm_parameter.env["FTP_USER"]: Creation complete after 1s [id=/k8s-cron-nc-backup/FTP_USER]
+aws_ssm_parameter.env["DB_HOST"]: Creation complete after 1s [id=/k8s-cron-nc-backup/DB_HOST]
+aws_ssm_parameter.env["DB_PASS"]: Creation complete after 1s [id=/k8s-cron-nc-backup/DB_PASS]
+aws_ssm_parameter.env["FTP_HOST"]: Creation complete after 1s [id=/k8s-cron-nc-backup/FTP_HOST]
+aws_s3_bucket.artifacts: Still creating... [00m10s elapsed]
+aws_s3_bucket.artifacts: Still creating... [00m20s elapsed]
+aws_s3_bucket.artifacts: Still creating... [00m30s elapsed]
+aws_s3_bucket.artifacts: Still creating... [00m40s elapsed]
+aws_s3_bucket.artifacts: Still creating... [00m50s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m00s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m10s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m20s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m30s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m40s elapsed]
+aws_s3_bucket.artifacts: Still creating... [01m50s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m00s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m10s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m20s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m30s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m40s elapsed]
+aws_s3_bucket.artifacts: Still creating... [02m50s elapsed]

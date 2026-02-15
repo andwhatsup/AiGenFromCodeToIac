@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "project_directory": "api",
+      "programming_languages": [
+        "Go"
+      ],
+      "frameworks": [
+        "net/http (standard library)",
+        "github.com/gorilla/mux (HTTP router)"
+      ],
+      "dependencies": [
+        "github.com/gorilla/mux v1.8.0 (api/go.mod, api/go.sum)",
+        "github.com/lib/pq v1.10.7 (PostgreSQL driver) (api/go.mod, api/go.sum)"
+      ],
+      "deployment_relevant_files": [
+        "api/go.mod",
+        "api/go.sum",
+        "api/main.go",
+        "api/sql.go",
+        "api/main_test.go",
+        "/Dockerfile",
+        ".github/workflows/go.yml",
+        "README.md"
+      ],
+      "architectural_resources": [
+        "REST API service (containerized)",
+        "PostgreSQL database (uses PG_DSN env var; likely AWS RDS Postgres) (api/sql.go)",
+        "Container registry for image storage (GitHub Actions references Amazon ECR) (.github/workflows/go.yml)",
+        "Container orchestration/service runtime (GitHub Actions references Amazon ECS) (.github/workflows/go.yml)",
+        "Secrets management for DB credentials (GitHub Actions references AWS Secrets Manager secret mehlj_lab_creds) (.github/workflows/go.yml)",
+        "Load balancer/public endpoint (GitHub Actions references ALB URL output) (.github/workflows/go.yml)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "projects": [
+    {
+      "project_directory": "/ai-gen-from-code-to-iac/workspace/759426971",
+      "programming_languages": [
+        "Shell (Bash)",
+        "YAML (Docker Compose)"
+      ],
+      "frameworks": [
+        "Docker Compose",
+        "LocalStack"
+      ],
+      "dependencies": [
+        "Docker Engine + docker-compose (installed in install.sh: /install.sh)",
+        "Terraform CLI (installed in install.sh: /install.sh)",
+        "AWS CLI (installed in install.sh: /install.sh)",
+        "Docker image: localstack/localstack:latest (docker-compose.yml: /docker-compose.yml)",
+        "Docker image: aaronshaf/dynamodb-admin (docker-compose.yml: /docker-compose.yml)"
+      ],
+      "deployment_relevant_files": [
+        "/docker-compose.yml",
+        "/install.sh",
+        "/README.md",
+        "/volume/cache/machine.json (LocalStack state/cache)",
+        "/volume/cache/server.test.pem",
+        "/volume/cache/server.test.pem.crt",
+        "/volume/cache/server.test.pem.key"
+      ],
+      "architectural_resources": [
+        "Local development cloud emulator: LocalStack container (AWS service emulation)",
+        "DynamoDB (implied by dynamodb-admin and DYNAMO_ENDPOINT in docker-compose.yml)",
+        "LocalStack edge/health endpoint exposed on localhost:4566 (docker-compose.yml, README.md)",
+        "DynamoDB Admin web UI exposed on localhost:8001 (docker-compose.yml, README.md)",
+        "Docker network: bridge network 'local' (docker-compose.yml)",
+        "Persistent volume mount for LocalStack state: ./volume -> /var/lib/localstack (docker-compose.yml)"
+      ]
+    }
+  ]
+}

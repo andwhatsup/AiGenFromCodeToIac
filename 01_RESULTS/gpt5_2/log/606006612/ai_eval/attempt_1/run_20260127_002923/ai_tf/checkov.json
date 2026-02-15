@@ -1,0 +1,294 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_136",
+                "bc_check_id": "BC_AWS_GENERAL_53",
+                "check_name": "Ensure that ECR repositories are encrypted using KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "encryption_configuration/[0]/encryption_type"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/ecr.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/ecr.tf",
+                "repo_file_path": "/ecr.tf",
+                "file_line_range": [
+                    1,
+                    16
+                ],
+                "resource": "aws_ecr_repository.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.ECRRepositoryEncrypted",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "java-mongo-ecs-ecr"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-ecr-repositories-are-encrypted",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/ecr.tf",
+                "breadcrumbs": {
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "ecr_repository_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "ecr_repo_name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.app",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/logs.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                "repo_file_path": "/logs.tf",
+                "file_line_range": [
+                    1,
+                    8
+                ],
+                "resource": "aws_cloudwatch_log_group.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "java-mongo-ecs-logs"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.app",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_days",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_158",
+                "bc_check_id": "BC_AWS_GENERAL_85",
+                "check_name": "Ensure that CloudWatch Log Group is encrypted by KMS",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "kms_key_id"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/logs.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                "repo_file_path": "/logs.tf",
+                "file_line_range": [
+                    1,
+                    8
+                ],
+                "resource": "aws_cloudwatch_log_group.app",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupKMSKey",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "java-mongo-ecs-logs"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/ensure-that-cloudwatch-log-group-is-encrypted-by-kms",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.app",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/logs.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "retention_in_days": [
+                        {
+                            "type": "variable",
+                            "name": "log_retention_days",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    19,
+                    34
+                ],
+                "resource": "aws_subnet.public",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "java-mongo-ecs-public-${each.value.az}",
+                    "Tier": "public"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "tags.Name": [
+                        {
+                            "type": "variable",
+                            "name": "name",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "for_each": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-gen-from-code-to-iac/workspace/606006612/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 48,
+        "failed": 4,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 29,
+        "checkov_version": "3.2.490"
+    }
+}

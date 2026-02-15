@@ -1,0 +1,338 @@
+{
+  "roots_scanned": [
+    "ai_tf"
+  ],
+  "recommended_roots": [
+    "ai_tf"
+  ],
+  "varfiles_created": {
+    "ai_tf": false
+  },
+  "services_report": {
+    "ai_tf": {
+      "by_service": {
+        "apprunner": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_apprunner_service",
+            "aws_apprunner_vpc_connector"
+          ]
+        },
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        },
+        "caller": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_caller_identity"
+          ]
+        },
+        "db": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_db_instance",
+            "aws_db_parameter_group",
+            "aws_db_subnet_group"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_eip",
+            "aws_route",
+            "aws_route_table",
+            "aws_route_table_association",
+            "aws_subnet",
+            "aws_vpc"
+          ]
+        },
+        "ecr": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecr_lifecycle_policy",
+            "aws_ecr_repository"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_openid_connect_provider",
+            "aws_iam_policy",
+            "aws_iam_role",
+            "aws_iam_role_policy",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "internet": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_internet_gateway"
+          ]
+        },
+        "nat": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_nat_gateway"
+          ]
+        },
+        "partition": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_partition"
+          ]
+        },
+        "secretsmanager": {
+          "status": "partial",
+          "resource_types": [
+            "aws_secretsmanager_secret",
+            "aws_secretsmanager_secret_version"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "ec2",
+          "ecr",
+          "iam",
+          "secretsmanager"
+        ],
+        "none": [],
+        "unknown": [
+          "apprunner",
+          "availability",
+          "caller",
+          "db",
+          "internet",
+          "nat",
+          "partition",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {},
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf",
+      "variables": {
+        "aws_region": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"us-east-2\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "project": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"natanaelvich\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "environment": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"dev\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "app_port": {
+          "type": "number",
+          "has_default": true,
+          "default": "3000",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "ecr_repository_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"natanaelvich-ci\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "app_runner_service_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"natanaelvich-api\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"rocketseat-db\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_username": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"admin\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_instance_class": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"db.t4g.micro\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_allocated_storage": {
+          "type": "number",
+          "has_default": true,
+          "default": "20",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_backup_retention_days": {
+          "type": "number",
+          "has_default": true,
+          "default": "7",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_multi_az": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_deletion_protection": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "db_publicly_accessible": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "vpc_cidr": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"10.20.0.0/16\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "public_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.20.0.0/24\", \"10.20.1.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "private_subnet_cidrs": {
+          "type": "list(string)",
+          "has_default": true,
+          "default": "[\"10.20.10.0/24\", \"10.20.11.0/24\"]",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "enable_nat_gateway": {
+          "type": "bool",
+          "has_default": true,
+          "default": "false",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "github_repo": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        },
+        "github_branch": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"main\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_apprunner_service",
+        "aws_apprunner_vpc_connector",
+        "aws_availability_zones",
+        "aws_caller_identity",
+        "aws_db_instance",
+        "aws_db_parameter_group",
+        "aws_db_subnet_group",
+        "aws_ecr_lifecycle_policy",
+        "aws_ecr_repository",
+        "aws_eip",
+        "aws_iam_openid_connect_provider",
+        "aws_iam_policy",
+        "aws_iam_role",
+        "aws_iam_role_policy",
+        "aws_iam_role_policy_attachment",
+        "aws_internet_gateway",
+        "aws_nat_gateway",
+        "aws_partition",
+        "aws_route",
+        "aws_route_table",
+        "aws_route_table_association",
+        "aws_secretsmanager_secret",
+        "aws_secretsmanager_secret_version",
+        "aws_security_group",
+        "aws_subnet",
+        "aws_vpc"
+      ],
+      "resource_type_counts": {
+        "aws_security_group": 2,
+        "aws_apprunner_vpc_connector": 1,
+        "aws_iam_role": 3,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_iam_role_policy": 1,
+        "aws_apprunner_service": 1,
+        "aws_ecr_repository": 1,
+        "aws_ecr_lifecycle_policy": 1,
+        "aws_iam_openid_connect_provider": 1,
+        "aws_iam_policy": 1,
+        "aws_caller_identity": 1,
+        "aws_partition": 1,
+        "aws_availability_zones": 1,
+        "aws_vpc": 1,
+        "aws_internet_gateway": 1,
+        "aws_subnet": 2,
+        "aws_route_table": 2,
+        "aws_route": 2,
+        "aws_route_table_association": 2,
+        "aws_eip": 1,
+        "aws_nat_gateway": 1,
+        "aws_db_subnet_group": 1,
+        "aws_db_parameter_group": 1,
+        "aws_db_instance": 1,
+        "aws_secretsmanager_secret": 1,
+        "aws_secretsmanager_secret_version": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 5.0"
+          ]
+        },
+        "random": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/provider.tf"
+          ],
+          "versions": [
+            "~> 3.6"
+          ]
+        },
+        "tags": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/provider.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": [
+        "/ai-code-generation-from-code-to-iac/workspace/818994686/ai_tf/terraform.tfvars"
+      ]
+    }
+  ]
+}

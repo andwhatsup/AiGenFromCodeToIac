@@ -1,0 +1,47 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Dockerfile",
+        "YAML (Kubernetes manifests)",
+        "Groovy (Jenkinsfile)"
+      ],
+      "frameworks": [
+        "Nginx (static web serving)",
+        "Kubernetes (Deployment/Service)",
+        "GitHub Actions (CI)",
+        "Jenkins Pipeline (CI/CD)"
+      ],
+      "dependencies": [
+        "nginx:alpine base image (Dockerfile: ./Dockerfile)",
+        "Kubernetes API resources apps/v1 Deployment and v1 Service (./deployment.yaml, ./service.yaml, ./manifests/app-deploy.yaml, ./manifests/app-svc.yaml)",
+        "GitHub Actions: docker/build-push-action, docker/setup-buildx-action, docker/login-action, docker/metadata-action, sigstore/cosign-installer, actions/deploy-pages, actions/upload-pages-artifact (./.github/workflows/docker-publish.yml, ./.github/workflows/static.yml)",
+        "Jenkins tooling referenced: jdk17, node16, sonar-scanner, kubectl, terraform, trivy, OWASP dependency-check, docker-scout, zap-cli; integrations: SonarQube, Jira, email (./Jenkinsfile)"
+      ],
+      "deployment_relevant_files": [
+        "./Dockerfile",
+        "./deployment.yaml",
+        "./service.yaml",
+        "./manifests/app-deploy.yaml",
+        "./manifests/app-svc.yaml",
+        "./Jenkinsfile",
+        "./.github/workflows/docker-image.yml",
+        "./.github/workflows/docker-publish.yml",
+        "./.github/workflows/static.yml"
+      ],
+      "architectural_resources": [
+        "Static web application (Notes App) served by Nginx container",
+        "Container image registry (Docker Hub image referenced: yash5090/notes-webapp:latest; GitHub Container Registry publishing workflow: ghcr.io)",
+        "Kubernetes cluster resources: Deployment (replicas=2) and Service type LoadBalancer (exposes port 5000 -> pod 5000)",
+        "External load balancer (implied by Service type LoadBalancer; AWS-specific annotations present in ./service.yaml for ALB)",
+        "CI/CD systems: GitHub Actions workflows and Jenkins pipeline",
+        "Code quality/security tooling resources: SonarQube, OWASP Dependency-Check, Trivy, Docker Scout, OWASP ZAP (as pipeline steps)",
+        "Potential AWS infrastructure dependency (implied by aws CLI usage in Jenkinsfile and AWS LB annotations in service.yaml)"
+      ]
+    }
+  ]
+}

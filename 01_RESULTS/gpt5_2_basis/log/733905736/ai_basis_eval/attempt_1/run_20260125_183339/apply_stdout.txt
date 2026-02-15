@@ -1,0 +1,254 @@
+data.aws_region.current: Reading...
+data.aws_vpc.default: Reading...
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Read complete after 0s [id=us-east-1]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+data.aws_vpc.default: Read complete after 0s [id=vpc-ecb135a70c2430a15]
+data.aws_subnets.default: Reading...
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.this will be created
+  + resource "aws_cloudwatch_log_group" "this" {
+      + arn                         = (known after apply)
+      + deletion_protection_enabled = (known after apply)
+      + id                          = (known after apply)
+      + log_group_class             = (known after apply)
+      + name                        = "/ecs/sonarqube"
+      + name_prefix                 = (known after apply)
+      + region                      = "us-east-1"
+      + retention_in_days           = 7
+      + skip_destroy                = false
+      + tags_all                    = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+    }
+
+  # aws_ecs_cluster.this will be created
+  + resource "aws_ecs_cluster" "this" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "sonarqube"
+      + region   = "us-east-1"
+      + tags_all = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+
+      + setting (known after apply)
+    }
+
+  # aws_ecs_service.this will be created
+  + resource "aws_ecs_service" "this" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = "FARGATE"
+      + name                               = "sonarqube"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + network_configuration {
+          + assign_public_ip = true
+          + security_groups  = (known after apply)
+          + subnets          = [
+              + "subnet-0fa95fec458d5926e",
+              + "subnet-140a1ab43681e9761",
+              + "subnet-1b1fb213b00d33199",
+              + "subnet-332c1f1f9f7a74bcf",
+              + "subnet-92d33f1c5d2396e70",
+              + "subnet-98a431842305b82ec",
+            ]
+        }
+    }
+
+  # aws_ecs_task_definition.this will be created
+  + resource "aws_ecs_task_definition" "this" {
+      + arn                      = (known after apply)
+      + arn_without_revision     = (known after apply)
+      + container_definitions    = jsonencode(
+            [
+              + {
+                  + essential        = true
+                  + image            = "sonarqube:10.4.1-community"
+                  + logConfiguration = {
+                      + logDriver = "awslogs"
+                      + options   = {
+                          + awslogs-group         = "/ecs/sonarqube"
+                          + awslogs-region        = "us-east-1"
+                          + awslogs-stream-prefix = "ecs"
+                        }
+                    }
+                  + name             = "sonarqube"
+                  + portMappings     = [
+                      + {
+                          + containerPort = 9000
+                          + hostPort      = 9000
+                          + protocol      = "tcp"
+                        },
+                    ]
+                },
+            ]
+        )
+      + cpu                      = "1024"
+      + enable_fault_injection   = (known after apply)
+      + execution_role_arn       = (known after apply)
+      + family                   = "sonarqube"
+      + id                       = (known after apply)
+      + memory                   = "2048"
+      + network_mode             = "awsvpc"
+      + region                   = "us-east-1"
+      + requires_compatibilities = [
+          + "FARGATE",
+        ]
+      + revision                 = (known after apply)
+      + skip_destroy             = false
+      + tags_all                 = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+      + track_latest             = false
+    }
+
+  # aws_iam_role.task_execution will be created
+  + resource "aws_iam_role" "task_execution" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "sonarqube-task-exec"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.task_execution will be created
+  + resource "aws_iam_role_policy_attachment" "task_execution" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "sonarqube-task-exec"
+    }
+
+  # aws_security_group.service will be created
+  + resource "aws_security_group" "service" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP access to SonarQube"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "SonarQube UI"
+              + from_port        = 9000
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 9000
+            },
+        ]
+      + name                   = "sonarqube-svc"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Managed" = "terraform"
+          + "Project" = "iac-docker-adm-sonarqube"
+        }
+      + vpc_id                 = "vpc-ecb135a70c2430a15"
+    }
+
+Plan: 7 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + default_vpc_id   = "vpc-ecb135a70c2430a15"
+  + ecs_cluster_name = "sonarqube"
+  + ecs_service_name = "sonarqube"
+  + log_group_name   = "/ecs/sonarqube"
+aws_iam_role.task_execution: Creating...
+aws_cloudwatch_log_group.this: Creating...
+aws_ecs_cluster.this: Creating...
+aws_security_group.service: Creating...
+aws_iam_role.task_execution: Creation complete after 0s [id=sonarqube-task-exec]
+aws_iam_role_policy_attachment.task_execution: Creating...
+aws_iam_role_policy_attachment.task_execution: Creation complete after 0s [id=sonarqube-task-exec/arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy]
+aws_security_group.service: Creation complete after 0s [id=sg-b5c2b66209a6c7d9f]
+aws_cloudwatch_log_group.this: Creation complete after 0s [id=/ecs/sonarqube]
+aws_ecs_task_definition.this: Creating...
+aws_ecs_task_definition.this: Creation complete after 0s [id=sonarqube]
+aws_ecs_cluster.this: Still creating... [00m10s elapsed]
+aws_ecs_cluster.this: Creation complete after 10s [id=arn:aws:ecs:us-east-1:000000000000:cluster/sonarqube]
+aws_ecs_service.this: Creating...
+aws_ecs_service.this: Creation complete after 2s [id=arn:aws:ecs:us-east-1:000000000000:service/sonarqube/sonarqube]
+
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+default_vpc_id = "vpc-ecb135a70c2430a15"
+ecs_cluster_name = "sonarqube"
+ecs_service_name = "sonarqube"
+log_group_name = "/ecs/sonarqube"

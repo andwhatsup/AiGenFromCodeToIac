@@ -1,0 +1,24 @@
+{
+  "aws_architecture_description": "### Target architecture (lean, secure, scalable)\n\n#### 1) Request ingress\n- **AWS Lambda Function URL** is the public HTTPS entry point.\n  - Prefer **AWS_IAM** auth for internal/service-to-service use.\n  - If it must be public, use **NONE** auth but restrict with a **resource-based policy** (e.g., allow only specific source IPs/VPC endpoints where applicable) and add **WAF** only if you later front it with CloudFront/API Gateway/ALB (Function URLs don’t natively attach WAF).\n  - Enable **CORS** only if browsers will call it directly.\n\n#### 2) Compute\n- **AWS Lambda (Rust)** runs the compiled Rust binary (packaged as a ZIP, as suggested by `infra/.dummy/lambda.zip`).\n  - Configure **memory/timeout** based on workload; Rust often benefits from slightly higher memory for CPU.\n  - Use **reserved concurrency** (optional) to cap cost/blast radius, and/or **provisioned concurrency** only if you have strict latency SLOs.\n  - Set environment variables for log level, app config, etc.\n\n#### 3) IAM / security\n- **Lambda execution role** with least privilege.\n  - At minimum: permissions to write logs to CloudWatch.\n  - Add only the specific AWS API permissions your function actually needs (none are indicated beyond logging).\n- **Resource-based permission** on the Function URL to control who can invoke (especially if using AWS_IAM auth).\n- Store any secrets/config in **SSM Parameter Store (SecureString)** or **Secrets Manager** (only if needed).\n\n#### 4) Observability\n- **CloudWatch Logs**: Lambda writes `tracing` output to a dedicated log group.\n- **CloudWatch Metrics/Alarms**:\n  - Alarms on `Errors`, `Throttles`, and `Duration` (p95/p99) and optionally `IteratorAge` (not relevant here) and `ConcurrentExecutions`.\n- **AWS X-Ray** (optional): enable active tracing if you need distributed tracing.\n\n#### 5) Networking\n- **No VPC attachment by default** (recommended) to keep cold starts low and simplify networking, unless you must reach private resources.\n  - If later you need VPC access (e.g., RDS in private subnets), attach the Lambda to private subnets and add VPC endpoints/NAT as required.\n\n#### 6) Deployment / IaC\n- Use **Terraform** to provision all AWS resources.\n- Use **Terraform Cloud/HCP** as the remote backend for state storage/locking and workspace-based deployments.\n- CI/CD (optional but common): build Rust artifact, upload to S3 (or directly via Terraform), then update Lambda.\n\n---\n\n### End-to-end flow\n1. Client sends HTTPS request to **Lambda Function URL**.\n2. Function URL invokes **Rust Lambda**.\n3. Lambda executes with **Tokio async runtime**, returns HTTP response.\n4. Logs go to **CloudWatch Logs**; metrics/alarms monitor health.\n5. Terraform provisions/updates infra; state stored in Terraform Cloud/HCP.\n",
+  "aws_resources": [
+    "AWS Lambda Function (Rust, ZIP package)",
+    "Lambda Function URL (with auth mode, CORS config as needed)",
+    "Lambda Permission / Function URL resource-based policy (invoke control)",
+    "IAM Role for Lambda execution",
+    "IAM Policy attachments for Lambda role (at minimum CloudWatch Logs permissions)",
+    "CloudWatch Log Group for the Lambda function (with retention policy)",
+    "CloudWatch Alarms (Errors, Throttles, Duration; optionally ConcurrentExecutions)",
+    "CloudWatch Dashboard (optional)",
+    "AWS X-Ray tracing configuration (optional)",
+    "AWS Systems Manager Parameter Store (optional, for configuration/secrets)",
+    "AWS Secrets Manager (optional, if you have secrets requiring rotation)",
+    "KMS Key (optional, if you need customer-managed encryption for parameters/secrets/logs)",
+    "S3 Bucket for Lambda deployment artifacts (optional but recommended for Terraform/CI packaging)",
+    "S3 Bucket policy / public access block (if S3 artifact bucket is used)",
+    "VPC (optional; only if Lambda must access private resources)",
+    "VPC Subnets (private) (optional)",
+    "Security Group for Lambda in VPC (optional)",
+    "NAT Gateway + Elastic IP (optional; only if VPC-attached Lambda needs outbound internet)",
+    "VPC Endpoints (optional; e.g., Logs, S3, STS, Secrets Manager, SSM if VPC-attached)"
+  ]
+}

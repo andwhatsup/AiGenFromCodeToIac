@@ -1,0 +1,15 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.aws_caller_identity.current" [label="data.aws_caller_identity.current"];
+  "data.aws_region.current" [label="data.aws_region.current"];
+  "aws_iam_policy.vault_app_policy" [label="aws_iam_policy.vault_app_policy"];
+  "aws_iam_role.vault_app" [label="aws_iam_role.vault_app"];
+  "aws_iam_role_policy_attachment.vault_app_attach" [label="aws_iam_role_policy_attachment.vault_app_attach"];
+  "aws_s3_bucket.artifacts" [label="aws_s3_bucket.artifacts"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_policy.vault_app_policy" -> "aws_s3_bucket.artifacts";
+  "aws_iam_role_policy_attachment.vault_app_attach" -> "aws_iam_policy.vault_app_policy";
+  "aws_iam_role_policy_attachment.vault_app_attach" -> "aws_iam_role.vault_app";
+  "aws_s3_bucket.artifacts" -> "random_id.suffix";
+}

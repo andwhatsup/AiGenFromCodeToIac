@@ -1,0 +1,23 @@
+{
+  "aws_architecture_description": "This system is a containerized web application (Apache HTTPD serving static HTML) deployed to AWS using a modern CI/CD pipeline. The architecture leverages AWS ECS (Elastic Container Service) for container orchestration, with infrastructure provisioned and managed via Terraform, and deployments automated through GitHub Actions and Ansible. The build and deployment process is fully automated, ensuring repeatable and reliable releases.\n\n**High-Level AWS Architecture:**\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - Internet Gateway for public access to the web application.\n   - NAT Gateway (optional, if build/deploy hosts or ECS tasks need outbound internet access from private subnets).\n   - Security Groups to restrict access to only necessary ports (e.g., HTTP/HTTPS for the web app).\n\n2. **Compute & Container Orchestration:**\n   - AWS ECS Cluster (Fargate launch type recommended for serverless container management).\n   - ECS Task Definition for the Apache HTTPD container image.\n   - ECS Service to manage the desired count and health of running containers.\n\n3. **Load Balancing & Access:**\n   - Application Load Balancer (ALB) to route HTTP/HTTPS traffic to ECS tasks, providing a single entry point and supporting SSL termination if needed.\n\n4. **Container Image Management:**\n   - Amazon ECR (Elastic Container Registry) to store and version Docker images built by the CI/CD pipeline.\n\n5. **IAM & Security:**\n   - IAM roles and policies for ECS tasks, CI/CD pipeline, and Terraform to securely interact with AWS resources.\n   - IAM user or role for GitHub Actions/Ansible to deploy and manage infrastructure.\n\n6. **CI/CD Integration:**\n   - GitHub Actions workflows trigger builds, push images to ECR, and deploy updated task definitions to ECS.\n   - Terraform manages infrastructure as code, ensuring consistent and auditable resource provisioning.\n\n7. **Monitoring & Logging:**\n   - Amazon CloudWatch for ECS service/task logs, metrics, and alarms.\n   - (Optional) AWS CloudTrail for auditing API calls and changes.\n\n**Deployment Flow:**\n- Developers push code to GitHub.\n- GitHub Actions build the Docker image, push it to ECR, and update ECS service/task definition.\n- Terraform (triggered by CI/CD) provisions/updates AWS infrastructure.\n- ECS pulls the latest image from ECR and runs the container in the cluster, accessible via the ALB.\n\nThis architecture is secure, scalable, and cost-effective, following AWS best practices for containerized web applications with automated CI/CD.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (at least 2, across AZs)",
+    "Private Subnets (at least 2, across AZs)",
+    "Internet Gateway",
+    "NAT Gateway (optional, for private subnet egress)",
+    "Route Tables",
+    "Security Groups (for ALB, ECS tasks)",
+    "AWS ECS Cluster (Fargate)",
+    "ECS Task Definition (Apache HTTPD container)",
+    "ECS Service",
+    "Application Load Balancer (ALB)",
+    "Target Group (for ALB to ECS tasks)",
+    "Amazon ECR Repository",
+    "IAM Roles (for ECS tasks, CI/CD, Terraform)",
+    "IAM Policies (least privilege for above roles)",
+    "CloudWatch Log Group (for ECS task logs)",
+    "CloudWatch Alarms (optional, for monitoring)",
+    "(Optional) AWS CloudTrail (for auditing)"
+  ]
+}

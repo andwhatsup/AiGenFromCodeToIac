@@ -1,0 +1,10 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "aws_dynamodb_table.devopshobbies-dev-devops-consumer-events" [label="aws_dynamodb_table.devopshobbies-dev-devops-consumer-events"];
+  "aws_sns_topic.sns_topic" [label="aws_sns_topic.sns_topic"];
+  "aws_sns_topic_subscription.private_http_subscription" [label="aws_sns_topic_subscription.private_http_subscription"];
+  "aws_sqs_queue.queue" [label="aws_sqs_queue.queue"];
+  "aws_sns_topic_subscription.private_http_subscription" -> "aws_sns_topic.sns_topic";
+  "aws_sns_topic_subscription.private_http_subscription" -> "aws_sqs_queue.queue";
+}

@@ -1,0 +1,21 @@
+
+Error: creating Lambda Function (java-lambda): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: ae0741c5-9c89-486a-b8e1-74ba67fbdfcb, InvalidParameterValueException: Error occurred while GetObject. S3 Error Code: NoSuchBucket. S3 Error Message: The specified bucket does not exist
+
+  with aws_lambda_function.java,
+  on lambda.tf line 21, in resource "aws_lambda_function" "java":
+  21: resource "aws_lambda_function" "java" {
+
+
+Error: creating Lambda Function (nodejs-lambda): operation error Lambda: CreateFunction, https response error StatusCode: 400, RequestID: f3ef53a9-4766-4743-895b-983fa97fc9cc, InvalidParameterValueException: Error occurred while GetObject. S3 Error Code: NoSuchBucket. S3 Error Message: The specified bucket does not exist
+
+  with aws_lambda_function.node,
+  on lambda.tf line 44, in resource "aws_lambda_function" "node":
+  44: resource "aws_lambda_function" "node" {
+
+
+Error: creating S3 Bucket (ai-tf-bucket): operation error S3: CreateBucket, exceeded maximum number of attempts, 9, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://ai-tf-bucket.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.lambda_artifacts,
+  on s3.tf line 1, in resource "aws_s3_bucket" "lambda_artifacts":
+   1: resource "aws_s3_bucket" "lambda_artifacts" {
+

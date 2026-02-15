@@ -1,0 +1,1988 @@
+{
+    "check_type": "terraform",
+    "results": {
+        "failed_checks": [
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/batch.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "repo_file_path": "/batch.tf",
+                "file_line_range": [
+                    1,
+                    5
+                ],
+                "resource": "aws_cloudwatch_log_group.batch",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/batch.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "repo_file_path": "/batch.tf",
+                "file_line_range": [
+                    7,
+                    22
+                ],
+                "resource": "aws_security_group.batch",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-batch-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/batch.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "repo_file_path": "/batch.tf",
+                "file_line_range": [
+                    7,
+                    22
+                ],
+                "resource": "aws_security_group.batch",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-batch-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_338",
+                "bc_check_id": "BC_AWS_LOGGING_46",
+                "check_name": "Ensure CloudWatch log groups retains logs for at least 1 year",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "retention_in_days"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/codecommit_codebuild.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "repo_file_path": "/codecommit_codebuild.tf",
+                "file_line_range": [
+                    6,
+                    10
+                ],
+                "resource": "aws_cloudwatch_log_group.codebuild",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CloudWatchLogGroupRetentionYear",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-338",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/codecommit_codebuild.tf",
+                "file_abs_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "repo_file_path": "/codecommit_codebuild.tf",
+                "file_line_range": [
+                    12,
+                    27
+                ],
+                "resource": "aws_security_group.codebuild",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-codebuild-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-gen-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/codecommit_codebuild.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "repo_file_path": "/codecommit_codebuild.tf",
+                "file_line_range": [
+                    12,
+                    27
+                ],
+                "resource": "aws_security_group.codebuild",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-codebuild-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_316",
+                "bc_check_id": "BC_AWS_GENERAL_227",
+                "check_name": "Ensure CodeBuild project environments do not have privileged mode enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "environment/[0]/privileged_mode"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/codecommit_codebuild.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "repo_file_path": "/codecommit_codebuild.tf",
+                "file_line_range": [
+                    29,
+                    106
+                ],
+                "resource": "aws_codebuild_project.docker_build",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.CodeBuildPrivilegedMode",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-docker-build"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-general-policies/bc-aws-316",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                "breadcrumbs": {
+                    "source.type": [
+                        {
+                            "type": "variable",
+                            "name": "codebuild_source_type",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.environment_variable.1.value": [
+                        {
+                            "type": "tfvar",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.environment_variable.1": [
+                        {
+                            "type": "tfvar",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "environment.environment_variable": [
+                        {
+                            "type": "tfvar",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "aws_region",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "logs_config.cloudwatch_logs.group_name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "logs_config.cloudwatch_logs": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_290",
+                "bc_check_id": "BC_AWS_IAM_85",
+                "check_name": "Ensure IAM policies does not allow write access without constraints",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[0]/Action"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/iam.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                "repo_file_path": "/iam.tf",
+                "file_line_range": [
+                    201,
+                    244
+                ],
+                "resource": "aws_iam_role_policy.sfn",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMWriteAccess",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-290",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_355",
+                "bc_check_id": "BC_AWS_IAM_88",
+                "check_name": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "policy/Statement/[0]/Action"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/iam.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                "repo_file_path": "/iam.tf",
+                "file_line_range": [
+                    201,
+                    244
+                ],
+                "resource": "aws_iam_role_policy.sfn",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.IAMStarResourcePolicyDocument",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-iam-policies/bc-aws-355",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_130",
+                "bc_check_id": "BC_AWS_NETWORKING_53",
+                "check_name": "Ensure VPC subnets do not assign public IP by default",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "map_public_ip_on_launch"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    19,
+                    31
+                ],
+                "resource": "aws_subnet.public",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SubnetPublicIP",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-public-${each.key}",
+                    "Tier": "public"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/ensure-vpc-subnets-do-not-assign-public-ip-by-default",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "cidr_block": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "public_subnet_cidrs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "for_each": [
+                        {
+                            "type": "variable",
+                            "name": "az_count",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "azs",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_23",
+                "bc_check_id": "BC_AWS_NETWORKING_31",
+                "check_name": "Ensure every security group and rule has a description",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "description",
+                        "egress/[0]"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    124,
+                    147
+                ],
+                "resource": "aws_security_group.endpoints",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupRuleDescription",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-vpce-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/networking-31",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_382",
+                "bc_check_id": "BC_AWS_IAM_93",
+                "check_name": "Ensure no security groups allow egress from 0.0.0.0:0 to port -1",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "egress/[0]/from_port",
+                        "egress/[0]/to_port",
+                        "egress/[0]/cidr_blocks",
+                        "egress/[0]/ipv6_cidr_blocks"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/network.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "repo_file_path": "/network.tf",
+                "file_line_range": [
+                    124,
+                    147
+                ],
+                "resource": "aws_security_group.endpoints",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.SecurityGroupUnrestrictedEgressAny",
+                "fixed_definition": null,
+                "entity_tags": {
+                    "Name": "rust-cobol-toolchain-dev-vpce-sg"
+                },
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-networking-policies/bc-aws-382",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "tags.Name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks.0": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "ingress.cidr_blocks": [
+                        {
+                            "type": "variable",
+                            "name": "vpc_cidr",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_vpc.this",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/network.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_284",
+                "bc_check_id": "BC_AWS_LOGGING_39",
+                "check_name": "Ensure State Machine has X-Ray tracing enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "tracing_configuration/[0]/enabled"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/stepfunctions_eventbridge_sns.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                "repo_file_path": "/stepfunctions_eventbridge_sns.tf",
+                "file_line_range": [
+                    13,
+                    59
+                ],
+                "resource": "aws_sfn_state_machine.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineXray",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-284",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "definition": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            },
+            {
+                "check_id": "CKV_AWS_285",
+                "bc_check_id": "BC_AWS_LOGGING_40",
+                "check_name": "Ensure State Machine has execution history logging enabled",
+                "check_result": {
+                    "result": "FAILED",
+                    "evaluated_keys": [
+                        "logging_configuration/[0]/include_execution_data"
+                    ]
+                },
+                "code_block": null,
+                "file_path": "/stepfunctions_eventbridge_sns.tf",
+                "file_abs_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                "repo_file_path": "/stepfunctions_eventbridge_sns.tf",
+                "file_line_range": [
+                    13,
+                    59
+                ],
+                "resource": "aws_sfn_state_machine.this",
+                "evaluations": null,
+                "check_class": "checkov.terraform.checks.resource.aws.StateMachineLoggingExecutionHistory",
+                "fixed_definition": null,
+                "entity_tags": null,
+                "caller_file_path": null,
+                "caller_file_line_range": null,
+                "resource_address": null,
+                "severity": null,
+                "bc_category": null,
+                "benchmarks": null,
+                "description": null,
+                "short_description": null,
+                "vulnerability_details": null,
+                "connected_node": null,
+                "guideline": "https://docs.prismacloud.io/en/enterprise-edition/policy-reference/aws-policies/aws-logging-policies/bc-aws-285",
+                "details": [],
+                "check_len": null,
+                "definition_context_file_path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                "breadcrumbs": {
+                    "name": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ],
+                    "definition": [
+                        {
+                            "type": "tfvar",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/terraform.tfvars",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "variable",
+                            "name": "environment",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/variables.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "locals",
+                            "name": "name_prefix",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/locals.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_execution",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/iam.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_iam_role.batch_service",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/batch.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_event_rule.schedule",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/stepfunctions_eventbridge_sns.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_cloudwatch_log_group.codebuild",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/codecommit_codebuild.tf",
+                            "module_connection": false
+                        },
+                        {
+                            "type": "resource",
+                            "name": "aws_ecr_repository.toolchain",
+                            "path": "/ai-code-generation-from-code-to-iac/workspace/804985788/ai_tf/kms_s3_ecr.tf",
+                            "module_connection": false
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "summary": {
+        "passed": 129,
+        "failed": 14,
+        "skipped": 0,
+        "parsing_errors": 0,
+        "resource_count": 54,
+        "checkov_version": "3.2.490"
+    }
+}

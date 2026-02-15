@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This system is designed for serverless deployment on AWS, leveraging Lambda functions (Java and Node.js) triggered by API Gateway endpoints. The infrastructure is managed as code using Terraform, and the local development environment uses LocalStack for AWS emulation. For production deployment, the architecture will use real AWS services, ensuring scalability, security, and maintainability.\n\n**Proposed AWS Architecture:**\n\n1. **Networking:**\n   - Deploy all resources within a dedicated VPC for network isolation and security. Use public subnets for API Gateway endpoints and private subnets for Lambda functions.\n\n2. **API Gateway:**\n   - Create a REST API using Amazon API Gateway. Define resources and methods that map to the Lambda functions. API Gateway will serve as the public entry point for HTTP(S) requests.\n\n3. **AWS Lambda:**\n   - Deploy two Lambda functions:\n     - One using the Java runtime (deployed from the JAR artifact).\n     - One using the Node.js runtime (deployed from the ZIP artifact).\n   - Both functions are triggered by API Gateway endpoints.\n\n4. **IAM Roles and Policies:**\n   - Create IAM roles for Lambda functions with least-privilege permissions (e.g., logging to CloudWatch, access to other AWS services if needed).\n   - Create an IAM role for API Gateway to invoke Lambda functions.\n\n5. **Monitoring and Logging:**\n   - Enable CloudWatch Logs for both API Gateway and Lambda functions for observability and troubleshooting.\n\n6. **Artifact Storage (Optional):**\n   - Use S3 buckets to store Lambda deployment artifacts (JAR and ZIP files) for versioning and deployment automation.\n\n7. **Security:**\n   - Use security groups and NACLs to restrict access to Lambda functions and API Gateway.\n   - Enable API Gateway throttling and request validation for protection against abuse.\n\n8. **Deployment Automation:**\n   - Use Terraform to provision and manage all AWS resources, ensuring reproducibility and version control.\n\nThis architecture is scalable (Lambda auto-scales), cost-effective (pay-per-use), and secure (network isolation, IAM, API Gateway protections). It closely mirrors the local development setup but uses real AWS managed services for production.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet(s)",
+    "Private Subnet(s)",
+    "Internet Gateway",
+    "Route Tables",
+    "Security Groups",
+    "NAT Gateway (if Lambda needs outbound internet)",
+    "API Gateway (REST API)",
+    "Lambda Function (Java runtime)",
+    "Lambda Function (Node.js runtime)",
+    "IAM Role for Lambda (with CloudWatch Logs permissions)",
+    "IAM Role for API Gateway (to invoke Lambda)",
+    "CloudWatch Log Group (for Lambda)",
+    "CloudWatch Log Group (for API Gateway)",
+    "S3 Bucket (for Lambda deployment artifacts, optional)",
+    "VPC Endpoints (optional, for private connectivity to S3/CloudWatch)"
+  ]
+}

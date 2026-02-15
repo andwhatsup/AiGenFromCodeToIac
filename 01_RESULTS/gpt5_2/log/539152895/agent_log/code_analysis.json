@@ -1,0 +1,37 @@
+{
+  "projects": [
+    {
+      "project_directory": ".",
+      "programming_languages": [
+        "Python",
+        "HCL (Waypoint configuration)",
+        "Dockerfile"
+      ],
+      "frameworks": [
+        "Flask",
+        "Gunicorn (WSGI server)",
+        "gevent (Gunicorn worker)",
+        "HCP Waypoint"
+      ],
+      "dependencies": [
+        "Python: flask (requirements.txt)",
+        "Python: gunicorn (requirements.txt)",
+        "Python: gevent (requirements.txt)"
+      ],
+      "deployment_relevant_files": [
+        "Dockerfile (./Dockerfile)",
+        "Waypoint config (./waypoint.hcl)",
+        "Python deps (./requirements.txt)",
+        "WSGI entrypoint (./app/wsgi.py)"
+      ],
+      "architectural_resources": [
+        "Containerized web application (Flask) listening on port 8080 (Dockerfile EXPOSE 8080; gunicorn bind 0.0.0.0:8080)",
+        "HCP Waypoint project/app definitions for build+deploy (waypoint.hcl)",
+        "Container image registry credentials/target image (waypoint.hcl variables REGISTRY_USERNAME/REGISTRY_PASSWORD/REGISTRY_IMAGENAME)",
+        "Local Docker deployment target for dev (waypoint.hcl app \"dev\" deploy use \"docker\")",
+        "AWS ECS service deployment target (waypoint.hcl app \"ecs\" deploy use \"aws-ecs\" with region var.aws_region, memory=512)",
+        "Runtime configuration via environment variable PLATFORM (app/app.py reads PLATFORM; waypoint.hcl sets static_environment PLATFORM for each deploy target)"
+      ]
+    }
+  ]
+}

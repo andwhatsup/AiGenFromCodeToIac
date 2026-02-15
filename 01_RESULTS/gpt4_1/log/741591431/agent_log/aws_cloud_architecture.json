@@ -1,0 +1,20 @@
+{
+  "aws_architecture_description": "This AWS architecture is designed to deploy a containerized React web application using AWS managed Kubernetes (EKS) for orchestration, following best practices for scalability, security, and maintainability:\n\n1. **Networking**: A dedicated VPC is provisioned with public and private subnets across multiple Availability Zones for high availability. The EKS cluster and its worker nodes are deployed in private subnets, while the Load Balancer is placed in public subnets to expose the application to the internet.\n\n2. **EKS Cluster**: AWS EKS (Elastic Kubernetes Service) is used to manage the Kubernetes control plane. Worker nodes (EC2 instances or managed node groups) run the application containers.\n\n3. **Kubernetes Resources**: The React application is built into a Docker image and deployed as a Kubernetes Deployment. A Kubernetes Service of type LoadBalancer exposes the application externally, automatically provisioning an AWS Network Load Balancer (NLB) or Application Load Balancer (ALB).\n\n4. **IAM & Security**: IAM roles and policies are created for EKS, worker nodes, and CI/CD pipelines. Security groups and network ACLs restrict access to only necessary ports (e.g., HTTP/HTTPS to the Load Balancer).\n\n5. **Container Registry**: Amazon ECR (Elastic Container Registry) is used to store and manage Docker images for the application.\n\n6. **CI/CD Integration**: The deployment pipeline (as seen in GitHub Actions) pushes images to ECR and deploys to EKS. Slack notifications are sent on deployment events.\n\n7. **Monitoring & Logging**: Amazon CloudWatch is used for logging and monitoring EKS cluster and application metrics.\n\nThis architecture provides a secure, scalable, and observable environment for deploying and operating a modern React web application on AWS.",
+  "aws_resources": [
+    "VPC (with public and private subnets across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables (public and private)",
+    "Security Groups (for EKS nodes, Load Balancer, and CI/CD)",
+    "AWS EKS Cluster",
+    "EKS Managed Node Group (EC2 worker nodes)",
+    "IAM Roles and Policies (for EKS, worker nodes, and CI/CD)",
+    "Amazon ECR Repository (for Docker images)",
+    "Kubernetes Deployment (React app)",
+    "Kubernetes Service (type: LoadBalancer)",
+    "AWS Load Balancer (provisioned by Kubernetes Service)",
+    "CloudWatch Log Group (for EKS and application logs)",
+    "CloudWatch Alarms (for monitoring)",
+    "VPC Endpoints (optional, for private ECR access)"
+  ]
+}

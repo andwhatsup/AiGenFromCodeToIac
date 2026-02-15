@@ -1,0 +1,19 @@
+{
+  "aws_architecture_description": "This architecture is designed to securely and efficiently deploy a static portfolio website built with HTML, CSS, and JavaScript, served by Nginx in a Docker container on AWS. The deployment is automated via a GitLab CI/CD pipeline. The solution is lean, cost-effective, and follows AWS best practices for small-scale static web hosting with containerization.\n\n**Architecture Overview:**\n\n1. **Networking:**\n   - A dedicated VPC with public and private subnets for network isolation and security.\n   - An Internet Gateway attached to the VPC to allow public access to the web server.\n   - Route tables configured to direct traffic appropriately.\n\n2. **Compute:**\n   - A single EC2 instance (Amazon Linux 2 or Ubuntu) in a public subnet, sized appropriately for static content (e.g., t3.micro or t3.small for cost efficiency).\n   - The EC2 instance runs Docker and hosts the Nginx container serving the static site.\n\n3. **Security:**\n   - Security Group for the EC2 instance allowing inbound HTTP (port 80) and HTTPS (port 443) traffic from the internet, and SSH (port 22) only from trusted IPs (e.g., developer office or VPN).\n   - IAM Role attached to the EC2 instance with least-privilege permissions (e.g., SSM for management, CloudWatch for logging).\n\n4. **CI/CD Integration:**\n   - GitLab CI/CD pipeline deploys the Dockerized application to the EC2 instance, using SSH or SSM for remote commands.\n\n5. **Storage & Backup:**\n   - (Optional) S3 bucket for storing static site assets or backups.\n\n6. **Monitoring & Management:**\n   - CloudWatch for basic EC2 instance and application monitoring (CPU, memory, logs).\n   - (Optional) AWS Systems Manager (SSM) for secure remote management of the EC2 instance.\n\n7. **Scalability & Availability:**\n   - For a simple portfolio site, a single EC2 instance is sufficient. For higher availability, consider an Auto Scaling Group and an Application Load Balancer (not strictly necessary for this use case).\n\n**Deployment Flow:**\n- Developer pushes code to GitLab, triggering the CI/CD pipeline.\n- Pipeline builds the Docker image (using nginx:latest), uploads the static site, and deploys the container to the EC2 instance.\n- Nginx serves the static site to users via HTTP/HTTPS.\n\n**Security Best Practices:**\n- Restrict SSH access to trusted IPs only.\n- Use IAM roles instead of static credentials.\n- Enable automatic security updates on the EC2 instance.\n- Store sensitive data (if any) in SSM Parameter Store or Secrets Manager (not required for static sites, but good practice).\n\n**Cost Optimization:**\n- Use a small EC2 instance type (t3.micro or t3.small, eligible for free tier).\n- Use S3 for static asset storage if needed, to reduce EC2 storage costs.\n\n**Optional Enhancements:**\n- Use AWS Certificate Manager (ACM) for free SSL/TLS certificates.\n- Use Route 53 for custom domain management.\n- Use S3 + CloudFront for fully serverless static site hosting (if Docker/EC2 is not a strict requirement).",
+  "aws_resources": [
+    "VPC",
+    "Public Subnet",
+    "Private Subnet (optional, for future expansion)",
+    "Internet Gateway",
+    "Route Table and Route Table Association",
+    "EC2 Instance (Amazon Linux 2 or Ubuntu, with Docker)",
+    "Security Group (allow HTTP/HTTPS from 0.0.0.0/0, SSH from trusted IPs)",
+    "IAM Role for EC2 (with SSM, CloudWatch permissions)",
+    "Elastic IP (optional, for static public IP)",
+    "CloudWatch (for logs and monitoring)",
+    "AWS Systems Manager (SSM) Agent (for remote management)",
+    "S3 Bucket (optional, for static assets or backups)",
+    "(Optional) ACM Certificate (for HTTPS)",
+    "(Optional) Route 53 Hosted Zone (for custom domain)"
+  ]
+}

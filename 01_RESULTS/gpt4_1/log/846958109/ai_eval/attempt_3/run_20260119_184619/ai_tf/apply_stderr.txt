@@ -1,0 +1,21 @@
+
+Error: creating CloudWatch Logs Log Group (/aws/eks/express-eks-cluster/cluster): operation error CloudWatch Logs: CreateLogGroup, https response error StatusCode: 400, RequestID: d49f0ca9-933d-416c-975c-f17401b98cbf, ResourceAlreadyExistsException: The specified log group already exists
+
+  with aws_cloudwatch_log_group.eks,
+  on main.tf line 62, in resource "aws_cloudwatch_log_group" "eks":
+  62: resource "aws_cloudwatch_log_group" "eks" {
+
+
+Error: creating S3 Bucket (express-eks-cluster-cloudtrail-logs): operation error S3: CreateBucket, exceeded maximum number of attempts, 14, https response error StatusCode: 0, RequestID: , HostID: , request send failed, Put "http://express-eks-cluster-cloudtrail-logs.localhost:4566/": dial tcp [::1]:4566: connect: connection refused
+
+  with aws_s3_bucket.cloudtrail_bucket,
+  on main.tf line 79, in resource "aws_s3_bucket" "cloudtrail_bucket":
+  79: resource "aws_s3_bucket" "cloudtrail_bucket" {
+
+
+Error: waiting for EKS Cluster (express-eks-cluster) create: unexpected state 'FAILED', wanted target 'ACTIVE'. last error: %!s(<nil>)
+
+  with module.eks.aws_eks_cluster.this[0],
+  on /ai-code-generation-from-code-to-iac/workspace/846958109/ai_tf/.terraform/modules/eks/main.tf line 27, in resource "aws_eks_cluster" "this":
+  27: resource "aws_eks_cluster" "this" {
+

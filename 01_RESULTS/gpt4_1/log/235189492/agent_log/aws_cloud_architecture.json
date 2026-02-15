@@ -1,0 +1,12 @@
+{
+  "aws_architecture_description": "This system is a fully serverless workflow on AWS, implemented in Go and orchestrated using AWS Step Functions. The architecture is designed for scalability, security, and operational simplicity, leveraging AWS managed services.\n\n**Architecture Overview:**\n- **AWS Lambda Function (Go):** The main compute resource, written in Go, is deployed as a Lambda function. It contains the business logic and is invoked by Step Functions. The Lambda function uses the AWS Lambda Go SDK for integration with AWS services.\n- **AWS Step Functions:** Acts as the workflow orchestrator. The state machine (defined in `definition.json`) manages the sequence and logic of Lambda invocations, enabling complex workflows and error handling.\n- **IAM Role:** An IAM role is created for the Lambda function, granting it the necessary permissions to execute and interact with other AWS services as defined in `assume_role_policy.json`.\n- **Networking and Security:** While the core components are serverless and do not require explicit networking resources, best practices dictate the use of a dedicated VPC for Lambda if access to private resources is needed in the future. Security groups and IAM policies are used to restrict access.\n- **Monitoring and Logging:** AWS CloudWatch is used for logging Lambda executions and Step Functions state transitions, enabling observability and troubleshooting.\n\n**Deployment Strategy:**\n- Deploy the Lambda function using AWS SAM, CloudFormation, or the AWS CLI, specifying the Go runtime.\n- Define the Step Functions state machine using the provided JSON definition.\n- Create the IAM role and attach the necessary policies for Lambda execution and Step Functions integration.\n- Set up CloudWatch log groups for both Lambda and Step Functions for monitoring and alerting.\n\nThis architecture is lean, cost-effective, and follows AWS best practices for serverless applications.",
+  "aws_resources": [
+    "AWS Lambda Function (Go runtime)",
+    "AWS Step Functions State Machine",
+    "IAM Role for Lambda (with trust and permissions policies)",
+    "CloudWatch Log Group for Lambda",
+    "CloudWatch Log Group for Step Functions",
+    "(Optional) VPC and Subnets (if Lambda needs VPC access)",
+    "(Optional) Security Group for Lambda (if VPC is used)"
+  ]
+}

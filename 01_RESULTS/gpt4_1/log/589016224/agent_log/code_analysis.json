@@ -1,0 +1,70 @@
+{
+  "projects": [
+    {
+      "project_directory": "ansible",
+      "programming_languages": [
+        "YAML"
+      ],
+      "frameworks": [
+        "Ansible"
+      ],
+      "dependencies": [
+        "geerlingguy.docker (ansible/requirements.yml)"
+      ],
+      "deployment_relevant_files": [
+        "ansible/ansible.cfg",
+        "ansible/requirements.yml",
+        "ansible/clients.yml",
+        "ansible/servers.yml",
+        "ansible/cluster.yml",
+        "ansible/hosts.ini"
+      ],
+      "architectural_resources": [
+        "Ansible automation for cluster configuration",
+        "Nomad cluster (servers and clients)",
+        "Consul cluster (servers and clients)",
+        "Docker (for running services)"
+      ]
+    },
+    {
+      "project_directory": "jobs",
+      "programming_languages": [
+        "HCL"
+      ],
+      "frameworks": [
+        "HashiCorp Nomad"
+      ],
+      "dependencies": [
+        "Docker images: coredns/coredns:1.10.0, taoyou/iperf3-alpine:v3.11, pihole/pihole:2023.03.1, prom/prometheus:v2.40.3, traefik:v2.9.4"
+      ],
+      "deployment_relevant_files": [
+        "jobs/coredns.nomad",
+        "jobs/iperf3.nomad",
+        "jobs/pihole.nomad",
+        "jobs/prometheus.nomad",
+        "jobs/traefik.nomad"
+      ],
+      "architectural_resources": [
+        "Nomad jobs for: CoreDNS, iperf3, Pi-hole, Prometheus, Traefik",
+        "Docker runtime for all jobs",
+        "Consul service discovery (referenced in job templates)"
+      ]
+    },
+    {
+      "project_directory": "cloud-init",
+      "programming_languages": [
+        "YAML"
+      ],
+      "frameworks": [
+        "cloud-init"
+      ],
+      "dependencies": [],
+      "deployment_relevant_files": [
+        "cloud-init/user-data"
+      ],
+      "architectural_resources": [
+        "Cloud-init for VM or Raspberry Pi provisioning (user-data for initial setup)"
+      ]
+    }
+  ]
+}

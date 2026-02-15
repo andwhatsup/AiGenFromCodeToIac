@@ -1,0 +1,313 @@
+{
+  "roots_scanned": [
+    "infrastructure",
+    "infrastructure/compute"
+  ],
+  "recommended_roots": [
+    "infrastructure/compute"
+  ],
+  "varfiles_created": {
+    "infrastructure": false,
+    "infrastructure/compute": true
+  },
+  "services_report": {
+    "infrastructure": {
+      "by_service": {
+        "availability": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_availability_zones"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [],
+        "none": [],
+        "unknown": [
+          "availability"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    },
+    "infrastructure/compute": {
+      "by_service": {
+        "appautoscaling": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_appautoscaling_policy",
+            "aws_appautoscaling_target"
+          ]
+        },
+        "autoscaling": {
+          "status": "partial",
+          "resource_types": [
+            "aws_autoscaling_group"
+          ]
+        },
+        "ec2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ami",
+            "aws_vpc_security_group_egress_rule",
+            "aws_vpc_security_group_ingress_rule"
+          ]
+        },
+        "ecs": {
+          "status": "partial",
+          "resource_types": [
+            "aws_ecs_capacity_provider",
+            "aws_ecs_cluster",
+            "aws_ecs_cluster_capacity_providers",
+            "aws_ecs_service",
+            "aws_ecs_task_definition"
+          ]
+        },
+        "elbv2": {
+          "status": "partial",
+          "resource_types": [
+            "aws_lb",
+            "aws_lb_listener",
+            "aws_lb_target_group"
+          ]
+        },
+        "iam": {
+          "status": "partial",
+          "resource_types": [
+            "aws_iam_instance_profile",
+            "aws_iam_policy_attachment",
+            "aws_iam_policy_document",
+            "aws_iam_role",
+            "aws_iam_role_policy_attachment"
+          ]
+        },
+        "launch": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_launch_template"
+          ]
+        },
+        "security": {
+          "status": "unknown",
+          "resource_types": [
+            "aws_security_group"
+          ]
+        }
+      },
+      "summary": {
+        "full": [],
+        "partial": [
+          "autoscaling",
+          "ec2",
+          "ecs",
+          "elbv2",
+          "iam"
+        ],
+        "none": [],
+        "unknown": [
+          "appautoscaling",
+          "launch",
+          "security"
+        ]
+      },
+      "unsupported_resource_types": [],
+      "require_full": false
+    }
+  },
+  "filtered_out": {
+    "infrastructure": [
+      "non_leaf"
+    ]
+  },
+  "scanner_summaries": [
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure",
+      "variables": {
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"franklin\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/variables.tf"
+        },
+        "tags": {
+          "type": "map(any)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/variables.tf"
+        },
+        "image_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"robbiearms/hello-world:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/variables.tf"
+        }
+      },
+      "required_missing": [],
+      "aws_services": [
+        "aws_availability_zones"
+      ],
+      "resource_type_counts": {
+        "aws_availability_zones": 1
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/main.tf"
+          ],
+          "versions": [
+            ">=5"
+          ]
+        },
+        "default_tags": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/main.tf"
+          ],
+          "versions": []
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    },
+    {
+      "root": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute",
+      "variables": {
+        "name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"franklin\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "tags": {
+          "type": "map(any)",
+          "has_default": true,
+          "default": "{",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "vpc": {
+          "type": "string",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "vpc_public_subnets": {
+          "type": "list(any)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "vpc_private_subnets": {
+          "type": "list(any)",
+          "has_default": false,
+          "default": null,
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "image_name": {
+          "type": "string",
+          "has_default": true,
+          "default": "\"obbiearms/hello-world:latest\"",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "min_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "desired_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "max_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "5",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "min_ec2_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "desired_ec2_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "1",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        },
+        "max_ec2_count": {
+          "type": "number",
+          "has_default": true,
+          "default": "3",
+          "decl_file": "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/variables.tf"
+        }
+      },
+      "required_missing": [
+        "vpc",
+        "vpc_private_subnets",
+        "vpc_public_subnets"
+      ],
+      "aws_services": [
+        "aws_ami",
+        "aws_appautoscaling_policy",
+        "aws_appautoscaling_target",
+        "aws_autoscaling_group",
+        "aws_ecs_capacity_provider",
+        "aws_ecs_cluster",
+        "aws_ecs_cluster_capacity_providers",
+        "aws_ecs_service",
+        "aws_ecs_task_definition",
+        "aws_iam_instance_profile",
+        "aws_iam_policy_attachment",
+        "aws_iam_policy_document",
+        "aws_iam_role",
+        "aws_iam_role_policy_attachment",
+        "aws_launch_template",
+        "aws_lb",
+        "aws_lb_listener",
+        "aws_lb_target_group",
+        "aws_security_group",
+        "aws_vpc_security_group_egress_rule",
+        "aws_vpc_security_group_ingress_rule"
+      ],
+      "resource_type_counts": {
+        "aws_lb": 1,
+        "aws_lb_target_group": 1,
+        "aws_lb_listener": 1,
+        "aws_ami": 1,
+        "aws_launch_template": 1,
+        "aws_autoscaling_group": 1,
+        "aws_iam_instance_profile": 1,
+        "aws_iam_policy_document": 3,
+        "aws_iam_role": 3,
+        "aws_iam_policy_attachment": 1,
+        "aws_ecs_task_definition": 1,
+        "aws_ecs_service": 1,
+        "aws_ecs_cluster": 1,
+        "aws_ecs_capacity_provider": 1,
+        "aws_ecs_cluster_capacity_providers": 1,
+        "aws_appautoscaling_target": 1,
+        "aws_appautoscaling_policy": 2,
+        "aws_iam_role_policy_attachment": 2,
+        "aws_security_group": 2,
+        "aws_vpc_security_group_ingress_rule": 3,
+        "aws_vpc_security_group_egress_rule": 2
+      },
+      "providers": {
+        "aws": {
+          "decl_files": [
+            "/ai-code-generation-from-code-to-iac/workspace/653621129/infrastructure/compute/main.tf"
+          ],
+          "versions": [
+            ">=5"
+          ]
+        }
+      },
+      "backend": null,
+      "existing_varfiles": []
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+data.aws_iam_policy_document.ec2_assume_role: Reading...
+data.aws_ami.linux: Reading...
+data.aws_availability_zones.available: Reading...
+aws_vpc.main: Refreshing state... [id=vpc-05679681910dd572b]
+data.aws_iam_policy_document.ec2_assume_role: Read complete after 0s [id=2851119427]
+aws_iam_role.ec2: Refreshing state... [id=portfolio-ec2-role]
+data.aws_availability_zones.available: Read complete after 0s [id=us-east-1]
+aws_iam_role_policy_attachment.cloudwatch: Refreshing state... [id=portfolio-ec2-role/arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy]
+aws_iam_role_policy_attachment.ssm: Refreshing state... [id=portfolio-ec2-role/arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore]
+aws_iam_instance_profile.ec2: Refreshing state... [id=portfolio-ec2-instance-profile]
+aws_internet_gateway.main: Refreshing state... [id=igw-a9f4afff6a268f075]
+aws_route_table.public: Refreshing state... [id=rtb-e99f03023459fdd6c]
+aws_subnet.public: Refreshing state... [id=subnet-41acb27a43aa74894]
+aws_security_group.web: Refreshing state... [id=sg-928683719b308f5f1]
+aws_route_table_association.public: Refreshing state... [id=rtbassoc-6ce7e1eba7915661d]
+aws_route.internet_access: Refreshing state... [id=r-rtb-e99f03023459fdd6c1080289494]
+data.aws_ami.linux: Read complete after 3s [id=ami-04681a1dbd79675a5]
+aws_instance.web: Refreshing state... [id=i-d84abcfb2889657ca]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.web will be updated in-place
+  ~ resource "aws_instance" "web" {
+        id                                   = "i-d84abcfb2889657ca"
+        tags                                 = {
+            "Name" = "portfolio-web-server"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-928683719b308f5f1",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

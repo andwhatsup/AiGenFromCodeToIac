@@ -1,0 +1,632 @@
+data.aws_iam_policy_document.ecs_autoscaling_policy: Reading...
+data.aws_iam_policy_document.ecs_tasks_execution_role: Reading...
+data.aws_ami.asg_ami: Reading...
+data.aws_iam_policy_document.instance_assume_role_policy: Reading...
+data.aws_iam_policy_document.ecs_tasks_execution_role: Read complete after 0s [id=1077804475]
+data.aws_iam_policy_document.ecs_autoscaling_policy: Read complete after 0s [id=3716440655]
+data.aws_iam_policy_document.instance_assume_role_policy: Read complete after 0s [id=2851119427]
+data.aws_ami.asg_ami: Read complete after 6s [id=ami-0a5e7c9183d1cea27]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_appautoscaling_policy.ecs_target_cpu will be created
+  + resource "aws_appautoscaling_policy" "ecs_target_cpu" {
+      + alarm_arns         = (known after apply)
+      + arn                = (known after apply)
+      + id                 = (known after apply)
+      + name               = "franklin-scaling-policy-cpu"
+      + policy_type        = "TargetTrackingScaling"
+      + region             = "us-east-1"
+      + resource_id        = "service/franklin-ecs-cluster/franklin-ecs-service"
+      + scalable_dimension = "ecs:service:DesiredCount"
+      + service_namespace  = "ecs"
+
+      + target_tracking_scaling_policy_configuration {
+          + disable_scale_in = false
+          + target_value     = 80
+
+          + predefined_metric_specification {
+              + predefined_metric_type = "ECSServiceAverageCPUUtilization"
+            }
+        }
+    }
+
+  # aws_appautoscaling_policy.ecs_target_memory will be created
+  + resource "aws_appautoscaling_policy" "ecs_target_memory" {
+      + alarm_arns         = (known after apply)
+      + arn                = (known after apply)
+      + id                 = (known after apply)
+      + name               = "application-scaling-policy-memory"
+      + policy_type        = "TargetTrackingScaling"
+      + region             = "us-east-1"
+      + resource_id        = "service/franklin-ecs-cluster/franklin-ecs-service"
+      + scalable_dimension = "ecs:service:DesiredCount"
+      + service_namespace  = "ecs"
+
+      + target_tracking_scaling_policy_configuration {
+          + disable_scale_in = false
+          + target_value     = 80
+
+          + predefined_metric_specification {
+              + predefined_metric_type = "ECSServiceAverageMemoryUtilization"
+            }
+        }
+    }
+
+  # aws_appautoscaling_target.ecs_target will be created
+  + resource "aws_appautoscaling_target" "ecs_target" {
+      + arn                = (known after apply)
+      + id                 = (known after apply)
+      + max_capacity       = 5
+      + min_capacity       = 1
+      + region             = "us-east-1"
+      + resource_id        = "service/franklin-ecs-cluster/franklin-ecs-service"
+      + role_arn           = (known after apply)
+      + scalable_dimension = "ecs:service:DesiredCount"
+      + service_namespace  = "ecs"
+      + tags_all           = (known after apply)
+
+      + suspended_state (known after apply)
+    }
+
+  # aws_autoscaling_group.asg will be created
+  + resource "aws_autoscaling_group" "asg" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = 1
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = (known after apply)
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 3
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = (known after apply)
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + region                           = "us-east-1"
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = "$Latest"
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + traffic_source (known after apply)
+    }
+
+  # aws_ecs_capacity_provider.ecs_ec2_capacity_provider will be created
+  + resource "aws_ecs_capacity_provider" "ecs_ec2_capacity_provider" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "franklin-ec2-capacity-provider"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + auto_scaling_group_provider {
+          + auto_scaling_group_arn         = (known after apply)
+          + managed_draining               = (known after apply)
+          + managed_termination_protection = (known after apply)
+
+          + managed_scaling {
+              + instance_warmup_period    = (known after apply)
+              + maximum_scaling_step_size = 1
+              + minimum_scaling_step_size = 1
+              + status                    = "ENABLED"
+              + target_capacity           = 100
+            }
+        }
+    }
+
+  # aws_ecs_cluster.ecs will be created
+  + resource "aws_ecs_cluster" "ecs" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + name     = "franklin-ecs-cluster"
+      + region   = "us-east-1"
+      + tags_all = (known after apply)
+
+      + setting {
+          + name  = "containerInsights"
+          + value = "enabled"
+        }
+    }
+
+  # aws_ecs_cluster_capacity_providers.ecs_capacity will be created
+  + resource "aws_ecs_cluster_capacity_providers" "ecs_capacity" {
+      + capacity_providers = [
+          + "franklin-ec2-capacity-provider",
+        ]
+      + cluster_name       = "franklin-ecs-cluster"
+      + id                 = (known after apply)
+      + region             = "us-east-1"
+
+      + default_capacity_provider_strategy {
+          + base              = 1
+          + capacity_provider = "franklin-ec2-capacity-provider"
+          + weight            = 100
+        }
+    }
+
+  # aws_ecs_service.hello_world_service will be created
+  + resource "aws_ecs_service" "hello_world_service" {
+      + arn                                = (known after apply)
+      + availability_zone_rebalancing      = (known after apply)
+      + cluster                            = (known after apply)
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + enable_ecs_managed_tags            = false
+      + enable_execute_command             = false
+      + iam_role                           = (known after apply)
+      + id                                 = (known after apply)
+      + launch_type                        = (known after apply)
+      + name                               = "franklin-ecs-service"
+      + platform_version                   = (known after apply)
+      + region                             = "us-east-1"
+      + scheduling_strategy                = "REPLICA"
+      + tags_all                           = (known after apply)
+      + task_definition                    = (known after apply)
+      + triggers                           = (known after apply)
+      + wait_for_steady_state              = false
+
+      + deployment_configuration (known after apply)
+
+      + load_balancer {
+          + container_name   = "hello-world"
+          + container_port   = 80
+          + target_group_arn = (known after apply)
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_ecs_task_definition.hello_world will be created
+  + resource "aws_ecs_task_definition" "hello_world" {
+      + arn                    = (known after apply)
+      + arn_without_revision   = (known after apply)
+      + container_definitions  = jsonencode(
+            [
+              + {
+                  + cpu          = 16
+                  + essential    = true
+                  + healthCheck  = {
+                      + command  = [
+                          + "CMD-SHELL",
+                          + "curl -f http://localhost/ || exit 1",
+                        ]
+                      + interval = 30
+                    }
+                  + image        = "obbiearms/hello-world:latest"
+                  + memory       = 128
+                  + name         = "hello-world"
+                  + portMappings = [
+                      + {
+                          + containerPort = 80
+                          + hostPort      = 0
+                        },
+                    ]
+                },
+            ]
+        )
+      + enable_fault_injection = (known after apply)
+      + execution_role_arn     = (known after apply)
+      + family                 = "franklin-hello-world"
+      + id                     = (known after apply)
+      + network_mode           = (known after apply)
+      + region                 = "us-east-1"
+      + revision               = (known after apply)
+      + skip_destroy           = false
+      + tags_all               = (known after apply)
+      + track_latest           = false
+    }
+
+  # aws_iam_instance_profile.asg_iam_instance_profile will be created
+  + resource "aws_iam_instance_profile" "asg_iam_instance_profile" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "franklin-asg-instance-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "franklin-asg-role"
+      + tags_all    = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # aws_iam_policy_attachment.ecs_ec2_attachment will be created
+  + resource "aws_iam_policy_attachment" "ecs_ec2_attachment" {
+      + id         = (known after apply)
+      + name       = "franklin-asg-ec2-ecs-attachment"
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+      + roles      = [
+          + "franklin-asg-role",
+        ]
+    }
+
+  # aws_iam_role.asg_iam_role will be created
+  + resource "aws_iam_role" "asg_iam_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "franklin-asg-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_autoscaling will be created
+  + resource "aws_iam_role" "ecs_autoscaling" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "application-autoscaling.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "franklin-ecs-autoscaling-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ecs_tasks_execution_role will be created
+  + resource "aws_iam_role" "ecs_tasks_execution_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ecs-tasks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "franklin-ecs-task-execution-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_autoscaling will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_autoscaling" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole"
+      + role       = (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.ecs_tasks_execution_role will be created
+  + resource "aws_iam_role_policy_attachment" "ecs_tasks_execution_role" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+      + role       = "franklin-ecs-task-execution-role"
+    }
+
+  # aws_launch_template.asg_launch_template will be created
+  + resource "aws_launch_template" "asg_launch_template" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + id              = (known after apply)
+      + image_id        = "ami-0a5e7c9183d1cea27"
+      + instance_type   = "t3a.micro"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "franklin"
+      + region          = "us-east-1"
+      + tags_all        = (known after apply)
+      + user_data       = "IyEvYmluL3NoCmVjaG8gRUNTX0NMVVNURVI9ZnJhbmtsaW4tZWNzLWNsdXN0ZXIgPj4gL2V0Yy9lY3MvZWNzLmNvbmZpZw=="
+
+      + iam_instance_profile {
+          + name = "franklin-asg-instance-profile"
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interfaces {
+          + associate_public_ip_address = "false"
+          + security_groups             = (known after apply)
+        }
+    }
+
+  # aws_lb.hello_alb will be created
+  + resource "aws_lb" "hello_alb" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "franklin-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + region                                                       = "us-east-1"
+      + secondary_ips_auto_assigned_per_subnet                       = (known after apply)
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags_all                                                     = (known after apply)
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # aws_lb_listener.hello_listener will be created
+  + resource "aws_lb_listener" "hello_listener" {
+      + arn                                                                   = (known after apply)
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 80
+      + protocol                                                              = "HTTP"
+      + region                                                                = "us-east-1"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = (known after apply)
+      + tags_all                                                              = (known after apply)
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # aws_lb_target_group.hello_alb_tg will be created
+  + resource "aws_lb_target_group" "hello_alb_tg" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "franklin-alb-tg"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + region                             = "us-east-1"
+      + slow_start                         = 0
+      + tags_all                           = (known after apply)
+      + target_type                        = "instance"
+      + vpc_id                             = "compute"
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 3
+          + interval            = 30
+          + matcher             = "200"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # aws_security_group.alb_sg will be created
+  + resource "aws_security_group" "alb_sg" {
+      + arn                    = (known after apply)
+      + description            = "Control access to the public facing ALB"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "franklin-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "compute"
+    }
+
+  # aws_security_group.ec2_sg will be created
+  + resource "aws_security_group" "ec2_sg" {
+      + arn                    = (known after apply)
+      + description            = "Control access for EC2s in ECS cluster"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = "franklin-ecs-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-east-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = "compute"
+    }
+
+  # aws_vpc_security_group_egress_rule.all_egress will be created
+  + resource "aws_vpc_security_group_egress_rule" "all_egress" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {}
+    }
+
+  # aws_vpc_security_group_egress_rule.ec2_all_egress will be created
+  + resource "aws_vpc_security_group_egress_rule" "ec2_all_egress" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "Allow all egress"
+      + id                     = (known after apply)
+      + ip_protocol            = "-1"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {}
+    }
+
+  # aws_vpc_security_group_ingress_rule.alb_ingress_to_ec2 will be created
+  + resource "aws_vpc_security_group_ingress_rule" "alb_ingress_to_ec2" {
+      + arn                          = (known after apply)
+      + description                  = "Allow all ingress traffic from ALB Security Group"
+      + from_port                    = 1
+      + id                           = (known after apply)
+      + ip_protocol                  = "tcp"
+      + referenced_security_group_id = (known after apply)
+      + region                       = "us-east-1"
+      + security_group_id            = (known after apply)
+      + security_group_rule_id       = (known after apply)
+      + tags_all                     = {}
+      + to_port                      = 65535
+    }
+
+  # aws_vpc_security_group_ingress_rule.http_ingress will be created
+  + resource "aws_vpc_security_group_ingress_rule" "http_ingress" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "Allow HTTP traffic ingress"
+      + from_port              = 80
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {}
+      + to_port                = 80
+    }
+
+  # aws_vpc_security_group_ingress_rule.https_ingress will be created
+  + resource "aws_vpc_security_group_ingress_rule" "https_ingress" {
+      + arn                    = (known after apply)
+      + cidr_ipv4              = "0.0.0.0/0"
+      + description            = "Allow HTTPS traffic ingress"
+      + from_port              = 443
+      + id                     = (known after apply)
+      + ip_protocol            = "tcp"
+      + region                 = "us-east-1"
+      + security_group_id      = (known after apply)
+      + security_group_rule_id = (known after apply)
+      + tags_all               = {}
+      + to_port                = 443
+    }
+
+Plan: 27 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns = (known after apply)

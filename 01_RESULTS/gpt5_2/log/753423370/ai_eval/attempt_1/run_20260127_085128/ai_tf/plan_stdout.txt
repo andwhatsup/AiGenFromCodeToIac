@@ -1,0 +1,202 @@
+data.aws_caller_identity.current: Reading...
+data.aws_region.current: Reading...
+data.aws_cloudfront_origin_request_policy.cors_s3origin: Reading...
+data.aws_partition.current: Reading...
+data.aws_cloudfront_cache_policy.caching_optimized: Reading...
+data.aws_region.current: Read complete after 0s [id=eu-west-1]
+data.aws_partition.current: Read complete after 0s [id=aws]
+data.aws_caller_identity.current: Read complete after 0s [id=000000000000]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform planned the following actions, but then encountered a problem:
+
+  # aws_cloudfront_origin_access_control.spa will be created
+  + resource "aws_cloudfront_origin_access_control" "spa" {
+      + arn                               = (known after apply)
+      + description                       = "OAC for private S3 origin"
+      + etag                              = (known after apply)
+      + id                                = (known after apply)
+      + name                              = "amazon-clone-dev-oac"
+      + origin_access_control_origin_type = "s3"
+      + signing_behavior                  = "always"
+      + signing_protocol                  = "sigv4"
+    }
+
+  # aws_cloudfront_response_headers_policy.security_headers will be created
+  + resource "aws_cloudfront_response_headers_policy" "security_headers" {
+      + arn  = (known after apply)
+      + etag = (known after apply)
+      + id   = (known after apply)
+      + name = "amazon-clone-dev-security-headers"
+
+      + security_headers_config {
+          + content_type_options {
+              + override = true
+            }
+          + frame_options {
+              + frame_option = "DENY"
+              + override     = true
+            }
+          + referrer_policy {
+              + override        = true
+              + referrer_policy = "strict-origin-when-cross-origin"
+            }
+          + strict_transport_security {
+              + access_control_max_age_sec = 63072000
+              + include_subdomains         = true
+              + override                   = true
+              + preload                    = true
+            }
+          + xss_protection {
+              + mode_block = true
+              + override   = true
+              + protection = true
+            }
+        }
+    }
+
+  # aws_s3_bucket.spa will be created
+  + resource "aws_s3_bucket" "spa" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "amazon-clone-dev-spa-000000000000"
+      + bucket_domain_name          = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = (known after apply)
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "amazon-clone"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # aws_s3_bucket_ownership_controls.spa will be created
+  + resource "aws_s3_bucket_ownership_controls" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + object_ownership = "BucketOwnerEnforced"
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.spa will be created
+  + resource "aws_s3_bucket_public_access_block" "spa" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + restrict_public_buckets = true
+    }
+
+  # aws_s3_bucket_server_side_encryption_configuration.spa will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + rule {
+          + apply_server_side_encryption_by_default {
+              + sse_algorithm     = "AES256"
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # aws_s3_bucket_versioning.spa will be created
+  + resource "aws_s3_bucket_versioning" "spa" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+
+      + versioning_configuration {
+          + mfa_delete = (known after apply)
+          + status     = "Enabled"
+        }
+    }
+
+  # aws_wafv2_web_acl.this[0] will be created
+  + resource "aws_wafv2_web_acl" "this" {
+      + application_integration_url = (known after apply)
+      + arn                         = (known after apply)
+      + capacity                    = (known after apply)
+      + id                          = (known after apply)
+      + lock_token                  = (known after apply)
+      + name                        = "amazon-clone-dev-waf"
+      + name_prefix                 = (known after apply)
+      + scope                       = "CLOUDFRONT"
+      + tags_all                    = {
+          + "Environment" = "dev"
+          + "ManagedBy"   = "terraform"
+          + "Project"     = "amazon-clone"
+        }
+
+      + default_action {
+          + allow {
+            }
+        }
+
+      + rule {
+          + name     = "AWSManagedRulesCommonRuleSet"
+          + priority = 1
+
+          + override_action {
+              + none {}
+            }
+
+          + statement {
+              + managed_rule_group_statement {
+                  + name        = "AWSManagedRulesCommonRuleSet"
+                  + vendor_name = "AWS"
+                    # (1 unchanged attribute hidden)
+                }
+            }
+
+          + visibility_config {
+              + cloudwatch_metrics_enabled = true
+              + metric_name                = "AWSManagedRulesCommonRuleSet"
+              + sampled_requests_enabled   = true
+            }
+        }
+
+      + visibility_config {
+          + cloudwatch_metrics_enabled = true
+          + metric_name                = "amazon-clone-dev-waf"
+          + sampled_requests_enabled   = true
+        }
+    }
+
+Plan: 8 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + s3_bucket_name = "amazon-clone-dev-spa-000000000000"

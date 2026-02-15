@@ -1,0 +1,30 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.al2023: Reading...
+data.aws_vpc.default: Read complete after 0s [id=vpc-dc152f7fef7d97ec4]
+data.aws_subnets.default: Reading...
+aws_security_group.kafka_host: Refreshing state... [id=sg-416f15257a97923f7]
+data.aws_subnets.default: Read complete after 0s [id=us-east-1]
+data.aws_ami.al2023: Read complete after 3s [id=ami-07c1fa5792ef8fe27]
+aws_instance.kafka_host: Refreshing state... [id=i-1d748fe0ee2d54671]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.kafka_host will be updated in-place
+  ~ resource "aws_instance" "kafka_host" {
+        id                                   = "i-1d748fe0ee2d54671"
+        tags                                 = {
+            "Name" = "test-kafka-host"
+        }
+      ~ vpc_security_group_ids               = [
+          + "sg-416f15257a97923f7",
+        ]
+        # (40 unchanged attributes hidden)
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.

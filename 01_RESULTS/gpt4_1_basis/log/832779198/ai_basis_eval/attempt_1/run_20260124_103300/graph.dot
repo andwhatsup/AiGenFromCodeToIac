@@ -1,0 +1,22 @@
+digraph G {
+  rankdir = "RL";
+  node [shape = rect, fontname = "sans-serif"];
+  "data.archive_file.lambda_dummy" [label="data.archive_file.lambda_dummy"];
+  "aws_iam_policy.lambda_policy" [label="aws_iam_policy.lambda_policy"];
+  "aws_iam_role.lambda_exec" [label="aws_iam_role.lambda_exec"];
+  "aws_iam_role_policy_attachment.lambda_policy_attach" [label="aws_iam_role_policy_attachment.lambda_policy_attach"];
+  "aws_lambda_function.app_lambda" [label="aws_lambda_function.app_lambda"];
+  "aws_lambda_permission.allow_s3" [label="aws_lambda_permission.allow_s3"];
+  "aws_s3_bucket.lambda_events" [label="aws_s3_bucket.lambda_events"];
+  "aws_s3_bucket_notification.lambda_trigger" [label="aws_s3_bucket_notification.lambda_trigger"];
+  "random_id.suffix" [label="random_id.suffix"];
+  "aws_iam_policy.lambda_policy" -> "aws_s3_bucket.lambda_events";
+  "aws_iam_role_policy_attachment.lambda_policy_attach" -> "aws_iam_policy.lambda_policy";
+  "aws_iam_role_policy_attachment.lambda_policy_attach" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.app_lambda" -> "data.archive_file.lambda_dummy";
+  "aws_lambda_function.app_lambda" -> "aws_iam_role.lambda_exec";
+  "aws_lambda_function.app_lambda" -> "aws_s3_bucket.lambda_events";
+  "aws_lambda_permission.allow_s3" -> "aws_lambda_function.app_lambda";
+  "aws_s3_bucket.lambda_events" -> "random_id.suffix";
+  "aws_s3_bucket_notification.lambda_trigger" -> "aws_lambda_permission.allow_s3";
+}

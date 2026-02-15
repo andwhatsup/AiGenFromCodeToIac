@@ -1,0 +1,25 @@
+{
+  "aws_architecture_description": "This system is a DevOps automation and infrastructure provisioning workflow for deploying and managing a Kubernetes cluster (using Rancher/RKE) with CI/CD and security scanning. The AWS architecture should provide a secure, scalable, and automated environment for these operations, leveraging AWS managed services where possible.\n\n**Proposed AWS Architecture:**\n\n1. **Networking/Foundation:**\n   - A dedicated VPC with public and private subnets across multiple Availability Zones for high availability.\n   - NAT Gateway(s) for secure outbound internet access from private subnets.\n   - Internet Gateway for public subnet access.\n   - Security Groups and NACLs to restrict access to cluster nodes and management endpoints.\n\n2. **Kubernetes Cluster (RKE):**\n   - EC2 instances (in Auto Scaling Groups) provisioned as Kubernetes worker and control plane nodes, managed by Rancher/RKE.\n   - Optionally, use AWS EKS for managed Kubernetes, but since RKE is specified, EC2-based self-managed cluster is assumed.\n   - Elastic Load Balancer (NLB/ALB) to expose the Kubernetes API endpoint securely.\n   - EBS volumes for persistent storage for cluster nodes.\n\n3. **Automation and Provisioning:**\n   - EC2 instance(s) or AWS Systems Manager (SSM) for running Ansible and Terraform automation (can be triggered from CI/CD or bastion host).\n   - IAM roles and policies for EC2, SSM, and automation tools to securely access AWS APIs and resources.\n\n4. **CI/CD Integration:**\n   - GitHub Actions (external) triggers infrastructure provisioning and security scanning.\n   - Optionally, use AWS CodeBuild/CodePipeline for additional CI/CD steps if needed.\n\n5. **Security and Monitoring:**\n   - CloudWatch for logging, monitoring, and alerting on EC2, networking, and Kubernetes cluster health.\n   - AWS Config and CloudTrail for auditing and compliance.\n   - S3 bucket(s) for storing Terraform state, logs, and artifacts.\n   - KMS for encryption of S3 and EBS volumes.\n\n6. **IAM and Access Control:**\n   - IAM users/roles for developers, automation, and CI/CD with least-privilege access.\n   - Secrets Manager or Parameter Store for managing sensitive data (e.g., kubeconfig, credentials).\n\n**Deployment Strategy:**\n- Infrastructure is provisioned via Terraform (from developer workstation or CI/CD pipeline).\n- Ansible is used for configuration management and cluster bootstrapping, run from a bastion/automation EC2 or via SSM.\n- Kubernetes cluster is deployed on EC2 instances using Rancher/RKE.\n- CLI tools are installed on the automation host or developer workstations as needed.\n- GitHub Actions integrates with AWS via OIDC or IAM user/role for secure automation.\n\nThis architecture ensures secure, automated, and scalable management of the Kubernetes cluster and supporting infrastructure, following AWS best practices for networking, IAM, and monitoring.",
+  "aws_resources": [
+    "VPC",
+    "Public Subnets (across at least 2 AZs)",
+    "Private Subnets (across at least 2 AZs)",
+    "Internet Gateway",
+    "NAT Gateway(s)",
+    "Route Tables",
+    "Security Groups (for EC2, Kubernetes API, Bastion/Automation)",
+    "Network ACLs",
+    "EC2 Instances (for Kubernetes control plane and worker nodes)",
+    "Auto Scaling Groups (for EC2 nodes)",
+    "Elastic Load Balancer (NLB or ALB for Kubernetes API)",
+    "EBS Volumes (for EC2 persistent storage)",
+    "IAM Roles and Policies (for EC2, SSM, automation, CI/CD)",
+    "AWS Systems Manager (SSM)",
+    "S3 Buckets (for Terraform state, logs, artifacts)",
+    "KMS Keys (for S3 and EBS encryption)",
+    "CloudWatch (logs, metrics, alarms)",
+    "CloudTrail (audit logging)",
+    "AWS Config (compliance monitoring)",
+    "Secrets Manager or Parameter Store (for secrets)"
+  ]
+}

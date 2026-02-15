@@ -1,0 +1,21 @@
+{
+  "aws_architecture_description": "This solution deploys an Energi blockchain node on AWS using a managed Kubernetes environment (Amazon EKS) with persistent storage and secure networking. The architecture is designed for reliability, scalability, and operational best practices:\n\n1. **Networking**: A dedicated VPC is provisioned with public and private subnets across multiple Availability Zones for high availability. Security groups and network ACLs restrict access to only necessary ports and sources.\n\n2. **Kubernetes Cluster (Amazon EKS)**: The Energi Node is deployed as a Kubernetes StatefulSet within an EKS cluster. EKS provides managed control plane, automated upgrades, and integration with AWS IAM for secure access control.\n\n3. **Compute**: EKS worker nodes (EC2 instances, typically in an Auto Scaling Group) run the Energi Node containers. Node groups can be right-sized for blockchain workloads and scaled as needed.\n\n4. **Persistent Storage**: Each Energi Node pod is attached to an Amazon EBS volume via Kubernetes PersistentVolume and PersistentVolumeClaim, ensuring blockchain data durability across pod restarts and rescheduling.\n\n5. **Container Registry**: The Energi Node image is pulled from Docker Hub. Optionally, for improved security and performance, the image can be mirrored to Amazon ECR (Elastic Container Registry).\n\n6. **IAM & Security**: IAM roles and policies are created for EKS, worker nodes, and service accounts, following least-privilege principles. Secrets (e.g., blockchain keys) are managed via AWS Secrets Manager or Kubernetes secrets.\n\n7. **Monitoring & Logging**: Amazon CloudWatch is integrated for cluster and application logs, metrics, and alerting. AWS CloudTrail is enabled for auditing API activity.\n\n8. **CI/CD Integration**: The GitHub Actions workflow builds and pushes the Docker image to Docker Hub (or ECR), and can trigger deployments to EKS using AWS credentials securely managed via IAM roles and GitHub secrets.\n\nThis architecture ensures the Energi Node is highly available, persistent, and secure, leveraging AWS managed services and Kubernetes best practices.",
+  "aws_resources": [
+    "VPC (Virtual Private Cloud)",
+    "Public and Private Subnets (across at least 2 Availability Zones)",
+    "Internet Gateway",
+    "NAT Gateway (for private subnet egress)",
+    "Route Tables",
+    "Security Groups (for EKS control plane, worker nodes, and Energi Node pods)",
+    "Network ACLs (optional, for additional subnet-level security)",
+    "Amazon EKS Cluster",
+    "EKS Node Group (EC2 Auto Scaling Group for worker nodes)",
+    "IAM Roles and Policies (for EKS, worker nodes, service accounts, CI/CD integration)",
+    "Amazon EBS Volumes (for Persistent Volumes in Kubernetes)",
+    "Kubernetes PersistentVolume and PersistentVolumeClaim resources (managed via EKS)",
+    "Amazon ECR (optional, for container image storage)",
+    "AWS Secrets Manager (or Kubernetes Secrets, for sensitive data)",
+    "Amazon CloudWatch (logs, metrics, dashboards, alarms)",
+    "AWS CloudTrail (API activity auditing)"
+  ]
+}
